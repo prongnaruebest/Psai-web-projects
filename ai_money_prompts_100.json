@@ -1,0 +1,1223 @@
+[
+  {
+    "id": 101,
+    "mode": "money",
+    "categoryId": 11,
+    "categoryName": "Digital Products",
+    "title": "วางโครงสร้างและเขียน E-Book สร้างรายได้ใน 24 ชั่วโมง",
+    "role": "Bestselling Digital Author & Product Strategist",
+    "prompt": "คุณคือ Bestselling Digital Author & Product Strategist\nจงช่วยฉันสร้างโครงร่างและเนื้อหาสำหรับ E-Book ดิจิทัลที่ขายได้จริงในหัวข้อ [ระบุหัวข้อ เช่น เทคนิคการใช้ AI ลดเวลาทำงาน 80% หรือ คู่มือจัดพอร์ตการเงินฉบับมือใหม่]\nกลุ่มเป้าหมาย: [ระบุกลุ่มเป้าหมาย เช่น ฟรีแลนซ์, พนักงานออฟฟิศ]\nสิ่งที่ต้องการ:\n1. ชื่อเรื่องหลัก (Title) และชื่อรอง (Subtitle) ที่สะดุดตาและกระตุ้นความอยากซื้อ 5 แบบ\n2. โครงสร้างสารบัญ 7 บทแบบ Step-by-Step ที่พาผู้อ่านจาก Pain Point ไปสู่ผลลัพธ์ที่จับต้องได้\n3. โครงร่างเนื้อหาแบบละเอียดของบทที่ 1 พร้อมเทคนิค Actionable Checklist ท้ายบท\n4. แผนการตั้งราคา (Price Tiering) สำหรับขายไฟล์ PDF, Notion Template แถม และ Video Walkthrough",
+    "variables": [
+      "ระบุหัวข้อ เช่น เทคนิคการใช้ AI ลดเวลาทำงาน 80%",
+      "ระบุกลุ่มเป้าหมาย เช่น ฟรีแลนซ์, พนักงานออฟฟิศ"
+    ]
+  },
+  {
+    "id": 102,
+    "mode": "money",
+    "categoryId": 11,
+    "categoryName": "Digital Products",
+    "title": "ออกแบบและสร้าง Notion Template สำหรับวางขาย",
+    "role": "Notion Certified Creator & Product Architect",
+    "prompt": "คุณคือ Notion Certified Creator & Product Architect\nฉันต้องการสร้าง Notion Template เพื่อนำไปวางขายบน Gumroad / Etsy ในหัวข้อ [ระบุ เช่น ระบบบริหารจัดการธุรกิจ SME, Dashboard ติดตามเป้าหมายชีวิตและสุขภาพ]\n1. ออกแบบสถาปัตยกรรมฐานข้อมูล (Database Architecture) และความสัมพันธ์ของ Databases ที่จำเป็น (Relations, Rollups, Formulas)\n2. รายการมุมมอง (Views) ที่ต้องมี เช่น Kanban Board, Calendar, Gallery, Table พร้อม Filter logic\n3. โครงสร้าง Dashboard หน้าแรก (Home Hub) ให้สวยงาม ใช้งานง่าย และไม่ซับซ้อน\n4. ข้อความ Copywriting สำหรับหน้าขายสินค้าบน Gumroad รวมถึง Bullet Points จุดเด่น และ FAQ",
+    "variables": [
+      "ระบุ เช่น ระบบบริหารจัดการธุรกิจ SME"
+    ]
+  },
+  {
+    "id": 103,
+    "mode": "money",
+    "categoryId": 11,
+    "categoryName": "Digital Products",
+    "title": "สร้างชุด Prompt Pack คุณภาพสูงสำหรับขายเฉพาะกลุ่ม",
+    "role": "Prompt Engineer & Digital Asset Monetizer",
+    "prompt": "คุณคือ Prompt Engineer & Digital Asset Monetizer\nจงสร้างชุด 'Mega Prompt Pack' จำนวน 15 สุดยอด Prompts สำหรับกลุ่มอาชีพ [ระบุกลุ่มอาชีพ เช่น นายหน้าอสังหาริมทรัพย์ / เจ้าของร้านอาหาร / ทนายความ]:\nข้อกำหนด:\n1. แต่ละ Prompt ต้องมี Role, Task, Context, และตัวแปร [ ... ] ที่นำไปใช้ได้ทันที\n2. ครอบคลุมงานประจำวันที่กลุ่มอาชีพนี้ต้องเสียเวลามากที่สุด 5 ด้าน\n3. ตัวอย่างผลลัพธ์ (Sample Output) ที่แสดงถึงความคุ้มค่าของการซื้อ Prompt Pack นี้\n4. ข้อความแนะนำวิธีนำ Prompt Pack ไปบันทึกเป็นคีย์ลัด (Text Expander / Shortcuts)",
+    "variables": [
+      "ระบุกลุ่มอาชีพ เช่น นายหน้าอสังหาริมทรัพย์ / เจ้าของร้านอาหาร / ทนายความ"
+    ]
+  },
+  {
+    "id": 104,
+    "mode": "money",
+    "categoryId": 11,
+    "categoryName": "Digital Products",
+    "title": "ออกแบบชุดเทมเพลต Canva เพื่อขายบน Etsy / ตลาดออนไลน์",
+    "role": "Canva Top Seller & Visual Content Strategist",
+    "prompt": "คุณคือ Canva Top Seller & Visual Content Strategist\nจงวางแผนชุดเทมเพลต Canva (30 ชิ้น) เพื่อวางขายให้กลุ่มลูกค้า [ระบุ เช่น โค้ชสอนออนไลน์ / ร้านเสริมสวยและสปา]:\n1. รายการประเภทชิ้นงานที่ต้องทำ (เช่น Instagram Carousel 10 ชิ้น, Story Promo 10 ชิ้น, Quote Cards 10 ชิ้น)\n2. พาเลตสี (Color Palette) และธีมฟอนต์ที่ดูหรูหรา น่าเชื่อถือ\n3. ข้อความพาดหัว (Headlines) และเนื้อหาตัวอย่างในแต่ละเทมเพลต (ห้ามใช้ Lorem Ipsum)\n4. คำอธิบายสินค้าและคีย์เวิร์ด SEO สำหรับตั้งชื่อสินค้าบน Etsy เพื่อให้ติดอันดับค้นหา",
+    "variables": [
+      "ระบุ เช่น โค้ชสอนออนไลน์ / ร้านเสริมสวยและสปา"
+    ]
+  },
+  {
+    "id": 105,
+    "mode": "money",
+    "categoryId": 11,
+    "categoryName": "Digital Products",
+    "title": "สร้างโมเดล Google Sheets / Excel ทางการเงินสำหรับขาย",
+    "role": "Financial Modeling Expert & Spreadsheet Monetizer",
+    "prompt": "คุณคือ Financial Modeling Expert & Spreadsheet Monetizer\nจงออกแบบเทมเพลต Google Sheets / Excel สำหรับ [ระบุ เช่น คำนวณกำไร-ขาดทุนร้านค้าออนไลน์ หรือ วางแผนอิสรภาพทางการเงิน FIRE]:\n1. ผังโครงสร้างชีต (Tabs Structure): Input, Calculations, Dashboard, Settings\n2. รายการสูตรและฟังก์ชันขั้นสูงที่ต้องใช้ (เช่น XLOOKUP, QUERY, IMPORTRANGE, SPARKLINE)\n3. การตั้งค่า Conditional Formatting และ Data Validation เพื่อป้องกันผู้ใช้กรอกผิด\n4. กลยุทธ์การใส่ลายน้ำ/ล็อกเซลล์เพื่อป้องกันการละเมิดลิขสิทธิ์ และคู่มือการใช้งานแบบ 1 หน้ากระดาษ",
+    "variables": [
+      "ระบุ เช่น คำนวณกำไร-ขาดทุนร้านค้าออนไลน์"
+    ]
+  },
+  {
+    "id": 106,
+    "mode": "money",
+    "categoryId": 11,
+    "categoryName": "Digital Products",
+    "title": "สร้างชุดภาพประกอบและ Digital Printables (Etsy / Printful)",
+    "role": "Print-on-Demand Creative Director",
+    "prompt": "คุณคือ Print-on-Demand Creative Director\nฉันต้องการสร้างสินค้า Digital Wall Art / Printable Planner สำหรับวางขายในตลาดต่างประเทศ (Etsy/Creative Market)\nในธีม [ระบุ เช่น Boho Botanical, Cyberpunk Minimalism, Motivational Typography]\n1. แนะนำ 10 คอนเซปต์งานภาพยอดนิยมที่มียอดค้นหาสูง แต่การแข่งขันปานกลาง\n2. Prompt สร้างภาพด้วย Midjourney / DALL-E แบบลงลึกสไตล์ แสง อัตราส่วนภาพ และองค์ประกอบศิลป์\n3. ขนาดสัดส่วนไฟล์มาตรฐานที่ลูกค้าต้องการดาวน์โหลด (2:3, 3:4, 4:5, ISO Paper)\n4. ไฟล์แถม (Bonus File) ที่ช่วยเพิ่มคะแนนรีวิว 5 ดาว",
+    "variables": [
+      "ระบุ เช่น Boho Botanical, Cyberpunk Minimalism"
+    ]
+  },
+  {
+    "id": 107,
+    "mode": "money",
+    "categoryId": 11,
+    "categoryName": "Digital Products",
+    "title": "สร้างคลังชุดคำถามและแบบทดสอบ (Interview & Exam Prep Kit)",
+    "role": "HR Director & Career Coach",
+    "prompt": "คุณคือ HR Director & Career Coach\nจงสร้างชุดคู่มือเตรียมตัวสัมภาษณ์งานเจาะจงตำแหน่ง [ระบุ เช่น Senior Frontend Developer / Data Analyst / Product Manager]:\n1. รวมคำถามสัมภาษณ์ยอดนิยม 20 ข้อ (แยกเป็น Technical, Behavioral ตามเกณฑ์ STAR, และ Culture Fit)\n2. ตัวอย่างคำตอบระดับคะแนนเต็ม 10 พร้อมจุดที่ผู้สัมภาษณ์มองหา\n3. คำถามที่ผู้สมัครควรถามกลับผู้สัมภาษณ์เพื่อสร้างความประทับใจ 5 ข้อ\n4. ตาราง Checklist ตรวจสอบเรซูเม่และพอร์ตโฟลิโอก่อนส่งใบสมัคร",
+    "variables": [
+      "ระบุ เช่น Senior Frontend Developer / Data Analyst"
+    ]
+  },
+  {
+    "id": 108,
+    "mode": "money",
+    "categoryId": 11,
+    "categoryName": "Digital Products",
+    "title": "สร้าง Cheat Sheet สรุปสูตรลัดเฉพาะทางสำหรับขาย",
+    "role": "Educational Designer & Knowledge Distiller",
+    "prompt": "คุณคือ Educational Designer & Knowledge Distiller\nจงสรุปความรู้เรื่อง [ระบุ เช่น คำสั่ง Docker & Kubernetes ที่ใช้บ่อย, สูตร Excel ขั้นสูง, กฎหมายภาษีสำหรับฟรีแลนซ์] ให้เป็น 'Ultimate 2-Page Cheat Sheet':\n1. จัดหมวดหมู่ตารางข้อมูลให้อ่านเข้าใจได้ใน 3 วินาที\n2. มี Syntax, คำอธิบายสั้น 1 บรรทัด, และ Use Case จริง\n3. Common Mistakes หรือจุดที่คนมักทำพลาด พร้อมวิธีแก้ปัญหาทันที\n4. คำโปรยหน้าปกที่ทำให้ลูกค้ารู้สึกว่า 'ประหยัดเวลาค้นหา Google ไปได้ 100 ชั่วโมง'",
+    "variables": [
+      "ระบุ เช่น คำสั่ง Docker & Kubernetes ที่ใช้บ่อย"
+    ]
+  },
+  {
+    "id": 109,
+    "mode": "money",
+    "categoryId": 11,
+    "categoryName": "Digital Products",
+    "title": "ออกแบบเสียง Sound Effects / ดนตรี Lofi สำหรับ Content Creator",
+    "role": "Music Producer & Audio Asset Strategist",
+    "prompt": "คุณคือ Music Producer & Audio Asset Strategist\nจงวางแผนสร้างชุดแพ็กเกจ 'Royalty-Free Audio Pack for Creators' สำหรับขายในธีม [ระบุ เช่น Lofi Study Beats, Cyberpunk Game SFX, Vlog Background Tunes]:\n1. รายการ 10 เพลง/เสียงที่ตอบโจทย์ YouTuber และ Streamer\n2. Prompts ละเอียดสำหรับสั่งงานเครื่องมือสร้างเสียง AI (เช่น Suno AI, Udio, ElevenLabs Sound FX)\n3. เอกสาร Commercial License Agreement แบบเรียบง่ายที่ให้ลูกค้านำไปใช้ในเชิงพาณิชย์ได้\n4. แผนการโปรโมตผ่าน YouTube Shorts / TikTok ด้วยคลิปแจกเสียงฟรี 3 ชิ้นเพื่อดึงคนซื้อชุดเต็ม",
+    "variables": [
+      "ระบุ เช่น Lofi Study Beats, Cyberpunk Game SFX"
+    ]
+  },
+  {
+    "id": 110,
+    "mode": "money",
+    "categoryId": 11,
+    "categoryName": "Digital Products",
+    "title": "สร้างระบบ Bundle สรุปหนังสือธุรกิจ (Executive Book Summaries)",
+    "role": "Business Strategy Executive & Knowledge Curator",
+    "prompt": "คุณคือ Business Strategy Executive & Knowledge Curator\nจงสร้างชุดสรุปหนังสือธุรกิจระดับโลก 3 เล่มในหมวด [ระบุ เช่น การตลาด, การบริหารเวลา, การสร้างทีม]:\n1. บทสรุปแบบ 1-Page Summary ต่อเล่ม (Core Philosophy, 3 Big Ideas, Action Steps)\n2. คำคมเด็ด (Key Quotes) พร้อมการนำไปปรับใช้ในธุรกิจทันที\n3. Framework แผนภาพสรุปความคิดที่จำง่าย\n4. ข้อเสนอแนะการรวมแพ็กเกจขายแบบ Subscription (สรุปหนังสือใหม่ทุกสัปดาห์)",
+    "variables": [
+      "ระบุ เช่น การตลาด, การบริหารเวลา, การสร้างทีม"
+    ]
+  },
+  {
+    "id": 111,
+    "mode": "money",
+    "categoryId": 12,
+    "categoryName": "Freelancing & Client Services",
+    "title": "เขียน Sales Copywriting หน้าปิดการขาย (Landing Page) ให้ลูกค้า",
+    "role": "Elite Freelance Copywriting for Landing Pages Consultant",
+    "prompt": "คุณคือ Elite Freelance Copywriting for Landing Pages Consultant\nฉันต้องการส่งมอบงานระดับพรีเมียมให้ลูกค้าในโปรเจกต์ [ระบุสินค้า เช่น ซอฟต์แวร์ CRM, คอร์สเรียนออนไลน์]\nเป้าหมายของลูกค้า: [ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%, สร้างความน่าเชื่อถือ]\nจงสร้างผลงานฉบับสมบูรณ์:\n1. ร่างผลงานที่มีโครงสร้างระดับมืออาชีพ ไร้คำฟุ่มเฟือย\n2. การวิเคราะห์จุดแข็ง จุดขาย และจิตวิทยาจูงใจ\n3. Checklist ตรวจสอบคุณภาพก่อนส่งมอบงานให้ลูกค้าประทับใจและกลับมาจ้างซ้ำ\n4. คำแนะนำเพิ่มเติมสำหรับการคิดราคาแบบ Value-based Pricing แทนการคิดรายชั่วโมง",
+    "variables": [
+      "ระบุสินค้า เช่น ซอฟต์แวร์ CRM, คอร์สเรียนออนไลน์",
+      "ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%"
+    ]
+  },
+  {
+    "id": 112,
+    "mode": "money",
+    "categoryId": 12,
+    "categoryName": "Freelancing & Client Services",
+    "title": "รับจ้างเขียนบทความ SEO คุณภาพสูงแบบ Long-Form",
+    "role": "Elite Freelance High-Ranking SEO Article Consultant",
+    "prompt": "คุณคือ Elite Freelance High-Ranking SEO Article Consultant\nฉันต้องการส่งมอบงานระดับพรีเมียมให้ลูกค้าในโปรเจกต์ [ระบุคีย์เวิร์ด เช่น รถยนต์ไฟฟ้า 2026, วิตามินเสริมภูมิคุ้มกัน]\nเป้าหมายของลูกค้า: [ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%, สร้างความน่าเชื่อถือ]\nจงสร้างผลงานฉบับสมบูรณ์:\n1. ร่างผลงานที่มีโครงสร้างระดับมืออาชีพ ไร้คำฟุ่มเฟือย\n2. การวิเคราะห์จุดแข็ง จุดขาย และจิตวิทยาจูงใจ\n3. Checklist ตรวจสอบคุณภาพก่อนส่งมอบงานให้ลูกค้าประทับใจและกลับมาจ้างซ้ำ\n4. คำแนะนำเพิ่มเติมสำหรับการคิดราคาแบบ Value-based Pricing แทนการคิดรายชั่วโมง",
+    "variables": [
+      "ระบุคีย์เวิร์ด เช่น รถยนต์ไฟฟ้า 2026, วิตามินเสริมภูมิคุ้มกัน",
+      "ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%"
+    ]
+  },
+  {
+    "id": 113,
+    "mode": "money",
+    "categoryId": 12,
+    "categoryName": "Freelancing & Client Services",
+    "title": "บริการเขียนอีเมล Cold Email ดึงดูดลูกค้าระดับองค์กร B2B",
+    "role": "Elite Freelance B2B Cold Outreach Sequence Consultant",
+    "prompt": "คุณคือ Elite Freelance B2B Cold Outreach Sequence Consultant\nฉันต้องการส่งมอบงานระดับพรีเมียมให้ลูกค้าในโปรเจกต์ [ระบุบริการ เช่น พัฒนาเว็บ, ออกแบบแบรนด์]\nเป้าหมายของลูกค้า: [ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%, สร้างความน่าเชื่อถือ]\nจงสร้างผลงานฉบับสมบูรณ์:\n1. ร่างผลงานที่มีโครงสร้างระดับมืออาชีพ ไร้คำฟุ่มเฟือย\n2. การวิเคราะห์จุดแข็ง จุดขาย และจิตวิทยาจูงใจ\n3. Checklist ตรวจสอบคุณภาพก่อนส่งมอบงานให้ลูกค้าประทับใจและกลับมาจ้างซ้ำ\n4. คำแนะนำเพิ่มเติมสำหรับการคิดราคาแบบ Value-based Pricing แทนการคิดรายชั่วโมง",
+    "variables": [
+      "ระบุบริการ เช่น พัฒนาเว็บ, ออกแบบแบรนด์",
+      "ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%"
+    ]
+  },
+  {
+    "id": 114,
+    "mode": "money",
+    "categoryId": 12,
+    "categoryName": "Freelancing & Client Services",
+    "title": "รับจ้างจัดทำ Resume & LinkedIn Profile ให้ผู้บริหาร",
+    "role": "Elite Freelance Executive Resume & LinkedIn Makeover Consultant",
+    "prompt": "คุณคือ Elite Freelance Executive Resume & LinkedIn Makeover Consultant\nฉันต้องการส่งมอบงานระดับพรีเมียมให้ลูกค้าในโปรเจกต์ [ระบุตำแหน่ง เช่น Chief Marketing Officer (CMO)]\nเป้าหมายของลูกค้า: [ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%, สร้างความน่าเชื่อถือ]\nจงสร้างผลงานฉบับสมบูรณ์:\n1. ร่างผลงานที่มีโครงสร้างระดับมืออาชีพ ไร้คำฟุ่มเฟือย\n2. การวิเคราะห์จุดแข็ง จุดขาย และจิตวิทยาจูงใจ\n3. Checklist ตรวจสอบคุณภาพก่อนส่งมอบงานให้ลูกค้าประทับใจและกลับมาจ้างซ้ำ\n4. คำแนะนำเพิ่มเติมสำหรับการคิดราคาแบบ Value-based Pricing แทนการคิดรายชั่วโมง",
+    "variables": [
+      "ระบุตำแหน่ง เช่น Chief Marketing Officer (CMO)",
+      "ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%"
+    ]
+  },
+  {
+    "id": 115,
+    "mode": "money",
+    "categoryId": 12,
+    "categoryName": "Freelancing & Client Services",
+    "title": "บริการเขียนสคริปต์วิดีโอ YouTube ให้ Influencer",
+    "role": "Elite Freelance YouTube Video Scriptwriting Consultant",
+    "prompt": "คุณคือ Elite Freelance YouTube Video Scriptwriting Consultant\nฉันต้องการส่งมอบงานระดับพรีเมียมให้ลูกค้าในโปรเจกต์ [ระบุหัวข้อ เช่น ประวัติศาสตร์การเงิน, รีวิว Gadget]\nเป้าหมายของลูกค้า: [ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%, สร้างความน่าเชื่อถือ]\nจงสร้างผลงานฉบับสมบูรณ์:\n1. ร่างผลงานที่มีโครงสร้างระดับมืออาชีพ ไร้คำฟุ่มเฟือย\n2. การวิเคราะห์จุดแข็ง จุดขาย และจิตวิทยาจูงใจ\n3. Checklist ตรวจสอบคุณภาพก่อนส่งมอบงานให้ลูกค้าประทับใจและกลับมาจ้างซ้ำ\n4. คำแนะนำเพิ่มเติมสำหรับการคิดราคาแบบ Value-based Pricing แทนการคิดรายชั่วโมง",
+    "variables": [
+      "ระบุหัวข้อ เช่น ประวัติศาสตร์การเงิน, รีวิว Gadget",
+      "ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%"
+    ]
+  },
+  {
+    "id": 116,
+    "mode": "money",
+    "categoryId": 12,
+    "categoryName": "Freelancing & Client Services",
+    "title": "รับแปลงเสียง Podcast เป็น Show Notes และ Social Snippets",
+    "role": "Elite Freelance Podcast Show Notes & Repurposing Consultant",
+    "prompt": "คุณคือ Elite Freelance Podcast Show Notes & Repurposing Consultant\nฉันต้องการส่งมอบงานระดับพรีเมียมให้ลูกค้าในโปรเจกต์ [ระบุธีมรายการ เช่น สัมภาษณ์สตาร์ทอัพ]\nเป้าหมายของลูกค้า: [ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%, สร้างความน่าเชื่อถือ]\nจงสร้างผลงานฉบับสมบูรณ์:\n1. ร่างผลงานที่มีโครงสร้างระดับมืออาชีพ ไร้คำฟุ่มเฟือย\n2. การวิเคราะห์จุดแข็ง จุดขาย และจิตวิทยาจูงใจ\n3. Checklist ตรวจสอบคุณภาพก่อนส่งมอบงานให้ลูกค้าประทับใจและกลับมาจ้างซ้ำ\n4. คำแนะนำเพิ่มเติมสำหรับการคิดราคาแบบ Value-based Pricing แทนการคิดรายชั่วโมง",
+    "variables": [
+      "ระบุธีมรายการ เช่น สัมภาษณ์สตาร์ทอัพ",
+      "ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%"
+    ]
+  },
+  {
+    "id": 117,
+    "mode": "money",
+    "categoryId": 12,
+    "categoryName": "Freelancing & Client Services",
+    "title": "บริการแปลและถอดความภาษา (Localization) เชิงธุรกิจ",
+    "role": "Elite Freelance Business Translation & Localization Consultant",
+    "prompt": "คุณคือ Elite Freelance Business Translation & Localization Consultant\nฉันต้องการส่งมอบงานระดับพรีเมียมให้ลูกค้าในโปรเจกต์ [ระบุภาษาต้นทางและปลายทาง เช่น อังกฤษเป็นไทย]\nเป้าหมายของลูกค้า: [ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%, สร้างความน่าเชื่อถือ]\nจงสร้างผลงานฉบับสมบูรณ์:\n1. ร่างผลงานที่มีโครงสร้างระดับมืออาชีพ ไร้คำฟุ่มเฟือย\n2. การวิเคราะห์จุดแข็ง จุดขาย และจิตวิทยาจูงใจ\n3. Checklist ตรวจสอบคุณภาพก่อนส่งมอบงานให้ลูกค้าประทับใจและกลับมาจ้างซ้ำ\n4. คำแนะนำเพิ่มเติมสำหรับการคิดราคาแบบ Value-based Pricing แทนการคิดรายชั่วโมง",
+    "variables": [
+      "ระบุภาษาต้นทางและปลายทาง เช่น อังกฤษเป็นไทย",
+      "ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%"
+    ]
+  },
+  {
+    "id": 118,
+    "mode": "money",
+    "categoryId": 12,
+    "categoryName": "Freelancing & Client Services",
+    "title": "รับจัดการปฏิทินคอนเทนต์รายเดือน (Social Media Calendar)",
+    "role": "Elite Freelance Monthly Social Media Content Calendar Consultant",
+    "prompt": "คุณคือ Elite Freelance Monthly Social Media Content Calendar Consultant\nฉันต้องการส่งมอบงานระดับพรีเมียมให้ลูกค้าในโปรเจกต์ [ระบุธุรกิจ เช่น คลินิกทันตกรรม, แบรนด์เสื้อผ้า]\nเป้าหมายของลูกค้า: [ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%, สร้างความน่าเชื่อถือ]\nจงสร้างผลงานฉบับสมบูรณ์:\n1. ร่างผลงานที่มีโครงสร้างระดับมืออาชีพ ไร้คำฟุ่มเฟือย\n2. การวิเคราะห์จุดแข็ง จุดขาย และจิตวิทยาจูงใจ\n3. Checklist ตรวจสอบคุณภาพก่อนส่งมอบงานให้ลูกค้าประทับใจและกลับมาจ้างซ้ำ\n4. คำแนะนำเพิ่มเติมสำหรับการคิดราคาแบบ Value-based Pricing แทนการคิดรายชั่วโมง",
+    "variables": [
+      "ระบุธุรกิจ เช่น คลินิกทันตกรรม, แบรนด์เสื้อผ้า",
+      "ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%"
+    ]
+  },
+  {
+    "id": 119,
+    "mode": "money",
+    "categoryId": 12,
+    "categoryName": "Freelancing & Client Services",
+    "title": "บริการเขียน Press Release ข่าวประชาสัมพันธ์เปิดตัวสินค้า",
+    "role": "Elite Freelance Press Release for Product Launch Consultant",
+    "prompt": "คุณคือ Elite Freelance Press Release for Product Launch Consultant\nฉันต้องการส่งมอบงานระดับพรีเมียมให้ลูกค้าในโปรเจกต์ [ระบุสินค้าและไฮไลต์สำคัญ]\nเป้าหมายของลูกค้า: [ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%, สร้างความน่าเชื่อถือ]\nจงสร้างผลงานฉบับสมบูรณ์:\n1. ร่างผลงานที่มีโครงสร้างระดับมืออาชีพ ไร้คำฟุ่มเฟือย\n2. การวิเคราะห์จุดแข็ง จุดขาย และจิตวิทยาจูงใจ\n3. Checklist ตรวจสอบคุณภาพก่อนส่งมอบงานให้ลูกค้าประทับใจและกลับมาจ้างซ้ำ\n4. คำแนะนำเพิ่มเติมสำหรับการคิดราคาแบบ Value-based Pricing แทนการคิดรายชั่วโมง",
+    "variables": [
+      "ระบุสินค้าและไฮไลต์สำคัญ",
+      "ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%"
+    ]
+  },
+  {
+    "id": 120,
+    "mode": "money",
+    "categoryId": 12,
+    "categoryName": "Freelancing & Client Services",
+    "title": "บริการร่างสัญญาจ้างและข้อตกลงฟรีแลนซ์มาตรฐาน",
+    "role": "Elite Freelance Freelance Service Agreement Drafting Consultant",
+    "prompt": "คุณคือ Elite Freelance Freelance Service Agreement Drafting Consultant\nฉันต้องการส่งมอบงานระดับพรีเมียมให้ลูกค้าในโปรเจกต์ [ระบุขอบเขตงาน เช่น พัฒนาระบบเว็บ 3 เดือน]\nเป้าหมายของลูกค้า: [ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%, สร้างความน่าเชื่อถือ]\nจงสร้างผลงานฉบับสมบูรณ์:\n1. ร่างผลงานที่มีโครงสร้างระดับมืออาชีพ ไร้คำฟุ่มเฟือย\n2. การวิเคราะห์จุดแข็ง จุดขาย และจิตวิทยาจูงใจ\n3. Checklist ตรวจสอบคุณภาพก่อนส่งมอบงานให้ลูกค้าประทับใจและกลับมาจ้างซ้ำ\n4. คำแนะนำเพิ่มเติมสำหรับการคิดราคาแบบ Value-based Pricing แทนการคิดรายชั่วโมง",
+    "variables": [
+      "ระบุขอบเขตงาน เช่น พัฒนาระบบเว็บ 3 เดือน",
+      "ระบุเป้าหมาย เช่น เพิ่มยอดขาย 200%"
+    ]
+  },
+  {
+    "id": 121,
+    "mode": "money",
+    "categoryId": 13,
+    "categoryName": "Content Creator & Media",
+    "title": "วางกลยุทธ์ช่อง YouTube ไร้หน้า (Faceless Channel) ทำเงินจาก Ads",
+    "role": "Faceless YouTube Strategist",
+    "prompt": "คุณคือ Faceless YouTube Strategist\nฉันต้องการสร้างคอนเทนต์ระดับไวรัลที่สามารถเปลี่ยนยอดวิวให้เป็นรายได้ในหัวข้อ [ระบุ Niche เช่น สรุปประวัติศาสตร์, ข้อคิดปรัชญา Stoic]\nเป้าหมายยอดผู้ชมและ Conversion: [ระบุ เช่น ต้องการยอดวิว 100K และดึงคนเข้า Line OA/Bio Link]\nจงจัดทำแผนงานและสคริปต์:\n1. 3 Hooks สำหรับ 3 วินาทีแรกที่กระตุกความสนใจอย่างแรง (Pattern Interrupt)\n2. เนื้อหาหลัก (Core Body) แบบ Fast-paced ไม่น่าเบื่อ\n3. Call-to-Action (CTA) ที่แนบเนียน ชี้ชวนให้คลิกลิงก์ซื้อสินค้าหรือกดติดตาม\n4. คำแนะนำเรื่องการเลือกเสียงเพลง, B-Roll, และการตัดต่อเพื่อรักษา Watch Time สูงสุด",
+    "variables": [
+      "ระบุ Niche เช่น สรุปประวัติศาสตร์, ข้อคิดปรัชญา Stoic",
+      "ระบุ เช่น ต้องการยอดวิว 100K"
+    ]
+  },
+  {
+    "id": 122,
+    "mode": "money",
+    "categoryId": 13,
+    "categoryName": "Content Creator & Media",
+    "title": "เขียนสคริปต์ TikTok / Shorts ไวรัลสูตร 3 วินาทีแรกหยุดนิ้ว",
+    "role": "Short-Form Video Viral Architect",
+    "prompt": "คุณคือ Short-Form Video Viral Architect\nฉันต้องการสร้างคอนเทนต์ระดับไวรัลที่สามารถเปลี่ยนยอดวิวให้เป็นรายได้ในหัวข้อ [ระบุหัวข้อ เช่น จิตวิทยาการเงิน, เทคนิคเรียนเก่ง]\nเป้าหมายยอดผู้ชมและ Conversion: [ระบุ เช่น ต้องการยอดวิว 100K และดึงคนเข้า Line OA/Bio Link]\nจงจัดทำแผนงานและสคริปต์:\n1. 3 Hooks สำหรับ 3 วินาทีแรกที่กระตุกความสนใจอย่างแรง (Pattern Interrupt)\n2. เนื้อหาหลัก (Core Body) แบบ Fast-paced ไม่น่าเบื่อ\n3. Call-to-Action (CTA) ที่แนบเนียน ชี้ชวนให้คลิกลิงก์ซื้อสินค้าหรือกดติดตาม\n4. คำแนะนำเรื่องการเลือกเสียงเพลง, B-Roll, และการตัดต่อเพื่อรักษา Watch Time สูงสุด",
+    "variables": [
+      "ระบุหัวข้อ เช่น จิตวิทยาการเงิน, เทคนิคเรียนเก่ง",
+      "ระบุ เช่น ต้องการยอดวิว 100K"
+    ]
+  },
+  {
+    "id": 123,
+    "mode": "money",
+    "categoryId": 13,
+    "categoryName": "Content Creator & Media",
+    "title": "เขียน Instagram Carousel คอนเทนต์สร้างผู้ติดตามและขายของ",
+    "role": "Instagram Growth Strategist",
+    "prompt": "คุณคือ Instagram Growth Strategist\nฉันต้องการสร้างคอนเทนต์ระดับไวรัลที่สามารถเปลี่ยนยอดวิวให้เป็นรายได้ในหัวข้อ [ระบุหัวข้อ เช่น 5 ทักษะที่ AI แทนที่ไม่ได้]\nเป้าหมายยอดผู้ชมและ Conversion: [ระบุ เช่น ต้องการยอดวิว 100K และดึงคนเข้า Line OA/Bio Link]\nจงจัดทำแผนงานและสคริปต์:\n1. 3 Hooks สำหรับ 3 วินาทีแรกที่กระตุกความสนใจอย่างแรง (Pattern Interrupt)\n2. เนื้อหาหลัก (Core Body) แบบ Fast-paced ไม่น่าเบื่อ\n3. Call-to-Action (CTA) ที่แนบเนียน ชี้ชวนให้คลิกลิงก์ซื้อสินค้าหรือกดติดตาม\n4. คำแนะนำเรื่องการเลือกเสียงเพลง, B-Roll, และการตัดต่อเพื่อรักษา Watch Time สูงสุด",
+    "variables": [
+      "ระบุหัวข้อ เช่น 5 ทักษะที่ AI แทนที่ไม่ได้",
+      "ระบุ เช่น ต้องการยอดวิว 100K"
+    ]
+  },
+  {
+    "id": 124,
+    "mode": "money",
+    "categoryId": 13,
+    "categoryName": "Content Creator & Media",
+    "title": "สร้าง Twitter/X Thread ที่มีคนรีทวีตหลักพันเพื่อดึงดูดลูกค้า",
+    "role": "Viral Thread Writer & Ghostwriter",
+    "prompt": "คุณคือ Viral Thread Writer & Ghostwriter\nฉันต้องการสร้างคอนเทนต์ระดับไวรัลที่สามารถเปลี่ยนยอดวิวให้เป็นรายได้ในหัวข้อ [ระบุประเด็น เช่น บทเรียนชีวิตจากมหาเศรษฐี]\nเป้าหมายยอดผู้ชมและ Conversion: [ระบุ เช่น ต้องการยอดวิว 100K และดึงคนเข้า Line OA/Bio Link]\nจงจัดทำแผนงานและสคริปต์:\n1. 3 Hooks สำหรับ 3 วินาทีแรกที่กระตุกความสนใจอย่างแรง (Pattern Interrupt)\n2. เนื้อหาหลัก (Core Body) แบบ Fast-paced ไม่น่าเบื่อ\n3. Call-to-Action (CTA) ที่แนบเนียน ชี้ชวนให้คลิกลิงก์ซื้อสินค้าหรือกดติดตาม\n4. คำแนะนำเรื่องการเลือกเสียงเพลง, B-Roll, และการตัดต่อเพื่อรักษา Watch Time สูงสุด",
+    "variables": [
+      "ระบุประเด็น เช่น บทเรียนชีวิตจากมหาเศรษฐี",
+      "ระบุ เช่น ต้องการยอดวิว 100K"
+    ]
+  },
+  {
+    "id": 125,
+    "mode": "money",
+    "categoryId": 13,
+    "categoryName": "Content Creator & Media",
+    "title": "ระบบ Repurpose คอนเทนต์ 1 ชิ้น กระจายลง 5 แพลตฟอร์ม",
+    "role": "Content Multiplication Specialist",
+    "prompt": "คุณคือ Content Multiplication Specialist\nฉันต้องการสร้างคอนเทนต์ระดับไวรัลที่สามารถเปลี่ยนยอดวิวให้เป็นรายได้ในหัวข้อ [ระบุเนื้อหาต้นฉบับ เช่น วิดีโอสัมภาษณ์ 1 ตอน]\nเป้าหมายยอดผู้ชมและ Conversion: [ระบุ เช่น ต้องการยอดวิว 100K และดึงคนเข้า Line OA/Bio Link]\nจงจัดทำแผนงานและสคริปต์:\n1. 3 Hooks สำหรับ 3 วินาทีแรกที่กระตุกความสนใจอย่างแรง (Pattern Interrupt)\n2. เนื้อหาหลัก (Core Body) แบบ Fast-paced ไม่น่าเบื่อ\n3. Call-to-Action (CTA) ที่แนบเนียน ชี้ชวนให้คลิกลิงก์ซื้อสินค้าหรือกดติดตาม\n4. คำแนะนำเรื่องการเลือกเสียงเพลง, B-Roll, และการตัดต่อเพื่อรักษา Watch Time สูงสุด",
+    "variables": [
+      "ระบุเนื้อหาต้นฉบับ เช่น วิดีโอสัมภาษณ์ 1 ตอน",
+      "ระบุ เช่น ต้องการยอดวิว 100K"
+    ]
+  },
+  {
+    "id": 126,
+    "mode": "money",
+    "categoryId": 13,
+    "categoryName": "Content Creator & Media",
+    "title": "เขียนอีเมลเสนอตัวรับสปอนเซอร์ชิป (Sponsorship Pitch)",
+    "role": "Influencer Brand Partnership Specialist",
+    "prompt": "คุณคือ Influencer Brand Partnership Specialist\nฉันต้องการสร้างคอนเทนต์ระดับไวรัลที่สามารถเปลี่ยนยอดวิวให้เป็นรายได้ในหัวข้อ [ระบุสถิติช่อง เช่น ผู้ติดตาม 50,000 คน ยอดวิวเฉลี่ย 20,000]\nเป้าหมายยอดผู้ชมและ Conversion: [ระบุ เช่น ต้องการยอดวิว 100K และดึงคนเข้า Line OA/Bio Link]\nจงจัดทำแผนงานและสคริปต์:\n1. 3 Hooks สำหรับ 3 วินาทีแรกที่กระตุกความสนใจอย่างแรง (Pattern Interrupt)\n2. เนื้อหาหลัก (Core Body) แบบ Fast-paced ไม่น่าเบื่อ\n3. Call-to-Action (CTA) ที่แนบเนียน ชี้ชวนให้คลิกลิงก์ซื้อสินค้าหรือกดติดตาม\n4. คำแนะนำเรื่องการเลือกเสียงเพลง, B-Roll, และการตัดต่อเพื่อรักษา Watch Time สูงสุด",
+    "variables": [
+      "ระบุสถิติช่อง เช่น ผู้ติดตาม 50,000 คน ยอดวิวเฉลี่ย 20,000",
+      "ระบุ เช่น ต้องการยอดวิว 100K"
+    ]
+  },
+  {
+    "id": 127,
+    "mode": "money",
+    "categoryId": 13,
+    "categoryName": "Content Creator & Media",
+    "title": "ออกแบบคอร์สสอนสดและ Community บน Discord / Skool",
+    "role": "Community Monetization Architect",
+    "prompt": "คุณคือ Community Monetization Architect\nฉันต้องการสร้างคอนเทนต์ระดับไวรัลที่สามารถเปลี่ยนยอดวิวให้เป็นรายได้ในหัวข้อ [ระบุหัวข้อชุมชน เช่น ชุมชนนักลงทุนอสังหาฯ]\nเป้าหมายยอดผู้ชมและ Conversion: [ระบุ เช่น ต้องการยอดวิว 100K และดึงคนเข้า Line OA/Bio Link]\nจงจัดทำแผนงานและสคริปต์:\n1. 3 Hooks สำหรับ 3 วินาทีแรกที่กระตุกความสนใจอย่างแรง (Pattern Interrupt)\n2. เนื้อหาหลัก (Core Body) แบบ Fast-paced ไม่น่าเบื่อ\n3. Call-to-Action (CTA) ที่แนบเนียน ชี้ชวนให้คลิกลิงก์ซื้อสินค้าหรือกดติดตาม\n4. คำแนะนำเรื่องการเลือกเสียงเพลง, B-Roll, และการตัดต่อเพื่อรักษา Watch Time สูงสุด",
+    "variables": [
+      "ระบุหัวข้อชุมชน เช่น ชุมชนนักลงทุนอสังหาฯ",
+      "ระบุ เช่น ต้องการยอดวิว 100K"
+    ]
+  },
+  {
+    "id": 128,
+    "mode": "money",
+    "categoryId": 13,
+    "categoryName": "Content Creator & Media",
+    "title": "เขียน Storytelling เรื่องเล่าดึงดูดอารมณ์เพื่อปิดการขาย",
+    "role": "Master Storyteller & Brand Narrative Expert",
+    "prompt": "คุณคือ Master Storyteller & Brand Narrative Expert\nฉันต้องการสร้างคอนเทนต์ระดับไวรัลที่สามารถเปลี่ยนยอดวิวให้เป็นรายได้ในหัวข้อ [ระบุสินค้าที่ต้องการผูกเรื่องราว]\nเป้าหมายยอดผู้ชมและ Conversion: [ระบุ เช่น ต้องการยอดวิว 100K และดึงคนเข้า Line OA/Bio Link]\nจงจัดทำแผนงานและสคริปต์:\n1. 3 Hooks สำหรับ 3 วินาทีแรกที่กระตุกความสนใจอย่างแรง (Pattern Interrupt)\n2. เนื้อหาหลัก (Core Body) แบบ Fast-paced ไม่น่าเบื่อ\n3. Call-to-Action (CTA) ที่แนบเนียน ชี้ชวนให้คลิกลิงก์ซื้อสินค้าหรือกดติดตาม\n4. คำแนะนำเรื่องการเลือกเสียงเพลง, B-Roll, และการตัดต่อเพื่อรักษา Watch Time สูงสุด",
+    "variables": [
+      "ระบุสินค้าที่ต้องการผูกเรื่องราว",
+      "ระบุ เช่น ต้องการยอดวิว 100K"
+    ]
+  },
+  {
+    "id": 129,
+    "mode": "money",
+    "categoryId": 13,
+    "categoryName": "Content Creator & Media",
+    "title": "วางแผนเกาะกระแสไวรัล (Trend Hijacking) สู่ยอดขาย",
+    "role": "Trend Analyst & Real-time Marketer",
+    "prompt": "คุณคือ Trend Analyst & Real-time Marketer\nฉันต้องการสร้างคอนเทนต์ระดับไวรัลที่สามารถเปลี่ยนยอดวิวให้เป็นรายได้ในหัวข้อ [ระบุกระแสหรือเทรนด์ปัจจุบัน]\nเป้าหมายยอดผู้ชมและ Conversion: [ระบุ เช่น ต้องการยอดวิว 100K และดึงคนเข้า Line OA/Bio Link]\nจงจัดทำแผนงานและสคริปต์:\n1. 3 Hooks สำหรับ 3 วินาทีแรกที่กระตุกความสนใจอย่างแรง (Pattern Interrupt)\n2. เนื้อหาหลัก (Core Body) แบบ Fast-paced ไม่น่าเบื่อ\n3. Call-to-Action (CTA) ที่แนบเนียน ชี้ชวนให้คลิกลิงก์ซื้อสินค้าหรือกดติดตาม\n4. คำแนะนำเรื่องการเลือกเสียงเพลง, B-Roll, และการตัดต่อเพื่อรักษา Watch Time สูงสุด",
+    "variables": [
+      "ระบุกระแสหรือเทรนด์ปัจจุบัน",
+      "ระบุ เช่น ต้องการยอดวิว 100K"
+    ]
+  },
+  {
+    "id": 130,
+    "mode": "money",
+    "categoryId": 13,
+    "categoryName": "Content Creator & Media",
+    "title": "เขียนสคริปต์ไลฟ์สดขายของ (Live Commerce Script)",
+    "role": "Live Selling & Pitch Master",
+    "prompt": "คุณคือ Live Selling & Pitch Master\nฉันต้องการสร้างคอนเทนต์ระดับไวรัลที่สามารถเปลี่ยนยอดวิวให้เป็นรายได้ในหัวข้อ [ระบุสินค้า เช่น อุปกรณ์แคมป์ปิ้ง, สกินแคร์]\nเป้าหมายยอดผู้ชมและ Conversion: [ระบุ เช่น ต้องการยอดวิว 100K และดึงคนเข้า Line OA/Bio Link]\nจงจัดทำแผนงานและสคริปต์:\n1. 3 Hooks สำหรับ 3 วินาทีแรกที่กระตุกความสนใจอย่างแรง (Pattern Interrupt)\n2. เนื้อหาหลัก (Core Body) แบบ Fast-paced ไม่น่าเบื่อ\n3. Call-to-Action (CTA) ที่แนบเนียน ชี้ชวนให้คลิกลิงก์ซื้อสินค้าหรือกดติดตาม\n4. คำแนะนำเรื่องการเลือกเสียงเพลง, B-Roll, และการตัดต่อเพื่อรักษา Watch Time สูงสุด",
+    "variables": [
+      "ระบุสินค้า เช่น อุปกรณ์แคมป์ปิ้ง, สกินแคร์",
+      "ระบุ เช่น ต้องการยอดวิว 100K"
+    ]
+  },
+  {
+    "id": 131,
+    "mode": "money",
+    "categoryId": 14,
+    "categoryName": "Affiliate Marketing",
+    "title": "เขียนบทความรีวิวสินค้าแบบ Buyer Intent เน้นปิดการขาย",
+    "role": "Affiliate Review Copywriter",
+    "prompt": "คุณคือ Affiliate Review Copywriter\nฉันกำลังทำแคมเปญ Affiliate Marketing สำหรับผลิตภัณฑ์ [ระบุสินค้า เช่น เก้าอี้สุขภาพ, ซอฟต์แวร์ตัดต่อวิดีโอ]\nเป้าหมายคือดึงดูดผู้ซื้อที่มีเจตนาซื้อสูง (High Buyer Intent) เพื่อคลิกลิงก์ Affiliate ของฉัน\nจงสร้างเนื้อหาและกลยุทธ์:\n1. โครงสร้างเนื้อหาที่เน้นข้อเท็จจริง ข้อดี ข้อเสีย อย่างเป็นกลางเพื่อสร้าง Trust\n2. จุดเน้นย้ำความคุ้มค่า (ROI / Cost per use) ที่ทำให้ลูกค้ารู้สึกว่า 'ต้องซื้อเดี๋ยวนี้'\n3. ตำแหน่งการวาง Affiliate Link และปุ่ม Call-to-Action ที่ได้ CTR สูงสุด\n4. ข้อความกำกับความโปร่งใส (Affiliate Disclosure) ตามกฎหมายอย่างสุภาพ",
+    "variables": [
+      "ระบุสินค้า เช่น เก้าอี้สุขภาพ, ซอฟต์แวร์ตัดต่อวิดีโอ"
+    ]
+  },
+  {
+    "id": 132,
+    "mode": "money",
+    "categoryId": 14,
+    "categoryName": "Affiliate Marketing",
+    "title": "เขียนบทความเปรียบเทียบ 'A vs B' สำหรับคนพร้อมรูดบัตร",
+    "role": "Comparison Article Specialist",
+    "prompt": "คุณคือ Comparison Article Specialist\nฉันกำลังทำแคมเปญ Affiliate Marketing สำหรับผลิตภัณฑ์ [ระบุสินค้า 2 ตัว เช่น Notion vs Obsidian]\nเป้าหมายคือดึงดูดผู้ซื้อที่มีเจตนาซื้อสูง (High Buyer Intent) เพื่อคลิกลิงก์ Affiliate ของฉัน\nจงสร้างเนื้อหาและกลยุทธ์:\n1. โครงสร้างเนื้อหาที่เน้นข้อเท็จจริง ข้อดี ข้อเสีย อย่างเป็นกลางเพื่อสร้าง Trust\n2. จุดเน้นย้ำความคุ้มค่า (ROI / Cost per use) ที่ทำให้ลูกค้ารู้สึกว่า 'ต้องซื้อเดี๋ยวนี้'\n3. ตำแหน่งการวาง Affiliate Link และปุ่ม Call-to-Action ที่ได้ CTR สูงสุด\n4. ข้อความกำกับความโปร่งใส (Affiliate Disclosure) ตามกฎหมายอย่างสุภาพ",
+    "variables": [
+      "ระบุสินค้า 2 ตัว เช่น Notion vs Obsidian"
+    ]
+  },
+  {
+    "id": 133,
+    "mode": "money",
+    "categoryId": 14,
+    "categoryName": "Affiliate Marketing",
+    "title": "เขียนบทความ '10 อันดับสินค้าที่ดีที่สุดประจำปี' (Roundup Review)",
+    "role": "SEO Affiliate Roundup Strategist",
+    "prompt": "คุณคือ SEO Affiliate Roundup Strategist\nฉันกำลังทำแคมเปญ Affiliate Marketing สำหรับผลิตภัณฑ์ [ระบุหมวดหมู่ เช่น โน้ตบุ๊กทำงานที่ดีที่สุด]\nเป้าหมายคือดึงดูดผู้ซื้อที่มีเจตนาซื้อสูง (High Buyer Intent) เพื่อคลิกลิงก์ Affiliate ของฉัน\nจงสร้างเนื้อหาและกลยุทธ์:\n1. โครงสร้างเนื้อหาที่เน้นข้อเท็จจริง ข้อดี ข้อเสีย อย่างเป็นกลางเพื่อสร้าง Trust\n2. จุดเน้นย้ำความคุ้มค่า (ROI / Cost per use) ที่ทำให้ลูกค้ารู้สึกว่า 'ต้องซื้อเดี๋ยวนี้'\n3. ตำแหน่งการวาง Affiliate Link และปุ่ม Call-to-Action ที่ได้ CTR สูงสุด\n4. ข้อความกำกับความโปร่งใส (Affiliate Disclosure) ตามกฎหมายอย่างสุภาพ",
+    "variables": [
+      "ระบุหมวดหมู่ เช่น โน้ตบุ๊กทำงานที่ดีที่สุด"
+    ]
+  },
+  {
+    "id": 134,
+    "mode": "money",
+    "categoryId": 14,
+    "categoryName": "Affiliate Marketing",
+    "title": "ออกแบบอีเมล Affiliate Sequence 5 ฉบับแบบไม่ยัดเยียด",
+    "role": "Affiliate Email Funnel Specialist",
+    "prompt": "คุณคือ Affiliate Email Funnel Specialist\nฉันกำลังทำแคมเปญ Affiliate Marketing สำหรับผลิตภัณฑ์ [ระบุสินค้า Affiliate ที่เป็นตัวแทน]\nเป้าหมายคือดึงดูดผู้ซื้อที่มีเจตนาซื้อสูง (High Buyer Intent) เพื่อคลิกลิงก์ Affiliate ของฉัน\nจงสร้างเนื้อหาและกลยุทธ์:\n1. โครงสร้างเนื้อหาที่เน้นข้อเท็จจริง ข้อดี ข้อเสีย อย่างเป็นกลางเพื่อสร้าง Trust\n2. จุดเน้นย้ำความคุ้มค่า (ROI / Cost per use) ที่ทำให้ลูกค้ารู้สึกว่า 'ต้องซื้อเดี๋ยวนี้'\n3. ตำแหน่งการวาง Affiliate Link และปุ่ม Call-to-Action ที่ได้ CTR สูงสุด\n4. ข้อความกำกับความโปร่งใส (Affiliate Disclosure) ตามกฎหมายอย่างสุภาพ",
+    "variables": [
+      "ระบุสินค้า Affiliate ที่เป็นตัวแทน"
+    ]
+  },
+  {
+    "id": 135,
+    "mode": "money",
+    "categoryId": 14,
+    "categoryName": "Affiliate Marketing",
+    "title": "เขียน Lead Magnet ดึงดูดคนมาโหลดเพื่อเก็บรายชื่อทำ Affiliate",
+    "role": "Lead Generation Strategist",
+    "prompt": "คุณคือ Lead Generation Strategist\nฉันกำลังทำแคมเปญ Affiliate Marketing สำหรับผลิตภัณฑ์ [ระบุกลุ่มเป้าหมาย เช่น คนอยากลดน้ำหนัก]\nเป้าหมายคือดึงดูดผู้ซื้อที่มีเจตนาซื้อสูง (High Buyer Intent) เพื่อคลิกลิงก์ Affiliate ของฉัน\nจงสร้างเนื้อหาและกลยุทธ์:\n1. โครงสร้างเนื้อหาที่เน้นข้อเท็จจริง ข้อดี ข้อเสีย อย่างเป็นกลางเพื่อสร้าง Trust\n2. จุดเน้นย้ำความคุ้มค่า (ROI / Cost per use) ที่ทำให้ลูกค้ารู้สึกว่า 'ต้องซื้อเดี๋ยวนี้'\n3. ตำแหน่งการวาง Affiliate Link และปุ่ม Call-to-Action ที่ได้ CTR สูงสุด\n4. ข้อความกำกับความโปร่งใส (Affiliate Disclosure) ตามกฎหมายอย่างสุภาพ",
+    "variables": [
+      "ระบุกลุ่มเป้าหมาย เช่น คนอยากลดน้ำหนัก"
+    ]
+  },
+  {
+    "id": 136,
+    "mode": "money",
+    "categoryId": 14,
+    "categoryName": "Affiliate Marketing",
+    "title": "เขียนคำตอบแนะนำสินค้าบน Quora และ Reddit อย่างเป็นธรรมชาติ",
+    "role": "Organic Forum Marketer",
+    "prompt": "คุณคือ Organic Forum Marketer\nฉันกำลังทำแคมเปญ Affiliate Marketing สำหรับผลิตภัณฑ์ [ระบุคำถามที่พบบ่อยในวงการ]\nเป้าหมายคือดึงดูดผู้ซื้อที่มีเจตนาซื้อสูง (High Buyer Intent) เพื่อคลิกลิงก์ Affiliate ของฉัน\nจงสร้างเนื้อหาและกลยุทธ์:\n1. โครงสร้างเนื้อหาที่เน้นข้อเท็จจริง ข้อดี ข้อเสีย อย่างเป็นกลางเพื่อสร้าง Trust\n2. จุดเน้นย้ำความคุ้มค่า (ROI / Cost per use) ที่ทำให้ลูกค้ารู้สึกว่า 'ต้องซื้อเดี๋ยวนี้'\n3. ตำแหน่งการวาง Affiliate Link และปุ่ม Call-to-Action ที่ได้ CTR สูงสุด\n4. ข้อความกำกับความโปร่งใส (Affiliate Disclosure) ตามกฎหมายอย่างสุภาพ",
+    "variables": [
+      "ระบุคำถามที่พบบ่อยในวงการ"
+    ]
+  },
+  {
+    "id": 137,
+    "mode": "money",
+    "categoryId": 14,
+    "categoryName": "Affiliate Marketing",
+    "title": "สร้างชุดโบนัสพิเศษ (Bonus Stack) ดึงดูดให้ซื้อผ่านลิงก์เรา",
+    "role": "Affiliate Incentive Architect",
+    "prompt": "คุณคือ Affiliate Incentive Architect\nฉันกำลังทำแคมเปญ Affiliate Marketing สำหรับผลิตภัณฑ์ [ระบุสินค้าหลักที่คนอื่นก็ขายเหมือนกัน]\nเป้าหมายคือดึงดูดผู้ซื้อที่มีเจตนาซื้อสูง (High Buyer Intent) เพื่อคลิกลิงก์ Affiliate ของฉัน\nจงสร้างเนื้อหาและกลยุทธ์:\n1. โครงสร้างเนื้อหาที่เน้นข้อเท็จจริง ข้อดี ข้อเสีย อย่างเป็นกลางเพื่อสร้าง Trust\n2. จุดเน้นย้ำความคุ้มค่า (ROI / Cost per use) ที่ทำให้ลูกค้ารู้สึกว่า 'ต้องซื้อเดี๋ยวนี้'\n3. ตำแหน่งการวาง Affiliate Link และปุ่ม Call-to-Action ที่ได้ CTR สูงสุด\n4. ข้อความกำกับความโปร่งใส (Affiliate Disclosure) ตามกฎหมายอย่างสุภาพ",
+    "variables": [
+      "ระบุสินค้าหลักที่คนอื่นก็ขายเหมือนกัน"
+    ]
+  },
+  {
+    "id": 138,
+    "mode": "money",
+    "categoryId": 14,
+    "categoryName": "Affiliate Marketing",
+    "title": "เขียนสคริปต์ TikTok ป้ายยา Affiliate สินค้า Shopee / TikTok Shop",
+    "role": "TikTok Shop Affiliate Pro",
+    "prompt": "คุณคือ TikTok Shop Affiliate Pro\nฉันกำลังทำแคมเปญ Affiliate Marketing สำหรับผลิตภัณฑ์ [ระบุสินค้าของใช้ในบ้านหรือแกดเจ็ต]\nเป้าหมายคือดึงดูดผู้ซื้อที่มีเจตนาซื้อสูง (High Buyer Intent) เพื่อคลิกลิงก์ Affiliate ของฉัน\nจงสร้างเนื้อหาและกลยุทธ์:\n1. โครงสร้างเนื้อหาที่เน้นข้อเท็จจริง ข้อดี ข้อเสีย อย่างเป็นกลางเพื่อสร้าง Trust\n2. จุดเน้นย้ำความคุ้มค่า (ROI / Cost per use) ที่ทำให้ลูกค้ารู้สึกว่า 'ต้องซื้อเดี๋ยวนี้'\n3. ตำแหน่งการวาง Affiliate Link และปุ่ม Call-to-Action ที่ได้ CTR สูงสุด\n4. ข้อความกำกับความโปร่งใส (Affiliate Disclosure) ตามกฎหมายอย่างสุภาพ",
+    "variables": [
+      "ระบุสินค้าของใช้ในบ้านหรือแกดเจ็ต"
+    ]
+  },
+  {
+    "id": 139,
+    "mode": "money",
+    "categoryId": 14,
+    "categoryName": "Affiliate Marketing",
+    "title": "วางแผนทำ SEO Keyword Clustering ดักคีย์เวิร์ดทำเงิน",
+    "role": "SEO Semantic Clustering Architect",
+    "prompt": "คุณคือ SEO Semantic Clustering Architect\nฉันกำลังทำแคมเปญ Affiliate Marketing สำหรับผลิตภัณฑ์ [ระบุ Niche ตลาด เช่น คอนโดมิเนียม]\nเป้าหมายคือดึงดูดผู้ซื้อที่มีเจตนาซื้อสูง (High Buyer Intent) เพื่อคลิกลิงก์ Affiliate ของฉัน\nจงสร้างเนื้อหาและกลยุทธ์:\n1. โครงสร้างเนื้อหาที่เน้นข้อเท็จจริง ข้อดี ข้อเสีย อย่างเป็นกลางเพื่อสร้าง Trust\n2. จุดเน้นย้ำความคุ้มค่า (ROI / Cost per use) ที่ทำให้ลูกค้ารู้สึกว่า 'ต้องซื้อเดี๋ยวนี้'\n3. ตำแหน่งการวาง Affiliate Link และปุ่ม Call-to-Action ที่ได้ CTR สูงสุด\n4. ข้อความกำกับความโปร่งใส (Affiliate Disclosure) ตามกฎหมายอย่างสุภาพ",
+    "variables": [
+      "ระบุ Niche ตลาด เช่น คอนโดมิเนียม"
+    ]
+  },
+  {
+    "id": 140,
+    "mode": "money",
+    "categoryId": 14,
+    "categoryName": "Affiliate Marketing",
+    "title": "สคริปต์วิดีโอแกะกล่อง Unboxing และสาธิตสินค้า Affiliate",
+    "role": "Product Demonstration & Review Specialist",
+    "prompt": "คุณคือ Product Demonstration & Review Specialist\nฉันกำลังทำแคมเปญ Affiliate Marketing สำหรับผลิตภัณฑ์ [ระบุอุปกรณ์ไอทีหรือเครื่องใช้ไฟฟ้า]\nเป้าหมายคือดึงดูดผู้ซื้อที่มีเจตนาซื้อสูง (High Buyer Intent) เพื่อคลิกลิงก์ Affiliate ของฉัน\nจงสร้างเนื้อหาและกลยุทธ์:\n1. โครงสร้างเนื้อหาที่เน้นข้อเท็จจริง ข้อดี ข้อเสีย อย่างเป็นกลางเพื่อสร้าง Trust\n2. จุดเน้นย้ำความคุ้มค่า (ROI / Cost per use) ที่ทำให้ลูกค้ารู้สึกว่า 'ต้องซื้อเดี๋ยวนี้'\n3. ตำแหน่งการวาง Affiliate Link และปุ่ม Call-to-Action ที่ได้ CTR สูงสุด\n4. ข้อความกำกับความโปร่งใส (Affiliate Disclosure) ตามกฎหมายอย่างสุภาพ",
+    "variables": [
+      "ระบุอุปกรณ์ไอทีหรือเครื่องใช้ไฟฟ้า"
+    ]
+  },
+  {
+    "id": 141,
+    "mode": "money",
+    "categoryId": 15,
+    "categoryName": "E-Commerce & Dropshipping",
+    "title": "วิเคราะห์หา Winning Product สินค้าทำเงินสำหรับ Dropshipping",
+    "role": "Dropshipping Product Research Expert",
+    "prompt": "คุณคือ Dropshipping Product Research Expert\nฉันต้องการเพิ่มยอดขายและอัตรากำไรสำหรับร้านค้าออนไลน์ สินค้าคือ [ระบุงบประมาณและตลาด เช่น Shopee ไทย หรือ Shopify อเมริกา]\nจงจัดทำกลยุทธ์และเนื้อหาฉบับพร้อมใช้:\n1. การระบุ Pain Point และ Emotion Trigger ที่ทำให้ลูกค้าหยุดไถฟีด\n2. ข้อความขายสินค้าที่ชูคุณประโยชน์ (Benefit) เหนือสเปก (Feature)\n3. การทลายข้อโต้แย้งเรื่องราคาและระยะเวลาจัดส่ง\n4. ตารางตัวเลขประมาณการกำไรและเกณฑ์ ROAS (Return on Ad Spend) ที่คุ้มทุน",
+    "variables": [
+      "ระบุงบประมาณและตลาด เช่น Shopee ไทย หรือ Shopify อเมริกา"
+    ]
+  },
+  {
+    "id": 142,
+    "mode": "money",
+    "categoryId": 15,
+    "categoryName": "E-Commerce & Dropshipping",
+    "title": "เขียนคำบรรยายสินค้า (Product Description) ที่อ่านแล้วอยากซื้อทันที",
+    "role": "E-Commerce Conversion Copywriter",
+    "prompt": "คุณคือ E-Commerce Conversion Copywriter\nฉันต้องการเพิ่มยอดขายและอัตรากำไรสำหรับร้านค้าออนไลน์ สินค้าคือ [ระบุสินค้า เช่น เครื่องนวดคอพกพา]\nจงจัดทำกลยุทธ์และเนื้อหาฉบับพร้อมใช้:\n1. การระบุ Pain Point และ Emotion Trigger ที่ทำให้ลูกค้าหยุดไถฟีด\n2. ข้อความขายสินค้าที่ชูคุณประโยชน์ (Benefit) เหนือสเปก (Feature)\n3. การทลายข้อโต้แย้งเรื่องราคาและระยะเวลาจัดส่ง\n4. ตารางตัวเลขประมาณการกำไรและเกณฑ์ ROAS (Return on Ad Spend) ที่คุ้มทุน",
+    "variables": [
+      "ระบุสินค้า เช่น เครื่องนวดคอพกพา"
+    ]
+  },
+  {
+    "id": 143,
+    "mode": "money",
+    "categoryId": 15,
+    "categoryName": "E-Commerce & Dropshipping",
+    "title": "เขียนข้อความโฆษณา Facebook / TikTok Ads ทดสอบ 3 มุมมอง",
+    "role": "Paid Ads Creative Strategist",
+    "prompt": "คุณคือ Paid Ads Creative Strategist\nฉันต้องการเพิ่มยอดขายและอัตรากำไรสำหรับร้านค้าออนไลน์ สินค้าคือ [ระบุสินค้าและจุดขายหลัก]\nจงจัดทำกลยุทธ์และเนื้อหาฉบับพร้อมใช้:\n1. การระบุ Pain Point และ Emotion Trigger ที่ทำให้ลูกค้าหยุดไถฟีด\n2. ข้อความขายสินค้าที่ชูคุณประโยชน์ (Benefit) เหนือสเปก (Feature)\n3. การทลายข้อโต้แย้งเรื่องราคาและระยะเวลาจัดส่ง\n4. ตารางตัวเลขประมาณการกำไรและเกณฑ์ ROAS (Return on Ad Spend) ที่คุ้มทุน",
+    "variables": [
+      "ระบุสินค้าและจุดขายหลัก"
+    ]
+  },
+  {
+    "id": 144,
+    "mode": "money",
+    "categoryId": 15,
+    "categoryName": "E-Commerce & Dropshipping",
+    "title": "เขียนระบบอีเมลตามตระกร้าสินค้าที่ถูกทิ้ง (Abandoned Cart Recovery)",
+    "role": "E-Commerce Retention Specialist",
+    "prompt": "คุณคือ E-Commerce Retention Specialist\nฉันต้องการเพิ่มยอดขายและอัตรากำไรสำหรับร้านค้าออนไลน์ สินค้าคือ [ระบุร้านค้าและสินค้า]\nจงจัดทำกลยุทธ์และเนื้อหาฉบับพร้อมใช้:\n1. การระบุ Pain Point และ Emotion Trigger ที่ทำให้ลูกค้าหยุดไถฟีด\n2. ข้อความขายสินค้าที่ชูคุณประโยชน์ (Benefit) เหนือสเปก (Feature)\n3. การทลายข้อโต้แย้งเรื่องราคาและระยะเวลาจัดส่ง\n4. ตารางตัวเลขประมาณการกำไรและเกณฑ์ ROAS (Return on Ad Spend) ที่คุ้มทุน",
+    "variables": [
+      "ระบุร้านค้าและสินค้า"
+    ]
+  },
+  {
+    "id": 145,
+    "mode": "money",
+    "categoryId": 15,
+    "categoryName": "E-Commerce & Dropshipping",
+    "title": "ออกแบบชุดข้อเสนอ Upsell และ Cross-sell เพิ่มยอดบิลเฉลี่ย (AOV)",
+    "role": "AOV Optimization Architect",
+    "prompt": "คุณคือ AOV Optimization Architect\nฉันต้องการเพิ่มยอดขายและอัตรากำไรสำหรับร้านค้าออนไลน์ สินค้าคือ [ระบุสินค้าหลักและสินค้าเสริม]\nจงจัดทำกลยุทธ์และเนื้อหาฉบับพร้อมใช้:\n1. การระบุ Pain Point และ Emotion Trigger ที่ทำให้ลูกค้าหยุดไถฟีด\n2. ข้อความขายสินค้าที่ชูคุณประโยชน์ (Benefit) เหนือสเปก (Feature)\n3. การทลายข้อโต้แย้งเรื่องราคาและระยะเวลาจัดส่ง\n4. ตารางตัวเลขประมาณการกำไรและเกณฑ์ ROAS (Return on Ad Spend) ที่คุ้มทุน",
+    "variables": [
+      "ระบุสินค้าหลักและสินค้าเสริม"
+    ]
+  },
+  {
+    "id": 146,
+    "mode": "money",
+    "categoryId": 15,
+    "categoryName": "E-Commerce & Dropshipping",
+    "title": "ร่างบทเจรจาต่อรองกับซัพพลายเออร์จีน / โรงงานเพื่อลดต้นทุน",
+    "role": "Supply Chain & Sourcing Negotiator",
+    "prompt": "คุณคือ Supply Chain & Sourcing Negotiator\nฉันต้องการเพิ่มยอดขายและอัตรากำไรสำหรับร้านค้าออนไลน์ สินค้าคือ [ระบุจำนวนสั่งซื้อและสเปกสินค้า]\nจงจัดทำกลยุทธ์และเนื้อหาฉบับพร้อมใช้:\n1. การระบุ Pain Point และ Emotion Trigger ที่ทำให้ลูกค้าหยุดไถฟีด\n2. ข้อความขายสินค้าที่ชูคุณประโยชน์ (Benefit) เหนือสเปก (Feature)\n3. การทลายข้อโต้แย้งเรื่องราคาและระยะเวลาจัดส่ง\n4. ตารางตัวเลขประมาณการกำไรและเกณฑ์ ROAS (Return on Ad Spend) ที่คุ้มทุน",
+    "variables": [
+      "ระบุจำนวนสั่งซื้อและสเปกสินค้า"
+    ]
+  },
+  {
+    "id": 147,
+    "mode": "money",
+    "categoryId": 15,
+    "categoryName": "E-Commerce & Dropshipping",
+    "title": "เขียนแบรนด์สตอรี่ (Brand Story) เปลี่ยนสินค้าราคาถูกให้ดูพรีเมียม",
+    "role": "Brand Identity & Positioning Strategist",
+    "prompt": "คุณคือ Brand Identity & Positioning Strategist\nฉันต้องการเพิ่มยอดขายและอัตรากำไรสำหรับร้านค้าออนไลน์ สินค้าคือ [ระบุแนวคิดของแบรนด์]\nจงจัดทำกลยุทธ์และเนื้อหาฉบับพร้อมใช้:\n1. การระบุ Pain Point และ Emotion Trigger ที่ทำให้ลูกค้าหยุดไถฟีด\n2. ข้อความขายสินค้าที่ชูคุณประโยชน์ (Benefit) เหนือสเปก (Feature)\n3. การทลายข้อโต้แย้งเรื่องราคาและระยะเวลาจัดส่ง\n4. ตารางตัวเลขประมาณการกำไรและเกณฑ์ ROAS (Return on Ad Spend) ที่คุ้มทุน",
+    "variables": [
+      "ระบุแนวคิดของแบรนด์"
+    ]
+  },
+  {
+    "id": 148,
+    "mode": "money",
+    "categoryId": 15,
+    "categoryName": "E-Commerce & Dropshipping",
+    "title": "เขียนเทมเพลต DM ทักหา Micro-Influencer ให้รีวิวสินค้าแลกของ",
+    "role": "Influencer Seeding Coordinator",
+    "prompt": "คุณคือ Influencer Seeding Coordinator\nฉันต้องการเพิ่มยอดขายและอัตรากำไรสำหรับร้านค้าออนไลน์ สินค้าคือ [ระบุสินค้าที่ต้องการส่งให้รีวิว]\nจงจัดทำกลยุทธ์และเนื้อหาฉบับพร้อมใช้:\n1. การระบุ Pain Point และ Emotion Trigger ที่ทำให้ลูกค้าหยุดไถฟีด\n2. ข้อความขายสินค้าที่ชูคุณประโยชน์ (Benefit) เหนือสเปก (Feature)\n3. การทลายข้อโต้แย้งเรื่องราคาและระยะเวลาจัดส่ง\n4. ตารางตัวเลขประมาณการกำไรและเกณฑ์ ROAS (Return on Ad Spend) ที่คุ้มทุน",
+    "variables": [
+      "ระบุสินค้าที่ต้องการส่งให้รีวิว"
+    ]
+  },
+  {
+    "id": 149,
+    "mode": "money",
+    "categoryId": 15,
+    "categoryName": "E-Commerce & Dropshipping",
+    "title": "ออกแบบสโลแกนและกราฟิกสำหรับ Print-on-Demand (เสื้อยืด/แก้ว)",
+    "role": "POD Apparel Creative Director",
+    "prompt": "คุณคือ POD Apparel Creative Director\nฉันต้องการเพิ่มยอดขายและอัตรากำไรสำหรับร้านค้าออนไลน์ สินค้าคือ [ระบุ Niche เช่น คนรักแมว, คนรักการวิ่ง]\nจงจัดทำกลยุทธ์และเนื้อหาฉบับพร้อมใช้:\n1. การระบุ Pain Point และ Emotion Trigger ที่ทำให้ลูกค้าหยุดไถฟีด\n2. ข้อความขายสินค้าที่ชูคุณประโยชน์ (Benefit) เหนือสเปก (Feature)\n3. การทลายข้อโต้แย้งเรื่องราคาและระยะเวลาจัดส่ง\n4. ตารางตัวเลขประมาณการกำไรและเกณฑ์ ROAS (Return on Ad Spend) ที่คุ้มทุน",
+    "variables": [
+      "ระบุ Niche เช่น คนรักแมว, คนรักการวิ่ง"
+    ]
+  },
+  {
+    "id": 150,
+    "mode": "money",
+    "categoryId": 15,
+    "categoryName": "E-Commerce & Dropshipping",
+    "title": "เขียนระบบตอบแชทปิดการขายอัตโนมัติสำหรับแอดมินเพจ",
+    "role": "Social Commerce Chat Closer",
+    "prompt": "คุณคือ Social Commerce Chat Closer\nฉันต้องการเพิ่มยอดขายและอัตรากำไรสำหรับร้านค้าออนไลน์ สินค้าคือ [ระบุคำถามยอดฮิต เช่น มีเก็บปลายทางไหม ราคาเท่าไหร่]\nจงจัดทำกลยุทธ์และเนื้อหาฉบับพร้อมใช้:\n1. การระบุ Pain Point และ Emotion Trigger ที่ทำให้ลูกค้าหยุดไถฟีด\n2. ข้อความขายสินค้าที่ชูคุณประโยชน์ (Benefit) เหนือสเปก (Feature)\n3. การทลายข้อโต้แย้งเรื่องราคาและระยะเวลาจัดส่ง\n4. ตารางตัวเลขประมาณการกำไรและเกณฑ์ ROAS (Return on Ad Spend) ที่คุ้มทุน",
+    "variables": [
+      "ระบุคำถามยอดฮิต เช่น มีเก็บปลายทางไหม ราคาเท่าไหร่"
+    ]
+  },
+  {
+    "id": 151,
+    "mode": "money",
+    "categoryId": 16,
+    "categoryName": "AI Agency & Consulting",
+    "title": "เขียน Proposal เสนอบริการ AI Chatbot ให้ธุรกิจท้องถิ่น",
+    "role": "AI Automation Agency (AAA) Founder",
+    "prompt": "คุณคือ AI Automation Agency (AAA) Founder\nฉันกำลังดำเนินธุรกิจ AI Automation Agency (AAA) เพื่อเสนอบริการให้ [ระบุประเภทธุรกิจ เช่น คลินิกทันตกรรม, อู่ซ่อมรถ, ร้านอาหาร]\nเป้าหมายคือปิดสัญญารายเดือน (Retainer) หรือโปรเจกต์ระดับพรีเมียม\nจงจัดทำเอกสารและแผนการ:\n1. การนำเสนอปัญหาที่ธุรกิจของเขากำลังเสียเงินหรือเสียเวลาโดยไม่รู้ตัว\n2. ทางออกด้วยระบบ AI Automation (เช่น Make.com, n8n, OpenAI API, Chatbot) ที่จับต้องได้\n3. การคำนวณตัวเลข ROI ที่ลูกค้าจะได้รับคืนชัดเจน\n4. สคริปต์ปิดท้ายเพื่อชวนนัดประชุม Demo System ภายใน 15 นาที",
+    "variables": [
+      "ระบุประเภทธุรกิจ เช่น คลินิกทันตกรรม, อู่ซ่อมรถ, ร้านอาหาร"
+    ]
+  },
+  {
+    "id": 152,
+    "mode": "money",
+    "categoryId": 16,
+    "categoryName": "AI Agency & Consulting",
+    "title": "ร่าง Cold Email หาเจ้าของธุรกิจเสนอบริการลดต้นทุนด้วย AI",
+    "role": "B2B Cold Outreach Master",
+    "prompt": "คุณคือ B2B Cold Outreach Master\nฉันกำลังดำเนินธุรกิจ AI Automation Agency (AAA) เพื่อเสนอบริการให้ [ระบุตำแหน่งเป้าหมาย เช่น Managing Director, Head of Operations]\nเป้าหมายคือปิดสัญญารายเดือน (Retainer) หรือโปรเจกต์ระดับพรีเมียม\nจงจัดทำเอกสารและแผนการ:\n1. การนำเสนอปัญหาที่ธุรกิจของเขากำลังเสียเงินหรือเสียเวลาโดยไม่รู้ตัว\n2. ทางออกด้วยระบบ AI Automation (เช่น Make.com, n8n, OpenAI API, Chatbot) ที่จับต้องได้\n3. การคำนวณตัวเลข ROI ที่ลูกค้าจะได้รับคืนชัดเจน\n4. สคริปต์ปิดท้ายเพื่อชวนนัดประชุม Demo System ภายใน 15 นาที",
+    "variables": [
+      "ระบุตำแหน่งเป้าหมาย เช่น Managing Director, Head of Operations"
+    ]
+  },
+  {
+    "id": 153,
+    "mode": "money",
+    "categoryId": 16,
+    "categoryName": "AI Agency & Consulting",
+    "title": "จัดทำ AI Workflow Audit Checklist สำหรับเข้าไปตรวจสอบบริษัทลูกค้า",
+    "role": "Business Process Automation Consultant",
+    "prompt": "คุณคือ Business Process Automation Consultant\nฉันกำลังดำเนินธุรกิจ AI Automation Agency (AAA) เพื่อเสนอบริการให้ [ระบุแผนก เช่น แผนกบริการลูกค้า, แผนกบัญชี]\nเป้าหมายคือปิดสัญญารายเดือน (Retainer) หรือโปรเจกต์ระดับพรีเมียม\nจงจัดทำเอกสารและแผนการ:\n1. การนำเสนอปัญหาที่ธุรกิจของเขากำลังเสียเงินหรือเสียเวลาโดยไม่รู้ตัว\n2. ทางออกด้วยระบบ AI Automation (เช่น Make.com, n8n, OpenAI API, Chatbot) ที่จับต้องได้\n3. การคำนวณตัวเลข ROI ที่ลูกค้าจะได้รับคืนชัดเจน\n4. สคริปต์ปิดท้ายเพื่อชวนนัดประชุม Demo System ภายใน 15 นาที",
+    "variables": [
+      "ระบุแผนก เช่น แผนกบริการลูกค้า, แผนกบัญชี"
+    ]
+  },
+  {
+    "id": 154,
+    "mode": "money",
+    "categoryId": 16,
+    "categoryName": "AI Agency & Consulting",
+    "title": "ออกแบบแพ็กเกจราคาแบบรายเดือน (Monthly Retainer) สำหรับเอเจนซี่ AI",
+    "role": "Agency Pricing & Packaging Strategist",
+    "prompt": "คุณคือ Agency Pricing & Packaging Strategist\nฉันกำลังดำเนินธุรกิจ AI Automation Agency (AAA) เพื่อเสนอบริการให้ [ระบุบริการ เช่น ดูแลระบบแชทบอท + ทำคอนเทนต์อัตโนมัติ]\nเป้าหมายคือปิดสัญญารายเดือน (Retainer) หรือโปรเจกต์ระดับพรีเมียม\nจงจัดทำเอกสารและแผนการ:\n1. การนำเสนอปัญหาที่ธุรกิจของเขากำลังเสียเงินหรือเสียเวลาโดยไม่รู้ตัว\n2. ทางออกด้วยระบบ AI Automation (เช่น Make.com, n8n, OpenAI API, Chatbot) ที่จับต้องได้\n3. การคำนวณตัวเลข ROI ที่ลูกค้าจะได้รับคืนชัดเจน\n4. สคริปต์ปิดท้ายเพื่อชวนนัดประชุม Demo System ภายใน 15 นาที",
+    "variables": [
+      "ระบุบริการ เช่น ดูแลระบบแชทบอท + ทำคอนเทนต์อัตโนมัติ"
+    ]
+  },
+  {
+    "id": 155,
+    "mode": "money",
+    "categoryId": 16,
+    "categoryName": "AI Agency & Consulting",
+    "title": "ร่างสัญญาให้บริการ AI และข้อตกลงระดับบริการ (SLA Agreement)",
+    "role": "Technology Legal & Service Level Architect",
+    "prompt": "คุณคือ Technology Legal & Service Level Architect\nฉันกำลังดำเนินธุรกิจ AI Automation Agency (AAA) เพื่อเสนอบริการให้ [ระบุขอบเขตการรับประกันระบบ uptime]\nเป้าหมายคือปิดสัญญารายเดือน (Retainer) หรือโปรเจกต์ระดับพรีเมียม\nจงจัดทำเอกสารและแผนการ:\n1. การนำเสนอปัญหาที่ธุรกิจของเขากำลังเสียเงินหรือเสียเวลาโดยไม่รู้ตัว\n2. ทางออกด้วยระบบ AI Automation (เช่น Make.com, n8n, OpenAI API, Chatbot) ที่จับต้องได้\n3. การคำนวณตัวเลข ROI ที่ลูกค้าจะได้รับคืนชัดเจน\n4. สคริปต์ปิดท้ายเพื่อชวนนัดประชุม Demo System ภายใน 15 นาที",
+    "variables": [
+      "ระบุขอบเขตการรับประกันระบบ uptime"
+    ]
+  },
+  {
+    "id": 156,
+    "mode": "money",
+    "categoryId": 16,
+    "categoryName": "AI Agency & Consulting",
+    "title": "เขียนสคริปต์สัมภาษณ์ Onboarding ลูกค้าใหม่แบบมืออาชีพ",
+    "role": "Client Success & Onboarding Director",
+    "prompt": "คุณคือ Client Success & Onboarding Director\nฉันกำลังดำเนินธุรกิจ AI Automation Agency (AAA) เพื่อเสนอบริการให้ [ระบุข้อมูลที่ต้องเก็บจากลูกค้า]\nเป้าหมายคือปิดสัญญารายเดือน (Retainer) หรือโปรเจกต์ระดับพรีเมียม\nจงจัดทำเอกสารและแผนการ:\n1. การนำเสนอปัญหาที่ธุรกิจของเขากำลังเสียเงินหรือเสียเวลาโดยไม่รู้ตัว\n2. ทางออกด้วยระบบ AI Automation (เช่น Make.com, n8n, OpenAI API, Chatbot) ที่จับต้องได้\n3. การคำนวณตัวเลข ROI ที่ลูกค้าจะได้รับคืนชัดเจน\n4. สคริปต์ปิดท้ายเพื่อชวนนัดประชุม Demo System ภายใน 15 นาที",
+    "variables": [
+      "ระบุข้อมูลที่ต้องเก็บจากลูกค้า"
+    ]
+  },
+  {
+    "id": 157,
+    "mode": "money",
+    "categoryId": 16,
+    "categoryName": "AI Agency & Consulting",
+    "title": "จัดทำ Case Study ความสำเร็จเพื่อใช้ปิดลูกค้ารายต่อไป",
+    "role": "Case Study Marketing Specialist",
+    "prompt": "คุณคือ Case Study Marketing Specialist\nฉันกำลังดำเนินธุรกิจ AI Automation Agency (AAA) เพื่อเสนอบริการให้ [ระบุผลลัพธ์ เช่น ประหยัดเวลา 40 ชั่วโมง/สัปดาห์]\nเป้าหมายคือปิดสัญญารายเดือน (Retainer) หรือโปรเจกต์ระดับพรีเมียม\nจงจัดทำเอกสารและแผนการ:\n1. การนำเสนอปัญหาที่ธุรกิจของเขากำลังเสียเงินหรือเสียเวลาโดยไม่รู้ตัว\n2. ทางออกด้วยระบบ AI Automation (เช่น Make.com, n8n, OpenAI API, Chatbot) ที่จับต้องได้\n3. การคำนวณตัวเลข ROI ที่ลูกค้าจะได้รับคืนชัดเจน\n4. สคริปต์ปิดท้ายเพื่อชวนนัดประชุม Demo System ภายใน 15 นาที",
+    "variables": [
+      "ระบุผลลัพธ์ เช่น ประหยัดเวลา 40 ชั่วโมง/สัปดาห์"
+    ]
+  },
+  {
+    "id": 158,
+    "mode": "money",
+    "categoryId": 16,
+    "categoryName": "AI Agency & Consulting",
+    "title": "วางโครงสร้างหลักสูตรสอนพนักงานในองค์กรใช้ AI (Corporate Training)",
+    "role": "Corporate AI Training Director",
+    "prompt": "คุณคือ Corporate AI Training Director\nฉันกำลังดำเนินธุรกิจ AI Automation Agency (AAA) เพื่อเสนอบริการให้ [ระบุหัวข้อ เช่น การใช้ Generative AI สำหรับฝ่ายขาย]\nเป้าหมายคือปิดสัญญารายเดือน (Retainer) หรือโปรเจกต์ระดับพรีเมียม\nจงจัดทำเอกสารและแผนการ:\n1. การนำเสนอปัญหาที่ธุรกิจของเขากำลังเสียเงินหรือเสียเวลาโดยไม่รู้ตัว\n2. ทางออกด้วยระบบ AI Automation (เช่น Make.com, n8n, OpenAI API, Chatbot) ที่จับต้องได้\n3. การคำนวณตัวเลข ROI ที่ลูกค้าจะได้รับคืนชัดเจน\n4. สคริปต์ปิดท้ายเพื่อชวนนัดประชุม Demo System ภายใน 15 นาที",
+    "variables": [
+      "ระบุหัวข้อ เช่น การใช้ Generative AI สำหรับฝ่ายขาย"
+    ]
+  },
+  {
+    "id": 159,
+    "mode": "money",
+    "categoryId": 16,
+    "categoryName": "AI Agency & Consulting",
+    "title": "สคริปต์การโทรพูดคุยปิดการขายแบบ High-Ticket (Discovery Call)",
+    "role": "High-Ticket Sales Closer",
+    "prompt": "คุณคือ High-Ticket Sales Closer\nฉันกำลังดำเนินธุรกิจ AI Automation Agency (AAA) เพื่อเสนอบริการให้ [ระบุราคาบริการ เช่น โปรเจกต์ละ 50,000 - 150,000 บาท]\nเป้าหมายคือปิดสัญญารายเดือน (Retainer) หรือโปรเจกต์ระดับพรีเมียม\nจงจัดทำเอกสารและแผนการ:\n1. การนำเสนอปัญหาที่ธุรกิจของเขากำลังเสียเงินหรือเสียเวลาโดยไม่รู้ตัว\n2. ทางออกด้วยระบบ AI Automation (เช่น Make.com, n8n, OpenAI API, Chatbot) ที่จับต้องได้\n3. การคำนวณตัวเลข ROI ที่ลูกค้าจะได้รับคืนชัดเจน\n4. สคริปต์ปิดท้ายเพื่อชวนนัดประชุม Demo System ภายใน 15 นาที",
+    "variables": [
+      "ระบุราคาบริการ เช่น โปรเจกต์ละ 50,000 - 150,000 บาท"
+    ]
+  },
+  {
+    "id": 160,
+    "mode": "money",
+    "categoryId": 16,
+    "categoryName": "AI Agency & Consulting",
+    "title": "ออกแบบระบบสร้าง Lead อัตโนมัติด้วย Web Scraping + AI Enrichment",
+    "role": "Lead Generation Systems Engineer",
+    "prompt": "คุณคือ Lead Generation Systems Engineer\nฉันกำลังดำเนินธุรกิจ AI Automation Agency (AAA) เพื่อเสนอบริการให้ [ระบุกลุ่มเป้าหมาย เช่น ผู้จัดการฝ่ายจัดซื้อในไทย]\nเป้าหมายคือปิดสัญญารายเดือน (Retainer) หรือโปรเจกต์ระดับพรีเมียม\nจงจัดทำเอกสารและแผนการ:\n1. การนำเสนอปัญหาที่ธุรกิจของเขากำลังเสียเงินหรือเสียเวลาโดยไม่รู้ตัว\n2. ทางออกด้วยระบบ AI Automation (เช่น Make.com, n8n, OpenAI API, Chatbot) ที่จับต้องได้\n3. การคำนวณตัวเลข ROI ที่ลูกค้าจะได้รับคืนชัดเจน\n4. สคริปต์ปิดท้ายเพื่อชวนนัดประชุม Demo System ภายใน 15 นาที",
+    "variables": [
+      "ระบุกลุ่มเป้าหมาย เช่น ผู้จัดการฝ่ายจัดซื้อในไทย"
+    ]
+  },
+  {
+    "id": 161,
+    "mode": "money",
+    "categoryId": 17,
+    "categoryName": "Micro-SaaS & Web Tools",
+    "title": "วิเคราะห์ไอเดีย Micro-SaaS ที่แก้ปัญหาเฉพาะกลุ่มและทำเงินเร็ว",
+    "role": "Micro-SaaS Product Architect",
+    "prompt": "คุณคือ Micro-SaaS Product Architect\nฉันกำลังพัฒนาและสร้างรายได้จากผลิตภัณฑ์ Micro-SaaS / Web Tool ในหัวข้อ [ระบุตลาด เช่น เครื่องมือสำหรับครู, โปรแกรมร้านทำเล็บ]\nเป้าหมายคือสร้างกระแสเงินสดแบบ Passive Income รายเดือน (MRR)\nจงวางแผนงานเชิงลึก:\n1. Core Value Proposition ที่ทำให้ผู้ใช้ยอมจ่ายเงินเป็นรายเดือน\n2. ฟังก์ชันหลักสำหรับเวอร์ชันแรกที่ทำน้อยแต่ได้ผลมาก (Kill Features)\n3. แผนการบริหารต้นทุน API ไม่ให้ขาดทุนเมื่อมีผู้ใช้งานเพิ่มขึ้น\n4. แผนการตลาดดึงดูดผู้ใช้งานกลุ่มแรกแบบไม่ใช้เงินยิงแอดแม้แต่บาทเดียว",
+    "variables": [
+      "ระบุตลาด เช่น เครื่องมือสำหรับครู, โปรแกรมร้านทำเล็บ"
+    ]
+  },
+  {
+    "id": 162,
+    "mode": "money",
+    "categoryId": 17,
+    "categoryName": "Micro-SaaS & Web Tools",
+    "title": "วางขอบเขตฟีเจอร์ MVP (Minimum Viable Product) ให้เสร็จใน 7 วัน",
+    "role": "Lean Startup Technical Lead",
+    "prompt": "คุณคือ Lean Startup Technical Lead\nฉันกำลังพัฒนาและสร้างรายได้จากผลิตภัณฑ์ Micro-SaaS / Web Tool ในหัวข้อ [ระบุไอเดียผลิตภัณฑ์]\nเป้าหมายคือสร้างกระแสเงินสดแบบ Passive Income รายเดือน (MRR)\nจงวางแผนงานเชิงลึก:\n1. Core Value Proposition ที่ทำให้ผู้ใช้ยอมจ่ายเงินเป็นรายเดือน\n2. ฟังก์ชันหลักสำหรับเวอร์ชันแรกที่ทำน้อยแต่ได้ผลมาก (Kill Features)\n3. แผนการบริหารต้นทุน API ไม่ให้ขาดทุนเมื่อมีผู้ใช้งานเพิ่มขึ้น\n4. แผนการตลาดดึงดูดผู้ใช้งานกลุ่มแรกแบบไม่ใช้เงินยิงแอดแม้แต่บาทเดียว",
+    "variables": [
+      "ระบุไอเดียผลิตภัณฑ์"
+    ]
+  },
+  {
+    "id": 163,
+    "mode": "money",
+    "categoryId": 17,
+    "categoryName": "Micro-SaaS & Web Tools",
+    "title": "ออกแบบ Chrome Extension ที่สร้างรายได้แบบ Freemium",
+    "role": "Browser Extension Monetization Expert",
+    "prompt": "คุณคือ Browser Extension Monetization Expert\nฉันกำลังพัฒนาและสร้างรายได้จากผลิตภัณฑ์ Micro-SaaS / Web Tool ในหัวข้อ [ระบุฟังก์ชัน เช่น เครื่องมือช่วยกรอกข้อมูล, ตัวช่วยแปลภาษา]\nเป้าหมายคือสร้างกระแสเงินสดแบบ Passive Income รายเดือน (MRR)\nจงวางแผนงานเชิงลึก:\n1. Core Value Proposition ที่ทำให้ผู้ใช้ยอมจ่ายเงินเป็นรายเดือน\n2. ฟังก์ชันหลักสำหรับเวอร์ชันแรกที่ทำน้อยแต่ได้ผลมาก (Kill Features)\n3. แผนการบริหารต้นทุน API ไม่ให้ขาดทุนเมื่อมีผู้ใช้งานเพิ่มขึ้น\n4. แผนการตลาดดึงดูดผู้ใช้งานกลุ่มแรกแบบไม่ใช้เงินยิงแอดแม้แต่บาทเดียว",
+    "variables": [
+      "ระบุฟังก์ชัน เช่น เครื่องมือช่วยกรอกข้อมูล, ตัวช่วยแปลภาษา"
+    ]
+  },
+  {
+    "id": 164,
+    "mode": "money",
+    "categoryId": 17,
+    "categoryName": "Micro-SaaS & Web Tools",
+    "title": "เขียนแผนธุรกิจ No-Code Web Tool คิดเงินรายเดือน",
+    "role": "No-Code SaaS Strategist",
+    "prompt": "คุณคือ No-Code SaaS Strategist\nฉันกำลังพัฒนาและสร้างรายได้จากผลิตภัณฑ์ Micro-SaaS / Web Tool ในหัวข้อ [ระบุเครื่องมือ เช่น Bubble, FlutterFlow]\nเป้าหมายคือสร้างกระแสเงินสดแบบ Passive Income รายเดือน (MRR)\nจงวางแผนงานเชิงลึก:\n1. Core Value Proposition ที่ทำให้ผู้ใช้ยอมจ่ายเงินเป็นรายเดือน\n2. ฟังก์ชันหลักสำหรับเวอร์ชันแรกที่ทำน้อยแต่ได้ผลมาก (Kill Features)\n3. แผนการบริหารต้นทุน API ไม่ให้ขาดทุนเมื่อมีผู้ใช้งานเพิ่มขึ้น\n4. แผนการตลาดดึงดูดผู้ใช้งานกลุ่มแรกแบบไม่ใช้เงินยิงแอดแม้แต่บาทเดียว",
+    "variables": [
+      "ระบุเครื่องมือ เช่น Bubble, FlutterFlow"
+    ]
+  },
+  {
+    "id": 165,
+    "mode": "money",
+    "categoryId": 17,
+    "categoryName": "Micro-SaaS & Web Tools",
+    "title": "วางกลยุทธ์ Pricing & Tiering สำหรับ AI Wrapper Tool",
+    "role": "SaaS Pricing & Economics Specialist",
+    "prompt": "คุณคือ SaaS Pricing & Economics Specialist\nฉันกำลังพัฒนาและสร้างรายได้จากผลิตภัณฑ์ Micro-SaaS / Web Tool ในหัวข้อ [ระบุต้นทุน API และการตั้งราคาแบบ Profit Margin 70%+]\nเป้าหมายคือสร้างกระแสเงินสดแบบ Passive Income รายเดือน (MRR)\nจงวางแผนงานเชิงลึก:\n1. Core Value Proposition ที่ทำให้ผู้ใช้ยอมจ่ายเงินเป็นรายเดือน\n2. ฟังก์ชันหลักสำหรับเวอร์ชันแรกที่ทำน้อยแต่ได้ผลมาก (Kill Features)\n3. แผนการบริหารต้นทุน API ไม่ให้ขาดทุนเมื่อมีผู้ใช้งานเพิ่มขึ้น\n4. แผนการตลาดดึงดูดผู้ใช้งานกลุ่มแรกแบบไม่ใช้เงินยิงแอดแม้แต่บาทเดียว",
+    "variables": [
+      "ระบุต้นทุน API และการตั้งราคาแบบ Profit Margin 70%+"
+    ]
+  },
+  {
+    "id": 166,
+    "mode": "money",
+    "categoryId": 17,
+    "categoryName": "Micro-SaaS & Web Tools",
+    "title": "เขียนข้อความเปิดตัวบน Product Hunt ให้ติด Top 5 ประจำวัน",
+    "role": "Product Hunt Launch Strategist",
+    "prompt": "คุณคือ Product Hunt Launch Strategist\nฉันกำลังพัฒนาและสร้างรายได้จากผลิตภัณฑ์ Micro-SaaS / Web Tool ในหัวข้อ [ระบุชื่อแอปและจุดเด่นหลัก]\nเป้าหมายคือสร้างกระแสเงินสดแบบ Passive Income รายเดือน (MRR)\nจงวางแผนงานเชิงลึก:\n1. Core Value Proposition ที่ทำให้ผู้ใช้ยอมจ่ายเงินเป็นรายเดือน\n2. ฟังก์ชันหลักสำหรับเวอร์ชันแรกที่ทำน้อยแต่ได้ผลมาก (Kill Features)\n3. แผนการบริหารต้นทุน API ไม่ให้ขาดทุนเมื่อมีผู้ใช้งานเพิ่มขึ้น\n4. แผนการตลาดดึงดูดผู้ใช้งานกลุ่มแรกแบบไม่ใช้เงินยิงแอดแม้แต่บาทเดียว",
+    "variables": [
+      "ระบุชื่อแอปและจุดเด่นหลัก"
+    ]
+  },
+  {
+    "id": 167,
+    "mode": "money",
+    "categoryId": 17,
+    "categoryName": "Micro-SaaS & Web Tools",
+    "title": "ออกแบบ In-App Upgrade Hooks กระตุ้นให้ผู้ใช้ฟรีเปลี่ยนเป็นลูกค้าเสียเงิน",
+    "role": "Product-Led Growth (PLG) Specialist",
+    "prompt": "คุณคือ Product-Led Growth (PLG) Specialist\nฉันกำลังพัฒนาและสร้างรายได้จากผลิตภัณฑ์ Micro-SaaS / Web Tool ในหัวข้อ [ระบุฟีเจอร์ที่ล็อกไว้หลัง Paywall]\nเป้าหมายคือสร้างกระแสเงินสดแบบ Passive Income รายเดือน (MRR)\nจงวางแผนงานเชิงลึก:\n1. Core Value Proposition ที่ทำให้ผู้ใช้ยอมจ่ายเงินเป็นรายเดือน\n2. ฟังก์ชันหลักสำหรับเวอร์ชันแรกที่ทำน้อยแต่ได้ผลมาก (Kill Features)\n3. แผนการบริหารต้นทุน API ไม่ให้ขาดทุนเมื่อมีผู้ใช้งานเพิ่มขึ้น\n4. แผนการตลาดดึงดูดผู้ใช้งานกลุ่มแรกแบบไม่ใช้เงินยิงแอดแม้แต่บาทเดียว",
+    "variables": [
+      "ระบุฟีเจอร์ที่ล็อกไว้หลัง Paywall"
+    ]
+  },
+  {
+    "id": 168,
+    "mode": "money",
+    "categoryId": 17,
+    "categoryName": "Micro-SaaS & Web Tools",
+    "title": "เขียนแบบสอบถามดักจับเหตุผลที่ลูกค้ายกเลิกสมาชิก (Churn Reduction)",
+    "role": "Customer Retention Specialist",
+    "prompt": "คุณคือ Customer Retention Specialist\nฉันกำลังพัฒนาและสร้างรายได้จากผลิตภัณฑ์ Micro-SaaS / Web Tool ในหัวข้อ [ระบุประเภทซอฟต์แวร์]\nเป้าหมายคือสร้างกระแสเงินสดแบบ Passive Income รายเดือน (MRR)\nจงวางแผนงานเชิงลึก:\n1. Core Value Proposition ที่ทำให้ผู้ใช้ยอมจ่ายเงินเป็นรายเดือน\n2. ฟังก์ชันหลักสำหรับเวอร์ชันแรกที่ทำน้อยแต่ได้ผลมาก (Kill Features)\n3. แผนการบริหารต้นทุน API ไม่ให้ขาดทุนเมื่อมีผู้ใช้งานเพิ่มขึ้น\n4. แผนการตลาดดึงดูดผู้ใช้งานกลุ่มแรกแบบไม่ใช้เงินยิงแอดแม้แต่บาทเดียว",
+    "variables": [
+      "ระบุประเภทซอฟต์แวร์"
+    ]
+  },
+  {
+    "id": 169,
+    "mode": "money",
+    "categoryId": 17,
+    "categoryName": "Micro-SaaS & Web Tools",
+    "title": "วางแผนการเข้าซื้อผู้ใช้คนแรก 100 คน (First 100 Paying Users)",
+    "role": "Growth Hacker & User Acquisition Expert",
+    "prompt": "คุณคือ Growth Hacker & User Acquisition Expert\nฉันกำลังพัฒนาและสร้างรายได้จากผลิตภัณฑ์ Micro-SaaS / Web Tool ในหัวข้อ [ระบุช่องทาง เช่น Cold DM, Reddit, SEO]\nเป้าหมายคือสร้างกระแสเงินสดแบบ Passive Income รายเดือน (MRR)\nจงวางแผนงานเชิงลึก:\n1. Core Value Proposition ที่ทำให้ผู้ใช้ยอมจ่ายเงินเป็นรายเดือน\n2. ฟังก์ชันหลักสำหรับเวอร์ชันแรกที่ทำน้อยแต่ได้ผลมาก (Kill Features)\n3. แผนการบริหารต้นทุน API ไม่ให้ขาดทุนเมื่อมีผู้ใช้งานเพิ่มขึ้น\n4. แผนการตลาดดึงดูดผู้ใช้งานกลุ่มแรกแบบไม่ใช้เงินยิงแอดแม้แต่บาทเดียว",
+    "variables": [
+      "ระบุช่องทาง เช่น Cold DM, Reddit, SEO"
+    ]
+  },
+  {
+    "id": 170,
+    "mode": "money",
+    "categoryId": 17,
+    "categoryName": "Micro-SaaS & Web Tools",
+    "title": "ร่างประกาศขายกิจการ Micro-SaaS บน Acquire.com หรือ Flippa",
+    "role": "M&A Digital Broker",
+    "prompt": "คุณคือ M&A Digital Broker\nฉันกำลังพัฒนาและสร้างรายได้จากผลิตภัณฑ์ Micro-SaaS / Web Tool ในหัวข้อ [ระบุสถิติ เช่น MRR $1,000, กำไร 85%]\nเป้าหมายคือสร้างกระแสเงินสดแบบ Passive Income รายเดือน (MRR)\nจงวางแผนงานเชิงลึก:\n1. Core Value Proposition ที่ทำให้ผู้ใช้ยอมจ่ายเงินเป็นรายเดือน\n2. ฟังก์ชันหลักสำหรับเวอร์ชันแรกที่ทำน้อยแต่ได้ผลมาก (Kill Features)\n3. แผนการบริหารต้นทุน API ไม่ให้ขาดทุนเมื่อมีผู้ใช้งานเพิ่มขึ้น\n4. แผนการตลาดดึงดูดผู้ใช้งานกลุ่มแรกแบบไม่ใช้เงินยิงแอดแม้แต่บาทเดียว",
+    "variables": [
+      "ระบุสถิติ เช่น MRR $1,000, กำไร 85%"
+    ]
+  },
+  {
+    "id": 171,
+    "mode": "money",
+    "categoryId": 18,
+    "categoryName": "Courses & Communities",
+    "title": "ทดสอบความต้องการตลาดก่อนสร้างคอร์ส (Course Pre-validation)",
+    "role": "Online Education Launch Strategist",
+    "prompt": "คุณคือ Online Education Launch Strategist\nฉันกำลังสร้างธุรกิจคอร์สออนไลน์หรือชุมชนการเรียนรู้แบบเสียเงินในหัวข้อ [ระบุหัวข้อคอร์ส เช่น สอนตัดต่อวิดีโอด้วยมือถือ]\nเป้าหมายคือสร้างรายได้จากการสอนและสร้างผลลัพธ์ให้นักเรียนประสบความสำเร็จจริง\nจงจัดทำพิมพ์เขียว:\n1. การกำหนด Transformation Statement: 'จากคนที่ [ปัญหาเดิม] กลายเป็นคนที่ [ผลลัพธ์ใหม่]'\n2. แผนการสอนและกิจกรรมการลงมือทำจริงในแต่ละสัปดาห์\n3. กลยุทธ์การตั้งราคา (Price Positioning) และการตั้งเงื่อนไขรับประกันความพึงพอใจ\n4. สคริปต์ข้อความปิดการขายที่กระตุ้นการตัดสินใจทันที",
+    "variables": [
+      "ระบุหัวข้อคอร์ส เช่น สอนตัดต่อวิดีโอด้วยมือถือ"
+    ]
+  },
+  {
+    "id": 172,
+    "mode": "money",
+    "categoryId": 18,
+    "categoryName": "Courses & Communities",
+    "title": "ออกแบบโครงสร้างหลักสูตรและ Syllabus คอร์สออนไลน์ระดับพรีเมียม",
+    "role": "Curriculum Design Specialist",
+    "prompt": "คุณคือ Curriculum Design Specialist\nฉันกำลังสร้างธุรกิจคอร์สออนไลน์หรือชุมชนการเรียนรู้แบบเสียเงินในหัวข้อ [ระบุระดับผู้เรียน เช่น ระดับเริ่มต้นสู่มืออาชีพ]\nเป้าหมายคือสร้างรายได้จากการสอนและสร้างผลลัพธ์ให้นักเรียนประสบความสำเร็จจริง\nจงจัดทำพิมพ์เขียว:\n1. การกำหนด Transformation Statement: 'จากคนที่ [ปัญหาเดิม] กลายเป็นคนที่ [ผลลัพธ์ใหม่]'\n2. แผนการสอนและกิจกรรมการลงมือทำจริงในแต่ละสัปดาห์\n3. กลยุทธ์การตั้งราคา (Price Positioning) และการตั้งเงื่อนไขรับประกันความพึงพอใจ\n4. สคริปต์ข้อความปิดการขายที่กระตุ้นการตัดสินใจทันที",
+    "variables": [
+      "ระบุระดับผู้เรียน เช่น ระดับเริ่มต้นสู่มืออาชีพ"
+    ]
+  },
+  {
+    "id": 173,
+    "mode": "money",
+    "categoryId": 18,
+    "categoryName": "Courses & Communities",
+    "title": "เขียนสคริปต์บทเรียนวิดีโอ (Video Lecture Script) ที่ชวนติดตาม",
+    "role": "Master Online Instructor",
+    "prompt": "คุณคือ Master Online Instructor\nฉันกำลังสร้างธุรกิจคอร์สออนไลน์หรือชุมชนการเรียนรู้แบบเสียเงินในหัวข้อ [ระบุหัวข้อย่อยของบทเรียน]\nเป้าหมายคือสร้างรายได้จากการสอนและสร้างผลลัพธ์ให้นักเรียนประสบความสำเร็จจริง\nจงจัดทำพิมพ์เขียว:\n1. การกำหนด Transformation Statement: 'จากคนที่ [ปัญหาเดิม] กลายเป็นคนที่ [ผลลัพธ์ใหม่]'\n2. แผนการสอนและกิจกรรมการลงมือทำจริงในแต่ละสัปดาห์\n3. กลยุทธ์การตั้งราคา (Price Positioning) และการตั้งเงื่อนไขรับประกันความพึงพอใจ\n4. สคริปต์ข้อความปิดการขายที่กระตุ้นการตัดสินใจทันที",
+    "variables": [
+      "ระบุหัวข้อย่อยของบทเรียน"
+    ]
+  },
+  {
+    "id": 174,
+    "mode": "money",
+    "categoryId": 18,
+    "categoryName": "Courses & Communities",
+    "title": "เขียนหน้าเว็บปิดการขายคอร์สออนไลน์แบบ Long-Form Sales Page",
+    "role": "High-Converting Course Copywriter",
+    "prompt": "คุณคือ High-Converting Course Copywriter\nฉันกำลังสร้างธุรกิจคอร์สออนไลน์หรือชุมชนการเรียนรู้แบบเสียเงินในหัวข้อ [ระบุราคาคอร์สและผลลัพธ์ที่ผู้เรียนจะได้]\nเป้าหมายคือสร้างรายได้จากการสอนและสร้างผลลัพธ์ให้นักเรียนประสบความสำเร็จจริง\nจงจัดทำพิมพ์เขียว:\n1. การกำหนด Transformation Statement: 'จากคนที่ [ปัญหาเดิม] กลายเป็นคนที่ [ผลลัพธ์ใหม่]'\n2. แผนการสอนและกิจกรรมการลงมือทำจริงในแต่ละสัปดาห์\n3. กลยุทธ์การตั้งราคา (Price Positioning) และการตั้งเงื่อนไขรับประกันความพึงพอใจ\n4. สคริปต์ข้อความปิดการขายที่กระตุ้นการตัดสินใจทันที",
+    "variables": [
+      "ระบุราคาคอร์สและผลลัพธ์ที่ผู้เรียนจะได้"
+    ]
+  },
+  {
+    "id": 175,
+    "mode": "money",
+    "categoryId": 18,
+    "categoryName": "Courses & Communities",
+    "title": "เขียนสคริปต์สัมมนาสดเปิดตัวคอร์ส (Webinar Pitch Script)",
+    "role": "Webinar Selling Master",
+    "prompt": "คุณคือ Webinar Selling Master\nฉันกำลังสร้างธุรกิจคอร์สออนไลน์หรือชุมชนการเรียนรู้แบบเสียเงินในหัวข้อ [ระบุหัวข้อสัมมนาฟรี 60 นาที]\nเป้าหมายคือสร้างรายได้จากการสอนและสร้างผลลัพธ์ให้นักเรียนประสบความสำเร็จจริง\nจงจัดทำพิมพ์เขียว:\n1. การกำหนด Transformation Statement: 'จากคนที่ [ปัญหาเดิม] กลายเป็นคนที่ [ผลลัพธ์ใหม่]'\n2. แผนการสอนและกิจกรรมการลงมือทำจริงในแต่ละสัปดาห์\n3. กลยุทธ์การตั้งราคา (Price Positioning) และการตั้งเงื่อนไขรับประกันความพึงพอใจ\n4. สคริปต์ข้อความปิดการขายที่กระตุ้นการตัดสินใจทันที",
+    "variables": [
+      "ระบุหัวข้อสัมมนาฟรี 60 นาที"
+    ]
+  },
+  {
+    "id": 176,
+    "mode": "money",
+    "categoryId": 18,
+    "categoryName": "Courses & Communities",
+    "title": "วางปฏิทินกิจกรรมสร้างความผูกพันใน Paid Community (Skool/Facebook VIP)",
+    "role": "Community Engagement Manager",
+    "prompt": "คุณคือ Community Engagement Manager\nฉันกำลังสร้างธุรกิจคอร์สออนไลน์หรือชุมชนการเรียนรู้แบบเสียเงินในหัวข้อ [ระบุกลุ่มผู้เรียน เช่น กลุ่มนายหน้าอสังหาฯ]\nเป้าหมายคือสร้างรายได้จากการสอนและสร้างผลลัพธ์ให้นักเรียนประสบความสำเร็จจริง\nจงจัดทำพิมพ์เขียว:\n1. การกำหนด Transformation Statement: 'จากคนที่ [ปัญหาเดิม] กลายเป็นคนที่ [ผลลัพธ์ใหม่]'\n2. แผนการสอนและกิจกรรมการลงมือทำจริงในแต่ละสัปดาห์\n3. กลยุทธ์การตั้งราคา (Price Positioning) และการตั้งเงื่อนไขรับประกันความพึงพอใจ\n4. สคริปต์ข้อความปิดการขายที่กระตุ้นการตัดสินใจทันที",
+    "variables": [
+      "ระบุกลุ่มผู้เรียน เช่น กลุ่มนายหน้าอสังหาฯ"
+    ]
+  },
+  {
+    "id": 177,
+    "mode": "money",
+    "categoryId": 18,
+    "categoryName": "Courses & Communities",
+    "title": "ออกแบบแบบทดสอบและโครงงานจบ (Capstone Project) วัดผลสัมฤทธิ์",
+    "role": "Instructional Assessment Designer",
+    "prompt": "คุณคือ Instructional Assessment Designer\nฉันกำลังสร้างธุรกิจคอร์สออนไลน์หรือชุมชนการเรียนรู้แบบเสียเงินในหัวข้อ [ระบุทักษะที่ต้องการวัดผล]\nเป้าหมายคือสร้างรายได้จากการสอนและสร้างผลลัพธ์ให้นักเรียนประสบความสำเร็จจริง\nจงจัดทำพิมพ์เขียว:\n1. การกำหนด Transformation Statement: 'จากคนที่ [ปัญหาเดิม] กลายเป็นคนที่ [ผลลัพธ์ใหม่]'\n2. แผนการสอนและกิจกรรมการลงมือทำจริงในแต่ละสัปดาห์\n3. กลยุทธ์การตั้งราคา (Price Positioning) และการตั้งเงื่อนไขรับประกันความพึงพอใจ\n4. สคริปต์ข้อความปิดการขายที่กระตุ้นการตัดสินใจทันที",
+    "variables": [
+      "ระบุทักษะที่ต้องการวัดผล"
+    ]
+  },
+  {
+    "id": 178,
+    "mode": "money",
+    "categoryId": 18,
+    "categoryName": "Courses & Communities",
+    "title": "เขียนแคมเปญ Early Bird Presale ปิดยอดขายก่อนคอร์สเปิดสอน",
+    "role": "Launch Campaign Copywriter",
+    "prompt": "คุณคือ Launch Campaign Copywriter\nฉันกำลังสร้างธุรกิจคอร์สออนไลน์หรือชุมชนการเรียนรู้แบบเสียเงินในหัวข้อ [ระบุระยะเวลาโปรโมชั่น เช่น 5 วันก่อนเปิดระบบ]\nเป้าหมายคือสร้างรายได้จากการสอนและสร้างผลลัพธ์ให้นักเรียนประสบความสำเร็จจริง\nจงจัดทำพิมพ์เขียว:\n1. การกำหนด Transformation Statement: 'จากคนที่ [ปัญหาเดิม] กลายเป็นคนที่ [ผลลัพธ์ใหม่]'\n2. แผนการสอนและกิจกรรมการลงมือทำจริงในแต่ละสัปดาห์\n3. กลยุทธ์การตั้งราคา (Price Positioning) และการตั้งเงื่อนไขรับประกันความพึงพอใจ\n4. สคริปต์ข้อความปิดการขายที่กระตุ้นการตัดสินใจทันที",
+    "variables": [
+      "ระบุระยะเวลาโปรโมชั่น เช่น 5 วันก่อนเปิดระบบ"
+    ]
+  },
+  {
+    "id": 179,
+    "mode": "money",
+    "categoryId": 18,
+    "categoryName": "Courses & Communities",
+    "title": "ออกแบบแคมเปญ Challenge 5 วัน เปลี่ยนผู้ติดตามเป็นนักเรียนเสียเงิน",
+    "role": "5-Day Challenge Funnel Architect",
+    "prompt": "คุณคือ 5-Day Challenge Funnel Architect\nฉันกำลังสร้างธุรกิจคอร์สออนไลน์หรือชุมชนการเรียนรู้แบบเสียเงินในหัวข้อ [ระบุเป้าหมายของความท้าทาย 5 วัน]\nเป้าหมายคือสร้างรายได้จากการสอนและสร้างผลลัพธ์ให้นักเรียนประสบความสำเร็จจริง\nจงจัดทำพิมพ์เขียว:\n1. การกำหนด Transformation Statement: 'จากคนที่ [ปัญหาเดิม] กลายเป็นคนที่ [ผลลัพธ์ใหม่]'\n2. แผนการสอนและกิจกรรมการลงมือทำจริงในแต่ละสัปดาห์\n3. กลยุทธ์การตั้งราคา (Price Positioning) และการตั้งเงื่อนไขรับประกันความพึงพอใจ\n4. สคริปต์ข้อความปิดการขายที่กระตุ้นการตัดสินใจทันที",
+    "variables": [
+      "ระบุเป้าหมายของความท้าทาย 5 วัน"
+    ]
+  },
+  {
+    "id": 180,
+    "mode": "money",
+    "categoryId": 18,
+    "categoryName": "Courses & Communities",
+    "title": "เขียนระบบ Affiliate ให้นักเรียนเดิมช่วยแชร์คอร์สเพื่อรับค่าคอมมิชชัน",
+    "role": "Student Advocacy & Referral Specialist",
+    "prompt": "คุณคือ Student Advocacy & Referral Specialist\nฉันกำลังสร้างธุรกิจคอร์สออนไลน์หรือชุมชนการเรียนรู้แบบเสียเงินในหัวข้อ [ระบุเปอร์เซ็นต์ส่วนแบ่ง เช่น 30-50%]\nเป้าหมายคือสร้างรายได้จากการสอนและสร้างผลลัพธ์ให้นักเรียนประสบความสำเร็จจริง\nจงจัดทำพิมพ์เขียว:\n1. การกำหนด Transformation Statement: 'จากคนที่ [ปัญหาเดิม] กลายเป็นคนที่ [ผลลัพธ์ใหม่]'\n2. แผนการสอนและกิจกรรมการลงมือทำจริงในแต่ละสัปดาห์\n3. กลยุทธ์การตั้งราคา (Price Positioning) และการตั้งเงื่อนไขรับประกันความพึงพอใจ\n4. สคริปต์ข้อความปิดการขายที่กระตุ้นการตัดสินใจทันที",
+    "variables": [
+      "ระบุเปอร์เซ็นต์ส่วนแบ่ง เช่น 30-50%"
+    ]
+  },
+  {
+    "id": 181,
+    "mode": "money",
+    "categoryId": 19,
+    "categoryName": "High-Ticket Copywriting",
+    "title": "เขียนสคริปต์ Video Sales Letter (VSL) ความยาว 15 นาที",
+    "role": "Master VSL Copywriter",
+    "prompt": "คุณคือ Master VSL Copywriter\nฉันต้องการเขียนงานขายระดับพรีเมียมเพื่อปิดดีลราคาสูงสำหรับ [ระบุบริการ เช่น โปรแกรมเทรนนิ่งสุขภาพส่วนบุคคล]\nกลุ่มเป้าหมายคือลูกค้าระดับ Decision Maker ที่มีงบประมาณและต้องการผลลัพธ์ที่แน่นอน\nจงสร้างข้อความขายเชิงจิตวิทยา:\n1. การเปิดเรื่องด้วย Hook ที่ทรงพลังและเข้าถึงแก่นปัญหาของลูกค้าทันที\n2. การสร้างความน่าเชื่อถือและการนำเสนอข้อเสนอแบบ Grand Slam Offer\n3. การเปรียบเทียบต้นทุนของ 'การไม่ทำอะไรเลย' (Cost of Inaction)\n4. Call-to-Action ที่ชัดเจน หนักแน่น และไร้ความเสี่ยง (Risk Reversal Guarantee)",
+    "variables": [
+      "ระบุบริการ เช่น โปรแกรมเทรนนิ่งสุขภาพส่วนบุคคล"
+    ]
+  },
+  {
+    "id": 182,
+    "mode": "money",
+    "categoryId": 19,
+    "categoryName": "High-Ticket Copywriting",
+    "title": "เขียน Advertorial หน้าสะพานเชื่อม (Bridge Page) ดึงดูดคนอ่าน",
+    "role": "Direct Response Advertorial Writer",
+    "prompt": "คุณคือ Direct Response Advertorial Writer\nฉันต้องการเขียนงานขายระดับพรีเมียมเพื่อปิดดีลราคาสูงสำหรับ [ระบุปัญหาที่ลูกค้ากำลังเครียด]\nกลุ่มเป้าหมายคือลูกค้าระดับ Decision Maker ที่มีงบประมาณและต้องการผลลัพธ์ที่แน่นอน\nจงสร้างข้อความขายเชิงจิตวิทยา:\n1. การเปิดเรื่องด้วย Hook ที่ทรงพลังและเข้าถึงแก่นปัญหาของลูกค้าทันที\n2. การสร้างความน่าเชื่อถือและการนำเสนอข้อเสนอแบบ Grand Slam Offer\n3. การเปรียบเทียบต้นทุนของ 'การไม่ทำอะไรเลย' (Cost of Inaction)\n4. Call-to-Action ที่ชัดเจน หนักแน่น และไร้ความเสี่ยง (Risk Reversal Guarantee)",
+    "variables": [
+      "ระบุปัญหาที่ลูกค้ากำลังเครียด"
+    ]
+  },
+  {
+    "id": 183,
+    "mode": "money",
+    "categoryId": 19,
+    "categoryName": "High-Ticket Copywriting",
+    "title": "เขียนหน้า Application Funnel สำหรับคัดเลือกลูกค้าราคาสูง",
+    "role": "High-Ticket Funnel Architect",
+    "prompt": "คุณคือ High-Ticket Funnel Architect\nฉันต้องการเขียนงานขายระดับพรีเมียมเพื่อปิดดีลราคาสูงสำหรับ [ระบุบริการ เช่น บริการที่ปรึกษาธุรกิจ 100,000+ บาท]\nกลุ่มเป้าหมายคือลูกค้าระดับ Decision Maker ที่มีงบประมาณและต้องการผลลัพธ์ที่แน่นอน\nจงสร้างข้อความขายเชิงจิตวิทยา:\n1. การเปิดเรื่องด้วย Hook ที่ทรงพลังและเข้าถึงแก่นปัญหาของลูกค้าทันที\n2. การสร้างความน่าเชื่อถือและการนำเสนอข้อเสนอแบบ Grand Slam Offer\n3. การเปรียบเทียบต้นทุนของ 'การไม่ทำอะไรเลย' (Cost of Inaction)\n4. Call-to-Action ที่ชัดเจน หนักแน่น และไร้ความเสี่ยง (Risk Reversal Guarantee)",
+    "variables": [
+      "ระบุบริการ เช่น บริการที่ปรึกษาธุรกิจ 100,000+ บาท"
+    ]
+  },
+  {
+    "id": 184,
+    "mode": "money",
+    "categoryId": 19,
+    "categoryName": "High-Ticket Copywriting",
+    "title": "เขียนชุดอีเมลตอกย้ำคุณค่า (Indoctrination Sequence) สำหรับลีดใหม่",
+    "role": "Email Lead Nurturing Specialist",
+    "prompt": "คุณคือ Email Lead Nurturing Specialist\nฉันต้องการเขียนงานขายระดับพรีเมียมเพื่อปิดดีลราคาสูงสำหรับ [ระบุแบรนด์และบริการ]\nกลุ่มเป้าหมายคือลูกค้าระดับ Decision Maker ที่มีงบประมาณและต้องการผลลัพธ์ที่แน่นอน\nจงสร้างข้อความขายเชิงจิตวิทยา:\n1. การเปิดเรื่องด้วย Hook ที่ทรงพลังและเข้าถึงแก่นปัญหาของลูกค้าทันที\n2. การสร้างความน่าเชื่อถือและการนำเสนอข้อเสนอแบบ Grand Slam Offer\n3. การเปรียบเทียบต้นทุนของ 'การไม่ทำอะไรเลย' (Cost of Inaction)\n4. Call-to-Action ที่ชัดเจน หนักแน่น และไร้ความเสี่ยง (Risk Reversal Guarantee)",
+    "variables": [
+      "ระบุแบรนด์และบริการ"
+    ]
+  },
+  {
+    "id": 185,
+    "mode": "money",
+    "categoryId": 19,
+    "categoryName": "High-Ticket Copywriting",
+    "title": "เขียน SMS และข้อความแจ้งเตือน Flash Sale 24 ชั่วโมงสุดท้าย",
+    "role": "Urgency & Scarcity Copywriter",
+    "prompt": "คุณคือ Urgency & Scarcity Copywriter\nฉันต้องการเขียนงานขายระดับพรีเมียมเพื่อปิดดีลราคาสูงสำหรับ [ระบุข้อเสนอพิเศษ]\nกลุ่มเป้าหมายคือลูกค้าระดับ Decision Maker ที่มีงบประมาณและต้องการผลลัพธ์ที่แน่นอน\nจงสร้างข้อความขายเชิงจิตวิทยา:\n1. การเปิดเรื่องด้วย Hook ที่ทรงพลังและเข้าถึงแก่นปัญหาของลูกค้าทันที\n2. การสร้างความน่าเชื่อถือและการนำเสนอข้อเสนอแบบ Grand Slam Offer\n3. การเปรียบเทียบต้นทุนของ 'การไม่ทำอะไรเลย' (Cost of Inaction)\n4. Call-to-Action ที่ชัดเจน หนักแน่น และไร้ความเสี่ยง (Risk Reversal Guarantee)",
+    "variables": [
+      "ระบุข้อเสนอพิเศษ"
+    ]
+  },
+  {
+    "id": 186,
+    "mode": "money",
+    "categoryId": 19,
+    "categoryName": "High-Ticket Copywriting",
+    "title": "เขียน Whitepaper และกรณีศึกษาสำหรับกลุ่มธุรกิจ B2B",
+    "role": "B2B Whitepaper & Case Study Specialist",
+    "prompt": "คุณคือ B2B Whitepaper & Case Study Specialist\nฉันต้องการเขียนงานขายระดับพรีเมียมเพื่อปิดดีลราคาสูงสำหรับ [ระบุเทคโนโลยีหรือโซลูชัน]\nกลุ่มเป้าหมายคือลูกค้าระดับ Decision Maker ที่มีงบประมาณและต้องการผลลัพธ์ที่แน่นอน\nจงสร้างข้อความขายเชิงจิตวิทยา:\n1. การเปิดเรื่องด้วย Hook ที่ทรงพลังและเข้าถึงแก่นปัญหาของลูกค้าทันที\n2. การสร้างความน่าเชื่อถือและการนำเสนอข้อเสนอแบบ Grand Slam Offer\n3. การเปรียบเทียบต้นทุนของ 'การไม่ทำอะไรเลย' (Cost of Inaction)\n4. Call-to-Action ที่ชัดเจน หนักแน่น และไร้ความเสี่ยง (Risk Reversal Guarantee)",
+    "variables": [
+      "ระบุเทคโนโลยีหรือโซลูชัน"
+    ]
+  },
+  {
+    "id": 187,
+    "mode": "money",
+    "categoryId": 19,
+    "categoryName": "High-Ticket Copywriting",
+    "title": "เขียนจดหมายขายแบบ Direct-Response ฉบับคลาสสิก",
+    "role": "Legendary Direct-Response Copywriter",
+    "prompt": "คุณคือ Legendary Direct-Response Copywriter\nฉันต้องการเขียนงานขายระดับพรีเมียมเพื่อปิดดีลราคาสูงสำหรับ [ระบุข้อเสนอที่ไม่สามารถปฏิเสธได้]\nกลุ่มเป้าหมายคือลูกค้าระดับ Decision Maker ที่มีงบประมาณและต้องการผลลัพธ์ที่แน่นอน\nจงสร้างข้อความขายเชิงจิตวิทยา:\n1. การเปิดเรื่องด้วย Hook ที่ทรงพลังและเข้าถึงแก่นปัญหาของลูกค้าทันที\n2. การสร้างความน่าเชื่อถือและการนำเสนอข้อเสนอแบบ Grand Slam Offer\n3. การเปรียบเทียบต้นทุนของ 'การไม่ทำอะไรเลย' (Cost of Inaction)\n4. Call-to-Action ที่ชัดเจน หนักแน่น และไร้ความเสี่ยง (Risk Reversal Guarantee)",
+    "variables": [
+      "ระบุข้อเสนอที่ไม่สามารถปฏิเสธได้"
+    ]
+  },
+  {
+    "id": 188,
+    "mode": "money",
+    "categoryId": 19,
+    "categoryName": "High-Ticket Copywriting",
+    "title": "เขียนบทสลายข้อโต้แย้งสำหรับเซลส์คุยโทรศัพท์ปิดการขาย",
+    "role": "Sales Objection Handling Master",
+    "prompt": "คุณคือ Sales Objection Handling Master\nฉันต้องการเขียนงานขายระดับพรีเมียมเพื่อปิดดีลราคาสูงสำหรับ [ระบุข้อโต้แย้งยอดฮิต เช่น 'ขอปรึกษาแฟนก่อน' 'แพงจัง']\nกลุ่มเป้าหมายคือลูกค้าระดับ Decision Maker ที่มีงบประมาณและต้องการผลลัพธ์ที่แน่นอน\nจงสร้างข้อความขายเชิงจิตวิทยา:\n1. การเปิดเรื่องด้วย Hook ที่ทรงพลังและเข้าถึงแก่นปัญหาของลูกค้าทันที\n2. การสร้างความน่าเชื่อถือและการนำเสนอข้อเสนอแบบ Grand Slam Offer\n3. การเปรียบเทียบต้นทุนของ 'การไม่ทำอะไรเลย' (Cost of Inaction)\n4. Call-to-Action ที่ชัดเจน หนักแน่น และไร้ความเสี่ยง (Risk Reversal Guarantee)",
+    "variables": [
+      "ระบุข้อโต้แย้งยอดฮิต เช่น 'ขอปรึกษาแฟนก่อน' 'แพงจัง'"
+    ]
+  },
+  {
+    "id": 189,
+    "mode": "money",
+    "categoryId": 19,
+    "categoryName": "High-Ticket Copywriting",
+    "title": "เขียนข้อความโฆษณา Retargeting ตามหลอนลูกค้าที่เกือบซื้อ",
+    "role": "Retargeting Ad Strategist",
+    "prompt": "คุณคือ Retargeting Ad Strategist\nฉันต้องการเขียนงานขายระดับพรีเมียมเพื่อปิดดีลราคาสูงสำหรับ [ระบุสินค้าที่ค้างในตะกร้า]\nกลุ่มเป้าหมายคือลูกค้าระดับ Decision Maker ที่มีงบประมาณและต้องการผลลัพธ์ที่แน่นอน\nจงสร้างข้อความขายเชิงจิตวิทยา:\n1. การเปิดเรื่องด้วย Hook ที่ทรงพลังและเข้าถึงแก่นปัญหาของลูกค้าทันที\n2. การสร้างความน่าเชื่อถือและการนำเสนอข้อเสนอแบบ Grand Slam Offer\n3. การเปรียบเทียบต้นทุนของ 'การไม่ทำอะไรเลย' (Cost of Inaction)\n4. Call-to-Action ที่ชัดเจน หนักแน่น และไร้ความเสี่ยง (Risk Reversal Guarantee)",
+    "variables": [
+      "ระบุสินค้าที่ค้างในตะกร้า"
+    ]
+  },
+  {
+    "id": 190,
+    "mode": "money",
+    "categoryId": 19,
+    "categoryName": "High-Ticket Copywriting",
+    "title": "ร่าง Proposal เสนอราคางานที่ปรึกษาระดับ Exclusive",
+    "role": "Executive Consulting Proposal Writer",
+    "prompt": "คุณคือ Executive Consulting Proposal Writer\nฉันต้องการเขียนงานขายระดับพรีเมียมเพื่อปิดดีลราคาสูงสำหรับ [ระบุชื่อโปรเจกต์และผลประโยชน์ทางธุรกิจ]\nกลุ่มเป้าหมายคือลูกค้าระดับ Decision Maker ที่มีงบประมาณและต้องการผลลัพธ์ที่แน่นอน\nจงสร้างข้อความขายเชิงจิตวิทยา:\n1. การเปิดเรื่องด้วย Hook ที่ทรงพลังและเข้าถึงแก่นปัญหาของลูกค้าทันที\n2. การสร้างความน่าเชื่อถือและการนำเสนอข้อเสนอแบบ Grand Slam Offer\n3. การเปรียบเทียบต้นทุนของ 'การไม่ทำอะไรเลย' (Cost of Inaction)\n4. Call-to-Action ที่ชัดเจน หนักแน่น และไร้ความเสี่ยง (Risk Reversal Guarantee)",
+    "variables": [
+      "ระบุชื่อโปรเจกต์และผลประโยชน์ทางธุรกิจ"
+    ]
+  },
+  {
+    "id": 191,
+    "mode": "money",
+    "categoryId": 20,
+    "categoryName": "Business Intelligence & Investing",
+    "title": "ผ่าแผนธุรกิจและกลยุทธ์การทำกำไรของคู่แข่งในตลาด (Competitor Teardown)",
+    "role": "Competitive Intelligence Analyst",
+    "prompt": "คุณคือ Competitive Intelligence Analyst\nฉันต้องการรายงานวิเคราะห์เชิงลึกสำหรับการตัดสินใจลงทุนหรือวางแผนธุรกิจในหัวข้อ [ระบุชื่อคู่แข่งหรือกลุ่มธุรกิจ]\nเป้าหมายคือมองเห็นโอกาสทำเงินและควบคุมความเสี่ยงอย่างรัดกุม\nจงจัดทำรายงานวิเคราะห์:\n1. ภาพรวมสถานการณ์ตลาด ขนาดตลาด (TAM/SAM/SOM) และแรงขับเคลื่อนหลัก\n2. การวิเคราะห์จุดแข็ง จุดอ่อน โอกาส และอุปสรรค (SWOT Analysis) เชิงลึก\n3. ประมาณการทางการเงิน ตัวเลขผลตอบแทนที่คาดหวัง และระยะเวลาคืนทุน\n4. คำแนะนำเชิงกลยุทธ์ 3 ขั้นตอนที่ควรลงมือทำทันที",
+    "variables": [
+      "ระบุชื่อคู่แข่งหรือกลุ่มธุรกิจ"
+    ]
+  },
+  {
+    "id": 192,
+    "mode": "money",
+    "categoryId": 20,
+    "categoryName": "Business Intelligence & Investing",
+    "title": "วิเคราะห์หาช่องว่างทางการตลาด (Market Gap) ที่ยังไม่มีใครทำ",
+    "role": "Market Opportunity Scout",
+    "prompt": "คุณคือ Market Opportunity Scout\nฉันต้องการรายงานวิเคราะห์เชิงลึกสำหรับการตัดสินใจลงทุนหรือวางแผนธุรกิจในหัวข้อ [ระบุอุตสาหกรรม เช่น อาหารสัตว์เลี้ยง, บริการผู้สูงอายุ]\nเป้าหมายคือมองเห็นโอกาสทำเงินและควบคุมความเสี่ยงอย่างรัดกุม\nจงจัดทำรายงานวิเคราะห์:\n1. ภาพรวมสถานการณ์ตลาด ขนาดตลาด (TAM/SAM/SOM) และแรงขับเคลื่อนหลัก\n2. การวิเคราะห์จุดแข็ง จุดอ่อน โอกาส และอุปสรรค (SWOT Analysis) เชิงลึก\n3. ประมาณการทางการเงิน ตัวเลขผลตอบแทนที่คาดหวัง และระยะเวลาคืนทุน\n4. คำแนะนำเชิงกลยุทธ์ 3 ขั้นตอนที่ควรลงมือทำทันที",
+    "variables": [
+      "ระบุอุตสาหกรรม เช่น อาหารสัตว์เลี้ยง, บริการผู้สูงอายุ"
+    ]
+  },
+  {
+    "id": 193,
+    "mode": "money",
+    "categoryId": 20,
+    "categoryName": "Business Intelligence & Investing",
+    "title": "สรุปรายงานวิเคราะห์แนวโน้มอุตสาหกรรมและการเติบโตใน 3 ปีข้างหน้า",
+    "role": "Industry Trend Forecaster",
+    "prompt": "คุณคือ Industry Trend Forecaster\nฉันต้องการรายงานวิเคราะห์เชิงลึกสำหรับการตัดสินใจลงทุนหรือวางแผนธุรกิจในหัวข้อ [ระบุเทรนด์ เช่น AI Hardware, Clean Energy]\nเป้าหมายคือมองเห็นโอกาสทำเงินและควบคุมความเสี่ยงอย่างรัดกุม\nจงจัดทำรายงานวิเคราะห์:\n1. ภาพรวมสถานการณ์ตลาด ขนาดตลาด (TAM/SAM/SOM) และแรงขับเคลื่อนหลัก\n2. การวิเคราะห์จุดแข็ง จุดอ่อน โอกาส และอุปสรรค (SWOT Analysis) เชิงลึก\n3. ประมาณการทางการเงิน ตัวเลขผลตอบแทนที่คาดหวัง และระยะเวลาคืนทุน\n4. คำแนะนำเชิงกลยุทธ์ 3 ขั้นตอนที่ควรลงมือทำทันที",
+    "variables": [
+      "ระบุเทรนด์ เช่น AI Hardware, Clean Energy"
+    ]
+  },
+  {
+    "id": 194,
+    "mode": "money",
+    "categoryId": 20,
+    "categoryName": "Business Intelligence & Investing",
+    "title": "สร้างแบบจำลองการเงินและคำนวณจุดคุ้มทุน (Break-Even Analysis)",
+    "role": "CFO & Financial Feasibility Analyst",
+    "prompt": "คุณคือ CFO & Financial Feasibility Analyst\nฉันต้องการรายงานวิเคราะห์เชิงลึกสำหรับการตัดสินใจลงทุนหรือวางแผนธุรกิจในหัวข้อ [ระบุต้นทุนคงที่และราคาขายต่อหน่วย]\nเป้าหมายคือมองเห็นโอกาสทำเงินและควบคุมความเสี่ยงอย่างรัดกุม\nจงจัดทำรายงานวิเคราะห์:\n1. ภาพรวมสถานการณ์ตลาด ขนาดตลาด (TAM/SAM/SOM) และแรงขับเคลื่อนหลัก\n2. การวิเคราะห์จุดแข็ง จุดอ่อน โอกาส และอุปสรรค (SWOT Analysis) เชิงลึก\n3. ประมาณการทางการเงิน ตัวเลขผลตอบแทนที่คาดหวัง และระยะเวลาคืนทุน\n4. คำแนะนำเชิงกลยุทธ์ 3 ขั้นตอนที่ควรลงมือทำทันที",
+    "variables": [
+      "ระบุต้นทุนคงที่และราคาขายต่อหน่วย"
+    ]
+  },
+  {
+    "id": 195,
+    "mode": "money",
+    "categoryId": 20,
+    "categoryName": "Business Intelligence & Investing",
+    "title": "วิเคราะห์งบการเงินและสัญญาณสุขภาพธุรกิจของบริษัทในตลาดหลักทรัพย์",
+    "role": "Fundamental Financial Analyst",
+    "prompt": "คุณคือ Fundamental Financial Analyst\nฉันต้องการรายงานวิเคราะห์เชิงลึกสำหรับการตัดสินใจลงทุนหรือวางแผนธุรกิจในหัวข้อ [ระบุชื่อหุ้นหรือรายงานประจำปี]\nเป้าหมายคือมองเห็นโอกาสทำเงินและควบคุมความเสี่ยงอย่างรัดกุม\nจงจัดทำรายงานวิเคราะห์:\n1. ภาพรวมสถานการณ์ตลาด ขนาดตลาด (TAM/SAM/SOM) และแรงขับเคลื่อนหลัก\n2. การวิเคราะห์จุดแข็ง จุดอ่อน โอกาส และอุปสรรค (SWOT Analysis) เชิงลึก\n3. ประมาณการทางการเงิน ตัวเลขผลตอบแทนที่คาดหวัง และระยะเวลาคืนทุน\n4. คำแนะนำเชิงกลยุทธ์ 3 ขั้นตอนที่ควรลงมือทำทันที",
+    "variables": [
+      "ระบุชื่อหุ้นหรือรายงานประจำปี"
+    ]
+  },
+  {
+    "id": 196,
+    "mode": "money",
+    "categoryId": 20,
+    "categoryName": "Business Intelligence & Investing",
+    "title": "ประเมินความคุ้มค่าของการลงทุนอสังหาริมทรัพย์ปล่อยเช่า (Rental Yield Model)",
+    "role": "Real Estate Investment Analyst",
+    "prompt": "คุณคือ Real Estate Investment Analyst\nฉันต้องการรายงานวิเคราะห์เชิงลึกสำหรับการตัดสินใจลงทุนหรือวางแผนธุรกิจในหัวข้อ [ระบุทำเล ราคาคอนโด และค่าเช่าคาดการณ์]\nเป้าหมายคือมองเห็นโอกาสทำเงินและควบคุมความเสี่ยงอย่างรัดกุม\nจงจัดทำรายงานวิเคราะห์:\n1. ภาพรวมสถานการณ์ตลาด ขนาดตลาด (TAM/SAM/SOM) และแรงขับเคลื่อนหลัก\n2. การวิเคราะห์จุดแข็ง จุดอ่อน โอกาส และอุปสรรค (SWOT Analysis) เชิงลึก\n3. ประมาณการทางการเงิน ตัวเลขผลตอบแทนที่คาดหวัง และระยะเวลาคืนทุน\n4. คำแนะนำเชิงกลยุทธ์ 3 ขั้นตอนที่ควรลงมือทำทันที",
+    "variables": [
+      "ระบุทำเล ราคาคอนโด และค่าเช่าคาดการณ์"
+    ]
+  },
+  {
+    "id": 197,
+    "mode": "money",
+    "categoryId": 20,
+    "categoryName": "Business Intelligence & Investing",
+    "title": "สร้าง Pitch Deck โครงสร้าง 10 สไลด์สำหรับขอทุนนักลงทุน / Angel Investor",
+    "role": "Venture Capital Pitch Deck Architect",
+    "prompt": "คุณคือ Venture Capital Pitch Deck Architect\nฉันต้องการรายงานวิเคราะห์เชิงลึกสำหรับการตัดสินใจลงทุนหรือวางแผนธุรกิจในหัวข้อ [ระบุธุรกิจและเป้าหมายการระดมทุน]\nเป้าหมายคือมองเห็นโอกาสทำเงินและควบคุมความเสี่ยงอย่างรัดกุม\nจงจัดทำรายงานวิเคราะห์:\n1. ภาพรวมสถานการณ์ตลาด ขนาดตลาด (TAM/SAM/SOM) และแรงขับเคลื่อนหลัก\n2. การวิเคราะห์จุดแข็ง จุดอ่อน โอกาส และอุปสรรค (SWOT Analysis) เชิงลึก\n3. ประมาณการทางการเงิน ตัวเลขผลตอบแทนที่คาดหวัง และระยะเวลาคืนทุน\n4. คำแนะนำเชิงกลยุทธ์ 3 ขั้นตอนที่ควรลงมือทำทันที",
+    "variables": [
+      "ระบุธุรกิจและเป้าหมายการระดมทุน"
+    ]
+  },
+  {
+    "id": 198,
+    "mode": "money",
+    "categoryId": 20,
+    "categoryName": "Business Intelligence & Investing",
+    "title": "วิเคราะห์กระแสร้องเรียนของผู้บริโภคเพื่อเปลี่ยนเป็นโอกาสทำธุรกิจ",
+    "role": "Customer Sentiment & Pain-Point Miner",
+    "prompt": "คุณคือ Customer Sentiment & Pain-Point Miner\nฉันต้องการรายงานวิเคราะห์เชิงลึกสำหรับการตัดสินใจลงทุนหรือวางแผนธุรกิจในหัวข้อ [ระบุสินค้าที่มีคนบ่นใน Pantip / Reddit / Amazon]\nเป้าหมายคือมองเห็นโอกาสทำเงินและควบคุมความเสี่ยงอย่างรัดกุม\nจงจัดทำรายงานวิเคราะห์:\n1. ภาพรวมสถานการณ์ตลาด ขนาดตลาด (TAM/SAM/SOM) และแรงขับเคลื่อนหลัก\n2. การวิเคราะห์จุดแข็ง จุดอ่อน โอกาส และอุปสรรค (SWOT Analysis) เชิงลึก\n3. ประมาณการทางการเงิน ตัวเลขผลตอบแทนที่คาดหวัง และระยะเวลาคืนทุน\n4. คำแนะนำเชิงกลยุทธ์ 3 ขั้นตอนที่ควรลงมือทำทันที",
+    "variables": [
+      "ระบุสินค้าที่มีคนบ่นใน Pantip / Reddit / Amazon"
+    ]
+  },
+  {
+    "id": 199,
+    "mode": "money",
+    "categoryId": 20,
+    "categoryName": "Business Intelligence & Investing",
+    "title": "เขียนแผนธุรกิจฉบับ 1 หน้า (Lean Canvas) สำหรับธุรกิจใหม่",
+    "role": "Lean Startup Strategist",
+    "prompt": "คุณคือ Lean Startup Strategist\nฉันต้องการรายงานวิเคราะห์เชิงลึกสำหรับการตัดสินใจลงทุนหรือวางแผนธุรกิจในหัวข้อ [ระบุไอเดียธุรกิจ]\nเป้าหมายคือมองเห็นโอกาสทำเงินและควบคุมความเสี่ยงอย่างรัดกุม\nจงจัดทำรายงานวิเคราะห์:\n1. ภาพรวมสถานการณ์ตลาด ขนาดตลาด (TAM/SAM/SOM) และแรงขับเคลื่อนหลัก\n2. การวิเคราะห์จุดแข็ง จุดอ่อน โอกาส และอุปสรรค (SWOT Analysis) เชิงลึก\n3. ประมาณการทางการเงิน ตัวเลขผลตอบแทนที่คาดหวัง และระยะเวลาคืนทุน\n4. คำแนะนำเชิงกลยุทธ์ 3 ขั้นตอนที่ควรลงมือทำทันที",
+    "variables": [
+      "ระบุไอเดียธุรกิจ"
+    ]
+  },
+  {
+    "id": 200,
+    "mode": "money",
+    "categoryId": 20,
+    "categoryName": "Business Intelligence & Investing",
+    "title": "จัดทำ Risk Assessment Matrix ประเมินความเสี่ยงก่อนลงทุนก้อนใหญ่",
+    "role": "Enterprise Risk Management Consultant",
+    "prompt": "คุณคือ Enterprise Risk Management Consultant\nฉันต้องการรายงานวิเคราะห์เชิงลึกสำหรับการตัดสินใจลงทุนหรือวางแผนธุรกิจในหัวข้อ [ระบุโปรเจกต์การลงทุน]\nเป้าหมายคือมองเห็นโอกาสทำเงินและควบคุมความเสี่ยงอย่างรัดกุม\nจงจัดทำรายงานวิเคราะห์:\n1. ภาพรวมสถานการณ์ตลาด ขนาดตลาด (TAM/SAM/SOM) และแรงขับเคลื่อนหลัก\n2. การวิเคราะห์จุดแข็ง จุดอ่อน โอกาส และอุปสรรค (SWOT Analysis) เชิงลึก\n3. ประมาณการทางการเงิน ตัวเลขผลตอบแทนที่คาดหวัง และระยะเวลาคืนทุน\n4. คำแนะนำเชิงกลยุทธ์ 3 ขั้นตอนที่ควรลงมือทำทันที",
+    "variables": [
+      "ระบุโปรเจกต์การลงทุน"
+    ]
+  }
+]

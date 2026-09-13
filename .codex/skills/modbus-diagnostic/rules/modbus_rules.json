@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "skill_name": "modbus-diagnostic",
+  "version": "1.0.0",
+  "rules": [
+    {
+      "id": "MB-CRC-01",
+      "category": "Frame Integrity",
+      "severity": "CRITICAL",
+      "title": "Invalid CRC-16 or Endianness Transposition",
+      "description": "The computed CRC-16 (ANSI 0xA001) does not match the received frame tail, or bytes are received Big-Endian instead of Modbus standard Little-Endian (Low-byte first).",
+      "reference": "Modbus over Serial Line Specification V1.02 Section 2.5.1.2"
+    },
+    {
+      "id": "MB-ADDR-01",
+      "category": "Register Addressing",
+      "severity": "MAJOR",
+      "title": "Off-by-One Register Addressing Mismatch",
+      "description": "PLC register notation (e.g. Holding Register 40001) used directly as PDU protocol address without subtracting offset 1 (Protocol address must be 0x0000).",
+      "reference": "Modbus Application Protocol Specification V1.1b3 Section 4.4"
+    },
+    {
+      "id": "MB-TIME-01",
+      "category": "Physical Timing",
+      "severity": "CRITICAL",
+      "title": "Modbus RTU 3.5 Character Frame Timeout Violation",
+      "description": "Inter-frame gap between consecutive frames was less than 3.5 character times, causing packet merger and framing collision on the RS-485 bus.",
+      "reference": "Modbus over Serial Line Specification V1.02 Section 2.5.1.1"
+    },
+    {
+      "id": "MB-EXC-01",
+      "category": "Exception Isolation",
+      "severity": "MAJOR",
+      "title": "Slave Exception Response Received",
+      "description": "Slave responded with exception indicator bit set (Function Code | 0x80) and returned error code (0x01, 0x02, 0x03, or 0x04).",
+      "reference": "Modbus Application Protocol Specification V1.1b3 Section 7"
+    },
+    {
+      "id": "MB-QTY-01",
+      "category": "PDU Constraints",
+      "severity": "MINOR",
+      "title": "Request Quantity Exceeds Protocol Boundary",
+      "description": "Requested quantity of holding registers exceeds 125 registers (0x007D) or coils exceeds 2000 (0x07D0) in a single transaction frame.",
+      "reference": "Modbus Application Protocol Specification V1.1b3 Section 6.3"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Xian Ni (ฝืนลิขิตฟ้า ข้าขอเป็นเซียน) - ชุดจบ 44 เล่ม",
+  "short_name": "Xian Ni Reader",
+  "description": "เว็บอ่านและฟังนิยาย Xian Ni ครบชุด 44 เล่ม พร้อมระบบ AI อ่านออกเสียงภาษาไทย",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FBF0D9",
+  "theme_color": "#C17817",
+  "icons": [
+    {
+      "src": "covers/cover_01.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "covers/cover_01.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "title": "PERSONAL CODEX 101\u2013102: AI Work System Course",
+  "specification": "Production-Grade AI Engineering Ecosystem",
+  "version": "2.4.0-ACCREDITED",
+  "timestamp": "2026-09-11T14:00:00Z",
+  "total_files": 19,
+  "files": {
+    "personal-codex-course.html": {
+      "sha256": "ae40620e2debe00a76a875f7eb5ca4f1b899f0de071c94a58e45c5be6bc61e77",
+      "bytes": 576016
+    },
+    "README.md": {
+      "sha256": "271c67789cfcf9cc7ba7f1d037c2083f0fb4401a1d50cc17b463ce812878278c",
+      "bytes": 18849
+    },
+    "run_all_engineering_tests.py": {
+      "sha256": "9491ce0a8b481282129ed54bc400674a0e76d634d5ab5a5b6a8eb1286b67d774",
+      "bytes": 18888
+    },
+    "run_skill.py": {
+      "sha256": "6eafc0980da7b7ace2565498cd48766033bc09d36cb855624db5bf63b6b42913",
+      "bytes": 11708
+    },
+    "ai_precommit_security_linter.py": {
+      "sha256": "6bc9bd1a7edfada536c6f1a0fef6fadcbf06109721fb6d9f8d926664ce2e3faa",
+      "bytes": 5812
+    },
+    "industrial_gateway_simulator.py": {
+      "sha256": "10f15b7120b358b98366ab18b4862f4e79c143447bb2f01c4cafe3625731ff08",
+      "bytes": 6722
+    },
+    "start_course.bat": {
+      "sha256": "25d03d57279a82fdeaccf71ef329d2fadae124cbd3c758f0844167cae22fb697",
+      "bytes": 1607
+    },
+    "start_course.ps1": {
+      "sha256": "0e81c87493b683ebe8797ea2a084692172e6f2c51e728f62be1076fc2605a5a9",
+      "bytes": 1629
+    },
+    "install_git_hooks.bat": {
+      "sha256": "38af170382cd51bc53861cb875c485c5b1c5dc6a00b9b194e2876d3c43084ddb",
+      "bytes": 2043
+    },
+    "install_git_hooks.ps1": {
+      "sha256": "427afa66bbd791b570f79ff722b3fe9fcc7ca49eff61f4837bb9ea3426bdb35f",
+      "bytes": 2274
+    },
+    ".codex/skills/stm32-firmware-reviewer/SKILL.md": {
+      "sha256": "0f7e5289f28f3a25a73ed7cb7bb55e635e53140c12f2df721464914e6af1a737",
+      "bytes": 3922
+    },
+    ".codex/skills/stm32-firmware-reviewer/rules/misra_rules.json": {
+      "sha256": "911949147af409d9fbd1945e6cb9c0eeaa4a319bdeb40eff4058d7b70550bda2",
+      "bytes": 1714
+    },
+    ".codex/skills/stm32-firmware-reviewer/schemas/output.schema.json": {
+      "sha256": "24ec73af1b104906cc3469962189f732a56166e16c9000efd05bd2a55483562c",
+      "bytes": 1355
+    },
+    ".codex/skills/kicad-pcb-reviewer/SKILL.md": {
+      "sha256": "e8d237f35a00e1a9261db1a30128f0f9c7cf9adba05ff6e124ba7097e102a312",
+      "bytes": 3202
+    },
+    ".codex/skills/kicad-pcb-reviewer/rules/ipc_rules.json": {
+      "sha256": "1dd02b055f3bca91227d7b7d41a2c483e9b02d81d0e48f99cd8c7cd754a291de",
+      "bytes": 1463
+    },
+    ".codex/skills/kicad-pcb-reviewer/schemas/pcb_output.schema.json": {
+      "sha256": "51aab72a77bfe85399a5caa348b2775ea83ea9481a91ea41e05a138319b2f850",
+      "bytes": 1555
+    },
+    ".codex/skills/modbus-diagnostic/SKILL.md": {
+      "sha256": "ad3a7438545655a3da581544084ed1e0928c2d811d32a92fa714ea66210b607e",
+      "bytes": 3798
+    },
+    ".codex/skills/modbus-diagnostic/rules/modbus_rules.json": {
+      "sha256": "441982debd13cc3c9b96df5c702a309d161c8ef99d3b2e4c44b4c4ece0d92ee7",
+      "bytes": 2205
+    },
+    ".codex/skills/modbus-diagnostic/schemas/modbus_output.schema.json": {
+      "sha256": "cb6d1cc988b22e027cb2fc1138f5499b71299ff3fc1625386103fcde57151c05",
+      "bytes": 1990
+    }
+  }
+}

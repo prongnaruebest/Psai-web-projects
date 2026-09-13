@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="sepia">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xian Ni (ฝืนลิขิตฟ้า ข้าขอเป็นเซียน) - ชุดจบ 44 เล่ม</title>
+  
+  <!-- Google Fonts: Thai Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Kanit:wght@300;400;500;600&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Pridi:wght@300;400;500;600&family=Prompt:wght@300;400;500;600&family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- PWA Manifest & Theme Color -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#C17817">
+</head>
+<body class="font-sarabun theme-sepia width-standard">
+
+  <!-- Top Progress Bar -->
+  <div id="readingProgressBar" class="reading-progress-bar" style="width: 0%;"></div>
+
+  <!-- Header Navigation -->
+  <header id="mainHeader" class="main-header">
+    <div class="header-left">
+      <button id="btnToggleNav" class="icon-btn" title="สารบัญและชั้นหนังสือ (T)">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+      <div class="brand-container" id="btnGoHome" title="กลับสู่หน้าชั้นหนังสือ">
+        <span class="chinese-title">仙逆</span>
+        <div class="brand-text">
+          <span class="main-title">ฝืนลิขิตฟ้า ข้าขอเป็นเซียน</span>
+          <span class="sub-badge">44 เล่มจบ • 2,088 ตอน</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Reading Info (Visible in Reader Mode) -->
+    <div id="headerReadingInfo" class="header-reading-info hidden">
+      <div class="current-vol-badge" id="headerVolBadge">เล่มที่ 1</div>
+      <div class="current-chap-title" id="headerChapTitle">ตอนที่ 1: จากบ้าน</div>
+      <div class="pdf-page-tag" id="headerPdfTag" title="ตำแหน่งในไฟล์ PDF ต้นฉบับ">
+        <i class="fa-regular fa-file-pdf"></i> <span id="headerPdfPageText">PDF หน้า 4-8 / 193</span>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <!-- Cultivation Rank Pill -->
+      <button id="btnCultivationStats" class="cultivation-rank-pill" title="ระดับการบำเพ็ญเพียรของท่าน (คลิกเพื่อดูสถิติ)">
+        <i class="fa-solid fa-bolt-lightning"></i>
+        <span id="headerCultivationRank">ปราณแรกเริ่ม ขั้น 1</span>
+      </button>
+
+      <button id="btnToggleAmbient" class="icon-btn" title="เสียงบรรยากาศฝึกเซียน (Ambient Sound)">
+        <i class="fa-solid fa-wind"></i>
+        <span class="btn-label">บรรยากาศ</span>
+      </button>
+      <button id="btnToggleAudio" class="icon-btn" title="AI อ่านออกเสียง (P)">
+        <i class="fa-solid fa-headphones"></i>
+        <span class="btn-label">ฟังเสียง AI</span>
+      </button>
+      <button id="btnWiki" class="icon-btn" title="ทำเนียบตัวละคร (Character Wiki)">
+        <i class="fa-solid fa-users"></i>
+        <span class="btn-label">ตัวละคร</span>
+      </button>
+      <button id="btnRealms" class="icon-btn" title="ทำเนียบขอบเขตพลังเซียน">
+        <i class="fa-solid fa-scroll"></i>
+        <span class="btn-label">ขอบเขตพลัง</span>
+      </button>
+      <button id="btnSearch" class="icon-btn" title="ค้นหาตอน (Ctrl+K หรือ /)">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span class="btn-label">ค้นหา</span>
+      </button>
+      <button id="btnBookmark" class="icon-btn" title="คั่นหน้านี้ (B)">
+        <i class="fa-regular fa-bookmark" id="bookmarkIcon"></i>
+        <span class="btn-label">คั่นหน้า</span>
+      </button>
+      <button id="btnThemeToggle" class="icon-btn" title="เปลี่ยนโหมดสีถนอมสายตา">
+        <i class="fa-solid fa-circle-half-stroke"></i>
+      </button>
+      <button id="btnSettings" class="icon-btn" title="ตั้งค่าฟอนต์และการอ่าน">
+        <i class="fa-solid fa-sliders"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main id="mainContent" class="main-content">
+    
+    <!-- =============================================================== -->
+    <!-- 1. BOOKSHELF VIEW (หน้าชั้นหนังสือ 44 เล่ม) -->
+    <!-- =============================================================== -->
+    <section id="bookshelfView" class="bookshelf-view">
+      <!-- Hero Header -->
+      <div class="bookshelf-hero">
+        <div class="hero-content">
+          <div class="hero-tags">
+            <span class="tag gold"><i class="fa-solid fa-crown"></i> มหากาพย์เซียนยอดนิยม</span>
+            <span class="tag green"><i class="fa-solid fa-circle-check"></i> ชุดจบสมบูรณ์ 44 เล่ม</span>
+            <span class="tag blue"><i class="fa-solid fa-file-pdf"></i> 12,504 หน้า PDF</span>
+          </div>
+          <h1 class="hero-title">Xian Ni (仙逆) ฝืนลิขิตฟ้า ข้าขอเป็นเซียน</h1>
+          <p class="hero-desc">
+            เรื่องราวของ <strong>"หวังหลิน"</strong> เด็กหนุ่มผู้ก้าวเข้าสู่เส้นทางการฝึกเซียนอันโหดเหี้ยม 
+            ด้วยความมุ่งมั่นและลูกปัดวิเศษเปลี่ยนชะตาชีวิต <em>"ใครดีมาดีตอบ ใครร้ายมาร้ายกลับร้อยเท่าพันทวี!"</em> 
+            จากจุดเริ่มต้นสู่มหาปฐมเทพผู้สั่นสะเทือนสรวงสวรรค์
+          </p>
+          <div class="hero-meta">
+            <span><strong>ผู้แต่ง:</strong> เอ่อร์เกิน (耳根)</span>
+            <span><strong>ผู้แปล:</strong> Keepwalk</span>
+            <span><strong>ลิขสิทธิ์:</strong> Ink Stone Entertainment</span>
+          </div>
+          <div class="hero-actions">
+            <button id="btnHeroResume" class="btn-primary">
+              <i class="fa-solid fa-book-open"></i> อ่านต่อจากที่ค้างไว้ (<span id="resumeLabel">เล่มที่ 1 ตอนที่ 1</span>)
+            </button>
+            <button id="btnHeroStart" class="btn-secondary">
+              <i class="fa-solid fa-play"></i> เริ่มอ่านตอนแรก (เล่ม 1)
+            </button>
+            <button id="btnHeroWiki" class="btn-secondary">
+              <i class="fa-solid fa-users"></i> ทำเนียบตัวละคร
+            </button>
+            <button id="btnHeroAmbient" class="btn-secondary">
+              <i class="fa-solid fa-wind"></i> เสียงบรรยากาศ
+            </button>
+          </div>
+        </div>
+        <div class="hero-cover-preview" id="heroCoverPreview">
+          <img src="covers/cover_01.jpg" alt="Xian Ni Vol 1 Cover" id="heroCoverImg">
+        </div>
+      </div>
+
+      <!-- Bookshelf Controls -->
+      <div class="bookshelf-bar">
+        <div class="bar-left">
+          <h2><i class="fa-solid fa-book-journal-whills"></i> รายการหนังสือครบชุด 44 เล่ม</h2>
+          <span class="vol-count-text">รวมทั้งสิ้น 44 เล่ม (2,088 ตอน)</span>
+        </div>
+        <div class="bar-right">
+          <div class="search-box-inline">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="volumeFilterInput" placeholder="ค้นหาเล่มหรือตอน (เช่น เล่ม 10, ตอน 500)...">
+          </div>
+        </div>
+      </div>
+
+      <!-- 44 Volumes Grid -->
+      <div class="volumes-grid" id="volumesGrid">
+        <div class="loading-spinner">
+          <i class="fa-solid fa-spinner fa-spin"></i> กำลังโหลดชั้นหนังสือ 44 เล่ม...
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================== -->
+    <!-- 2. READER VIEW (หน้าอ่านเนื้อหานิยาย) -->
+    <!-- =============================================================== -->
+    <section id="readerView" class="reader-view hidden">
+      <div class="reader-wrapper">
+        
+        <!-- Chapter Header Box -->
+        <div class="chapter-meta-card">
+          <div class="meta-card-top">
+            <button id="btnBackToShelf" class="btn-back-shelf">
+              <i class="fa-solid fa-arrow-left"></i> กลับชั้นหนังสือ
+            </button>
+            <div class="volume-selector-pill">
+              <label for="volSelectDropdown"><i class="fa-solid fa-layer-group"></i> เล่ม:</label>
+              <select id="volSelectDropdown"></select>
+            </div>
+            <div class="chapter-selector-pill">
+              <label for="chapSelectDropdown"><i class="fa-solid fa-list-ol"></i> ตอน:</label>
+              <select id="chapSelectDropdown"></select>
+            </div>
+            <button id="btnDownloadChapterAudio" class="btn-download-audio" title="ดาวน์โหลดเสียงอ่านทั้งตอนนี้เป็น MP3">
+              <i class="fa-solid fa-cloud-arrow-down"></i> <span class="btn-text">โหลด MP3 ตอนนี้</span>
+            </button>
+          </div>
+
+          <div class="meta-card-main">
+            <span class="vol-title-tag" id="readerVolTag">เล่มที่ 1</span>
+            <h1 class="chapter-main-title" id="readerChapTitle">1. จากบ้าน</h1>
+            <div class="pdf-reference-box">
+              <i class="fa-solid fa-file-pdf"></i>
+              <span>ต้นฉบับ PDF: <strong id="pdfFilenameText">Xian_Ni_เล่ม_01_ตอน_0001-0047.pdf</strong></span>
+              <span class="pdf-divider">|</span>
+              <span>ตำแหน่ง: <strong>หน้า PDF ที่ <span id="pdfPageRangeText">4 - 8</span></strong> (จากทั้งหมด <span id="pdfTotalPagesText">193</span> หน้า)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chapter Content Body -->
+        <article id="chapterContentArea" class="chapter-content-area">
+          <!-- Text Paragraphs injected here -->
+        </article>
+
+        <!-- Chapter Bottom Navigation -->
+        <div class="chapter-bottom-nav">
+          <button id="btnPrevChapterBottom" class="nav-btn prev">
+            <i class="fa-solid fa-chevron-left"></i> ตอนก่อนหน้า
+          </button>
+          
+          <div class="quick-jump-container">
+            <span id="bottomChapStatus">ตอนที่ 1 จาก 47 ในเล่มนี้</span>
+            <input type="range" id="chapterSlider" min="1" max="47" value="1" class="chap-slider">
+          </div>
+
+          <button id="btnNextChapterBottom" class="nav-btn next">
+            ตอนถัดไป <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <!-- Volume Transition Note -->
+        <div id="volumeEndNotice" class="volume-end-notice hidden">
+          <i class="fa-solid fa-flag-checkered"></i>
+          <span>จบเล่มที่ <span id="endedVolNum">1</span> แล้ว! พร้อมเริ่มเล่มถัดไปหรือยัง?</span>
+          <button id="btnNextVolume" class="btn-primary">ไปเล่มถัดไป <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating Navigation Controls -->
+  <div class="floating-controls" id="floatingControls">
+    <button id="btnFloatingPrev" class="float-btn" title="ตอนก่อนหน้า (←)">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <button id="btnFloatingToc" class="float-btn" title="สารบัญ (T)">
+      <i class="fa-solid fa-list"></i>
+    </button>
+    <button id="btnFloatingAudio" class="float-btn" title="AI อ่านให้ฟัง (P)">
+      <i class="fa-solid fa-headphones"></i>
+    </button>
+    <button id="btnFloatingAmbient" class="float-btn" title="เสียงบรรยากาศฝึกเซียน">
+      <i class="fa-solid fa-wind"></i>
+    </button>
+    <button id="btnFloatingNext" class="float-btn" title="ตอนถัดไป (→)">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <button id="btnFloatingTop" class="float-btn" title="กลับขึ้นบนสุด">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+  </div>
+
+  <!-- =============================================================== -->
+  <!-- AI AUDIO COMPANION BAR (ระบบ AI อ่านออกเสียงภาษาไทย) -->
+  <!-- =============================================================== -->
+  <div id="aiAudioBar" class="ai-audio-bar hidden">
+    <div class="audio-bar-content">
+      <div class="audio-left">
+        <span class="audio-status-icon"><i class="fa-solid fa-volume-high"></i></span>
+        <div class="audio-text-info">
+          <div class="audio-title">AI อ่านให้ฟัง (เสียงภาษาไทย)</div>
+          <div class="audio-sub" id="audioSubStatus">พร้อมอ่านตอนปัจจุบัน • แตะย่อหน้าเพื่อเริ่ม</div>
+        </div>
+      </div>
+      <div class="audio-controls">
+        <button id="btnAudioPrev" class="audio-btn" title="ย่อหน้าก่อนหน้า">
+          <i class="fa-solid fa-backward-step"></i>
+        </button>
+        <button id="btnAudioPlayPause" class="audio-btn play-btn" title="เริ่ม/หยุดชั่วคราว (Space หรือ P)">
+          <i class="fa-solid fa-play" id="audioPlayIcon"></i>
+        </button>
+        <button id="btnAudioStop" class="audio-btn" title="หยุดอ่าน">
+          <i class="fa-solid fa-stop"></i>
+        </button>
+        <button id="btnAudioNext" class="audio-btn" title="ย่อหน้าถัดไป">
+          <i class="fa-solid fa-forward-step"></i>
+        </button>
+      </div>
+      <div class="audio-settings-inline">
+        <div class="voice-selector">
+          <label for="audioVoiceSelect"><i class="fa-solid fa-microphone-lines"></i></label>
+          <select id="audioVoiceSelect" title="เลือกเสียงพากย์">
+            <option value="th-TH-NiwatNeural" selected>เสียงนิวัต (ชาย - กำลังภายใน)</option>
+            <option value="th-TH-PremwadeeNeural">เสียงเปรมวดี (หญิง - นุ่มนวล)</option>
+            <option value="webspeech">เสียงเบราว์เซอร์ (Web Speech)</option>
+          </select>
+        </div>
+        <div class="speed-selector">
+          <label for="audioSpeedSelect"><i class="fa-solid fa-gauge-high"></i></label>
+          <select id="audioSpeedSelect">
+            <option value="0.8">0.8x</option>
+            <option value="1.0" selected>1.0x</option>
+            <option value="1.25">1.25x</option>
+            <option value="1.5">1.5x</option>
+            <option value="2.0">2.0x</option>
+          </select>
+        </div>
+        <button id="btnAudioAutoScroll" class="audio-pill-btn active" title="เลื่อนหน้าจอตามเสียงอ่าน">
+          <i class="fa-solid fa-arrows-up-down"></i> เลื่อนตาม
+        </button>
+        <button id="btnCloseAudioBar" class="audio-close-btn" title="ปิดแถบเสียงอ่าน">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================================== -->
+  <!-- 3. TABLE OF CONTENTS / SIDEBAR DRAWER -->
+  <!-- =============================================================== -->
+  <div id="tocDrawerOverlay" class="drawer-overlay"></div>
+  <aside id="tocDrawer" class="toc-drawer">
+    <div class="drawer-header">
+      <div class="drawer-tabs">
+        <button class="drawer-tab active" data-tab="chapters">
+          <i class="fa-solid fa-book"></i> สารบัญ 44 เล่ม
+        </button>
+        <button class="drawer-tab" data-tab="bookmarks">
+          <i class="fa-solid fa-bookmark"></i> ที่คั่นหน้า (<span id="bookmarkCountBadge">0</span>)
+        </button>
+        <button class="drawer-tab" data-tab="about">
+          <i class="fa-solid fa-circle-info"></i> เกี่ยวกับเรื่อง
+        </button>
+      </div>
+      <button id="btnCloseToc" class="icon-btn close-btn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="drawer-body">
+      <!-- Tab 1: Chapters Accordion -->
+      <div id="tabChapters" class="tab-pane active">
+        <div class="toc-quick-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="tocFilterInput" placeholder="กรองชื่อตอนหรือเลขตอน...">
+        </div>
+        <div class="toc-volume-list" id="tocVolumeList">
+          <!-- Accordion of 44 volumes injected here -->
+        </div>
+      </div>
+
+      <!-- Tab 2: Bookmarks -->
+      <div id="tabBookmarks" class="tab-pane">
+        <div class="bookmarks-list" id="bookmarksList">
+          <div class="empty-state">
+            <i class="fa-regular fa-bookmark"></i>
+            <p>ยังไม่มีที่คั่นหน้า</p>
+            <span>กดปุ่ม "คั่นหน้า" หรือกดคีย์ <strong>B</strong> ขณะอ่านเพื่อบันทึกตอนโปรด</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: About Story -->
+      <div id="tabAbout" class="tab-pane">
+        <div class="about-content-box" id="aboutContentBox">
+          <h3>ฝืนลิขิตฟ้า ข้าขอเป็นเซียน (仙逆)</h3>
+          <p class="author">ผู้แต่ง: เอ่อร์เกิน (耳根 - Er Gen) | ผู้แปล: Keepwalk</p>
+          <hr>
+          <div id="aboutStoryBody">
+            <p>หวังหลิน ชายหนุ่มผู้ค้นพบว่าหนทางการฝึกเซียนช่างน่าเย้ายวนยิ่ง มุ่งมั่นเดินทางเข้าสู่เส้นทางเซียน แต่โลกแห่งการฝึกตนช่างโหดร้าย ผู้แข็งแกร่งกดขี่ผู้อ่อนแอ การจะเอาชีวิตรอดได้จิตใจต้องนิ่งและเด็ดขาด...</p>
+          </div>
+          <div class="about-stats-grid">
+            <div class="stat-card">
+              <span class="num">44</span>
+              <span class="lbl">จำนวนเล่ม</span>
+            </div>
+            <div class="stat-card">
+              <span class="num">2,088</span>
+              <span class="lbl">จำนวนตอน</span>
+            </div>
+            <div class="stat-card">
+              <span class="num">12,504</span>
+              <span class="lbl">หน้า PDF รวม</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =============================================================== -->
+  <!-- 4. SEARCH MODAL (ค้นหาด่วน 2,088 ตอน) -->
+  <!-- =============================================================== -->
+  <div id="searchModalOverlay" class="modal-overlay">
+    <div class="search-modal">
+      <div class="search-modal-header">
+        <div class="search-input-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="globalSearchInput" placeholder="พิมพ์เลขตอน (เช่น 500) หรือคำค้นหาในชื่อตอน..." autocomplete="off">
+          <button id="btnClearSearch" class="btn-clear"><i class="fa-solid fa-circle-xmark"></i></button>
+        </div>
+        <button id="btnCloseSearch" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="search-modal-body" id="searchResultsArea">
+        <div class="search-hints">
+          <p><i class="fa-solid fa-lightbulb"></i> เคล็ดลับการค้นหา:</p>
+          <ul>
+            <li>พิมพ์เลขตอนโดยตรง เช่น <code>1</code>, <code>100</code>, <code>2088</code></li>
+            <li>พิมพ์ชื่อหรือคำค้น เช่น <code>หวังหลิน</code>, <code>สวรรค์</code>, <code>เซียน</code>, <code>สังหาร</code></li>
+          </ul>
+        </div>
+      </div>
+      <div class="search-modal-footer">
+        <span>ค้นหาจากทั้งหมด 2,088 ตอน ใน 44 เล่ม</span>
+        <span class="shortcut-tip"><kbd>ESC</kbd> เพื่อปิด</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================================== -->
+  <!-- 5. SETTINGS MODAL (ปรับแต่งฟอนต์ & โหมดอ่าน) -->
+  <!-- =============================================================== -->
+  <div id="settingsModalOverlay" class="modal-overlay">
+    <div class="settings-modal">
+      <div class="settings-modal-header">
+        <h3><i class="fa-solid fa-sliders"></i> ตั้งค่าการอ่านและฟอนต์ภาษาไทย</h3>
+        <button id="btnCloseSettings" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="settings-modal-body">
+        
+        <!-- Font Selection -->
+        <div class="setting-group">
+          <label class="setting-label"><i class="fa-solid fa-font"></i> รูปแบบฟอนต์ภาษาไทย</label>
+          <div class="font-options-grid">
+            <button class="font-option-btn active" data-font="font-sarabun">
+              <span class="font-preview" style="font-family: 'Sarabun';">สารบรรณ (Sarabun)</span>
+              <span class="font-desc">มาตรฐาน อ่านสบายตาที่สุด แนะนำ</span>
+            </button>
+            <button class="font-option-btn" data-font="font-noto">
+              <span class="font-preview" style="font-family: 'Noto Sans Thai';">Noto Sans Thai</span>
+              <span class="font-desc">คมชัด สะอาดตา มาตรฐานสากล</span>
+            </button>
+            <button class="font-option-btn" data-font="font-prompt">
+              <span class="font-preview" style="font-family: 'Prompt';">พร้อม (Prompt)</span>
+              <span class="font-desc">โมเดิร์น ไร้หัว ทันสมัย</span>
+            </button>
+            <button class="font-option-btn" data-font="font-pridi">
+              <span class="font-preview" style="font-family: 'Pridi';">ปรีดี (Pridi)</span>
+              <span class="font-desc">คลาสสิก อารมณ์หนังสือรูปเล่ม</span>
+            </button>
+            <button class="font-option-btn" data-font="font-kanit">
+              <span class="font-preview" style="font-family: 'Kanit';">คณิต (Kanit)</span>
+              <span class="font-desc">โดดเด่น เส้นสายคม</span>
+            </button>
+            <button class="font-option-btn" data-font="font-chakra">
+              <span class="font-preview" style="font-family: 'Chakra Petch';">จักรเพชร (Chakra)</span>
+              <span class="font-desc">กำลังภายใน แฟนตาซี ย้อนยุค</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Theme Selection -->
+        <div class="setting-group">
+          <label class="setting-label"><i class="fa-solid fa-palette"></i> ธีมสีถนอมสายตา</label>
+          <div class="theme-options-grid">
+            <button class="theme-card-btn active" data-theme="sepia">
+              <span class="color-dot sepia"></span>
+              <span class="t-name">กระดาษถนอมสายตา (Sepia)</span>
+            </button>
+            <button class="theme-card-btn" data-theme="light">
+              <span class="color-dot light"></span>
+              <span class="t-name">สว่างสบายตา (Light)</span>
+            </button>
+            <button class="theme-card-btn" data-theme="dark">
+              <span class="color-dot dark"></span>
+              <span class="t-name">มืด OLED (Dark)</span>
+            </button>
+            <button class="theme-card-btn" data-theme="forest">
+              <span class="color-dot forest"></span>
+              <span class="t-name">เขียวธรรมชาติ (Forest)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Font Size & Spacing -->
+        <div class="setting-group">
+          <div class="setting-row">
+            <label class="setting-label"><i class="fa-solid fa-text-height"></i> ขนาดตัวอักษร: <strong id="fontSizeDisplay">20px</strong></label>
+            <div class="stepper-controls">
+              <button id="btnFontDec" class="step-btn"><i class="fa-solid fa-minus"></i></button>
+              <input type="range" id="fontSizeSlider" min="14" max="34" value="20" class="setting-slider">
+              <button id="btnFontInc" class="step-btn"><i class="fa-solid fa-plus"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Line Height -->
+        <div class="setting-group">
+          <div class="setting-row">
+            <label class="setting-label"><i class="fa-solid fa-arrows-up-down"></i> ระยะห่างบรรทัด</label>
+            <div class="btn-group-segmented" id="lineHeightGroup">
+              <button class="seg-btn" data-lh="1.5">กระชับ (1.5x)</button>
+              <button class="seg-btn active" data-lh="1.85">ปกติ (1.85x)</button>
+              <button class="seg-btn" data-lh="2.2">โปร่ง (2.2x)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Width -->
+        <div class="setting-group">
+          <div class="setting-row">
+            <label class="setting-label"><i class="fa-solid fa-arrows-left-right"></i> ความกว้างหน้ากระดาษ</label>
+            <div class="btn-group-segmented" id="pageWidthGroup">
+              <button class="seg-btn" data-width="width-narrow">แคบ (680px)</button>
+              <button class="seg-btn active" data-width="width-standard">มาตรฐาน (860px)</button>
+              <button class="seg-btn" data-width="width-wide">กว้าง (1100px)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text Alignment -->
+        <div class="setting-group">
+          <div class="setting-row">
+            <label class="setting-label"><i class="fa-solid fa-align-left"></i> การจัดแนวข้อความ</label>
+            <div class="btn-group-segmented" id="textAlignGroup">
+              <button class="seg-btn active" data-align="align-left"><i class="fa-solid fa-align-left"></i> ชิดซ้าย</button>
+              <button class="seg-btn" data-align="align-justify"><i class="fa-solid fa-align-justify"></i> เต็มบรรทัด</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="settings-modal-footer">
+        <button id="btnResetSettings" class="btn-text"><i class="fa-solid fa-rotate-left"></i> รีเซ็ตเป็นค่าเริ่มต้น</button>
+        <button id="btnDoneSettings" class="btn-primary">เสร็จสิ้น</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================================== -->
+  <!-- 6. CULTIVATION REALMS MODAL (ทำเนียบขอบเขตพลังเซียน) -->
+  <!-- =============================================================== -->
+  <div id="realmsModalOverlay" class="modal-overlay">
+    <div class="settings-modal realms-modal">
+      <div class="settings-modal-header">
+        <h3><i class="fa-solid fa-scroll"></i> ทำเนียบขอบเขตพลังเซียน (Xian Ni Cultivation Realms)</h3>
+        <button id="btnCloseRealms" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="settings-modal-body realms-modal-body">
+        
+        <div class="realm-intro">
+          <p>ในโลกของ <strong>ฝืนลิขิตฟ้า ข้าขอเป็นเซียน (仙逆)</strong> หนทางการบำเพ็ญเพียรแบ่งออกเป็น <strong>4 ก้าวใหญ่</strong> จากมนุษย์ธรรมดาสู่มหาปฐมเทพผู้สถิตเหนือกฎเกณฑ์ทั้งปวง:</p>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="realm-step-card step-1">
+          <div class="realm-step-header">
+            <span class="step-badge">ก้าวแรก (First Step)</span>
+            <h4>หนทางแห่งการก้าวข้ามขีดจำกัดมนุษย์</h4>
+          </div>
+          <div class="realm-list">
+            <div class="realm-item"><span class="r-name">1. รวบรวมลมปราณ (Qi Condensation)</span><span class="r-desc">ระดับ 1 - 15 ชั้น สัมผัสและชักนำพลังปราณฟ้าดินเข้าสู่ร่าง</span></div>
+            <div class="realm-item"><span class="r-name">2. สร้างรากฐาน (Foundation Establishment)</span><span class="r-desc">ต้น / กลาง / ปลาย / สมบูรณ์ หลอมรวมพลังปราณให้กลายเป็นของเหลว</span></div>
+            <div class="realm-item"><span class="r-name">3. ก่อแก่นปราณ (Core Formation)</span><span class="r-desc">กลั่นพลังปราณของเหลวให้ตกผลึกเป็นแก่นแท้ทองคำ อายุขัยยืนยาวหลายร้อยปี</span></div>
+            <div class="realm-item"><span class="r-name">4. ก่อกำเนิดวิญญาณ (Nascent Soul)</span><span class="r-desc">วิญญาณคล้ายทารกก่อกำเนิดในตันเถียน กายเนื้อดับแต่วิญญาณยังไม่สูญ</span></div>
+            <div class="realm-item"><span class="r-name">5. แปรวิญญาณ (Soul Transformation)</span><span class="r-desc">หลอมรวมพลังเต๋าแห่งฟ้าดิน ควบคุมกฎเกณฑ์ของโลกได้อย่างแท้จริง</span></div>
+            <div class="realm-item"><span class="r-name">6. ชำระวิญญาณ / หยั่งรู้เซียน (Ascendant)</span><span class="r-desc">ขั้นสูงสุดของก้าวแรก เตรียมพร้อมตัดพันธนาการก้าวสู่ขอบเขตเซียนแท้จริง</span></div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="realm-step-card step-2">
+          <div class="realm-step-header">
+            <span class="step-badge">ก้าวที่สอง (Second Step)</span>
+            <h4>ขอบเขตแดนเซียนและการรู้แจ้งวัฏจักร</h4>
+          </div>
+          <div class="realm-list">
+            <div class="realm-item"><span class="r-name">1. ส่องนิพพาน (Nirvana Scryer)</span><span class="r-desc">มองเห็นวัฏจักรแห่งการเกิดดับ หลอมรวมเจตจำนงเข้ากับพลังสวรรค์</span></div>
+            <div class="realm-item"><span class="r-name">2. ชำระนิพพาน (Nirvana Cleanser)</span><span class="r-desc">ขจัดมลทินในดวงวิญญาณ ปลดปล่อยพลังทำลายล้างดวงดาว</span></div>
+            <div class="realm-item"><span class="r-name">3. แหลกนิพพาน (Nirvana Shatterer)</span><span class="r-desc">ทำลายนิพพานเพื่อก้าวข้าม สรรสร้างมิติกฎเกณฑ์ของตนเอง</span></div>
+            <div class="realm-item"><span class="r-name">4. ห้าวิบัติสลายสวรรค์ (Heaven's Blight 1-5)</span><span class="r-desc">เผชิญ 5 มหาภัยพิบัติแห่งสวรรค์ (เน่าเปื่อย, เสื่อมสลาย, แตกดับ ฯลฯ)</span></div>
+          </div>
+        </div>
+
+        <!-- Step 3 & 4 -->
+        <div class="realm-step-card step-3">
+          <div class="realm-step-header">
+            <span class="step-badge">ก้าวที่สาม & สี่ (Third & Fourth Step)</span>
+            <h4>ขอบเขตว่างเปล่า & สวรรค์เหยียบย่ำ</h4>
+          </div>
+          <div class="realm-list">
+            <div class="realm-item"><span class="r-name">ก้าวที่สาม: ว่างเปล่า (Nirvana Void)</span><span class="r-desc">จิตว่างเปล่า (Spirit Void) ➔ ลึกลับว่างเปล่า (Arcane Void) ➔ วิบัติว่างเปล่า (Void Tribulation 9 ระดับ)</span></div>
+            <div class="realm-item highlight"><span class="r-name">ก้าวที่สี่: สวรรค์เหยียบย่ำ (Heaven Trampling)</span><span class="r-desc">ก้าวข้าม 9 สะพานแห่งสวรรค์ เหนือกว่ากฎเกณฑ์ ชะตากรรม และการควบคุมของฟ้าดิน!</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="settings-modal-footer">
+        <span class="author-tip"><i class="fa-solid fa-quote-left"></i> "ใครดีมาดีตอบ ใครร้ายมาร้ายกลับร้อยเท่าพันทวี!" — หวังหลิน</span>
+        <button id="btnDoneRealms" class="btn-primary">ปิดหน้าต่าง</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================================== -->
+  <!-- 7. ZEN AMBIENT SOUNDSCAPE MODAL (เสียงบรรยากาศฝึกเซียนสังเคราะห์) -->
+  <!-- =============================================================== -->
+  <div id="ambientModalOverlay" class="modal-overlay">
+    <div class="settings-modal ambient-modal">
+      <div class="settings-modal-header">
+        <h3><i class="fa-solid fa-wind"></i> บรรยากาศเสียงฝึกเซียน (Zen Soundscape)</h3>
+        <button id="btnCloseAmbient" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="settings-modal-body ambient-modal-body">
+        <p class="ambient-sub-desc">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> สังเคราะห์เสียงธรรมชาติและคลื่นความถี่บำบัดด้วย Web Audio API (ทำงานออฟไลน์ 100% ไม่ใช้เน็ต ไม่เปลืองเนื้อที่)
+        </p>
+
+        <!-- Quick Presets -->
+        <div class="ambient-presets-grid">
+          <button class="preset-card-btn active" data-preset="meditation">
+            <i class="fa-solid fa-om"></i>
+            <span class="p-title">เข้าฌานในถ้ำเซียน</span>
+            <span class="p-sub">สายลมขุนเขา + ระฆังทิเบต 432Hz</span>
+          </button>
+          <button class="preset-card-btn" data-preset="rain">
+            <i class="fa-solid fa-cloud-showers-heavy"></i>
+            <span class="p-title">ค่ำคืนฝนพรำ</span>
+            <span class="p-sub">ฝนตกกระทบหลังคา + ลมหนาว</span>
+          </button>
+          <button class="preset-card-btn" data-preset="bamboo">
+            <i class="fa-solid fa-tree"></i>
+            <span class="p-title">ป่าไผ่และธารน้ำ</span>
+            <span class="p-sub">เสียงธารน้ำไหล + ลมพัดไหว</span>
+          </button>
+          <button class="preset-card-btn mute" data-preset="mute">
+            <i class="fa-solid fa-volume-xmark"></i>
+            <span class="p-title">ปิดเสียงบรรยากาศ</span>
+            <span class="p-sub">เงียบสงบ ไม่เปิดเสียง</span>
+          </button>
+        </div>
+
+        <!-- Volume Sliders -->
+        <div class="sound-mixer-box">
+          <div class="mixer-row master">
+            <div class="mixer-info">
+              <i class="fa-solid fa-volume-high"></i>
+              <span>ระดับเสียงรวม (Master Volume)</span>
+              <strong id="ambientMasterVal">70%</strong>
+            </div>
+            <input type="range" id="sliderMasterAmbient" min="0" max="100" value="70" class="ambient-slider">
+          </div>
+
+          <div class="mixer-divider"></div>
+
+          <div class="mixer-row">
+            <div class="mixer-info">
+              <i class="fa-solid fa-wind"></i>
+              <span>สายลมยอดเขา (Mountain Wind)</span>
+              <strong id="ambientWindVal">40%</strong>
+            </div>
+            <input type="range" id="sliderWindAmbient" min="0" max="100" value="40" class="ambient-slider">
+          </div>
+
+          <div class="mixer-row">
+            <div class="mixer-info">
+              <i class="fa-solid fa-bell"></i>
+              <span>ระฆังเซียน (Tibetan Bell 432Hz)</span>
+              <strong id="ambientBellVal">50%</strong>
+            </div>
+            <input type="range" id="sliderBellAmbient" min="0" max="100" value="50" class="ambient-slider">
+            <button id="btnRingBellNow" class="btn-sm-action" title="เคาะระฆังทันที"><i class="fa-solid fa-play"></i> เคาะ</button>
+          </div>
+
+          <div class="mixer-row">
+            <div class="mixer-info">
+              <i class="fa-solid fa-cloud-rain"></i>
+              <span>ฝนโปรยปราย (Gentle Rain)</span>
+              <strong id="ambientRainVal">0%</strong>
+            </div>
+            <input type="range" id="sliderRainAmbient" min="0" max="100" value="0" class="ambient-slider">
+          </div>
+
+          <div class="mixer-row">
+            <div class="mixer-info">
+              <i class="fa-solid fa-water"></i>
+              <span>ลำธารป่าไผ่ (Bamboo Stream)</span>
+              <strong id="ambientStreamVal">0%</strong>
+            </div>
+            <input type="range" id="sliderStreamAmbient" min="0" max="100" value="0" class="ambient-slider">
+          </div>
+        </div>
+      </div>
+      <div class="settings-modal-footer">
+        <span class="author-tip"><i class="fa-solid fa-headphones"></i> แนะนำให้สวมหูฟังเพื่อมิติเสียงที่สงบและผ่อนคลายที่สุด</span>
+        <button id="btnDoneAmbient" class="btn-primary">เสร็จสิ้น</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================================== -->
+  <!-- 8. CHARACTER WIKI MODAL (ทำเนียบตัวละครและแผนผังความสัมพันธ์) -->
+  <!-- =============================================================== -->
+  <div id="wikiModalOverlay" class="modal-overlay">
+    <div class="settings-modal wiki-modal">
+      <div class="settings-modal-header">
+        <div class="header-with-badge">
+          <h3><i class="fa-solid fa-users"></i> ทำเนียบตัวละคร Xian Ni (仙逆)</h3>
+          <span class="sub-badge-count">8 ยอดฝีมือระดับตำนาน</span>
+        </div>
+        <button id="btnCloseWiki" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="wiki-filter-bar">
+        <button class="wiki-tag active" data-filter="all">ทั้งหมด</button>
+        <button class="wiki-tag" data-filter="protagonist">ตัวเอก & มิตรแท้</button>
+        <button class="wiki-tag" data-filter="mentor">อาจารย์ & ผู้ชี้แนะ</button>
+        <button class="wiki-tag" data-filter="love">สตรีในโชคชะตา</button>
+        <button class="wiki-tag" data-filter="enemy">ศัตรูคู่อาฆาต</button>
+        <button class="wiki-tag" data-filter="ancient">ปฐมเทพโบราณ</button>
+      </div>
+
+      <div class="settings-modal-body wiki-modal-body">
+        <div class="wiki-cards-grid" id="wikiCardsGrid">
+          <!-- Character cards injected here -->
+        </div>
+      </div>
+
+      <div class="settings-modal-footer">
+        <span class="author-tip"><i class="fa-solid fa-book-bookmark"></i> ตัวละครสำคัญตลอดทั้ง 44 เล่มจบ</span>
+        <button id="btnDoneWiki" class="btn-primary">ปิดหน้าต่าง</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================================== -->
+  <!-- 9. CULTIVATION STATS MODAL (บันทึกระดับการบำเพ็ญเพียรของผู้อ่าน) -->
+  <!-- =============================================================== -->
+  <div id="cultivationStatsModalOverlay" class="modal-overlay">
+    <div class="settings-modal stats-modal">
+      <div class="settings-modal-header">
+        <h3><i class="fa-solid fa-bolt-lightning"></i> ระดับการบำเพ็ญเพียรของท่าน</h3>
+        <button id="btnCloseCultivationStats" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="settings-modal-body stats-modal-body">
+        
+        <!-- Current Realm Card -->
+        <div class="stats-hero-card">
+          <div class="stats-badge-aura">
+            <i class="fa-solid fa-meteor" id="statsHeroIcon"></i>
+          </div>
+          <div class="stats-hero-details">
+            <span class="stats-rank-sub">ขอบเขตพลังปัจจุบันของผู้อ่าน</span>
+            <h2 class="stats-rank-title" id="statsCurrentRealmName">รวบรวมลมปราณ ขั้น 1</h2>
+            <p class="stats-rank-desc" id="statsCurrentRealmDesc">ท่านได้ก้าวเข้าสู่เส้นทางแห่งการแสวงหาเต๋า เริ่มต้นชักนำพลังปราณฟ้าดินเข้าสู่ร่าง</p>
+          </div>
+        </div>
+
+        <!-- Progression Bar -->
+        <div class="stats-progress-box">
+          <div class="stats-progress-label">
+            <span>ความคืบหน้าสู่ขั้นถัดไป (<span id="statsNextRealmName">สร้างรากฐาน</span>)</span>
+            <strong id="statsProgressPct">0%</strong>
+          </div>
+          <div class="stats-bar-track">
+            <div class="stats-bar-fill" id="statsProgressBarFill" style="width: 0%;"></div>
+          </div>
+          <div class="stats-progress-numbers">
+            <span>อ่านแล้ว <strong id="statsReadChaptersCount">0</strong> ตอน</span>
+            <span>เป้าหมายขั้นถัดไป: ตอนที่ <strong id="statsNextTargetChapter">50</strong></span>
+            <span>ทั้งหมด 2,088 ตอน</span>
+          </div>
+        </div>
+
+        <!-- 3-Stats Grid -->
+        <div class="user-stats-grid">
+          <div class="stat-box">
+            <i class="fa-solid fa-book-open"></i>
+            <span class="val" id="statsTotalReadVal">0</span>
+            <span class="lbl">ตอนที่อ่านแล้ว</span>
+          </div>
+          <div class="stat-box">
+            <i class="fa-solid fa-percent"></i>
+            <span class="val" id="statsPercentCompleteVal">0.0%</span>
+            <span class="lbl">สำเร็จในมหากาพย์</span>
+          </div>
+          <div class="stat-box">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span class="val" id="statsBookmarkCountVal">0</span>
+            <span class="lbl">ที่คั่นหน้าที่บันทึก</span>
+          </div>
+        </div>
+
+        <!-- Cultivation Realms Roadmap -->
+        <div class="realms-roadmap">
+          <h4><i class="fa-solid fa-stairs"></i> บันได 12 ลำดับขั้นสู่สวรรค์เหยียบย่ำ</h4>
+          <div class="roadmap-list" id="roadmapList">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+      </div>
+      <div class="settings-modal-footer">
+        <span class="author-tip"><i class="fa-solid fa-seedling"></i> การอ่านทุกๆ 1 ตอนคือการสะสมตบะบารมีสู่ขอบเขตเซียนอันเป็นนิรันดร์</span>
+        <button id="btnDoneCultivationStats" class="btn-primary">เข้าใจแล้ว</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="toast-notification"></div>
+
+  <!-- Embedded fallback script data (works 100% on file:// double click and offline) -->
+  <script src="data/manifest.js"></script>
+  <script src="data/search_index.js"></script>
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
+

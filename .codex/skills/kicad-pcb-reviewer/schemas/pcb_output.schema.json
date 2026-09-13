@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "KiCadPCBReviewOutput",
+  "type": "object",
+  "properties": {
+    "project_name": {
+      "type": "string"
+    },
+    "audit_timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "overall_verdict": {
+      "type": "string",
+      "enum": ["PASS", "CHANGES_REQUESTED", "FABRICATION_HOLD"]
+    },
+    "total_violations": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["CRITICAL", "MAJOR", "MINOR"]
+          },
+          "net_name": {
+            "type": "string"
+          },
+          "layer": {
+            "type": "string"
+          },
+          "coordinates": {
+            "type": "string",
+            "description": "X, Y location on board (e.g., 'X: 45.2mm, Y: 112.4mm')"
+          },
+          "measured_value": {
+            "type": "string"
+          },
+          "required_value": {
+            "type": "string"
+          },
+          "remediation_action": {
+            "type": "string"
+          }
+        },
+        "required": ["rule_id", "severity", "net_name", "remediation_action"]
+      }
+    },
+    "pe_signoff_required": {
+      "type": "boolean"
+    }
+  },
+  "required": ["project_name", "audit_timestamp", "overall_verdict", "total_violations", "violations", "pe_signoff_required"]
+}

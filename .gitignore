@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+
+# Temporary test artifacts
+test_*.c
+test_*.h
+*.tmp
+
+# System
+.DS_Store
+Thumbs.db
