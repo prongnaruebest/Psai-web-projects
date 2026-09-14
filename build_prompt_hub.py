@@ -982,7 +982,7 @@ html_content = f"""<!DOCTYPE html>
           const isMoney = p.mode === 'money';
 
           let formattedPrompt = (p.prompt || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-          formattedPrompt = formattedPrompt.replace(/\\\\[([^\\\\]]+)\\\\]/g, '<span class="prompt-var-tag">[$1]</span>');
+          formattedPrompt = formattedPrompt.replace(/\\[([^\\]]+)\\]/g, '<span class="prompt-var-tag">[$1]</span>');
 
           const article = document.createElement('article');
           article.className = `glass-card ${{isMoney ? 'money-card' : ''}} rounded-2xl p-6 transition duration-200`;
@@ -1412,7 +1412,7 @@ console.log(response.text);
         // Offline / GitHub Pages mode: Save to localStorage
         const customList = getStoredCustomPrompts();
         const newId = (PROMPTS.length ? Math.max(...PROMPTS.map(p => p.id)) : 0) + 1;
-        const matches = content.match(/\\\\[([^\\\\]]+)\\\\]/g) || [];
+        const matches = content.match(/\\[([^\\]]+)\\]/g) || [];
         const variables = Array.from(new Set(matches.map(m => m.slice(1, -1))));
 
         const newPromptObj = {{
