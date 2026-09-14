@@ -10,7 +10,7 @@ html_content = f"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Web Prompt Hub Pro — 300 Master Prompts (200 AI Money + 100 Web Dev)</title>
+  <title>NEXUS PROMPT HUB — Futuristic AI & Web Engineering</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -121,6 +121,63 @@ html_content = f"""<!DOCTYPE html>
       }}
     }}
   </style>
+
+
+
+  <style>
+    /* Custom Cursor / Trailing Effects */
+    .mouse-trail {{
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(6, 182, 212, 0.8);
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.8), 0 0 20px rgba(168, 85, 247, 0.6);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      animation: fadeOut 0.8s cubic-bezier(0.1, 0.8, 0.1, 1) forwards;
+    }}
+    
+    .click-ripple {{
+      position: fixed;
+      border-radius: 50%;
+      border: 2px solid rgba(6, 182, 212, 0.8);
+      box-shadow: 0 0 20px rgba(6, 182, 212, 1), inset 0 0 20px rgba(168, 85, 247, 0.8);
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%) scale(0);
+      animation: ripple 0.6s ease-out forwards;
+    }}
+
+    @keyframes fadeOut {{
+      0% {{ opacity: 1; transform: translate(-50%, -50%) scale(1); }}
+      100% {{ opacity: 0; transform: translate(-50%, -50%) scale(0.1); }}
+    }}
+    
+    @keyframes ripple {{
+      0% {{
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+        border-width: 4px;
+      }}
+      100% {{
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+        border-width: 0px;
+      }}
+    }}
+    
+    /* Global glow effects for links/buttons */
+    button, a {{
+      transition: all 0.3s ease;
+    }}
+    button:hover, a:hover {{
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+      text-shadow: 0 0 5px rgba(255,255,255,0.5);
+    }}
+  </style>
+
 </head>
 <body class="min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950">
 
@@ -128,12 +185,16 @@ html_content = f"""<!DOCTYPE html>
   <header class="sticky top-0 z-40 bg-[#030014]/95 backdrop-blur-md border-b border-cyan-900/50">
     <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-purple-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-xl font-bold text-white">
-          
-        </div>
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-purple-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+  <polyline points="2 17 12 22 22 17"></polyline>
+  <polyline points="2 12 12 17 22 12"></polyline>
+</svg>
+</div>
         <div>
           <h1 class="font-display text-base sm:text-lg font-bold tracking-tight text-white flex items-center gap-2">
-            PROMPT HUB <span class="text-cyan-400 font-extrabold">MAX</span>
+            NEXUS <span class="text-cyan-400 font-extrabold">HUB</span>
             <span id="prompt-count-pill" class="text-xs font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-emerald-500/30">300 Prompts</span>
           </h1>
           <p class="text-[11px] text-slate-400 hidden sm:flex items-center gap-2">
@@ -1528,6 +1589,44 @@ console.log(response.text);
     switchMode('money');
     fetchPromptsFromApi();
   </script>
+
+
+
+  <script>
+    // Mouse trailing effect
+    document.addEventListener('mousemove', function(e) {{
+      if (Math.random() > 0.4) return; // limit frequency
+      const trail = document.createElement('div');
+      trail.className = 'mouse-trail';
+      trail.style.left = e.clientX + 'px';
+      trail.style.top = e.clientY + 'px';
+      document.body.appendChild(trail);
+      
+      setTimeout(() => {{
+        trail.remove();
+      }}, 800);
+    }});
+
+    // Mouse click effect
+    document.addEventListener('click', function(e) {{
+      const ripple = document.createElement('div');
+      ripple.className = 'click-ripple';
+      ripple.style.left = e.clientX + 'px';
+      ripple.style.top = e.clientY + 'px';
+      // Randomize color slightly
+      const isPurple = Math.random() > 0.5;
+      ripple.style.borderColor = isPurple ? 'rgba(168, 85, 247, 0.8)' : 'rgba(6, 182, 212, 0.8)';
+      ripple.style.width = '50px';
+      ripple.style.height = '50px';
+      
+      document.body.appendChild(ripple);
+      
+      setTimeout(() => {{
+        ripple.remove();
+      }}, 600);
+    }});
+  </script>
+
 </body>
 </html>
 """
