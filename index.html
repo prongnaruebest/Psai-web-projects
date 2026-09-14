@@ -27,7 +27,7 @@
       --reader-font-size: 14px;
     }
     body {
-      background-color: #0A1124;
+      background-color: #030014;
       color: #E2E8F0;
       font-family: 'IBM Plex Sans Thai', sans-serif;
     }
@@ -115,24 +115,24 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-emerald-500 selection:text-slate-950">
+<body class="min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950">
 
   <!-- Header -->
-  <header class="sticky top-0 z-40 bg-[#0A1124]/95 backdrop-blur-md border-b border-slate-800">
+  <header class="sticky top-0 z-40 bg-[#030014]/95 backdrop-blur-md border-b border-cyan-900/50">
     <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 via-indigo-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/20 text-xl font-bold text-white">
-          ⚡
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-purple-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-xl font-bold text-white">
+          
         </div>
         <div>
           <h1 class="font-display text-base sm:text-lg font-bold tracking-tight text-white flex items-center gap-2">
-            PROMPT HUB <span class="text-emerald-400 font-extrabold">MAX</span>
-            <span id="prompt-count-pill" class="text-xs font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">300 Prompts</span>
+            PROMPT HUB <span class="text-cyan-400 font-extrabold">MAX</span>
+            <span id="prompt-count-pill" class="text-xs font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-emerald-500/30">300 Prompts</span>
           </h1>
           <p class="text-[11px] text-slate-400 hidden sm:flex items-center gap-2">
             <span>คลังโปรมป์ต์ 200 ข้อโหมด AI หาเงิน + 100 ข้อโหมดวิศวกรรมเว็บ (รวม 300 ข้อ)</span>
-            <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-mono flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Online
+            <span class="px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 text-[10px] font-mono flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span> Online
             </span>
           </p>
         </div>
@@ -142,17 +142,17 @@
       <div class="flex items-center flex-wrap gap-2">
         
         <!-- View Toggle -->
-        <div class="bg-slate-900 border border-slate-700/80 p-0.5 rounded-lg flex items-center text-xs">
-          <button onclick="setViewMode('reader')" id="btn-view-reader" class="px-3 py-1.5 rounded-md font-semibold bg-emerald-600 text-white flex items-center gap-1.5 transition shadow-sm">
-            <span>📖 อ่านฉบับเต็ม</span>
+        <div class="bg-slate-900 border border-blue-900/40 p-0.5 rounded-lg flex items-center text-xs">
+          <button onclick="setViewMode('reader')" id="btn-view-reader" class="px-3 py-1.5 rounded-md font-semibold bg-cyan-600 text-white flex items-center gap-1.5 transition shadow-sm">
+            <span> อ่านฉบับเต็ม</span>
           </button>
           <button onclick="setViewMode('grid')" id="btn-view-grid" class="px-3 py-1.5 rounded-md font-medium text-slate-400 hover:text-white flex items-center gap-1.5 transition">
-            <span>🗂️ การ์ดย่อ</span>
+            <span> การ์ดย่อ</span>
           </button>
         </div>
 
         <!-- Font Size Adjuster -->
-        <div class="bg-slate-900 border border-slate-700/80 px-2 py-1 rounded-lg flex items-center gap-1.5 text-xs text-slate-300">
+        <div class="bg-slate-900 border border-blue-900/40 px-2 py-1 rounded-lg flex items-center gap-1.5 text-xs text-slate-300">
           <span class="text-[10px] text-slate-500 font-mono">ขนาด:</span>
           <button onclick="adjustFontSize(-1)" class="w-6 h-6 rounded bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-xs font-bold" title="ลดขนาด">A-</button>
           <button onclick="adjustFontSize(1)" class="w-6 h-6 rounded bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-xs font-bold" title="เพิ่มขนาด">A+</button>
@@ -160,25 +160,25 @@
 
         <!-- Print PDF -->
         <button onclick="window.print()" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-200 flex items-center gap-1.5 transition" title="พิมพ์เป็นเอกสาร PDF">
-          <span>🖨️ PDF / พิมพ์</span>
+          <span> PDF / พิมพ์</span>
         </button>
 
-        <button onclick="openExportModal()" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-indigo-600 hover:bg-indigo-500 text-white flex items-center gap-1.5 shadow-sm transition">
-          <span>📦 ศูนย์ส่งออก</span>
+        <button onclick="openExportModal()" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-fuchsia-600 hover:bg-fuchsia-500 text-white flex items-center gap-1.5 shadow-sm transition">
+          <span> ศูนย์ส่งออก</span>
         </button>
 
-        <button onclick="openNewPromptModal()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white flex items-center gap-1.5 shadow-sm transition">
-          <span>➕ เพิ่ม</span>
+        <button onclick="openNewPromptModal()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-600 hover:bg-cyan-500 text-white flex items-center gap-1.5 shadow-sm transition">
+          <span> เพิ่ม</span>
         </button>
         
         <button onclick="openApiKeyModal()" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-300 flex items-center gap-1.5 transition">
-          <span>🔑 AI</span>
-          <span id="api-key-indicator" class="w-2 h-2 rounded-full bg-amber-500"></span>
+          <span> AI</span>
+          <span id="api-key-indicator" class="w-2 h-2 rounded-full bg-pink-500"></span>
         </button>
 
         <button id="btn-fav-filter" onclick="toggleFavoriteFilter()" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-300 flex items-center gap-1.5 transition">
-          <span>⭐</span>
-          <span id="fav-count-badge" class="px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded-full font-mono text-[11px]">0</span>
+          <span></span>
+          <span id="fav-count-badge" class="px-1.5 py-0.2 bg-pink-500/20 text-pink-300 rounded-full font-mono text-[11px]">0</span>
         </button>
 
         <a href="https://github.com/prongnaruebest/Psai-web-projects" target="_blank" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-200 flex items-center gap-1.5 transition" title="ดู Source Code บน GitHub">
@@ -193,22 +193,22 @@
   <div class="max-w-[1600px] mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 flex-1 flex flex-col lg:flex-row gap-8 items-start">
     
     <!-- Sticky Sidebar -->
-    <aside class="w-full lg:w-80 shrink-0 lg:sticky lg:top-20 space-y-5 bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80 backdrop-blur-md">
+    <aside class="w-full lg:w-80 shrink-0 lg:sticky lg:top-20 space-y-5 bg-slate-900/60 p-4 rounded-2xl border border-cyan-900/50/80 backdrop-blur-md">
       
       <!-- Mode Switcher -->
       <div>
         <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">เลือกโหมดการใช้งาน</label>
         <div class="flex flex-col gap-1.5">
-          <button onclick="switchMode('money')" id="mode-btn-money" class="w-full px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-between bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-600/20 border border-emerald-500/30">
-            <span class="flex items-center gap-2"><span>💰</span> โหมดใช้ AI หาเงิน</span>
-            <span class="px-2 py-0.5 rounded-full bg-emerald-900/80 text-emerald-200 font-mono text-[11px]" id="mode-count-money">200</span>
+          <button onclick="switchMode('money')" id="mode-btn-money" class="w-full px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-between bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-cyan-600/20 border border-emerald-500/30">
+            <span class="flex items-center gap-2"><span></span> โหมดใช้ AI หาเงิน</span>
+            <span class="px-2 py-0.5 rounded-full bg-cyan-900/80 text-cyan-200 font-mono text-[11px]" id="mode-count-money">200</span>
           </button>
           <button onclick="switchMode('web')" id="mode-btn-web" class="w-full px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-between bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700/60">
-            <span class="flex items-center gap-2"><span>💻</span> โหมดพัฒนาเว็บ</span>
+            <span class="flex items-center gap-2"><span></span> โหมดพัฒนาเว็บ</span>
             <span class="px-2 py-0.5 rounded-full bg-slate-700 text-slate-300 font-mono text-[11px]" id="mode-count-web">100</span>
           </button>
           <button onclick="switchMode('all')" id="mode-btn-all" class="w-full px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-between bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700/60">
-            <span class="flex items-center gap-2"><span>🌟</span> ดูทั้งหมด (All)</span>
+            <span class="flex items-center gap-2"><span></span> ดูทั้งหมด (All)</span>
             <span class="px-2 py-0.5 rounded-full bg-slate-700 text-slate-300 font-mono text-[11px]" id="mode-count-all">300</span>
           </button>
         </div>
@@ -225,7 +225,7 @@
             class="w-full pl-8 pr-8 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition"
             oninput="handleSearch()"
           >
-          <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 text-xs">🔍</span>
+          <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 text-xs"></span>
           <button id="btn-clear-search" onclick="clearSearch()" class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-slate-500 hover:text-slate-300 hidden text-xs">✕</button>
         </div>
       </div>
@@ -234,10 +234,10 @@
       <div>
         <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">ระดับความยาก / ทักษะ</label>
         <div class="grid grid-cols-2 gap-1 text-[11px]">
-          <button onclick="filterDifficulty('')" class="diff-btn px-2 py-1 rounded bg-emerald-500 text-slate-950 font-bold border border-emerald-400" data-diff="">ทั้งหมด</button>
-          <button onclick="filterDifficulty('Beginner')" class="diff-btn px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700" data-diff="Beginner">🟢 มือใหม่</button>
-          <button onclick="filterDifficulty('Intermediate')" class="diff-btn px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700" data-diff="Intermediate">🟡 ปานกลาง</button>
-          <button onclick="filterDifficulty('Advanced')" class="diff-btn px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700" data-diff="Advanced">🔴 ขั้นสูง</button>
+          <button onclick="filterDifficulty('')" class="diff-btn px-2 py-1 rounded bg-cyan-500 text-slate-950 font-bold border border-emerald-400" data-diff="">ทั้งหมด</button>
+          <button onclick="filterDifficulty('Beginner')" class="diff-btn px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700" data-diff="Beginner"> มือใหม่</button>
+          <button onclick="filterDifficulty('Intermediate')" class="diff-btn px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700" data-diff="Intermediate"> ปานกลาง</button>
+          <button onclick="filterDifficulty('Advanced')" class="diff-btn px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700" data-diff="Advanced"> ขั้นสูง</button>
         </div>
       </div>
 
@@ -245,7 +245,7 @@
       <div>
         <div class="flex items-center justify-between mb-2">
           <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400">สารบัญหมวดหมู่</label>
-          <button onclick="filterCategory(0)" class="text-[11px] text-emerald-400 hover:underline">ดูทั้งหมด</button>
+          <button onclick="filterCategory(0)" class="text-[11px] text-cyan-400 hover:underline">ดูทั้งหมด</button>
         </div>
         <div id="sidebar-categories" class="space-y-1 max-h-[42vh] overflow-y-auto custom-scrollbar pr-1 text-xs"></div>
       </div>
@@ -256,18 +256,18 @@
     <main class="flex-1 w-full min-w-0 space-y-6">
       
       <!-- Top Action Bar -->
-      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/60 p-3.5 rounded-xl border border-slate-800 text-xs">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/60 p-3.5 rounded-xl border border-cyan-900/50 text-xs">
         <div class="flex items-center gap-3">
-          <span id="result-counter" class="font-mono font-medium text-emerald-400">แสดง 200 รายการ</span>
+          <span id="result-counter" class="font-mono font-medium text-cyan-400">แสดง 200 รายการ</span>
           <span class="text-slate-600">|</span>
           <span id="active-category-label" class="text-slate-300 font-semibold">โหมดใช้ AI หาเงิน (200 ข้อ)</span>
         </div>
         <div class="flex items-center gap-2">
           <button onclick="expandAllPrompts()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 transition text-[11px]">
-            🔽 ขยายอ่านเต็ม
+             ขยายอ่านเต็ม
           </button>
           <button onclick="collapseAllPrompts()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 transition text-[11px]">
-            🔼 ย่อกล่อง
+             ย่อกล่อง
           </button>
         </div>
       </div>
@@ -276,11 +276,11 @@
       <div id="prompts-container" class="space-y-6"></div>
 
       <!-- Empty State -->
-      <div id="empty-state" class="hidden py-16 text-center space-y-3 bg-slate-900/40 rounded-2xl border border-slate-800">
-        <div class="text-4xl">🔍</div>
+      <div id="empty-state" class="hidden py-16 text-center space-y-3 bg-slate-900/40 rounded-2xl border border-cyan-900/50">
+        <div class="text-4xl"></div>
         <h3 class="text-base font-semibold text-slate-200">ไม่พบโปรมป์ต์ที่ตรงกับคำค้นหา</h3>
         <p class="text-xs text-slate-400">ลองเปลี่ยนคำค้นหา หรือกดปุ่มรีเซ็ตตัวกรอง</p>
-        <button onclick="resetAllFilters()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-xs font-semibold text-white transition">
+        <button onclick="resetAllFilters()" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg text-xs font-semibold text-white transition">
           ล้างตัวกรองทั้งหมด
         </button>
       </div>
@@ -294,7 +294,7 @@
     <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-2xl shadow-2xl p-6 space-y-5">
       <div class="flex items-center justify-between">
         <h3 class="text-base font-bold text-white flex items-center gap-2">
-          <span>📦 ศูนย์ส่งออกข้อมูล (Export Hub)</span>
+          <span> ศูนย์ส่งออกข้อมูล (Export Hub)</span>
         </h3>
         <button onclick="closeExportModal()" class="text-slate-400 hover:text-white">✕</button>
       </div>
@@ -303,24 +303,24 @@
       </p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-        <button onclick="exportToCsv()" class="p-4 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/40 rounded-xl flex flex-col items-start gap-1 transition text-left group">
-          <span class="text-xl">📊</span>
-          <span class="text-xs font-bold text-slate-200 group-hover:text-emerald-400">ไฟล์ CSV (Excel / Notion)</span>
+        <button onclick="exportToCsv()" class="p-4 bg-slate-950 hover:bg-slate-800 border border-cyan-900/50 hover:border-emerald-500/40 rounded-xl flex flex-col items-start gap-1 transition text-left group">
+          <span class="text-xl"></span>
+          <span class="text-xs font-bold text-slate-200 group-hover:text-cyan-400">ไฟล์ CSV (Excel / Notion)</span>
           <span class="text-[11px] text-slate-500">นำเข้าตาราง Notion หรือ Excel ครบทุกฟิลด์</span>
         </button>
-        <button onclick="exportToMarkdown()" class="p-4 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/40 rounded-xl flex flex-col items-start gap-1 transition text-left group">
-          <span class="text-xl">📝</span>
-          <span class="text-xs font-bold text-slate-200 group-hover:text-emerald-400">ไฟล์ Markdown (.md)</span>
+        <button onclick="exportToMarkdown()" class="p-4 bg-slate-950 hover:bg-slate-800 border border-cyan-900/50 hover:border-emerald-500/40 rounded-xl flex flex-col items-start gap-1 transition text-left group">
+          <span class="text-xl"></span>
+          <span class="text-xs font-bold text-slate-200 group-hover:text-cyan-400">ไฟล์ Markdown (.md)</span>
           <span class="text-[11px] text-slate-500">สำหรับ Obsidian หรือเก็บบันทึกส่วนตัว</span>
         </button>
-        <button onclick="exportToJson()" class="p-4 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/40 rounded-xl flex flex-col items-start gap-1 transition text-left group">
-          <span class="text-xl">💾</span>
-          <span class="text-xs font-bold text-slate-200 group-hover:text-emerald-400">ไฟล์ JSON (.json)</span>
+        <button onclick="exportToJson()" class="p-4 bg-slate-950 hover:bg-slate-800 border border-cyan-900/50 hover:border-emerald-500/40 rounded-xl flex flex-col items-start gap-1 transition text-left group">
+          <span class="text-xl"></span>
+          <span class="text-xs font-bold text-slate-200 group-hover:text-cyan-400">ไฟล์ JSON (.json)</span>
           <span class="text-[11px] text-slate-500">Structured Data ครบ 300 Prompts สำหรับ API</span>
         </button>
-        <button onclick="triggerPrintEbook()" class="p-4 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/40 rounded-xl flex flex-col items-start gap-1 transition text-left group">
-          <span class="text-xl">🖨️</span>
-          <span class="text-xs font-bold text-slate-200 group-hover:text-emerald-400">บันทึกเป็น PDF eBook</span>
+        <button onclick="triggerPrintEbook()" class="p-4 bg-slate-950 hover:bg-slate-800 border border-cyan-900/50 hover:border-emerald-500/40 rounded-xl flex flex-col items-start gap-1 transition text-left group">
+          <span class="text-xl"></span>
+          <span class="text-xs font-bold text-slate-200 group-hover:text-cyan-400">บันทึกเป็น PDF eBook</span>
           <span class="text-[11px] text-slate-500">พิมพ์หน้าเว็บเป็นหนังสือ PDF สะอาดตา ไร้ปุ่มเกะกะ</span>
         </button>
       </div>
@@ -332,9 +332,9 @@
     <div class="bg-slate-900 border border-slate-700 w-full max-w-4xl rounded-2xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden">
       
       <!-- Modal Header -->
-      <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900">
+      <div class="px-6 py-4 border-b border-cyan-900/50 flex items-center justify-between bg-slate-900">
         <div class="flex items-center gap-3">
-          <span id="modal-cat-badge" class="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">#101</span>
+          <span id="modal-cat-badge" class="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-cyan-500/20 text-cyan-400 border border-emerald-500/30">#101</span>
           <h3 id="modal-title" class="text-base font-bold text-white truncate max-w-lg">ปรับแต่ง Prompt & Playground</h3>
         </div>
         <button onclick="closeCustomizer()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
@@ -343,16 +343,16 @@
       </div>
 
       <!-- Tab Navigation -->
-      <div class="flex items-center gap-6 px-6 border-b border-slate-800 bg-slate-950 text-xs font-medium text-slate-400">
-        <button id="tab-btn-vars" onclick="switchModalTab('vars')" class="py-3 border-b-2 border-emerald-500 text-emerald-400 font-semibold flex items-center gap-2">
-          <span>⚙️ ปรับแต่งตัวแปร</span>
+      <div class="flex items-center gap-6 px-6 border-b border-cyan-900/50 bg-slate-950 text-xs font-medium text-slate-400">
+        <button id="tab-btn-vars" onclick="switchModalTab('vars')" class="py-3 border-b-2 border-emerald-500 text-cyan-400 font-semibold flex items-center gap-2">
+          <span>⚙ ปรับแต่งตัวแปร</span>
         </button>
         <button id="tab-btn-code" onclick="switchModalTab('code')" class="py-3 border-b-2 border-transparent hover:text-slate-200 transition flex items-center gap-2">
-          <span>💻 SDK Code Generator</span>
+          <span> SDK Code Generator</span>
         </button>
         <button id="tab-btn-ai" onclick="switchModalTab('ai')" class="py-3 border-b-2 border-transparent hover:text-slate-200 transition flex items-center gap-2">
-          <span>🚀 AI Live Playground</span>
-          <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-mono">Live</span>
+          <span> AI Live Playground</span>
+          <span class="px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-400 text-[10px] font-mono">Live</span>
         </button>
       </div>
 
@@ -363,20 +363,20 @@
         <div id="tab-content-vars" class="space-y-4">
           <div>
             <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">บทบาท (Role)</label>
-            <div id="modal-role" class="text-xs font-mono text-emerald-300 bg-slate-950 p-2.5 rounded-lg border border-slate-800"></div>
+            <div id="modal-role" class="text-xs font-mono text-cyan-300 bg-slate-950 p-2.5 rounded-lg border border-cyan-900/50"></div>
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 flex items-center justify-between">
               <span>แทนค่าตัวแปรในวงเล็บ `[...]`</span>
-              <span class="text-[11px] text-amber-400 font-normal">พิมพ์ค่าเพื่ออัปเดตผลลัพธ์สด</span>
+              <span class="text-[11px] text-pink-400 font-normal">พิมพ์ค่าเพื่ออัปเดตผลลัพธ์สด</span>
             </label>
             <div id="variable-inputs-container" class="space-y-3"></div>
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">ผลลัพธ์ Prompt พร้อมใช้งาน</label>
-            <pre id="live-prompt-preview" class="w-full p-4 bg-slate-950 border border-slate-800 rounded-xl text-xs font-mono text-slate-200 whitespace-pre-wrap leading-relaxed max-h-56 overflow-y-auto custom-scrollbar"></pre>
+            <pre id="live-prompt-preview" class="w-full p-4 bg-slate-950 border border-cyan-900/50 rounded-xl text-xs font-mono text-slate-200 whitespace-pre-wrap leading-relaxed max-h-56 overflow-y-auto custom-scrollbar"></pre>
           </div>
         </div>
 
@@ -385,28 +385,28 @@
           <div class="flex items-center justify-between">
             <span class="text-xs text-slate-400">เลือกภาษาสำหรับเชื่อมต่อ API:</span>
             <div class="flex gap-2 text-xs">
-              <button onclick="showCodeSnippet('python')" id="code-btn-python" class="px-2.5 py-1 rounded bg-emerald-500 text-slate-950 font-bold">Python (google-genai)</button>
+              <button onclick="showCodeSnippet('python')" id="code-btn-python" class="px-2.5 py-1 rounded bg-cyan-500 text-slate-950 font-bold">Python (google-genai)</button>
               <button onclick="showCodeSnippet('node')" id="code-btn-node" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">Node.js (@google/genai)</button>
               <button onclick="showCodeSnippet('curl')" id="code-btn-curl" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">cURL</button>
             </div>
           </div>
           <div class="relative">
-            <pre id="code-snippet-box" class="w-full p-4 bg-slate-950 border border-slate-800 rounded-xl text-xs font-mono text-slate-200 whitespace-pre-wrap leading-relaxed max-h-72 overflow-y-auto custom-scrollbar"></pre>
+            <pre id="code-snippet-box" class="w-full p-4 bg-slate-950 border border-cyan-900/50 rounded-xl text-xs font-mono text-slate-200 whitespace-pre-wrap leading-relaxed max-h-72 overflow-y-auto custom-scrollbar"></pre>
             <button onclick="copyCurrentSnippet()" class="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200 border border-slate-700">
-              📋 คัดลอกโค้ด
+               คัดลอกโค้ด
             </button>
           </div>
         </div>
 
         <!-- Tab 3: AI Live Playground -->
         <div id="tab-content-ai" class="space-y-4 hidden">
-          <div class="p-3 bg-emerald-950/40 border border-emerald-800/40 rounded-xl flex items-center justify-between text-xs">
-            <div class="flex items-center gap-2 text-emerald-200">
-              <span>🤖 รันคำสั่งนี้ส่งตรงไปยังโมเดล AI</span>
-              <span id="ai-provider-badge" class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[11px]">Gemini 2.5 Flash</span>
+          <div class="p-3 bg-cyan-950/40 border border-emerald-800/40 rounded-xl flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2 text-cyan-200">
+              <span> รันคำสั่งนี้ส่งตรงไปยังโมเดล AI</span>
+              <span id="ai-provider-badge" class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[11px]">Gemini 2.5 Flash</span>
             </div>
             <button onclick="runAiGeneration()" id="btn-run-ai" class="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold rounded-lg shadow-md flex items-center gap-1.5 transition">
-              <span id="btn-run-ai-icon">⚡</span>
+              <span id="btn-run-ai-icon"></span>
               <span id="btn-run-ai-text">สร้างผลลัพธ์เดี๋ยวนี้</span>
             </button>
           </div>
@@ -414,9 +414,9 @@
           <div>
             <div class="flex items-center justify-between mb-2">
               <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">ผลลัพธ์จาก AI (AI Output)</label>
-              <button onclick="copyAiOutput()" id="btn-copy-ai-output" class="text-xs text-emerald-400 hover:text-emerald-300 hidden">📋 คัดลอกผลลัพธ์</button>
+              <button onclick="copyAiOutput()" id="btn-copy-ai-output" class="text-xs text-cyan-400 hover:text-cyan-300 hidden"> คัดลอกผลลัพธ์</button>
             </div>
-            <div id="ai-output-box" class="w-full min-h-[180px] max-h-[320px] p-4 bg-slate-950 border border-slate-800 rounded-xl text-xs font-mono text-slate-200 whitespace-pre-wrap leading-relaxed overflow-y-auto custom-scrollbar flex items-center justify-center text-slate-500 italic">
+            <div id="ai-output-box" class="w-full min-h-[180px] max-h-[320px] p-4 bg-slate-950 border border-cyan-900/50 rounded-xl text-xs font-mono text-slate-200 whitespace-pre-wrap leading-relaxed overflow-y-auto custom-scrollbar flex items-center justify-center text-slate-500 italic">
               กดปุ่ม 'สร้างผลลัพธ์เดี๋ยวนี้' ด้านบนเพื่อเริ่มรันผลลัพธ์
             </div>
           </div>
@@ -425,7 +425,7 @@
       </div>
 
       <!-- Modal Footer -->
-      <div class="px-6 py-4 border-t border-slate-800 bg-slate-950 flex flex-wrap items-center justify-between gap-3">
+      <div class="px-6 py-4 border-t border-cyan-900/50 bg-slate-950 flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-2">
           <span class="text-xs text-slate-400">เปิดใน:</span>
           <button onclick="openInChatGPT()" class="px-2.5 py-1 text-xs rounded bg-slate-800 hover:bg-slate-700 text-slate-200 transition border border-slate-700">
@@ -439,8 +439,8 @@
           <button onclick="closeCustomizer()" class="px-4 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">
             ปิด
           </button>
-          <button onclick="copyCustomizedPrompt()" class="px-5 py-2 rounded-lg text-xs font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition flex items-center gap-2 shadow-lg shadow-emerald-500/25">
-            <span>📋</span>
+          <button onclick="copyCustomizedPrompt()" class="px-5 py-2 rounded-lg text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition flex items-center gap-2 shadow-lg shadow-cyan-500/25">
+            <span></span>
             <span>คัดลอก Prompt ทันที</span>
           </button>
         </div>
@@ -452,42 +452,42 @@
   <!-- Add New Prompt Modal -->
   <div id="modal-new-prompt" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
-      <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900">
-        <h3 class="text-base font-bold text-white">➕ เพิ่ม Prompt ใหม่เข้าสู่ระบบ</h3>
+      <div class="px-6 py-4 border-b border-cyan-900/50 flex items-center justify-between bg-slate-900">
+        <h3 class="text-base font-bold text-white"> เพิ่ม Prompt ใหม่เข้าสู่ระบบ</h3>
         <button onclick="closeNewPromptModal()" class="text-slate-400 hover:text-white">✕</button>
       </div>
       <div class="p-6 space-y-4 overflow-y-auto custom-scrollbar">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">โหมด</label>
-            <select id="new-prompt-mode" onchange="updateNewPromptCatOptions()" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-100 focus:border-emerald-500">
-              <option value="money">💰 โหมดใช้ AI หาเงิน (Monetization)</option>
-              <option value="web">💻 โหมดพัฒนาเว็บ (Web Dev)</option>
+            <select id="new-prompt-mode" onchange="updateNewPromptCatOptions()" class="w-full px-3 py-2 bg-slate-950 border border-cyan-900/50 rounded-lg text-xs text-slate-100 focus:border-emerald-500">
+              <option value="money"> โหมดใช้ AI หาเงิน (Monetization)</option>
+              <option value="web"> โหมดพัฒนาเว็บ (Web Dev)</option>
             </select>
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">หมวดหมู่</label>
-            <select id="new-prompt-cat" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-100 focus:border-emerald-500"></select>
+            <select id="new-prompt-cat" class="w-full px-3 py-2 bg-slate-950 border border-cyan-900/50 rounded-lg text-xs text-slate-100 focus:border-emerald-500"></select>
           </div>
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">ชื่อโปรมป์ต์ (Title)</label>
-          <input type="text" id="new-prompt-title" placeholder="เช่น สคริปต์ TikTok ขายสินค้า Affiliate" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-100 focus:border-emerald-500">
+          <input type="text" id="new-prompt-title" placeholder="เช่น สคริปต์ TikTok ขายสินค้า Affiliate" class="w-full px-3 py-2 bg-slate-950 border border-cyan-900/50 rounded-lg text-xs text-slate-100 focus:border-emerald-500">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">บทบาทของ AI (Role Persona)</label>
-          <input type="text" id="new-prompt-role" placeholder="เช่น Master Affiliate Copywriter" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-100 focus:border-emerald-500">
+          <input type="text" id="new-prompt-role" placeholder="เช่น Master Affiliate Copywriter" class="w-full px-3 py-2 bg-slate-950 border border-cyan-900/50 rounded-lg text-xs text-slate-100 focus:border-emerald-500">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">
             เนื้อหา Prompt (สามารถใส่ตัวแปรในวงเล็บ `[...]` ได้ เช่น `[ระบุสินค้า]`)
           </label>
-          <textarea id="new-prompt-content" rows="6" placeholder="คุณคือ... จงช่วยเขียน..." class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs font-mono text-slate-100 focus:border-emerald-500"></textarea>
+          <textarea id="new-prompt-content" rows="6" placeholder="คุณคือ... จงช่วยเขียน..." class="w-full px-3 py-2 bg-slate-950 border border-cyan-900/50 rounded-lg text-xs font-mono text-slate-100 focus:border-emerald-500"></textarea>
         </div>
       </div>
-      <div class="px-6 py-4 border-t border-slate-800 bg-slate-950 flex justify-end gap-2">
+      <div class="px-6 py-4 border-t border-cyan-900/50 bg-slate-950 flex justify-end gap-2">
         <button onclick="closeNewPromptModal()" class="px-4 py-2 text-xs text-slate-400 hover:text-white">ยกเลิก</button>
-        <button onclick="saveNewPrompt()" class="px-5 py-2 text-xs font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-lg">บันทึก Prompt</button>
+        <button onclick="saveNewPrompt()" class="px-5 py-2 text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-lg">บันทึก Prompt</button>
       </div>
     </div>
   </div>
@@ -497,7 +497,7 @@
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl p-6 space-y-4">
       <div class="flex items-center justify-between">
         <h3 class="text-sm font-bold text-white flex items-center gap-2">
-          <span>🔑 ตั้งค่า Gemini API Key</span>
+          <span> ตั้งค่า Gemini API Key</span>
         </h3>
         <button onclick="closeApiKeyModal()" class="text-slate-400 hover:text-white">✕</button>
       </div>
@@ -505,20 +505,20 @@
         ระบุ Google Gemini API Key เพื่อเปิดใช้งานระบบรันคำสั่งสดในแท็บ AI Playground (คีย์จะถูกบันทึกไว้ใน Browser ของคุณเท่านั้น)
       </p>
       <div>
-        <input type="password" id="input-api-key" placeholder="AIzaSy..." class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-100 font-mono focus:border-emerald-500">
+        <input type="password" id="input-api-key" placeholder="AIzaSy..." class="w-full px-3 py-2 bg-slate-950 border border-cyan-900/50 rounded-lg text-xs text-slate-100 font-mono focus:border-emerald-500">
       </div>
       <div class="flex items-center justify-between text-xs pt-2">
-        <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-emerald-400 hover:underline">รับ API Key ฟรีที่นี่ ↗</a>
+        <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-cyan-400 hover:underline">รับ API Key ฟรีที่นี่ ↗</a>
         <div class="flex gap-2">
           <button onclick="clearApiKey()" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-rose-400">ล้างคีย์</button>
-          <button onclick="saveApiKey()" class="px-4 py-1.5 rounded bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold">บันทึก</button>
+          <button onclick="saveApiKey()" class="px-4 py-1.5 rounded bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold">บันทึก</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Toast Notification -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-emerald-500 text-slate-950 px-4 py-3 rounded-xl font-medium text-xs shadow-2xl flex items-center gap-2">
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-cyan-500 text-slate-950 px-4 py-3 rounded-xl font-medium text-xs shadow-2xl flex items-center gap-2">
     <span>✓</span>
     <span id="toast-message">คัดลอกลงคลิปบอร์ดแล้ว!</span>
   </div>
@@ -541,8 +541,8 @@
       // Web Dev (1-10)
       1: { name: 'Architecture', color: 'bg-indigo-500/15 text-indigo-400 border-indigo-500/30' },
       2: { name: 'UI/UX Design', color: 'bg-pink-500/15 text-pink-400 border-pink-500/30' },
-      3: { name: 'Frontend', color: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' },
-      4: { name: 'Backend & API', color: 'bg-amber-500/15 text-amber-400 border-amber-500/30' },
+      3: { name: 'Frontend', color: 'bg-cyan-500/15 text-cyan-400 border-emerald-500/30' },
+      4: { name: 'Backend & API', color: 'bg-pink-500/15 text-pink-400 border-amber-500/30' },
       5: { name: 'Database', color: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30' },
       6: { name: 'Security', color: 'bg-rose-500/15 text-rose-400 border-rose-500/30' },
       7: { name: 'Testing & QA', color: 'bg-purple-500/15 text-purple-400 border-purple-500/30' },
@@ -551,9 +551,9 @@
       10: { name: 'CRO & Copy', color: 'bg-orange-500/15 text-orange-400 border-orange-500/30' },
 
       // AI Money 1-10 (11-20)
-      11: { name: 'Digital Products', color: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30' },
+      11: { name: 'Digital Products', color: 'bg-cyan-500/15 text-cyan-300 border-emerald-500/30' },
       12: { name: 'Freelancing', color: 'bg-teal-500/15 text-teal-300 border-teal-500/30' },
-      13: { name: 'Content Creator', color: 'bg-amber-500/15 text-amber-300 border-amber-500/30' },
+      13: { name: 'Content Creator', color: 'bg-pink-500/15 text-pink-300 border-amber-500/30' },
       14: { name: 'Affiliate Marketing', color: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30' },
       15: { name: 'E-Commerce & POD', color: 'bg-orange-500/15 text-orange-300 border-orange-500/30' },
       16: { name: 'AI Agency (AAA)', color: 'bg-purple-500/15 text-purple-300 border-purple-500/30' },
@@ -563,16 +563,16 @@
       20: { name: 'Business Intelligence', color: 'bg-lime-500/15 text-lime-300 border-lime-500/30' },
 
       // AI Money 11-20 (21-30)
-      21: { name: 'Executive Ghostwriting', color: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30' },
+      21: { name: 'Executive Ghostwriting', color: 'bg-cyan-500/15 text-cyan-300 border-emerald-500/30' },
       22: { name: 'Stock Art & Licensing', color: 'bg-pink-500/15 text-pink-300 border-pink-500/30' },
       23: { name: 'Translation & Dubbing', color: 'bg-blue-500/15 text-blue-300 border-blue-500/30' },
       24: { name: 'Sales Chatbots', color: 'bg-teal-500/15 text-teal-300 border-teal-500/30' },
       25: { name: 'Podcasting & Audio', color: 'bg-violet-500/15 text-violet-300 border-violet-500/30' },
-      26: { name: 'Paid Media & Ads', color: 'bg-amber-500/15 text-amber-300 border-amber-500/30' },
+      26: { name: 'Paid Media & Ads', color: 'bg-pink-500/15 text-pink-300 border-amber-500/30' },
       27: { name: 'Game Dev & Lore', color: 'bg-red-500/15 text-red-300 border-red-500/30' },
       28: { name: 'Substack Newsletters', color: 'bg-orange-500/15 text-orange-300 border-orange-500/30' },
       29: { name: 'Deal Sourcing', color: 'bg-sky-500/15 text-sky-300 border-sky-500/30' },
-      30: { name: 'Enterprise AI Consulting', color: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30' }
+      30: { name: 'Enterprise AI Consulting', color: 'bg-cyan-500/15 text-cyan-300 border-emerald-500/30' }
     };
 
     const webCats = [
@@ -616,7 +616,7 @@
       const btnReader = document.getElementById('btn-view-reader');
       const btnGrid = document.getElementById('btn-view-grid');
       if (mode === 'reader') {
-        btnReader.className = 'px-3 py-1.5 rounded-md font-semibold bg-emerald-600 text-white flex items-center gap-1.5 transition shadow-sm';
+        btnReader.className = 'px-3 py-1.5 rounded-md font-semibold bg-cyan-600 text-white flex items-center gap-1.5 transition shadow-sm';
         btnGrid.className = 'px-3 py-1.5 rounded-md font-medium text-slate-400 hover:text-white flex items-center gap-1.5 transition';
       } else {
         btnGrid.className = 'px-3 py-1.5 rounded-md font-semibold bg-sky-600 text-white flex items-center gap-1.5 transition shadow-sm';
@@ -635,7 +635,7 @@
       selectedDifficulty = diff;
       document.querySelectorAll('.diff-btn').forEach(btn => {
         if (btn.getAttribute('data-diff') === diff) {
-          btn.className = 'diff-btn px-2 py-1 rounded bg-emerald-500 text-slate-950 font-bold border border-emerald-400';
+          btn.className = 'diff-btn px-2 py-1 rounded bg-cyan-500 text-slate-950 font-bold border border-emerald-400';
         } else {
           btn.className = 'diff-btn px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700';
         }
@@ -651,7 +651,7 @@
         const b = document.getElementById(`mode-btn-${m}`);
         if (m === mode) {
           if (m === 'money') {
-            b.className = 'w-full px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-between bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-600/20 border border-emerald-500/30';
+            b.className = 'w-full px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-between bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-cyan-600/20 border border-emerald-500/30';
           } else if (m === 'web') {
             b.className = 'w-full px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-between bg-gradient-to-r from-sky-600 to-indigo-600 text-white shadow-lg shadow-sky-600/20 border border-sky-500/30';
           } else {
@@ -680,7 +680,7 @@
         const btn = document.createElement('button');
         const isActive = currentCategory === c.id;
         btn.className = isActive
-          ? 'w-full px-2.5 py-1.5 rounded-lg text-left text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center justify-between'
+          ? 'w-full px-2.5 py-1.5 rounded-lg text-left text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-emerald-500/40 flex items-center justify-between'
           : 'w-full px-2.5 py-1.5 rounded-lg text-left text-xs text-slate-400 hover:text-slate-200 hover:bg-slate-800 flex items-center justify-between transition';
         btn.innerHTML = `<span>${c.label}</span> <span class="font-mono text-[11px] opacity-70">${count}</span>`;
         btn.onclick = () => filterCategory(c.id);
@@ -717,7 +717,7 @@
       currentCategory = 0;
       selectedDifficulty = '';
       document.querySelectorAll('.diff-btn').forEach((b, i) => {
-        b.className = i === 0 ? 'diff-btn px-2 py-1 rounded bg-emerald-500 text-slate-950 font-bold border border-emerald-400' : 'diff-btn px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700';
+        b.className = i === 0 ? 'diff-btn px-2 py-1 rounded bg-cyan-500 text-slate-950 font-bold border border-emerald-400' : 'diff-btn px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700';
       });
       if (filterOnlyFavorites) toggleFavoriteFilter();
       renderSidebarCategories();
@@ -732,7 +732,7 @@
         showToast('นำออกจากรายการโปรดแล้ว');
       } else {
         favorites.push(id);
-        showToast('เพิ่มในรายการโปรดแล้ว ⭐');
+        showToast('เพิ่มในรายการโปรดแล้ว ');
       }
       localStorage.setItem('web_prompts_favs', JSON.stringify(favorites));
       updateFavBadge();
@@ -743,10 +743,10 @@
       filterOnlyFavorites = !filterOnlyFavorites;
       const btn = document.getElementById('btn-fav-filter');
       if (filterOnlyFavorites) {
-        btn.classList.add('bg-amber-500/20', 'border-amber-500/50', 'text-amber-300');
+        btn.classList.add('bg-pink-500/20', 'border-amber-500/50', 'text-pink-300');
         btn.classList.remove('bg-slate-800/80', 'text-slate-300');
       } else {
-        btn.classList.remove('bg-amber-500/20', 'border-amber-500/50', 'text-amber-300');
+        btn.classList.remove('bg-pink-500/20', 'border-amber-500/50', 'text-pink-300');
         btn.classList.add('bg-slate-800/80', 'text-slate-300');
       }
       renderPrompts();
@@ -822,7 +822,7 @@
     }
 
     function exportToMarkdown() {
-      let md = '# 🌟 Master Prompts Collection (300 Master Prompts)\n\n';
+      let md = '#  Master Prompts Collection (300 Master Prompts)\n\n';
       PROMPTS.forEach(p => {
         md += `## #${p.id} ${p.title}\n`;
         md += `**หมวด**: ${p.categoryName} | **บทบาท**: ${p.role}\n\n`;
@@ -862,7 +862,7 @@
       downloadAnchor.click();
       downloadAnchor.remove();
       closeExportModal();
-      showToast('ดาวน์โหลดไฟล์ CSV สำหรับ Notion/Excel สำเร็จ! 📊');
+      showToast('ดาวน์โหลดไฟล์ CSV สำหรับ Notion/Excel สำเร็จ! ');
     }
 
     // Render Prompts (Reader Stream Mode & Grid Mode)
@@ -894,7 +894,7 @@
         const meta = categoryMeta[currentCategory];
         if (meta) activeLabel = meta.name;
       }
-      document.getElementById('active-category-label').textContent = `${currentMode === 'money' ? '💰 โหมดหาเงิน (200 ข้อ)' : currentMode === 'web' ? '💻 โหมดสร้างเว็บ (100 ข้อ)' : '🌟 ทั้งหมด (300 ข้อ)'} > ${activeLabel}`;
+      document.getElementById('active-category-label').textContent = `${currentMode === 'money' ? ' โหมดหาเงิน (200 ข้อ)' : currentMode === 'web' ? ' โหมดสร้างเว็บ (100 ข้อ)' : ' ทั้งหมด (300 ข้อ)'} > ${activeLabel}`;
 
       if (filtered.length === 0) {
         emptyState.classList.remove('hidden');
@@ -921,30 +921,30 @@
                   <span class="px-2 py-0.5 rounded-md text-[11px] font-mono font-semibold border ${catInfo.color}">
                     #${String(p.id).padStart(2, '0')} ${catInfo.name}
                   </span>
-                  ${isMoney ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300">💰 AI หาเงิน</span>' : ''}
+                  ${isMoney ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300"> AI หาเงิน</span>' : ''}
                 </div>
                 <div class="flex items-center gap-1">
-                  <button onclick="toggleFavorite(${p.id}, event)" class="p-1 text-slate-400 hover:text-amber-400 transition text-sm">
-                    ${isFav ? '⭐' : '☆'}
+                  <button onclick="toggleFavorite(${p.id}, event)" class="p-1 text-slate-400 hover:text-pink-400 transition text-sm">
+                    ${isFav ? '' : '☆'}
                   </button>
                   <button onclick="deletePrompt(${p.id}, event)" class="p-1 text-slate-500 hover:text-rose-400 transition text-xs">
-                    🗑️
+                    
                   </button>
                 </div>
               </div>
 
-              <h3 class="text-sm font-bold text-slate-100 group-hover:text-emerald-300 transition line-clamp-1 mb-1">
+              <h3 class="text-sm font-bold text-slate-100 group-hover:text-cyan-300 transition line-clamp-1 mb-1">
                 ${p.title}
               </h3>
 
-              <p class="text-xs font-mono text-emerald-400/80 mb-2 truncate">
+              <p class="text-xs font-mono text-cyan-400/80 mb-2 truncate">
                 ${p.role ? `คุณคือ ${p.role}` : ''}
               </p>
 
               <!-- Mini Badges -->
               <div class="flex items-center gap-1.5 flex-wrap text-[10px] mb-3">
-                ${p.income ? `<span class="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">💰 ${p.income}</span>` : ''}
-                ${p.timeframe ? `<span class="px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">⏱️ ${p.timeframe}</span>` : ''}
+                ${p.income ? `<span class="px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-emerald-500/20"> ${p.income}</span>` : ''}
+                ${p.timeframe ? `<span class="px-1.5 py-0.5 rounded bg-pink-500/10 text-pink-300 border border-amber-500/20">⏱ ${p.timeframe}</span>` : ''}
                 ${p.difficulty ? `<span class="px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">${p.difficulty}</span>` : ''}
               </div>
 
@@ -953,15 +953,15 @@
               </div>
             </div>
 
-            <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800/80">
+            <div class="grid grid-cols-3 gap-2 pt-2 border-t border-cyan-900/50/80">
               <button onclick="openCustomizer(${p.id}, 'vars')" class="py-2 px-2 rounded-lg text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center justify-center gap-1 transition">
-                <span>⚙️</span> ปรับแต่ง
+                <span>⚙</span> ปรับแต่ง
               </button>
-              <button onclick="openCustomizer(${p.id}, 'ai')" class="py-2 px-2 rounded-lg text-xs font-semibold bg-emerald-600/20 hover:bg-emerald-500 text-emerald-300 hover:text-white border border-emerald-500/30 flex items-center justify-center gap-1 transition">
-                <span>🤖</span> รัน AI
+              <button onclick="openCustomizer(${p.id}, 'ai')" class="py-2 px-2 rounded-lg text-xs font-semibold bg-cyan-600/20 hover:bg-cyan-500 text-cyan-300 hover:text-white border border-emerald-500/30 flex items-center justify-center gap-1 transition">
+                <span></span> รัน AI
               </button>
               <button onclick="copyPromptText(${p.id}, event)" class="py-2 px-2 rounded-lg text-xs font-semibold bg-sky-600/20 hover:bg-sky-500 text-sky-300 hover:text-white border border-sky-500/30 flex items-center justify-center gap-1 transition">
-                <span>📋</span> คัดลอก
+                <span></span> คัดลอก
               </button>
             </div>
           `;
@@ -983,30 +983,30 @@
 
           article.innerHTML = `
             <!-- Item Header -->
-            <div class="flex flex-wrap items-start justify-between gap-3 pb-3 border-b border-slate-800/80">
+            <div class="flex flex-wrap items-start justify-between gap-3 pb-3 border-b border-cyan-900/50/80">
               <div>
                 <div class="flex items-center gap-2 mb-2 flex-wrap">
                   <span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-bold border ${catInfo.color}">
                     #${String(p.id).padStart(2, '0')} ${catInfo.name}
                   </span>
-                  ${isMoney ? '<span class="px-2 py-0.5 rounded-md text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">💰 โหมดหาเงิน</span>' : '<span class="px-2 py-0.5 rounded-md text-xs font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">💻 วิศวกรรมเว็บ</span>'}
+                  ${isMoney ? '<span class="px-2 py-0.5 rounded-md text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-emerald-500/30"> โหมดหาเงิน</span>' : '<span class="px-2 py-0.5 rounded-md text-xs font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30"> วิศวกรรมเว็บ</span>'}
                   
                   <!-- Rich Intelligence Badges -->
-                  ${p.income ? `<span class="px-2 py-0.5 rounded-md text-xs font-semibold bg-emerald-950/80 text-emerald-300 border border-emerald-700/50">💰 ${p.income}</span>` : ''}
-                  ${p.timeframe ? `<span class="px-2 py-0.5 rounded-md text-xs font-semibold bg-amber-950/80 text-amber-300 border border-amber-700/50">⏱️ เริ่มได้ใน ${p.timeframe}</span>` : ''}
-                  ${p.difficulty ? `<span class="px-2 py-0.5 rounded-md text-xs font-semibold bg-blue-950/80 text-blue-300 border border-blue-700/50">🎯 ${p.difficulty}</span>` : ''}
-                  ${p.level ? `<span class="px-2 py-0.5 rounded-md text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-700/50">👤 ${p.level}</span>` : ''}
+                  ${p.income ? `<span class="px-2 py-0.5 rounded-md text-xs font-semibold bg-cyan-950/80 text-cyan-300 border border-emerald-700/50"> ${p.income}</span>` : ''}
+                  ${p.timeframe ? `<span class="px-2 py-0.5 rounded-md text-xs font-semibold bg-amber-950/80 text-pink-300 border border-amber-700/50">⏱ เริ่มได้ใน ${p.timeframe}</span>` : ''}
+                  ${p.difficulty ? `<span class="px-2 py-0.5 rounded-md text-xs font-semibold bg-blue-950/80 text-blue-300 border border-blue-700/50"> ${p.difficulty}</span>` : ''}
+                  ${p.level ? `<span class="px-2 py-0.5 rounded-md text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-700/50"> ${p.level}</span>` : ''}
                 </div>
 
-                <h2 class="text-base sm:text-lg font-bold text-white group-hover:text-emerald-300 transition">
+                <h2 class="text-base sm:text-lg font-bold text-white group-hover:text-cyan-300 transition">
                   ${p.title}
                 </h2>
-                ${p.role ? `<div class="text-xs font-mono text-emerald-400 mt-1">บทบาท AI: <span class="text-slate-300 font-sans font-medium">คุณคือ ${p.role}</span></div>` : ''}
+                ${p.role ? `<div class="text-xs font-mono text-cyan-400 mt-1">บทบาท AI: <span class="text-slate-300 font-sans font-medium">คุณคือ ${p.role}</span></div>` : ''}
 
                 <!-- Recommended Tools -->
                 ${p.tools && p.tools.length > 0 ? `
                   <div class="flex items-center gap-1.5 mt-2 flex-wrap text-[11px] text-slate-400">
-                    <span class="text-slate-500">🛠️ เครื่องมือแนะนำ:</span>
+                    <span class="text-slate-500"> เครื่องมือแนะนำ:</span>
                     ${p.tools.map(t => `<span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px]">${t}</span>`).join('')}
                   </div>
                 ` : ''}
@@ -1015,36 +1015,36 @@
               <!-- Top Quick Actions -->
               <div class="flex items-center gap-2 no-print">
                 <button onclick="toggleFavorite(${p.id}, event)" class="px-2.5 py-1.5 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-300 text-xs flex items-center gap-1 transition">
-                  <span>${isFav ? '⭐' : '☆'}</span>
+                  <span>${isFav ? '' : '☆'}</span>
                   <span class="hidden sm:inline">${isFav ? 'บันทึกแล้ว' : 'รายการโปรด'}</span>
                 </button>
-                <button onclick="copyPromptText(${p.id}, event)" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white flex items-center gap-1.5 shadow-sm transition">
-                  <span>📋</span> คัดลอก Prompt
+                <button onclick="copyPromptText(${p.id}, event)" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-600 hover:bg-cyan-500 text-white flex items-center gap-1.5 shadow-sm transition">
+                  <span></span> คัดลอก Prompt
                 </button>
                 <button onclick="deletePrompt(${p.id}, event)" class="p-1.5 text-slate-500 hover:text-rose-400 transition text-xs" title="ลบ Prompt">
-                  🗑️
+                  
                 </button>
               </div>
             </div>
 
             <!-- Full Prompt Body (Un-truncated, Easy to Read) -->
             <div class="mt-4">
-              <div class="prompt-box prompt-full-box rounded-xl p-4 sm:p-5 font-mono text-slate-200 reader-text whitespace-pre-wrap leading-relaxed border border-slate-800 overflow-y-auto custom-scrollbar select-text">
+              <div class="prompt-box prompt-full-box rounded-xl p-4 sm:p-5 font-mono text-slate-200 reader-text whitespace-pre-wrap leading-relaxed border border-cyan-900/50 overflow-y-auto custom-scrollbar select-text">
 ${formattedPrompt}
               </div>
             </div>
 
             <!-- Bottom Tool Actions -->
-            <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs no-print">
+            <div class="mt-4 pt-3 border-t border-cyan-900/50/80 flex flex-wrap items-center justify-between gap-3 text-xs no-print">
               <div class="flex items-center gap-2">
                 <button onclick="openCustomizer(${p.id}, 'vars')" class="px-3.5 py-2 rounded-lg font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center gap-1.5 transition">
-                  <span>⚙️ ปรับแต่งตัวแปรในวงเล็บ</span>
+                  <span>⚙ ปรับแต่งตัวแปรในวงเล็บ</span>
                 </button>
                 <button onclick="openCustomizer(${p.id}, 'ai')" class="px-3.5 py-2 rounded-lg font-bold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white flex items-center gap-1.5 shadow-md transition">
-                  <span>🤖 รันผลลัพธ์ผ่าน AI ทันที</span>
+                  <span> รันผลลัพธ์ผ่าน AI ทันที</span>
                 </button>
                 <button onclick="openCustomizer(${p.id}, 'code')" class="px-3 py-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition">
-                  <span>💻 ดูโค้ด SDK</span>
+                  <span> ดูโค้ด SDK</span>
                 </button>
               </div>
 
@@ -1102,7 +1102,7 @@ ${formattedPrompt}
             <input 
               type="text" 
               placeholder="ระบุค่าแทน ${v.split(',')[0]}..." 
-              class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-emerald-500 font-sans"
+              class="w-full px-3 py-2 bg-slate-950 border border-cyan-900/50 rounded-lg text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-emerald-500 font-sans"
               data-var="${v.replace(/"/g, '&quot;')}"
               oninput="onVarInput(this)"
             >
@@ -1147,7 +1147,7 @@ ${formattedPrompt}
         const btn = document.getElementById(`tab-btn-${t}`);
         const content = document.getElementById(`tab-content-${t}`);
         if (t === tab) {
-          btn.className = 'py-3 border-b-2 border-emerald-500 text-emerald-400 font-semibold flex items-center gap-2';
+          btn.className = 'py-3 border-b-2 border-emerald-500 text-cyan-400 font-semibold flex items-center gap-2';
           content.classList.remove('hidden');
         } else {
           btn.className = 'py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition flex items-center gap-2';
@@ -1165,7 +1165,7 @@ ${formattedPrompt}
       ['python', 'node', 'curl'].forEach(l => {
         const b = document.getElementById(`code-btn-${l}`);
         if (l === lang) {
-          b.className = 'px-2.5 py-1 rounded bg-emerald-500 text-slate-950 font-bold';
+          b.className = 'px-2.5 py-1 rounded bg-cyan-500 text-slate-950 font-bold';
         } else {
           b.className = 'px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700';
         }
@@ -1220,14 +1220,14 @@ console.log(response.text);
 
       if (!apiKey) {
         openApiKeyModal();
-        outBox.innerHTML = '<span class="text-amber-400 font-medium">⚠️ กรุณากรอก Gemini API Key เพื่อเริ่มรันคำสั่งสด<br><span class="text-slate-400 text-xs">สามารถรับ API Key ฟรีได้จาก <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-emerald-400 underline">Google AI Studio</a> แล้วนำมากรอกในช่องด้านบน</span></span>';
+        outBox.innerHTML = '<span class="text-pink-400 font-medium"> กรุณากรอก Gemini API Key เพื่อเริ่มรันคำสั่งสด<br><span class="text-slate-400 text-xs">สามารถรับ API Key ฟรีได้จาก <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-cyan-400 underline">Google AI Studio</a> แล้วนำมากรอกในช่องด้านบน</span></span>';
         return;
       }
 
       btn.disabled = true;
-      document.getElementById('btn-run-ai-icon').textContent = '⏳';
+      document.getElementById('btn-run-ai-icon').textContent = '';
       document.getElementById('btn-run-ai-text').textContent = 'กำลังประมวลผลกับ AI...';
-      outBox.innerHTML = '<span class="text-emerald-400 animate-pulse">กำลังประมวลผลคำสั่งกับโมเดล Gemini 2.5 Flash...</span>';
+      outBox.innerHTML = '<span class="text-cyan-400 animate-pulse">กำลังประมวลผลคำสั่งกับโมเดล Gemini 2.5 Flash...</span>';
 
       // 1. Direct call to Google Gemini REST API (CORS supported, works 100% on GitHub Pages & Localhost)
       try {
@@ -1251,7 +1251,7 @@ console.log(response.text);
           const textOutput = data.candidates?.[0]?.content?.parts?.[0]?.text || '(ไม่มีข้อความตอบกลับจากแบบจำลอง)';
           outBox.textContent = textOutput;
           copyBtn.classList.remove('hidden');
-          showToast('สร้างผลลัพธ์สำเร็จ! ⚡');
+          showToast('สร้างผลลัพธ์สำเร็จ! ');
         } else {
           // Fallback to gemini-1.5-flash if needed
           const fallbackUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + encodeURIComponent(apiKey);
@@ -1266,9 +1266,9 @@ console.log(response.text);
           if (fbRes.ok) {
             outBox.textContent = fbData.candidates?.[0]?.content?.parts?.[0]?.text || '(ไม่มีข้อความตอบกลับ)';
             copyBtn.classList.remove('hidden');
-            showToast('สร้างผลลัพธ์สำเร็จด้วย Gemini 1.5 Flash! ⚡');
+            showToast('สร้างผลลัพธ์สำเร็จด้วย Gemini 1.5 Flash! ');
           } else {
-            outBox.textContent = '❌ Gemini API Error: ' + (data.error?.message || JSON.stringify(data.error));
+            outBox.textContent = ' Gemini API Error: ' + (data.error?.message || JSON.stringify(data.error));
           }
         }
       } catch (directErr) {
@@ -1284,14 +1284,14 @@ console.log(response.text);
             outBox.textContent = localData.output;
             copyBtn.classList.remove('hidden');
           } else {
-            outBox.textContent = '❌ Error: ' + (localData.error || 'Failed');
+            outBox.textContent = ' Error: ' + (localData.error || 'Failed');
           }
         } catch (localErr) {
-          outBox.textContent = '❌ Network Error: ไม่สามารถเชื่อมต่อ API ได้ (' + directErr.message + ')';
+          outBox.textContent = ' Network Error: ไม่สามารถเชื่อมต่อ API ได้ (' + directErr.message + ')';
         }
       } finally {
         btn.disabled = false;
-        document.getElementById('btn-run-ai-icon').textContent = '⚡';
+        document.getElementById('btn-run-ai-icon').textContent = '';
         document.getElementById('btn-run-ai-text').textContent = 'สร้างผลลัพธ์เดี๋ยวนี้';
       }
     }
@@ -1311,7 +1311,7 @@ console.log(response.text);
     function copyCustomizedPrompt() {
       const text = getCustomizedPromptText();
       navigator.clipboard.writeText(text).then(() => {
-        showToast('คัดลอก Prompt สำเร็จ! 🚀');
+        showToast('คัดลอก Prompt สำเร็จ! ');
         closeCustomizer();
       });
     }
@@ -1430,7 +1430,7 @@ console.log(response.text);
         renderPrompts();
       }
 
-      showToast('เพิ่ม Prompt ใหม่สำเร็จ! 🎉');
+      showToast('เพิ่ม Prompt ใหม่สำเร็จ! ');
       closeNewPromptModal();
     }
 
@@ -1481,9 +1481,9 @@ console.log(response.text);
       const k = localStorage.getItem('gemini_api_key');
       const ind = document.getElementById('api-key-indicator');
       if (k) {
-        ind.className = 'w-2 h-2 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400/50';
+        ind.className = 'w-2 h-2 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400/50';
       } else {
-        ind.className = 'w-2 h-2 rounded-full bg-amber-500';
+        ind.className = 'w-2 h-2 rounded-full bg-pink-500';
       }
     }
 
