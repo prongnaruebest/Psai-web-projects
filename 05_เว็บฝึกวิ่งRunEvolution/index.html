@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RunEvolution - ก้าวสู่นักวิ่งพันธุ์แกร่ง & ปลุกพลังกล้ามเนื้อ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              glow: '#00ff88',
+            },
+            fire: {
+              400: '#fb923c',
+              500: '#f97316',
+              600: '#ea580c',
+              glow: '#ff5500',
+            },
+            energy: {
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              glow: '#00d0ff',
+            },
+            darkbg: '#0a0f1d',
+            darkcard: '#111827',
+            darkborder: '#1f293d',
+          },
+          fontFamily: {
+            sans: ['Inter', 'Kanit', 'sans-serif'],
+          },
+          animation: {
+            'pulse-glow': 'pulseGlow 2s infinite ease-in-out',
+            'float': 'float 3s ease-in-out infinite',
+            'spin-slow': 'spin 12s linear infinite',
+            'track-slide': 'trackSlide 0.6s linear infinite',
+          },
+          keyframes: {
+            pulseGlow: {
+              '0%, 100%': { filter: 'drop-shadow(0 0 15px rgba(34, 197, 94, 0.4))' },
+              '50%': { filter: 'drop-shadow(0 0 35px rgba(34, 197, 94, 0.9))' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            },
+            trackSlide: {
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(-40px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      font-family: 'Kanit', sans-serif;
+      background-color: #080d1a;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+    .orbitron {
+      font-family: 'Orbitron', monospace;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b1120;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+    /* Neon Glow Utilities */
+    .glow-green {
+      box-shadow: 0 0 25px -5px rgba(34, 197, 94, 0.5);
+    }
+    .glow-orange {
+      box-shadow: 0 0 25px -5px rgba(249, 115, 22, 0.5);
+    }
+    .glow-blue {
+      box-shadow: 0 0 25px -5px rgba(14, 165, 233, 0.5);
+    }
+    .text-glow-green {
+      text-shadow: 0 0 12px rgba(34, 197, 94, 0.7);
+    }
+    .text-glow-orange {
+      text-shadow: 0 0 12px rgba(249, 115, 22, 0.7);
+    }
+    .glass-card {
+      background: rgba(17, 24, 39, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card:hover {
+      border-color: rgba(34, 197, 94, 0.25);
+    }
+    /* Running Canvas Aura */
+    #auraCanvas {
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-black">
+
+  <!-- TOP NAV -->
+  <header class="sticky top-0 z-40 w-full border-b border-gray-800 bg-[#0a0f1d]/90 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('dashboard')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-energy-500 flex items-center justify-center shadow-lg shadow-brand-500/20">
+          <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div>
+          <span class="text-xl font-extrabold tracking-wider bg-gradient-to-r from-brand-400 via-energy-400 to-white bg-clip-text text-transparent orbitron">
+            RUN<span class="text-brand-400">EVO</span>
+          </span>
+          <span class="text-[10px] block text-gray-400 tracking-widest uppercase -mt-1 font-semibold">Running & Muscle RPG</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="hidden md:flex items-center space-x-1 bg-gray-900/80 p-1.5 rounded-xl border border-gray-800 text-sm font-medium">
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-4 py-2 rounded-lg transition-all text-white bg-brand-500/20 text-brand-400 border border-brand-500/30">
+          🏠 สรุปสถานะ (Sanctuary)
+        </button>
+        <button onclick="switchTab('running-path')" id="nav-running-path" class="px-4 py-2 rounded-lg transition-all text-gray-400 hover:text-white hover:bg-gray-800">
+          🗺️ เส้นทางวิ่ง (Run Roadmap)
+        </button>
+        <button onclick="switchTab('muscle-lab')" id="nav-muscle-lab" class="px-4 py-2 rounded-lg transition-all text-gray-400 hover:text-white hover:bg-gray-800">
+          💪 กล้ามเนื้อ & เวท (Muscle Lab)
+        </button>
+        <button onclick="switchTab('evolution-tree')" id="nav-evolution-tree" class="px-4 py-2 rounded-lg transition-all text-gray-400 hover:text-white hover:bg-gray-800">
+          🧬 ต้นไม้วิวัฒนาการ (Evolution)
+        </button>
+      </nav>
+
+      <!-- Player Fast Stats & Quick Log Button -->
+      <div class="flex items-center space-x-3">
+        <div class="hidden sm:flex items-center bg-gray-900 border border-gray-800 px-3 py-1.5 rounded-xl space-x-3">
+          <div class="flex items-center space-x-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-brand-500 animate-ping"></span>
+            <span class="text-xs text-gray-400 font-medium">Level</span>
+            <span id="headerLevel" class="orbitron font-bold text-brand-400 text-sm">1</span>
+          </div>
+          <div class="h-4 w-[1px] bg-gray-700"></div>
+          <div class="flex items-center space-x-1">
+            <span class="text-xs text-amber-400">🔥</span>
+            <span id="headerStreak" class="orbitron font-bold text-white text-xs">1 วัน</span>
+          </div>
+        </div>
+
+        <button onclick="openQuickLogModal()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500 text-black font-bold text-xs sm:text-sm flex items-center space-x-1.5 shadow-lg shadow-brand-500/25 transition-all transform active:scale-95">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
+          </svg>
+          <span>บันทึกการฝึก</span>
+        </button>
+
+        <button onclick="toggleSound()" id="soundBtn" class="p-2 rounded-xl bg-gray-900 border border-gray-800 text-gray-400 hover:text-white transition-all text-sm" title="เปิด/ปิดเสียงเอฟเฟกต์">
+          🔊
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Bottom Tab Bar -->
+    <div class="md:hidden flex items-center justify-around border-t border-gray-800/80 bg-[#0a0f1d]/95 py-2 px-1">
+      <button onclick="switchTab('dashboard')" id="m-nav-dashboard" class="flex flex-col items-center text-brand-400 text-xs py-1 px-2 font-medium">
+        <span class="text-base">🏠</span>
+        <span>สถานะ</span>
+      </button>
+      <button onclick="switchTab('running-path')" id="m-nav-running-path" class="flex flex-col items-center text-gray-400 text-xs py-1 px-2 font-medium">
+        <span class="text-base">🗺️</span>
+        <span>เส้นทางวิ่ง</span>
+      </button>
+      <button onclick="switchTab('muscle-lab')" id="m-nav-muscle-lab" class="flex flex-col items-center text-gray-400 text-xs py-1 px-2 font-medium">
+        <span class="text-base">💪</span>
+        <span>สร้างกล้าม</span>
+      </button>
+      <button onclick="switchTab('evolution-tree')" id="m-nav-evolution-tree" class="flex flex-col items-center text-gray-400 text-xs py-1 px-2 font-medium">
+        <span class="text-base">🧬</span>
+        <span>วิวัฒนาการ</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+    <!-- ==================== TAB 1: DASHBOARD (SANCTUARY) ==================== -->
+    <section id="tab-dashboard" class="space-y-6">
+      
+      <!-- HERO: Character Animation Arena & Live Stats -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Character Display Stage (7 cols) -->
+        <div class="lg:col-span-7 glass-card rounded-3xl p-6 relative overflow-hidden flex flex-col justify-between border border-gray-800">
+          
+          <!-- Background Cyber Grid / Ambient Track -->
+          <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-950/40 via-[#0b1220]/70 to-[#080d1a] -z-10"></div>
+          <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f293d0f_1px,transparent_1px),linear-gradient(to_bottom,#1f293d0f_1px,transparent_1px)] bg-[size:24px_24px] -z-10"></div>
+
+          <!-- Header of Character Card -->
+          <div class="flex items-start justify-between z-10">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span id="characterTitleBadge" class="text-xs px-2.5 py-1 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30 font-semibold tracking-wide">
+                  🌱 ผู้เริ่มต้นสายวิ่ง (Novice)
+                </span>
+                <span id="rankBadge" class="text-xs px-2.5 py-1 rounded-full bg-gray-800 text-gray-300 font-mono">
+                  Rank: E
+                </span>
+              </div>
+              <h2 id="characterName" class="text-2xl sm:text-3xl font-black mt-1 text-white tracking-wide">
+                นักวิ่งไร้ขีดจำกัด
+              </h2>
+              <p class="text-xs text-gray-400 mt-0.5">ฝึกต่อเนื่องเพื่อกระตุ้นเซลล์กล้ามเนื้อและปอดเหล็ก</p>
+            </div>
+
+            <!-- Animation Mode Controls -->
+            <div class="flex bg-gray-900/90 border border-gray-800 rounded-xl p-1 text-xs">
+              <button onclick="setAnimState('run')" id="btnAnimRun" class="px-2.5 py-1 rounded-lg bg-brand-500/30 text-brand-300 font-medium transition-all">
+                🏃 วิ่งสม่ำเสมอ
+              </button>
+              <button onclick="setAnimState('sprint')" id="btnAnimSprint" class="px-2.5 py-1 rounded-lg text-gray-400 hover:text-white transition-all">
+                ⚡ สปรินต์
+              </button>
+              <button onclick="setAnimState('workout')" id="btnAnimWorkout" class="px-2.5 py-1 rounded-lg text-gray-400 hover:text-white transition-all">
+                🏋️ สควอท/เกร็ง
+              </button>
+            </div>
+          </div>
+
+          <!-- ANIMATED AVATAR CANVAS & DYNAMIC SVG STAGE -->
+          <div class="relative w-full h-[360px] sm:h-[400px] flex items-center justify-center my-2">
+            
+            <!-- Canvas Aura Effect (Fire / Wind / Lightning particles) -->
+            <canvas id="auraCanvas" width="500" height="400" class="absolute inset-0 w-full h-full z-0"></canvas>
+
+            <!-- Dynamic Modular SVG Character -->
+            <div id="characterContainer" class="relative z-10 w-full max-w-[340px] h-full flex flex-col items-center justify-center">
+              <svg id="avatarSvg" viewBox="0 0 300 400" class="w-full h-full max-h-[360px] drop-shadow-2xl">
+                <defs>
+                  <!-- Skin Gradient -->
+                  <linearGradient id="skinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fbcfe8"/>
+                    <stop offset="100%" stop-color="#f472b6"/>
+                  </linearGradient>
+                  <!-- Muscle Shadow Gradient -->
+                  <linearGradient id="muscleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#e2e8f0"/>
+                    <stop offset="100%" stop-color="#94a3b8"/>
+                  </linearGradient>
+                  <!-- Shirt Gradient (Upgrades by tier) -->
+                  <linearGradient id="shirtGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop id="shirtStop1" offset="0%" stop-color="#3b82f6"/>
+                    <stop id="shirtStop2" offset="100%" stop-color="#1d4ed8"/>
+                  </linearGradient>
+                  <!-- Shorts Gradient -->
+                  <linearGradient id="shortsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#1f2937"/>
+                    <stop offset="100%" stop-color="#111827"/>
+                  </linearGradient>
+                  <!-- Shoes Gradient -->
+                  <linearGradient id="shoeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop id="shoeStop1" offset="0%" stop-color="#22c55e"/>
+                    <stop id="shoeStop2" offset="100%" stop-color="#15803d"/>
+                  </linearGradient>
+                  <!-- Aura Filter -->
+                  <filter id="glowFilter" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="6" result="blur"/>
+                    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                  </filter>
+                </defs>
+
+                <!-- GROUND TREADMILL / RUNNING TRACK -->
+                <g id="trackGroup">
+                  <ellipse cx="150" cy="370" rx="130" ry="18" fill="#111827" stroke="#1f2937" stroke-width="2"/>
+                  <!-- Moving Track Markers -->
+                  <g id="movingSpeedLines">
+                    <line x1="60" y1="370" x2="100" y2="370" stroke="#22c55e" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+                    <line x1="140" y1="373" x2="190" y2="373" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+                    <line x1="210" y1="368" x2="245" y2="368" stroke="#22c55e" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+                  </g>
+                </g>
+
+                <!-- AURA GLOW UNDERLAY -->
+                <circle id="auraGlowCircle" cx="150" cy="200" r="110" fill="none" stroke="rgba(34,197,94,0.15)" stroke-width="15" opacity="0"/>
+
+                <!-- MAIN CHARACTER BODY GROUP (Animates rotation and bobbing) -->
+                <g id="avatarBodyGroup" transform="translate(0, 0)">
+                  
+                  <!-- HEAD ACCESSORY (Headband / Halo for High Tiers) -->
+                  <g id="headAccessory" opacity="0">
+                    <path d="M 125,75 Q 150,68 175,75" stroke="#fbbf24" stroke-width="6" fill="none" stroke-linecap="round" filter="url(#glowFilter)"/>
+                    <circle cx="150" cy="71" r="3.5" fill="#fef08a"/>
+                  </g>
+
+                  <!-- HEAD -->
+                  <g id="headGroup">
+                    <!-- Neck (Thickens with Strength) -->
+                    <rect id="neckRect" x="141" y="92" width="18" height="25" rx="5" fill="#fbcfe8"/>
+                    <!-- Head Base -->
+                    <circle cx="150" cy="75" r="26" fill="#fbcfe8"/>
+                    <!-- Hair Style (Athletic Swept) -->
+                    <path id="hairMesh" d="M 124,70 Q 130,45 152,47 Q 174,48 176,68 Q 165,60 150,60 Q 135,60 124,70 Z" fill="#1e293b"/>
+                    <!-- Eyes & Smile -->
+                    <circle cx="143" cy="74" r="3" fill="#0f172a"/>
+                    <circle cx="157" cy="74" r="3" fill="#0f172a"/>
+                    <!-- Eyebrow determination -->
+                    <path d="M 139,68 L 147,70" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M 161,70 L 153,68" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
+                    <!-- Determined Smile -->
+                    <path id="avatarMouth" d="M 145,84 Q 150,89 155,84" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  </g>
+
+                  <!-- BACK ARM (Rotates with Run Cycle) -->
+                  <g id="armBack" transform-origin="175 125">
+                    <!-- Deltoid / Shoulder back -->
+                    <ellipse id="deltoidBack" cx="175" cy="125" rx="14" ry="12" fill="#f472b6"/>
+                    <!-- Bicep & Forearm back -->
+                    <rect id="bicepBack" x="168" y="125" width="14" height="42" rx="7" fill="#fbcfe8"/>
+                    <circle cx="175" cy="175" r="9" fill="#f472b6"/>
+                  </g>
+
+                  <!-- BACK LEG (Rotates with Run Cycle) -->
+                  <g id="legBack" transform-origin="165 240">
+                    <!-- Thigh Back -->
+                    <rect id="thighBack" x="156" y="235" width="18" height="55" rx="9" fill="#e2e8f0"/>
+                    <!-- Calf Back -->
+                    <rect id="calfBack" x="157" y="285" width="16" height="55" rx="8" fill="#cbd5e1"/>
+                    <!-- Shoe Back -->
+                    <g id="shoeBackGroup" transform="translate(150, 335)">
+                      <path d="M 5,5 L 28,5 Q 32,8 28,14 L 3,14 Q 0,10 5,5 Z" fill="url(#shoeGrad)"/>
+                      <circle cx="20" cy="10" r="2" fill="#ffffff" opacity="0.8"/>
+                    </g>
+                  </g>
+
+                  <!-- TORSO & CHEST & ABS (Dynamically expands based on Strength & Stamina) -->
+                  <g id="torsoGroup">
+                    <!-- Trapezius / Upper Back -->
+                    <path id="trapsPath" d="M 125,115 Q 150,100 175,115 L 170,130 L 130,130 Z" fill="#f472b6"/>
+                    
+                    <!-- Main Torso / Shirt -->
+                    <path id="torsoPath" d="M 125,115 L 175,115 L 168,230 L 132,230 Z" fill="url(#shirtGrad)"/>
+                    
+                    <!-- Chest Muscle Definition Lines (Shows when Strength is higher) -->
+                    <g id="muscleChestLines" opacity="0.1">
+                      <path d="M 133,145 Q 150,152 167,145" stroke="#ffffff" stroke-width="2.5" fill="none" opacity="0.5"/>
+                      <line x1="150" y1="130" x2="150" y2="185" stroke="#000000" stroke-width="2" opacity="0.3"/>
+                    </g>
+
+                    <!-- Six-pack Abdominals (Visible in high strength tiers) -->
+                    <g id="muscleAbsGroup" opacity="0">
+                      <rect x="140" y="160" width="8" height="7" rx="2" fill="rgba(0,0,0,0.2)"/>
+                      <rect x="152" y="160" width="8" height="7" rx="2" fill="rgba(0,0,0,0.2)"/>
+                      <rect x="140" y="172" width="8" height="7" rx="2" fill="rgba(0,0,0,0.2)"/>
+                      <rect x="152" y="172" width="8" height="7" rx="2" fill="rgba(0,0,0,0.2)"/>
+                      <rect x="141" y="184" width="7" height="6" rx="2" fill="rgba(0,0,0,0.2)"/>
+                      <rect x="152" y="184" width="7" height="6" rx="2" fill="rgba(0,0,0,0.2)"/>
+                    </g>
+
+                    <!-- Athletic Shirt Logo -->
+                    <polygon points="150,135 155,145 145,145" fill="#ffffff" opacity="0.8"/>
+
+                    <!-- Running Shorts -->
+                    <path id="shortsPath" d="M 130,225 L 170,225 L 174,260 L 155,260 L 150,245 L 145,260 L 126,260 Z" fill="url(#shortsGrad)"/>
+                  </g>
+
+                  <!-- FRONT LEG (Rotates with Run Cycle) -->
+                  <g id="legFront" transform-origin="135 240">
+                    <!-- Thigh Front (Expands with squat workouts) -->
+                    <rect id="thighFront" x="124" y="235" width="22" height="55" rx="10" fill="#fbcfe8"/>
+                    <!-- Quadricep Muscle Shadow -->
+                    <ellipse id="quadDef" cx="135" cy="265" rx="6" ry="14" fill="#f472b6" opacity="0.2"/>
+                    <!-- Calf Front -->
+                    <rect id="calfFront" x="126" y="285" width="18" height="55" rx="9" fill="#fbcfe8"/>
+                    <!-- Calf Muscle Def -->
+                    <ellipse id="calfDef" cx="134" cy="305" rx="5" ry="12" fill="#f472b6" opacity="0.2"/>
+                    <!-- Shoe Front -->
+                    <g id="shoeFrontGroup" transform="translate(120, 335)">
+                      <path d="M 5,5 L 32,5 Q 36,9 32,15 L 3,15 Q -1,11 5,5 Z" fill="url(#shoeGrad)"/>
+                      <line x1="12" y1="15" x2="26" y2="15" stroke="#ffffff" stroke-width="2"/>
+                      <circle cx="24" cy="10" r="2.5" fill="#facc15" filter="url(#glowFilter)"/>
+                    </g>
+                  </g>
+
+                  <!-- FRONT ARM (Rotates with Run Cycle) -->
+                  <g id="armFront" transform-origin="125 125">
+                    <!-- Deltoid / Shoulder front (Expands dynamically) -->
+                    <ellipse id="deltoidFront" cx="125" cy="125" rx="16" ry="14" fill="#f472b6"/>
+                    <!-- Bicep & Tricep Front -->
+                    <rect id="bicepFront" x="117" y="125" width="17" height="42" rx="8" fill="#fbcfe8"/>
+                    <!-- Forearm & Clenched Fist -->
+                    <rect id="forearmFront" x="118" y="165" width="15" height="38" rx="7" fill="#fbcfe8"/>
+                    <!-- Smartwatch on Wrist -->
+                    <rect id="smartWatch" x="117" y="188" width="17" height="6" rx="2" fill="#0284c7"/>
+                    <circle cx="125" cy="191" r="2" fill="#38bdf8"/>
+                    <!-- Fist -->
+                    <circle cx="125" cy="207" r="10" fill="#f472b6"/>
+                  </g>
+
+                </g> <!-- End Avatar Body Group -->
+              </svg>
+            </div>
+
+            <!-- Floating Evolution Indicator Badge -->
+            <div id="evolutionFloatingBadge" class="absolute bottom-4 right-4 bg-gray-900/90 border border-brand-500/40 rounded-2xl px-4 py-2 flex items-center space-x-3 shadow-xl backdrop-blur-md">
+              <div class="w-8 h-8 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400">
+                🧬
+              </div>
+              <div>
+                <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">ขั้นวิวัฒนาการ</div>
+                <div id="characterStageText" class="text-xs font-bold text-white">Stage 1: ก้าวแรกสู่พื้นถนน</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Evolution Progress Bar -->
+          <div class="space-y-2 z-10 pt-2 border-t border-gray-800/80">
+            <div class="flex justify-between items-center text-xs">
+              <div class="flex items-center space-x-2">
+                <span class="font-bold text-gray-300">ความก้าวหน้าสู่ร่างถัดไป</span>
+                <span id="nextEvolutionLabel" class="text-brand-400 font-medium">(Stage 2: 5K Runner)</span>
+              </div>
+              <div class="orbitron font-bold text-brand-400">
+                <span id="currentXpText">120</span> / <span id="targetXpText">500</span> EXP
+              </div>
+            </div>
+            <div class="w-full h-3 bg-gray-900 rounded-full overflow-hidden p-0.5 border border-gray-800">
+              <div id="xpProgressBar" class="h-full bg-gradient-to-r from-brand-500 via-energy-400 to-brand-400 rounded-full transition-all duration-700 ease-out glow-green" style="width: 24%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Player Attribute Matrix & Quick Log Summary (5 cols) -->
+        <div class="lg:col-span-5 space-y-6 flex flex-col justify-between">
+          
+          <!-- Stat Grid: Stamina & Strength -->
+          <div class="grid grid-cols-2 gap-4">
+            
+            <!-- Stamina Box (วิ่ง) -->
+            <div class="glass-card rounded-2xl p-4 border border-brand-500/20 relative overflow-hidden">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-brand-400 tracking-wide uppercase">🏃 ความทนทาน (Stamina)</span>
+                <span class="text-lg">🫀</span>
+              </div>
+              <div class="mt-2 flex items-baseline space-x-1.5">
+                <span id="statStaminaVal" class="text-3xl font-extrabold orbitron text-white">45</span>
+                <span class="text-xs text-gray-400">PTS</span>
+              </div>
+              <p class="text-[11px] text-gray-400 mt-1">วิ่งสะสม: <span id="statTotalKm" class="font-bold text-gray-200">12.5</span> กม.</p>
+              <div class="w-full h-1.5 bg-gray-800 rounded-full mt-3 overflow-hidden">
+                <div id="statStaminaBar" class="h-full bg-brand-500 rounded-full transition-all duration-500" style="width: 45%;"></div>
+              </div>
+            </div>
+
+            <!-- Strength Box (กล้ามเนื้อ) -->
+            <div class="glass-card rounded-2xl p-4 border border-fire-500/20 relative overflow-hidden">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-fire-400 tracking-wide uppercase">💪 พลังกล้ามเนื้อ (Strength)</span>
+                <span class="text-lg">⚡</span>
+              </div>
+              <div class="mt-2 flex items-baseline space-x-1.5">
+                <span id="statStrengthVal" class="text-3xl font-extrabold orbitron text-white">38</span>
+                <span class="text-xs text-gray-400">PTS</span>
+              </div>
+              <p class="text-[11px] text-gray-400 mt-1">เวทสะสม: <span id="statTotalReps" class="font-bold text-gray-200">180</span> เรป</p>
+              <div class="w-full h-1.5 bg-gray-800 rounded-full mt-3 overflow-hidden">
+                <div id="statStrengthBar" class="h-full bg-fire-500 rounded-full transition-all duration-500" style="width: 38%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weekly Training Radar / Focus -->
+          <div class="glass-card rounded-2xl p-5 border border-gray-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+                <span>🎯 ภารกิจประจำสัปดาห์</span>
+              </h3>
+              <span class="text-xs px-2 py-0.5 rounded bg-gray-800 text-brand-400 font-mono">Week 2 Target</span>
+            </div>
+
+            <!-- Target 1: Running -->
+            <div class="p-3 rounded-xl bg-gray-900/60 border border-gray-800/80 flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-lg bg-brand-500/10 text-brand-400 flex items-center justify-center font-bold text-sm">
+                  🏃
+                </div>
+                <div>
+                  <div class="text-xs font-semibold text-white">วิ่งสะสมครบ 10 กิโลเมตร</div>
+                  <div class="text-[11px] text-gray-400">ควบคุมหัวใจให้อยู่ Zone 2 (คุยรู้เรื่อง)</div>
+                </div>
+              </div>
+              <span id="weeklyRunProgress" class="text-xs font-bold orbitron text-brand-400">6.5 / 10K</span>
+            </div>
+
+            <!-- Target 2: Strength -->
+            <div class="p-3 rounded-xl bg-gray-900/60 border border-gray-800/80 flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-lg bg-fire-500/10 text-fire-400 flex items-center justify-center font-bold text-sm">
+                  🏋️
+                </div>
+                <div>
+                  <div class="text-xs font-semibold text-white">สควอท & แกนกลาง 3 เซ็ต</div>
+                  <div class="text-[11px] text-gray-400">ป้องกันอาการเจ็บ IT Band & ข้อเข่า</div>
+                </div>
+              </div>
+              <span id="weeklyStrengthProgress" class="text-xs font-bold orbitron text-fire-400">2 / 3 ครั้ง</span>
+            </div>
+
+            <button onclick="switchTab('running-path')" class="w-full py-2.5 rounded-xl bg-gray-800/80 hover:bg-gray-800 text-gray-300 hover:text-white text-xs font-semibold flex items-center justify-center space-x-1.5 transition-all">
+              <span>ดูตารางฝึกทั้งหมดแบบละเอียด</span>
+              <span>➔</span>
+            </button>
+          </div>
+
+          <!-- Motivational Quote & Pro Tip -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-brand-950/40 via-gray-900 to-gray-900 border border-brand-500/20 flex items-start space-x-3">
+            <span class="text-xl">💡</span>
+            <div>
+              <div class="text-xs font-bold text-brand-400">Pro Tip สำหรับนักวิ่ง & ผู้สร้างกล้าม:</div>
+              <p class="text-xs text-gray-300 mt-0.5 leading-relaxed">
+                "การวิ่งช้าใน Zone 2 ช่วยสร้างเส้นเลือดฝอยในกล้ามเนื้อ และการเล่นท่าขา (Squat) จะช่วยเพิ่มแรงส่งในทุกก้าว ไม่ทำให้กล้ามเนื้อหาย แต่ทำให้ก้าวทรงพลังขึ้น!"
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RECENT ACTIVITY LOGS -->
+      <div class="glass-card rounded-2xl p-6 border border-gray-800">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-base font-bold text-white flex items-center space-x-2">
+            <span>📋 บันทึกการฝึกซ้อมล่าสุด (Workout History)</span>
+          </h3>
+          <span class="text-xs text-gray-400">ซิงค์กับ LocalStorage อัตโนมัติ</span>
+        </div>
+
+        <div id="workoutHistoryList" class="space-y-2.5">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== TAB 2: RUNNING ROADMAP ==================== -->
+    <section id="tab-running-path" class="hidden space-y-6">
+      
+      <!-- Header Banner -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8 border border-gray-800 relative overflow-hidden">
+        <div class="max-w-2xl">
+          <span class="text-xs px-3 py-1 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30 font-semibold tracking-wide">
+            ROADMAP TO MASTERY
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-2">
+            เส้นทางการฝึกวิ่ง: จากคนไม่เคยวิ่ง สู่นักวิ่งมาราธอน
+          </h2>
+          <p class="text-sm text-gray-300 mt-2 leading-relaxed">
+            วิ่งอย่างไรไม่ให้เจ็บและไม่ท้อ? กุญแจสำคัญคือ **ความสม่ำเสมอ** และการรักษา **Zone 2 Heart Rate** (วิ่งแล้วยังคุยเป็นประโยคได้) เลือกสเตจของคุณแล้วกดเริ่มฝึกเพื่ออัปเกรดตัวละคร!
+          </p>
+        </div>
+      </div>
+
+      <!-- 4 Stages of Running Accordion / Stepper -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Phase 1: Couch to 3K -->
+        <div class="glass-card rounded-2xl p-5 border border-brand-500/30 flex flex-col justify-between hover:border-brand-500 transition-all">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-brand-500/20 text-brand-400">ขั้นที่ 1 (Phase 1)</span>
+              <span class="text-sm">🌱</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mt-2">Couch to 3K (ปลุกพลังก้าวแรก)</h3>
+            <p class="text-xs text-gray-400 mt-1">สัปดาห์ที่ 1 - 3: เดินเร็วสลับวิ่งเบาๆ ฝึกการหายใจทางกะบังลม</p>
+            
+            <div class="my-4 space-y-2 text-xs">
+              <div class="p-2 rounded-lg bg-gray-900 border border-gray-800 flex justify-between">
+                <span class="text-gray-300">วันจันทร์ / พุธ</span>
+                <span class="font-bold text-brand-400">เดิน 3 นาที + วิ่ง 2 นาที x 5 รอบ</span>
+              </div>
+              <div class="p-2 rounded-lg bg-gray-900 border border-gray-800 flex justify-between">
+                <span class="text-gray-300">วันเสาร์</span>
+                <span class="font-bold text-brand-400">วิ่งเหยาะต่อเนื่อง 15 นาที</span>
+              </div>
+              <div class="p-2 rounded-lg bg-gray-900 border border-gray-800 flex justify-between">
+                <span class="text-gray-300">เป้าหมายหัวใจ</span>
+                <span class="font-bold text-white">Zone 1 - 2 (120-135 bpm)</span>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="logQuickWorkout('RUN', 3.0, 24, 75)" class="w-full py-2.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-black font-bold text-xs transition-all shadow-lg shadow-brand-500/20">
+            ✓ บันทึกสำเร็จขั้น 3K (+75 EXP)
+          </button>
+        </div>
+
+        <!-- Phase 2: 5K Finisher -->
+        <div class="glass-card rounded-2xl p-5 border border-gray-800 flex flex-col justify-between hover:border-energy-500 transition-all">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-energy-500/20 text-energy-400">ขั้นที่ 2 (Phase 2)</span>
+              <span class="text-sm">🏃</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mt-2">5K Finisher (ก้าวไม่หยุด 5 กม.)</h3>
+            <p class="text-xs text-gray-400 mt-1">สัปดาห์ที่ 4 - 6: พัฒนารอบขา (Cadence 170-180 spm) และวิ่งต่อเนื่องได้ไม่เมื่อยล้า</p>
+            
+            <div class="my-4 space-y-2 text-xs">
+              <div class="p-2 rounded-lg bg-gray-900 border border-gray-800 flex justify-between">
+                <span class="text-gray-300">วันอังคาร</span>
+                <span class="font-bold text-energy-400">Easy Run 3.5 กม. (Pace 7:30)</span>
+              </div>
+              <div class="p-2 rounded-lg bg-gray-900 border border-gray-800 flex justify-between">
+                <span class="text-gray-300">วันพฤหัสบดี</span>
+                <span class="font-bold text-energy-400">Stride สปรินต์ 100m x 4 รอบ</span>
+              </div>
+              <div class="p-2 rounded-lg bg-gray-900 border border-gray-800 flex justify-between">
+                <span class="text-gray-300">วันอาทิตย์</span>
+                <span class="font-bold text-white">Long Run 5.0 กม.</span>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="logQuickWorkout('RUN', 5.0, 35, 120)" class="w-full py-2.5 rounded-xl bg-energy-500 hover:bg-energy-400 text-black font-bold text-xs transition-all shadow-lg shadow-energy-500/20">
+            ✓ บันทึกสำเร็จขั้น 5K (+120 EXP)
+          </button>
+        </div>
+
+        <!-- Phase 3: 10K Mini Marathon -->
+        <div class="glass-card rounded-2xl p-5 border border-gray-800 flex flex-col justify-between hover:border-fire-500 transition-all">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-fire-500/20 text-fire-400">ขั้นที่ 3 (Phase 3)</span>
+              <span class="text-sm">🔥</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mt-2">10K Mini Marathon</h3>
+            <p class="text-xs text-gray-400 mt-1">สัปดาห์ที่ 7 - 10: เสริมความเร็วด้วย Interval และ Tempo Run ขยายขนาดปอดและกล้ามเนื้อหัวใจ</p>
+            
+            <div class="my-4 space-y-2 text-xs">
+              <div class="p-2 rounded-lg bg-gray-900 border border-gray-800 flex justify-between">
+                <span class="text-gray-300">วันอังคาร</span>
+                <span class="font-bold text-fire-400">Interval 400m x 6 (พัก 90s)</span>
+              </div>
+              <div class="p-2 rounded-lg bg-gray-900 border border-gray-800 flex justify-between">
+                <span class="text-gray-300">วันพฤหัสบดี</span>
+                <span class="font-bold text-fire-400">Tempo Run 5 กม. (Pace 6:00)</span>
+              </div>
+              <div class="p-2 rounded-lg bg-gray-900 border border-gray-800 flex justify-between">
+                <span class="text-gray-300">วันอาทิตย์</span>
+                <span class="font-bold text-white">LSD 10.0 กม. (ชิวๆ Zone 2)</span>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="logQuickWorkout('RUN', 10.0, 62, 220)" class="w-full py-2.5 rounded-xl bg-fire-500 hover:bg-fire-400 text-black font-bold text-xs transition-all shadow-lg shadow-fire-500/20">
+            ✓ บันทึกสำเร็จขั้น 10K (+220 EXP)
+          </button>
+        </div>
+
+        <!-- Phase 4: Half to Full Marathon -->
+        <div class="glass-card rounded-2xl p-5 border border-purple-500/30 flex flex-col justify-between hover:border-purple-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300">ขั้นที่ 4 (Phase 4)</span>
+              <span class="text-sm">👑</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mt-2">21K - 42.195K Marathon Legend</h3>
+            <p class="text-xs text-gray-400 mt-1">สัปดาห์ที่ 11 - 16+: การบริหารพลังงานไกลโคเจน, ดื่มเจล และการยืนระยะแบบไร้ขีดจำกัด</p>
+            
+            <div class="my-4 space-y-2 text-xs">
+              <div class="p-2 rounded-lg bg-gray-900 border border-gray-800 flex justify-between">
+                <span class="text-gray-300">วันพุธ</span>
+                <span class="font-bold text-purple-300">Progressive Run 12 กม.</span>
+              </div>
+              <div class="p-2 rounded-lg bg-gray-900 border border-gray-800 flex justify-between">
+                <span class="text-gray-300">วันเสาร์</span>
+                <span class="font-bold text-purple-300">Long Run 21.1 กม. (Half)</span>
+              </div>
+              <div class="p-2 rounded-lg bg-gray-900 border border-gray-800 flex justify-between">
+                <span class="text-gray-300">อาหาร & เกลือแร่</span>
+                <span class="font-bold text-white">Carb-load + Gel ทุก 45 น.</span>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="logQuickWorkout('RUN', 21.1, 130, 450)" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-400 hover:to-indigo-400 text-white font-bold text-xs transition-all shadow-lg shadow-purple-500/20">
+            ✓ บันทึกสำเร็จขั้น 21K (+450 EXP)
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Running Technique & Cadence Audio Trainer Guide -->
+      <div class="glass-card rounded-2xl p-6 border border-gray-800">
+        <h3 class="text-base font-bold text-white flex items-center space-x-2">
+          <span>🎧 วิธีวิ่งให้ถูกฟอร์ม ไม่เจ็บเข่า (Essential Running Form)</span>
+        </h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-xs text-gray-300 leading-relaxed">
+          <div class="p-4 rounded-xl bg-gray-900/80 border border-gray-800">
+            <div class="font-bold text-brand-400 mb-1">1. การวางเท้า (Foot Strike)</div>
+            <p>หลีกเลี่ยงการกระแทกส้นเท้ายื่นไปข้างหน้าเกินลำตัว (Overstriding) ให้ลงกลางเท้า (Mid-foot) ใต้จุดศูนย์ถ่วงของสะโพก เพื่อลดแรงกระแทกสู่หัวเข่า</p>
+          </div>
+          <div class="p-4 rounded-xl bg-gray-900/80 border border-gray-800">
+            <div class="font-bold text-energy-400 mb-1">2. รอบขา & การแกว่งแขน (Cadence)</div>
+            <p>รักษารอบขาให้อยู่ที่ 170-180 ก้าวต่อนาที (ก้าวสั้นและถี่) แขนงอ 90 องศา แกว่งหน้า-หลัง ไม่แกว่งตัดลำตัว ช่วยประหยัดออกซิเจนได้ถึง 15%</p>
+          </div>
+          <div class="p-4 rounded-xl bg-gray-900/80 border border-gray-800">
+            <div class="font-bold text-fire-400 mb-1">3. ลำตัวและการหายใจ (Posture)</div>
+            <p>โน้มตัวไปข้างหน้าเล็กน้อยจากข้อเท้า (Ankle lean) หน้ามองตรง 20 เมตร หายใจลึกถึงช่องท้องแบบ 2:2 หรือ 3:3 สัมพันธ์กับจังหวะก้าว</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== TAB 3: MUSCLE LAB ==================== -->
+    <section id="tab-muscle-lab" class="hidden space-y-6">
+      
+      <!-- Muscle Lab Header -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8 border border-gray-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <span class="text-xs px-3 py-1 rounded-full bg-fire-500/20 text-fire-400 border border-fire-500/30 font-semibold tracking-wide">
+            HYPERTROPHY & RUNNER ARMOR
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-2">
+            ตารางพัฒนากล้ามเนื้อเพื่อความแกร่ง (Strength Lab)
+          </h2>
+          <p class="text-sm text-gray-300 mt-1 max-w-2xl">
+            วิ่งอย่างเดียวอาจสูญเสียมวลกล้ามเนื้อ! เวทเทรนนิ่ง 3 วัน/สัปดาห์นี้ออกแบบมาเพื่อสร้างกล้ามเนื้อ ขยายขนาดอก-ไหล่-แขน และสร้างเกราะป้องกันเข่าและข้อเท้า
+          </p>
+        </div>
+
+        <!-- Interactive Rest Timer Widget -->
+        <div class="bg-gray-950/90 border border-fire-500/30 p-4 rounded-2xl flex items-center space-x-4 shadow-xl">
+          <div>
+            <div class="text-[10px] text-gray-400 uppercase tracking-wider font-bold">นาฬิกาพักเซ็ต (Rest Timer)</div>
+            <div id="restTimerDisplay" class="text-2xl font-black orbitron text-fire-400">01:00</div>
+          </div>
+          <div class="flex items-center space-x-1.5">
+            <button onclick="startRestTimer(45)" class="px-2.5 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs font-mono">45s</button>
+            <button onclick="startRestTimer(60)" class="px-2.5 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs font-mono">60s</button>
+            <button onclick="startRestTimer(90)" class="px-2.5 py-1.5 rounded-lg bg-fire-500/20 border border-fire-500/40 text-fire-300 text-xs font-mono">90s</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-Day Split Cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Day A: Lower Body & Core Power -->
+        <div class="glass-card rounded-2xl p-6 border border-gray-800 flex flex-col justify-between hover:border-brand-500 transition-all">
+          <div>
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold px-2 py-1 rounded bg-brand-500/20 text-brand-400">DAY A: ขา & แกนกลาง</span>
+              <span class="text-sm">🦵</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mt-2">Lower Body & Bulletproof Knee</h3>
+            <p class="text-xs text-gray-400 mt-1">เสริมความหนาของกล้ามเนื้อต้นขา (Quads, Hamstrings) และน่อง ป้องกันการบาดเจ็บจากการวิ่ง</p>
+
+            <div class="mt-4 space-y-3">
+              <div class="p-3 rounded-xl bg-gray-900 border border-gray-800">
+                <div class="flex justify-between text-xs font-bold text-white">
+                  <span>1. Bodyweight / Barbell Squats</span>
+                  <span class="text-brand-400">4 เซ็ต x 12 เรป</span>
+                </div>
+                <div class="text-[11px] text-gray-400 mt-1">โฟกัสต้นขาด้านหน้าและกล้ามก้น (Glutes)</div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-gray-900 border border-gray-800">
+                <div class="flex justify-between text-xs font-bold text-white">
+                  <span>2. Bulgarian Split Squat</span>
+                  <span class="text-brand-400">3 เซ็ต x 10 เรป/ข้าง</span>
+                </div>
+                <div class="text-[11px] text-gray-400 mt-1">สร้างสมดุลขาเดี่ยว ขจัดจุดอ่อนขาซ้าย-ขวา</div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-gray-900 border border-gray-800">
+                <div class="flex justify-between text-xs font-bold text-white">
+                  <span>3. Standing Calf Raises</span>
+                  <span class="text-brand-400">4 เซ็ต x 20 เรป</span>
+                </div>
+                <div class="text-[11px] text-gray-400 mt-1">เพิ่มแรงสปริงเอ็นร้อยหวายและกล้ามเนื้อน่อง</div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-gray-900 border border-gray-800">
+                <div class="flex justify-between text-xs font-bold text-white">
+                  <span>4. Hardstyle Plank</span>
+                  <span class="text-brand-400">3 เซ็ต x ค้าง 45 วิ</span>
+                </div>
+                <div class="text-[11px] text-gray-400 mt-1">เกร็งซิกแพค แกนกลางลำตัวไม่ให้ยวบตอนวิ่งเหนื่อย</div>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="logQuickWorkout('STRENGTH', 0, 75, 150, 'Day A: Lower Body & Core')" class="mt-6 w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-black font-bold text-xs transition-all shadow-lg shadow-brand-500/20">
+            ✓ ฝึก Day A เสร็จสิ้น (+150 EXP, ปั๊มขา)
+          </button>
+        </div>
+
+        <!-- Day B: Upper Body & Arm Drive -->
+        <div class="glass-card rounded-2xl p-6 border border-gray-800 flex flex-col justify-between hover:border-fire-500 transition-all">
+          <div>
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold px-2 py-1 rounded bg-fire-500/20 text-fire-400">DAY B: อก ไหล่ หลัง แขน</span>
+              <span class="text-sm">🏋️</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mt-2">Upper Body & Hypertrophy Drive</h3>
+            <p class="text-xs text-gray-400 mt-1">สร้างกล้ามอก ไหล่กว้าง และแขนที่ทรงพลัง ช่วยให้การแกว่งแขนมีแรงส่งและรูปร่างดูสมส่วน</p>
+
+            <div class="mt-4 space-y-3">
+              <div class="p-3 rounded-xl bg-gray-900 border border-gray-800">
+                <div class="flex justify-between text-xs font-bold text-white">
+                  <span>1. Push-ups (วิดพื้นเต็มพิสัย)</span>
+                  <span class="text-fire-400">4 เซ็ต x 15-20 เรป</span>
+                </div>
+                <div class="text-[11px] text-gray-400 mt-1">ขยายกล้ามอก อกแน่น และหลังแขน (Triceps)</div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-gray-900 border border-gray-800">
+                <div class="flex justify-between text-xs font-bold text-white">
+                  <span>2. Dumbbell / Towel Rows</span>
+                  <span class="text-fire-400">4 เซ็ต x 12 เรป</span>
+                </div>
+                <div class="text-[11px] text-gray-400 mt-1">กล้ามปีกหลัง (Lats) ปรับบุคลิกหลังตรง อกผาย</div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-gray-900 border border-gray-800">
+                <div class="flex justify-between text-xs font-bold text-white">
+                  <span>3. Dumbbell Overhead Press</span>
+                  <span class="text-fire-400">3 เซ็ต x 12 เรป</span>
+                </div>
+                <div class="text-[11px] text-gray-400 mt-1">หัวไหล่กลม (Deltoids) และคอด้านบน</div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-gray-900 border border-gray-800">
+                <div class="flex justify-between text-xs font-bold text-white">
+                  <span>4. Russian Twists (พร้อมน้ำหนัก)</span>
+                  <span class="text-fire-400">3 เซ็ต x 20 ครั้ง</span>
+                </div>
+                <div class="text-[11px] text-gray-400 mt-1">กล้ามเนื้อด้านข้างลำตัว (Obliques) ควบคุมการบิดตัว</div>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="logQuickWorkout('STRENGTH', 0, 80, 160, 'Day B: Upper Body Drive')" class="mt-6 w-full py-3 rounded-xl bg-fire-500 hover:bg-fire-400 text-black font-bold text-xs transition-all shadow-lg shadow-fire-500/20">
+            ✓ ฝึก Day B เสร็จสิ้น (+160 EXP, ปั๊มอก/ไหล่)
+          </button>
+        </div>
+
+        <!-- Day C: Posterior Chain & Balance -->
+        <div class="glass-card rounded-2xl p-6 border border-gray-800 flex flex-col justify-between hover:border-energy-500 transition-all">
+          <div>
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-bold px-2 py-1 rounded bg-energy-500/20 text-energy-400">DAY C: โซ่กล้ามเนื้อหลัง</span>
+              <span class="text-sm">⚡</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mt-2">Posterior Chain & Speed Hip</h3>
+            <p class="text-xs text-gray-400 mt-1">โฟกัสกล้ามเนื้อหลังส่วนล่าง สะโพก และต้นขาด้านหลัง แหล่งกำเนิดแรงผลักไปข้างหน้า</p>
+
+            <div class="mt-4 space-y-3">
+              <div class="p-3 rounded-xl bg-gray-900 border border-gray-800">
+                <div class="flex justify-between text-xs font-bold text-white">
+                  <span>1. Romanian Deadlift (RDL)</span>
+                  <span class="text-energy-400">4 เซ็ต x 10 เรป</span>
+                </div>
+                <div class="text-[11px] text-gray-400 mt-1">ยืดและเสริมความแข็งแรงของ Hamstrings</div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-gray-900 border border-gray-800">
+                <div class="flex justify-between text-xs font-bold text-white">
+                  <span>2. Single-Leg Glute Bridge</span>
+                  <span class="text-energy-400">3 เซ็ต x 12 เรป/ข้าง</span>
+                </div>
+                <div class="text-[11px] text-gray-400 mt-1">กระตุ้นกล้ามเนื้อสะโพก ป้องกันอาการเมื่อยหลังล่าง</div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-gray-900 border border-gray-800">
+                <div class="flex justify-between text-xs font-bold text-white">
+                  <span>3. Hanging Knee / Leg Raises</span>
+                  <span class="text-energy-400">3 เซ็ต x 12 เรป</span>
+                </div>
+                <div class="text-[11px] text-gray-400 mt-1">ซิกแพคท่อนล่าง ยกเข่าสูงได้ต่อเนื่องไม่มีตก</div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-gray-900 border border-gray-800">
+                <div class="flex justify-between text-xs font-bold text-white">
+                  <span>4. Lateral Band Walks</span>
+                  <span class="text-energy-400">3 เซ็ต x 15 ก้าว</span>
+                </div>
+                <div class="text-[11px] text-gray-400 mt-1">กล้ามเนื้อพยุงสะโพกด้านข้าง (Gluteus Medius)</div>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="logQuickWorkout('STRENGTH', 0, 70, 150, 'Day C: Posterior Chain')" class="mt-6 w-full py-3 rounded-xl bg-energy-500 hover:bg-energy-400 text-black font-bold text-xs transition-all shadow-lg shadow-energy-500/20">
+            ✓ ฝึก Day C เสร็จสิ้น (+150 EXP, สะโพกเหล็ก)
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ==================== TAB 4: EVOLUTION TREE ==================== -->
+    <section id="tab-evolution-tree" class="hidden space-y-6">
+      
+      <!-- Evolution Tree Header -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8 border border-gray-800">
+        <span class="text-xs px-3 py-1 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30 font-semibold tracking-wide">
+          CHARACTER EVOLUTION ARCHIVE
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-2">
+          ลำดับขั้นการวิวัฒนาการของตัวละคร (5 Stages of Growth)
+        </h2>
+        <p class="text-sm text-gray-300 mt-1 max-w-3xl">
+          เมื่อคุณวิ่งและยกเวทตามตาราง ตัวละครของคุณจะพัฒนาสรีระ กล้ามเนื้อ เสื้อผ้า รองเท้า และปลดล็อกออร่าพลังงานทีละสเต็ป
+        </p>
+      </div>
+
+      <!-- 5 Stages Grid Timeline -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        
+        <!-- Stage 1 -->
+        <div class="glass-card rounded-2xl p-4 border border-gray-800 flex flex-col justify-between" id="evoCard1">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-gray-800 text-gray-300 flex items-center justify-center font-bold text-lg mb-3">
+              🌱
+            </div>
+            <div class="text-xs font-mono text-gray-400">Stage 1 (เริ่มต้น)</div>
+            <h4 class="text-sm font-bold text-white mt-0.5">Novice Runner</h4>
+            <p class="text-[11px] text-gray-400 mt-2">ชุดวอร์มผ้าฝ้ายธรรมดา รองเท้าผ้าใบเบสิก ท่ายืนเริ่มปรับตัว</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-800/80">
+            <span class="text-[10px] text-brand-400 font-semibold">ปลดล็อกทันทีที่เริ่ม</span>
+          </div>
+        </div>
+
+        <!-- Stage 2 -->
+        <div class="glass-card rounded-2xl p-4 border border-gray-800 flex flex-col justify-between" id="evoCard2">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-lg mb-3">
+              🏃
+            </div>
+            <div class="text-xs font-mono text-brand-400">Stage 2 (เลเวล 5)</div>
+            <h4 class="text-sm font-bold text-white mt-0.5">5K Speed Aspirant</h4>
+            <p class="text-[11px] text-gray-400 mt-2">เสื้อ Dri-FIT วิ่ง ระบายเหงื่อ สรีระเพรียวลม ต้นขาเริ่มมีเส้นกล้ามเนื้อ</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-800/80">
+            <span class="text-[10px] text-gray-400 font-semibold">เงื่อนไข: วิ่ง 5K / สะสม 500 EXP</span>
+          </div>
+        </div>
+
+        <!-- Stage 3 -->
+        <div class="glass-card rounded-2xl p-4 border border-gray-800 flex flex-col justify-between" id="evoCard3">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-energy-500/20 text-energy-400 flex items-center justify-center font-bold text-lg mb-3">
+              🔥
+            </div>
+            <div class="text-xs font-mono text-energy-400">Stage 3 (เลเวล 12)</div>
+            <h4 class="text-sm font-bold text-white mt-0.5">Athletic Warrior</h4>
+            <p class="text-[11px] text-gray-400 mt-2">ไหล่กว้างขึ้น อกแน่น มีซิกแพคชัดเจน ปล่อยออร่ากระแสลมสีเขียวสด</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-800/80">
+            <span class="text-[10px] text-gray-400 font-semibold">เงื่อนไข: 10K / สะสม 1,500 EXP</span>
+          </div>
+        </div>
+
+        <!-- Stage 4 -->
+        <div class="glass-card rounded-2xl p-4 border border-gray-800 flex flex-col justify-between" id="evoCard4">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-fire-500/20 text-fire-400 flex items-center justify-center font-bold text-lg mb-3">
+              ⚡
+            </div>
+            <div class="text-xs font-mono text-fire-400">Stage 4 (เลเวล 25)</div>
+            <h4 class="text-sm font-bold text-white mt-0.5">Half-Marathon Titan</h4>
+            <p class="text-[11px] text-gray-400 mt-2">รองเท้า Carbon-plate ปลดล็อกแถบคาดศีรษะสีทอง กล้ามเนื้อขาน่องแกร่งประดุจเหล็ก</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-800/80">
+            <span class="text-[10px] text-gray-400 font-semibold">เงื่อนไข: 21K / สะสม 3,500 EXP</span>
+          </div>
+        </div>
+
+        <!-- Stage 5 -->
+        <div class="glass-card rounded-2xl p-4 border border-purple-500/30 flex flex-col justify-between" id="evoCard5">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-300 flex items-center justify-center font-bold text-lg mb-3">
+              👑
+            </div>
+            <div class="text-xs font-mono text-purple-300">Stage 5 (เลเวล 50)</div>
+            <h4 class="text-sm font-bold text-white mt-0.5">Apex Marathon God</h4>
+            <p class="text-[11px] text-gray-400 mt-2">กายวิภาคแห่งความสมบูรณ์แบบ ออร่าสายฟ้าเพลิง วิ่งไม่รู้จักเหน็ดเหนื่อย</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-800/80">
+            <span class="text-[10px] text-gray-400 font-semibold">เงื่อนไข: 42.195K / สะสม 8,000 EXP</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Reset & Data Export Controls -->
+      <div class="glass-card rounded-2xl p-6 border border-gray-800 flex items-center justify-between">
+        <div>
+          <h4 class="text-sm font-bold text-white">จัดการข้อมูลและการฝึกซ้อม</h4>
+          <p class="text-xs text-gray-400 mt-0.5">ข้อมูลทั้งหมดถูกเซฟไว้ในเครื่องของคุณ (Local Storage)</p>
+        </div>
+        <div class="flex items-center space-x-3">
+          <button onclick="exportData()" class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-xs font-bold text-gray-300">
+            💾 ส่งออกข้อมูล (Export)
+          </button>
+          <button onclick="resetDataPrompt()" class="px-4 py-2 rounded-xl bg-red-950/40 hover:bg-red-900/60 border border-red-500/30 text-xs font-bold text-red-400">
+            ⚠️ รีเซ็ตข้อมูลใหม่
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- QUICK LOG MODAL -->
+  <div id="quickLogModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#111827] border border-gray-800 w-full max-w-md rounded-3xl p-6 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+        <h3 class="text-lg font-bold text-white flex items-center space-x-2">
+          <span>📝 บันทึกผลการฝึกซ้อม</span>
+        </h3>
+        <button onclick="closeQuickLogModal()" class="text-gray-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Type Selection -->
+        <div>
+          <label class="block text-xs font-bold text-gray-300 mb-2">ประเภทการฝึก:</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" id="modalTypeRun" onclick="setModalWorkoutType('RUN')" class="py-2.5 rounded-xl border border-brand-500 bg-brand-500/20 text-brand-400 font-bold text-xs flex items-center justify-center space-x-2">
+              <span>🏃</span>
+              <span>วิ่ง (Running)</span>
+            </button>
+            <button type="button" id="modalTypeStrength" onclick="setModalWorkoutType('STRENGTH')" class="py-2.5 rounded-xl border border-gray-800 bg-gray-900 text-gray-400 font-bold text-xs flex items-center justify-center space-x-2">
+              <span>💪</span>
+              <span>เวท (Strength)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Inputs for RUN -->
+        <div id="modalRunFields" class="space-y-3">
+          <div>
+            <label class="block text-xs text-gray-400 mb-1">ระยะทางที่วิ่ง (กิโลเมตร):</label>
+            <input type="number" step="0.1" id="inputRunDistance" value="5.0" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white font-mono text-sm focus:border-brand-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs text-gray-400 mb-1">เวลาที่ใช้ (นาที):</label>
+            <input type="number" id="inputRunMinutes" value="32" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white font-mono text-sm focus:border-brand-500 outline-none">
+          </div>
+        </div>
+
+        <!-- Dynamic Inputs for STRENGTH -->
+        <div id="modalStrengthFields" class="space-y-3 hidden">
+          <div>
+            <label class="block text-xs text-gray-400 mb-1">ชื่อโปรแกรม / ท่าฝึก:</label>
+            <input type="text" id="inputStrengthName" value="Squats & Push-ups" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:border-fire-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs text-gray-400 mb-1">จำนวนเรปรวมทั้งหมด (Reps):</label>
+            <input type="number" id="inputStrengthReps" value="60" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white font-mono text-sm focus:border-fire-500 outline-none">
+          </div>
+        </div>
+
+        <button onclick="submitWorkoutModal()" class="w-full py-3 rounded-xl bg-gradient-to-r from-brand-500 to-energy-500 hover:from-brand-400 hover:to-energy-400 text-black font-extrabold text-sm transition-all shadow-xl shadow-brand-500/25">
+          🚀 ยืนยันและรับค่า EXP เพื่อวิวัฒนาการ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVOLUTION CONGRATS MODAL -->
+  <div id="evolutionModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-gradient-to-b from-[#162238] to-[#0a0f1d] border border-brand-500/50 w-full max-w-lg rounded-3xl p-8 text-center space-y-5 shadow-2xl relative overflow-hidden">
+      
+      <!-- Ambient Sunburst -->
+      <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-64 h-64 bg-brand-500/30 rounded-full blur-3xl -z-10"></div>
+
+      <div class="w-20 h-20 mx-auto rounded-3xl bg-brand-500/20 border-2 border-brand-400 flex items-center justify-center text-4xl animate-bounce">
+        🌟
+      </div>
+
+      <div>
+        <span class="text-xs uppercase tracking-widest text-brand-400 font-bold">STAGE UPGRADE UNLOCKED!</span>
+        <h2 class="text-3xl font-black text-white mt-1">ตัวละครของคุณวิวัฒนาการแล้ว!</h2>
+        <p id="evoModalDesc" class="text-sm text-gray-300 mt-2">
+          ร่างกายของคุณแกร่งขึ้น! ปลดล็อกมัดกล้ามเนื้อใหม่ และออร่าแห่งความเร็ว
+        </p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-gray-900/90 border border-gray-800 text-left space-y-2">
+        <div class="flex items-center space-x-2 text-xs text-brand-400 font-bold">
+          <span>✓</span>
+          <span id="evoBonus1">เพิ่มขนาด Deltoid & Quads +15%</span>
+        </div>
+        <div class="flex items-center space-x-2 text-xs text-energy-400 font-bold">
+          <span>✓</span>
+          <span id="evoBonus2">ปลดล็อกรองเท้าวิ่ง Carbon Wave Plate</span>
+        </div>
+        <div class="flex items-center space-x-2 text-xs text-amber-400 font-bold">
+          <span>✓</span>
+          <span id="evoBonus3">ปลดล็อกฉายาใหม่ประจำตัว</span>
+        </div>
+      </div>
+
+      <button onclick="closeEvolutionModal()" class="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-black font-extrabold text-sm transition-all shadow-xl shadow-brand-500/30">
+        ⚡ ลุยการฝึกต่อไปทันที!
+      </button>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT APPLICATION LOGIC -->
+  <script>
+    // --- STATE MANAGEMENT ---
+    const STORAGE_KEY = 'RUNEVO_USER_DATA_V1';
+
+    const defaultState = {
+      name: "นักวิ่งไร้ขีดจำกัด",
+      level: 1,
+      currentXp: 120,
+      targetXp: 400,
+      stage: 1, // 1 to 5
+      stats: {
+        stamina: 35,
+        strength: 25,
+        totalKm: 8.5,
+        totalReps: 120,
+        streakDays: 2
+      },
+      soundEnabled: true,
+      workouts: [
+        { id: 1, type: 'RUN', title: 'เดินสลับวิ่งเบาๆ 3K', distance: 3.0, reps: 0, date: 'เมื่อวาน', xp: 75 },
+        { id: 2, type: 'STRENGTH', title: 'Squat & Plank', distance: 0, reps: 50, date: '2 วันที่แล้ว', xp: 90 },
+      ]
+    };
+
+    let appState = loadState();
+    let currentAnimMode = 'run'; // 'run', 'sprint', 'workout'
+    let restTimerInterval = null;
+
+    // --- WEB AUDIO API SOUND SYSTEM ---
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playTone(freq, duration = 0.15, type = 'sine') {
+      if (!appState.soundEnabled) return;
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch(e) {}
+    }
+
+    function playLevelUpSfx() {
+      if (!appState.soundEnabled) return;
+      [440, 554, 659, 880].forEach((freq, idx) => {
+        setTimeout(() => playTone(freq, 0.25, 'triangle'), idx * 120);
+      });
+    }
+
+    function toggleSound() {
+      appState.soundEnabled = !appState.soundEnabled;
+      saveState();
+      document.getElementById('soundBtn').textContent = appState.soundEnabled ? '🔊' : '🔇';
+      if (appState.soundEnabled) playTone(600, 0.1);
+    }
+
+    // --- LOCAL STORAGE ---
+    function loadState() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try { return JSON.parse(saved); } catch(e) {}
+      }
+      return defaultState;
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+    }
+
+    function resetDataPrompt() {
+      if (confirm('คุณต้องการรีเซ็ตข้อมูลการฝึกทั้งหมดเป็นค่าเริ่มต้นใช่หรือไม่?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        appState = JSON.parse(JSON.stringify(defaultState));
+        saveState();
+        renderAll();
+        alert('รีเซ็ตข้อมูลเรียบร้อยแล้ว');
+      }
+    }
+
+    function exportData() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `runevo_backup_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    // --- TAB SWITCHING ---
+    function switchTab(tabId) {
+      playTone(500, 0.08);
+      ['dashboard', 'running-path', 'muscle-lab', 'evolution-tree'].forEach(t => {
+        const sec = document.getElementById(`tab-${t}`);
+        const nav = document.getElementById(`nav-${t}`);
+        const mNav = document.getElementById(`m-nav-${t}`);
+
+        if (t === tabId) {
+          sec.classList.remove('hidden');
+          if (nav) {
+            nav.className = "px-4 py-2 rounded-lg transition-all text-white bg-brand-500/20 text-brand-400 border border-brand-500/30";
+          }
+          if (mNav) {
+            mNav.classList.remove('text-gray-400');
+            mNav.classList.add('text-brand-400');
+          }
+        } else {
+          sec.classList.add('hidden');
+          if (nav) {
+            nav.className = "px-4 py-2 rounded-lg transition-all text-gray-400 hover:text-white hover:bg-gray-800";
+          }
+          if (mNav) {
+            mNav.classList.remove('text-brand-400');
+            mNav.classList.add('text-gray-400');
+          }
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- WORKOUT LOGGING & EVOLUTION SYSTEM ---
+    function addExperience(amount) {
+      appState.currentXp += amount;
+      let leveledUp = false;
+
+      while (appState.currentXp >= appState.targetXp) {
+        appState.currentXp -= appState.targetXp;
+        appState.level += 1;
+        appState.targetXp = Math.floor(appState.targetXp * 1.35);
+        leveledUp = true;
+      }
+
+      // Check Stage Evolution thresholds
+      let prevStage = appState.stage;
+      if (appState.level >= 50) appState.stage = 5;
+      else if (appState.level >= 25) appState.stage = 4;
+      else if (appState.level >= 12) appState.stage = 3;
+      else if (appState.level >= 5) appState.stage = 2;
+      else appState.stage = 1;
+
+      if (appState.stage > prevStage) {
+        triggerEvolutionModal(appState.stage);
+      } else if (leveledUp) {
+        playLevelUpSfx();
+        confetti({ particleCount: 60, spread: 50, origin: { y: 0.7 } });
+      }
+
+      saveState();
+      renderAll();
+    }
+
+    function logQuickWorkout(type, km, mins, xp, customTitle = '') {
+      playTone(700, 0.15);
+      const title = customTitle || (type === 'RUN' ? `วิ่งฝึกซ้อม ${km} กม.` : 'เวทเทรนนิ่งสร้างกล้าม');
+      
+      if (type === 'RUN') {
+        appState.stats.stamina += Math.round(km * 2.5);
+        appState.stats.totalKm = parseFloat((appState.stats.totalKm + km).toFixed(1));
+      } else {
+        appState.stats.strength += Math.round(xp / 4);
+        appState.stats.totalReps += mins;
+      }
+
+      appState.workouts.unshift({
+        id: Date.now(),
+        type: type,
+        title: title,
+        distance: km,
+        reps: type === 'RUN' ? 0 : mins,
+        date: 'วันนี้',
+        xp: xp
+      });
+
+      if (appState.workouts.length > 10) appState.workouts.pop();
+
+      addExperience(xp);
+      confetti({ particleCount: 40, spread: 60, origin: { y: 0.8 } });
+    }
+
+    function triggerEvolutionModal(newStage) {
+      playLevelUpSfx();
+      confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
+
+      const titles = [
+        "",
+        "Stage 1: Novice Runner",
+        "Stage 2: 5K Speed Aspirant",
+        "Stage 3: Athletic Warrior",
+        "Stage 4: Half-Marathon Titan",
+        "Stage 5: Apex Marathon God"
+      ];
+
+      const descs = [
+        "",
+        "เริ่มต้นการฝึก!",
+        "คุณพิชิตระยะ 5K สำเร็จแล้ว! กล้ามเนื้อขาเริ่มคมชัด และก้าวขาได้เร็วขึ้น",
+        "กล้ามเนื้ออกและซิกแพคแน่นขึ้นอย่างเห็นได้ชัด ปลดล็อกออร่าพลังงานพายุลม",
+        "ระดับฮาล์ฟมาราธอน! ปลดล็อกรองเท้าวิ่ง Carbon Plate และพลังปอดเหล็ก",
+        "จุดสูงสุดของร่างกาย! มาราธอนในตำนาน กายภาพแข็งแกร่งสูงสุดในทุกมิติ!"
+      ];
+
+      document.getElementById('evoModalDesc').textContent = descs[newStage];
+      document.getElementById('evolutionModal').classList.remove('hidden');
+      document.getElementById('evolutionModal').classList.add('flex');
+    }
+
+    function closeEvolutionModal() {
+      document.getElementById('evolutionModal').classList.add('hidden');
+      document.getElementById('evolutionModal').classList.remove('flex');
+    }
+
+    // --- QUICK LOG MODAL CONTROLS ---
+    let currentModalType = 'RUN';
+
+    function openQuickLogModal() {
+      playTone(450, 0.1);
+      document.getElementById('quickLogModal').classList.remove('hidden');
+      document.getElementById('quickLogModal').classList.add('flex');
+    }
+
+    function closeQuickLogModal() {
+      document.getElementById('quickLogModal').classList.add('hidden');
+      document.getElementById('quickLogModal').classList.remove('flex');
+    }
+
+    function setModalWorkoutType(type) {
+      playTone(550, 0.08);
+      currentModalType = type;
+      const btnRun = document.getElementById('modalTypeRun');
+      const btnStrength = document.getElementById('modalTypeStrength');
+      const fieldsRun = document.getElementById('modalRunFields');
+      const fieldsStrength = document.getElementById('modalStrengthFields');
+
+      if (type === 'RUN') {
+        btnRun.className = "py-2.5 rounded-xl border border-brand-500 bg-brand-500/20 text-brand-400 font-bold text-xs flex items-center justify-center space-x-2";
+        btnStrength.className = "py-2.5 rounded-xl border border-gray-800 bg-gray-900 text-gray-400 font-bold text-xs flex items-center justify-center space-x-2";
+        fieldsRun.classList.remove('hidden');
+        fieldsStrength.classList.add('hidden');
+      } else {
+        btnStrength.className = "py-2.5 rounded-xl border border-fire-500 bg-fire-500/20 text-fire-400 font-bold text-xs flex items-center justify-center space-x-2";
+        btnRun.className = "py-2.5 rounded-xl border border-gray-800 bg-gray-900 text-gray-400 font-bold text-xs flex items-center justify-center space-x-2";
+        fieldsRun.classList.add('hidden');
+        fieldsStrength.classList.remove('hidden');
+      }
+    }
+
+    function submitWorkoutModal() {
+      if (currentModalType === 'RUN') {
+        const km = parseFloat(document.getElementById('inputRunDistance').value) || 3.0;
+        const mins = parseInt(document.getElementById('inputRunMinutes').value) || 20;
+        const xp = Math.round(km * 25);
+        logQuickWorkout('RUN', km, mins, xp);
+      } else {
+        const name = document.getElementById('inputStrengthName').value || 'เวทเทรนนิ่ง';
+        const reps = parseInt(document.getElementById('inputStrengthReps').value) || 50;
+        const xp = Math.round(reps * 2.2);
+        logQuickWorkout('STRENGTH', 0, reps, xp, name);
+      }
+      closeQuickLogModal();
+    }
+
+    // --- REST TIMER ---
+    function startRestTimer(seconds) {
+      if (restTimerInterval) clearInterval(restTimerInterval);
+      let timeLeft = seconds;
+      const display = document.getElementById('restTimerDisplay');
+
+      function updateDisplay() {
+        const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const s = (timeLeft % 60).toString().padStart(2, '0');
+        display.textContent = `${m}:${s}`;
+      }
+
+      updateDisplay();
+      playTone(800, 0.1);
+
+      restTimerInterval = setInterval(() => {
+        timeLeft--;
+        if (timeLeft <= 0) {
+          clearInterval(restTimerInterval);
+          display.textContent = "00:00";
+          playTone(900, 0.4, 'square');
+        } else {
+          updateDisplay();
+          if (timeLeft <= 3) playTone(600, 0.05);
+        }
+      }, 1000);
+    }
+
+    // --- ANIMATION CONTROLLER & DYNAMIC MORPHING SVG ---
+    function setAnimState(mode) {
+      currentAnimMode = mode;
+      playTone(550, 0.08);
+
+      ['Run', 'Sprint', 'Workout'].forEach(m => {
+        const btn = document.getElementById(`btnAnim${m}`);
+        if (m.toLowerCase() === mode) {
+          btn.className = "px-2.5 py-1 rounded-lg bg-brand-500/30 text-brand-300 font-medium transition-all";
+        } else {
+          btn.className = "px-2.5 py-1 rounded-lg text-gray-400 hover:text-white transition-all";
+        }
+      });
+    }
+
+    // Dynamic Morphing of the SVG based on User Stats & Stages
+    function updateAvatarMorphology() {
+      const stage = appState.stage;
+      const strength = appState.stats.strength;
+      const stamina = appState.stats.stamina;
+
+      // 1. Shoulders & Deltoids expansion
+      const shoulderScale = Math.min(1.45, 1.0 + (strength / 250));
+      const deltoidFront = document.getElementById('deltoidFront');
+      const deltoidBack = document.getElementById('deltoidBack');
+      if (deltoidFront && deltoidBack) {
+        deltoidFront.setAttribute('rx', (16 * shoulderScale).toFixed(1));
+        deltoidFront.setAttribute('ry', (14 * shoulderScale).toFixed(1));
+        deltoidBack.setAttribute('rx', (14 * shoulderScale).toFixed(1));
+        deltoidBack.setAttribute('ry', (12 * shoulderScale).toFixed(1));
+      }
+
+      // 2. Arms (Biceps)
+      const bicepFront = document.getElementById('bicepFront');
+      if (bicepFront) {
+        bicepFront.setAttribute('width', Math.min(24, 16 + (strength / 30)).toFixed(1));
+      }
+
+      // 3. Neck thickness
+      const neck = document.getElementById('neckRect');
+      if (neck) {
+        const neckWidth = Math.min(26, 18 + (strength / 35));
+        neck.setAttribute('width', neckWidth.toFixed(1));
+        neck.setAttribute('x', (150 - neckWidth / 2).toFixed(1));
+      }
+
+      // 4. Chest & Abs visibility
+      const chestLines = document.getElementById('muscleChestLines');
+      const absGroup = document.getElementById('muscleAbsGroup');
+      if (chestLines) chestLines.style.opacity = Math.min(1.0, 0.2 + (strength / 80)).toFixed(2);
+      if (absGroup) absGroup.style.opacity = Math.min(1.0, stage >= 2 ? (strength / 90) : 0).toFixed(2);
+
+      // 5. Thighs & Calves (Quads expand with squat volume)
+      const thighFront = document.getElementById('thighFront');
+      const quadDef = document.getElementById('quadDef');
+      if (thighFront) {
+        thighFront.setAttribute('width', Math.min(30, 22 + (strength / 35)).toFixed(1));
+      }
+      if (quadDef) {
+        quadDef.style.opacity = Math.min(0.8, 0.2 + (stamina / 100)).toFixed(2);
+      }
+
+      // 6. Stage Costumes & Gear
+      const headAcc = document.getElementById('headAccessory');
+      const shirtStop1 = document.getElementById('shirtStop1');
+      const shirtStop2 = document.getElementById('shirtStop2');
+      const shoeStop1 = document.getElementById('shoeStop1');
+      const shoeStop2 = document.getElementById('shoeStop2');
+
+      if (stage === 1) {
+        shirtStop1.setAttribute('stop-color', '#475569');
+        shirtStop2.setAttribute('stop-color', '#1e293b');
+        shoeStop1.setAttribute('stop-color', '#64748b');
+        shoeStop2.setAttribute('stop-color', '#334155');
+        headAcc.style.opacity = '0';
+      } else if (stage === 2) {
+        shirtStop1.setAttribute('stop-color', '#0284c7');
+        shirtStop2.setAttribute('stop-color', '#0369a1');
+        shoeStop1.setAttribute('stop-color', '#22c55e');
+        shoeStop2.setAttribute('stop-color', '#15803d');
+        headAcc.style.opacity = '0';
+      } else if (stage === 3) {
+        shirtStop1.setAttribute('stop-color', '#16a34a');
+        shirtStop2.setAttribute('stop-color', '#14532d');
+        shoeStop1.setAttribute('stop-color', '#38bdf8');
+        shoeStop2.setAttribute('stop-color', '#0284c7');
+        headAcc.style.opacity = '0.5';
+      } else if (stage >= 4) {
+        shirtStop1.setAttribute('stop-color', '#ea580c');
+        shirtStop2.setAttribute('stop-color', '#9a3412');
+        shoeStop1.setAttribute('stop-color', '#facc15');
+        shoeStop2.setAttribute('stop-color', '#ca8a04');
+        headAcc.style.opacity = '1';
+      }
+    }
+
+    // RequestAnimationFrame Running Engine
+    let runAngle = 0;
+    const legFront = document.getElementById('legFront');
+    const legBack = document.getElementById('legBack');
+    const armFront = document.getElementById('armFront');
+    const armBack = document.getElementById('armBack');
+    const avatarBodyGroup = document.getElementById('avatarBodyGroup');
+    const movingSpeedLines = document.getElementById('movingSpeedLines');
+
+    function animateAvatarLoop() {
+      let speed = currentAnimMode === 'sprint' ? 0.22 : (currentAnimMode === 'workout' ? 0.05 : 0.12);
+      runAngle += speed;
+
+      if (currentAnimMode === 'workout') {
+        // Squatting & Bracing Animation
+        const squatOffset = Math.sin(runAngle * 2) * 18;
+        avatarBodyGroup.setAttribute('transform', `translate(0, ${Math.max(0, squatOffset)})`);
+        legFront.setAttribute('transform', `rotate(${squatOffset * 1.5})`);
+        legBack.setAttribute('transform', `rotate(${-squatOffset * 1.5})`);
+        armFront.setAttribute('transform', `rotate(${-20 + squatOffset})`);
+        armBack.setAttribute('transform', `rotate(${-20 + squatOffset})`);
+        movingSpeedLines.style.opacity = '0.1';
+      } else {
+        // Continuous Dynamic Running Cycle
+        const maxSwing = currentAnimMode === 'sprint' ? 48 : 32;
+        const legSwing = Math.sin(runAngle) * maxSwing;
+        const armSwing = -Math.sin(runAngle) * (maxSwing * 0.9);
+        const bobbing = Math.abs(Math.cos(runAngle)) * (currentAnimMode === 'sprint' ? 8 : 5);
+
+        avatarBodyGroup.setAttribute('transform', `translate(0, ${-bobbing})`);
+        legFront.setAttribute('transform', `rotate(${legSwing})`);
+        legBack.setAttribute('transform', `rotate(${-legSwing})`);
+        armFront.setAttribute('transform', `rotate(${armSwing})`);
+        armBack.setAttribute('transform', `rotate(${-armSwing})`);
+
+        // Speed lines translation
+        const lineOffset = (runAngle * 40) % 60;
+        movingSpeedLines.setAttribute('transform', `translate(${-lineOffset}, 0)`);
+        movingSpeedLines.style.opacity = currentAnimMode === 'sprint' ? '0.9' : '0.5';
+      }
+
+      requestAnimationFrame(animateAvatarLoop);
+    }
+    requestAnimationFrame(animateAvatarLoop);
+
+    // --- CANVAS AURA PARTICLE SYSTEM ---
+    const canvas = document.getElementById('auraCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    class Particle {
+      constructor(stage) {
+        this.reset(stage);
+      }
+      reset(stage) {
+        this.x = 250 + (Math.random() - 0.5) * 120;
+        this.y = 350 + Math.random() * 20;
+        this.size = Math.random() * 4 + 2;
+        this.speedY = -(Math.random() * 3 + 1.5);
+        this.speedX = (Math.random() - 0.5) * 2;
+        this.opacity = Math.random() * 0.7 + 0.3;
+        this.stage = stage;
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        this.opacity -= 0.015;
+        if (this.opacity <= 0 || this.y < 80) {
+          this.reset(appState.stage);
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, this.opacity);
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        
+        if (this.stage === 1) ctx.fillStyle = '#22c55e';
+        else if (this.stage === 2) ctx.fillStyle = '#38bdf8';
+        else if (this.stage === 3) ctx.fillStyle = '#4ade80';
+        else if (this.stage === 4) ctx.fillStyle = '#fb923c';
+        else ctx.fillStyle = '#a855f7';
+
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = ctx.fillStyle;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function initAuraParticles() {
+      particles = [];
+      const count = appState.stage >= 4 ? 40 : (appState.stage >= 2 ? 25 : 10);
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle(appState.stage));
+      }
+    }
+
+    function renderAuraLoop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (appState.stage >= 2 || currentAnimMode === 'sprint') {
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+      }
+      requestAnimationFrame(renderAuraLoop);
+    }
+    initAuraParticles();
+    requestAnimationFrame(renderAuraLoop);
+
+    // --- MAIN RENDER FUNCTION ---
+    function renderAll() {
+      // Header Stats
+      document.getElementById('headerLevel').textContent = appState.level;
+      document.getElementById('headerStreak').textContent = `${appState.stats.streakDays} วัน`;
+
+      // Character Card
+      const titles = [
+        "",
+        "🌱 ผู้เริ่มต้นสายวิ่ง (Novice)",
+        "🏃 นักวิ่ง 5K ปราดเปรียว (Speed Runner)",
+        "🔥 นักรบฟิตแอนด์เฟิร์ม (Athletic Beast)",
+        "⚡ ไททันฮาล์ฟมาราธอน (Half Titan)",
+        "👑 เทพมาราธอนไร้เทียมทาน (Apex Master)"
+      ];
+      const ranks = ["", "E", "D", "C", "A", "S+"];
+
+      document.getElementById('characterTitleBadge').textContent = titles[appState.stage];
+      document.getElementById('rankBadge').textContent = `Rank: ${ranks[appState.stage]}`;
+      document.getElementById('characterStageText').textContent = `Stage ${appState.stage}: ${titles[appState.stage].split(' ')[1]}`;
+
+      // XP Progress Bar
+      document.getElementById('currentXpText').textContent = appState.currentXp;
+      document.getElementById('targetXpText').textContent = appState.targetXp;
+      const pct = Math.min(100, Math.round((appState.currentXp / appState.targetXp) * 100));
+      document.getElementById('xpProgressBar').style.width = `${pct}%`;
+
+      const nextStageNames = ["", "5K Runner", "Athletic Warrior", "Half Marathon Titan", "Marathon Legend", "Max Evolution"];
+      document.getElementById('nextEvolutionLabel').textContent = appState.stage < 5 ? `(Stage ${appState.stage + 1}: ${nextStageNames[appState.stage + 1]})` : "(วิวัฒนาการสูงสุดแล้ว)";
+
+      // Attribute Stats
+      document.getElementById('statStaminaVal').textContent = appState.stats.stamina;
+      document.getElementById('statTotalKm').textContent = appState.stats.totalKm;
+      document.getElementById('statStaminaBar').style.width = `${Math.min(100, appState.stats.stamina)}%`;
+
+      document.getElementById('statStrengthVal').textContent = appState.stats.strength;
+      document.getElementById('statTotalReps').textContent = appState.stats.totalReps;
+      document.getElementById('statStrengthBar').style.width = `${Math.min(100, appState.stats.strength)}%`;
+
+      // History List
+      const historyContainer = document.getElementById('workoutHistoryList');
+      if (historyContainer) {
+        historyContainer.innerHTML = appState.workouts.map(w => `
+          <div class="p-3 rounded-xl bg-gray-900/60 border border-gray-800/80 flex items-center justify-between hover:bg-gray-900 transition-all">
+            <div class="flex items-center space-x-3">
+              <div class="w-8 h-8 rounded-lg ${w.type === 'RUN' ? 'bg-brand-500/20 text-brand-400' : 'bg-fire-500/20 text-fire-400'} flex items-center justify-center font-bold text-sm">
+                ${w.type === 'RUN' ? '🏃' : '💪'}
+              </div>
+              <div>
+                <div class="text-xs font-bold text-white">${w.title}</div>
+                <div class="text-[10px] text-gray-400">${w.date} • ${w.type === 'RUN' ? `${w.distance} กม.` : `${w.reps} เรป`}</div>
+              </div>
+            </div>
+            <div class="orbitron text-xs font-bold ${w.type === 'RUN' ? 'text-brand-400' : 'text-fire-400'}">
+              +${w.xp} EXP
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Highlight Active Evolution Stage Card in Tab 4
+      for (let i = 1; i <= 5; i++) {
+        const card = document.getElementById(`evoCard${i}`);
+        if (card) {
+          if (i === appState.stage) {
+            card.classList.add('border-brand-500', 'bg-brand-950/20');
+            card.classList.remove('border-gray-800');
+          } else {
+            card.classList.remove('border-brand-500', 'bg-brand-950/20');
+            card.classList.add('border-gray-800');
+          }
+        }
+      }
+
+      // Update Character Dynamic SVG & Particles
+      updateAvatarMorphology();
+      initAuraParticles();
+    }
+
+    // Initial Load
+    renderAll();
+  </script>
+</body>
+</html>

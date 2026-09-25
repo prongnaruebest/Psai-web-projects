@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "skill_name": "stm32-firmware-reviewer",
+  "version": "1.2.0",
+  "rules": [
+    {
+      "id": "EMB-SAFE-01",
+      "category": "Interrupt Hierarchy",
+      "severity": "CRITICAL",
+      "title": "Safety Interlock Priority Inversion",
+      "description": "Emergency Stop EXTI line must have Preemption Priority 0 (highest in NVIC). No peripheral or timer interrupt can preempt the safety line.",
+      "reference": "IEC 60204-1 Clause 9.2.5.4, ARM Cortex-M4 NVIC Architecture"
+    },
+    {
+      "id": "EMB-SAFE-02",
+      "category": "ISR Latency & Deadlock",
+      "severity": "CRITICAL",
+      "title": "Blocking Delay Inside Interrupt Handler",
+      "description": "Calling HAL_Delay() inside an ISR causes an infinite loop/deadlock if the calling ISR priority is higher than or equal to SysTick priority.",
+      "reference": "MISRA-C:2012 Rule 17.2, STMicroelectronics AN4013"
+    },
+    {
+      "id": "EMB-MEM-01",
+      "category": "Concurrency & Memory",
+      "severity": "MAJOR",
+      "title": "Missing volatile on Shared DMA/ISR Memory",
+      "description": "Any variable or buffer updated by DMA hardware or an ISR and read by the main execution loop must be qualified with volatile.",
+      "reference": "MISRA-C:2012 Rule 18.6, C99 Standard ISO/IEC 9899:1999"
+    },
+    {
+      "id": "EMB-WDG-01",
+      "category": "System Reliability",
+      "severity": "MAJOR",
+      "title": "Unserviced Independent Watchdog",
+      "description": "Firmware must initialize and refresh IWDG timer in main superloop. Missing watchdog leaves the MCU vulnerable to latch-up or deadlock.",
+      "reference": "IEC 61508-2 Subclause 7.4.4"
+    }
+  ]
+}

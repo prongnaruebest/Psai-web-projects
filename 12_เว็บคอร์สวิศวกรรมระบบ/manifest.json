@@ -1,0 +1,32 @@
+{
+  "name": "PERSONAL CODEX — AI Work System Course & Industrial Workbench",
+  "short_name": "Personal Codex",
+  "description": "Production-Grade AI Engineering Ecosystem for Embedded, Automation & Hardware Engineers (M1–M13, 14 Appendices, 12 Workbenches)",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0F1E2E",
+  "theme_color": "#0F1E2E",
+  "categories": ["education", "engineering", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "codex-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "codex-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "codex-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

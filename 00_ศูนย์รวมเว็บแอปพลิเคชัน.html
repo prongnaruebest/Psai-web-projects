@@ -1,0 +1,546 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ศูนย์รวมเว็บแอปพลิเคชัน (Web Applications Hub)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(22, 30, 49, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --accent: #8b5cf6;
+      --accent-glow: rgba(139, 92, 246, 0.25);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Kanit', sans-serif;
+      background: radial-gradient(circle at 10% 20%, rgba(30, 58, 138, 0.25) 0%, transparent 40%),
+                  radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.2) 0%, transparent 40%),
+                  var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 40px 24px;
+    }
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #60a5fa;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    h1 {
+      font-family: 'Outfit', 'Kanit', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 30%, #93c5fd 70%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 650px;
+      margin: 0 auto 28px;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 35px;
+    }
+    .search-box {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 12px 20px 12px 42px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: rgba(15, 23, 42, 0.8);
+      color: #fff;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-box input:focus {
+      border-color: #60a5fa;
+      box-shadow: 0 0 15px rgba(96, 165, 250, 0.2);
+    }
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      opacity: 0.6;
+    }
+    .filter-btn {
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      background: rgba(30, 41, 59, 0.5);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: #2563eb;
+      color: #fff;
+      border-color: #3b82f6;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 22px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(96, 165, 250, 0.4);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-glow);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+    .card-id {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.25);
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #fff;
+      line-height: 1.35;
+    }
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin-bottom: 18px;
+      flex-grow: 1;
+    }
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .tag {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .btn-launch {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-launch:hover {
+      filter: brightness(1.15);
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    }
+    .btn-cmd {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #38bdf8;
+    }
+    .btn-cmd:hover {
+      background: rgba(51, 65, 85, 0.9);
+      color: #fff;
+    }
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">🚀 Web Applications Hub • รวม 14 โปรเจกต์เว็บ</div>
+      <h1>ศูนย์รวมโปรเจกต์เว็บแอปพลิเคชัน</h1>
+      <p class="subtitle">จัดระเบียบและรวบรวมทุกโปรเจกต์เว็บที่คุณออกแบบ พร้อมเปิดใช้งานและรันได้ทันทีในคลิกเดียว</p>
+      
+      <div class="controls">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="ค้นหาชื่อเว็บ, ฟีเจอร์ หรือหมวดหมู่..." onkeyup="filterCards()">
+        </div>
+        <button class="filter-btn active" onclick="filterCategory('all', this)">ทั้งหมด (14)</button>
+        <button class="filter-btn" onclick="filterCategory('food-life', this)">ไลฟ์สไตล์ & อาหาร</button>
+        <button class="filter-btn" onclick="filterCategory('kids', this)">แม่และเด็ก</button>
+        <button class="filter-btn" onclick="filterCategory('fitness', this)">สุขภาพ & ฟิตเนส</button>
+        <button class="filter-btn" onclick="filterCategory('tech-finance', this)">การเงิน & เทคโนโลยี</button>
+        <button class="filter-btn" onclick="filterCategory('entertainment', this)">เกม & บันเทิง</button>
+      </div>
+    </header>
+
+    <div class="grid" id="projectGrid">
+      
+      <!-- 01 -->
+      <div class="card" data-category="food-life" data-name="เว็บสุ่มทำอาหาร วันนี้กินอะไรดี 300 เมนู">
+        <div class="card-top">
+          <div class="card-icon">🍳</div>
+          <div class="card-id">#01</div>
+        </div>
+        <h3 class="card-title">01. เว็บสุ่มทำอาหาร</h3>
+        <p class="card-desc">วันนี้กินอะไรดี? - รวบรวม 300 เมนูคู่ครัวแม่บ้านมือโปร พร้อมระบบสุ่มเมนู ค้นหาตามวัตถุดิบ คำนวณแคลอรี่ และวิธีทำอย่างละเอียด</p>
+        <div class="card-meta">
+          <span class="tag">สุ่มเมนู</span>
+          <span class="tag">300 เมนู</span>
+          <span class="tag">วัตถุดิบ</span>
+        </div>
+        <a href="01_เว็บสุ่มทำอาหาร/index.html" target="_blank" class="btn-launch">
+          <span>🚀 เปิดเว็บไซต์ทันที</span>
+        </a>
+      </div>
+
+      <!-- 02 -->
+      <div class="card" data-category="entertainment" data-name="เว็บสอนกีต้า guitar quest เกมอนิเมะ แท็บคอร์ด">
+        <div class="card-top">
+          <div class="card-icon">🎸</div>
+          <div class="card-id">#02</div>
+        </div>
+        <h3 class="card-title">02. เว็บสอนกีต้า</h3>
+        <p class="card-desc">GuitarQuest: From Zero to Hero • เว็บสอนเล่นกีตาร์แบบเกมอนิเมะ RPG เรียนคอร์ด สเกล ทฤษฎีดนตรี และแบบฝึกหัดเสมือนผจญภัย</p>
+        <div class="card-meta">
+          <span class="tag">Vite React</span>
+          <span class="tag">ดนตรี/กีตาร์</span>
+          <span class="tag">เกม RPG</span>
+        </div>
+        <a href="02_เปิดเว็บ_สอนกีต้า.bat" class="btn-launch btn-cmd">
+          <span>⚡ รันผ่าน 02_เปิดเว็บ_สอนกีต้า.bat</span>
+        </a>
+      </div>
+
+      <!-- 03 -->
+      <div class="card" data-category="tech-finance" data-name="เว็บวางแผนการเงิน smartwealth planner ออมเงิน ลงทุน dca เกษียณ">
+        <div class="card-top">
+          <div class="card-icon">💰</div>
+          <div class="card-id">#03</div>
+        </div>
+        <h3 class="card-title">03. เว็บวางแผนการเงิน</h3>
+        <p class="card-desc">SmartWealth Planner • วางแผนการเงิน การออม และการลงทุนอย่างมืออาชีพ คำนวณงบประมาณ 50/30/20, DCA, แผนเกษียณอายุ และดอกเบี้ยทบต้น</p>
+        <div class="card-meta">
+          <span class="tag">50/30/20</span>
+          <span class="tag">DCA Calculator</span>
+          <span class="tag">วางแผนเกษียณ</span>
+        </div>
+        <a href="03_เว็บวางแผนการเงิน/index.html" target="_blank" class="btn-launch">
+          <span>🚀 เปิดเว็บไซต์ทันที</span>
+        </a>
+      </div>
+
+      <!-- 04 -->
+      <div class="card" data-category="fitness" data-name="เว็บออกกำลังกายอนิเมะ titan forge calisthenics rpg บอดี้เวท กล้ามเนื้อ">
+        <div class="card-top">
+          <div class="card-icon">⚔️</div>
+          <div class="card-id">#04</div>
+        </div>
+        <h3 class="card-title">04. เว็บออกกำลังกายอนิเมะ</h3>
+        <p class="card-desc">TITAN FORGE: Anime Bodyweight RPG • ระบบฝึก Calisthenics ผสมเกมสไตล์ Solo Leveling มีเควสต์ประจำวัน สเตตัส อัพเกรด และสกิล</p>
+        <div class="card-meta">
+          <span class="tag">Calisthenics</span>
+          <span class="tag">RPG Leveling</span>
+          <span class="tag">บอดี้เวท</span>
+        </div>
+        <a href="04_เว็บออกกำลังกายอนิเมะ/index.html" target="_blank" class="btn-launch">
+          <span>🚀 เปิดเว็บไซต์ทันที</span>
+        </a>
+      </div>
+
+      <!-- 05 -->
+      <div class="card" data-category="fitness" data-name="เว็บฝึกวิ่ง runevolution ตารางวิ่ง มาราธอน กล้ามเนื้อ วิ่งเพื่อสุขภาพ">
+        <div class="card-top">
+          <div class="card-icon">🏃</div>
+          <div class="card-id">#05</div>
+        </div>
+        <h3 class="card-title">05. เว็บฝึกวิ่ง (RunEvolution)</h3>
+        <p class="card-desc">RunEvolution • ก้าวสู่นักวิ่งพันธุ์แกร่ง & ปลุกพลังกล้ามเนื้อ รวมตารางฝึกวิ่ง 5K, 10K, Half และ Full Marathon พร้อมโภชนาการและป้องกันบาดเจ็บ</p>
+        <div class="card-meta">
+          <span class="tag">ตารางฝึกวิ่ง</span>
+          <span class="tag">Marathon</span>
+          <span class="tag">Pace Calculator</span>
+        </div>
+        <a href="05_เว็บฝึกวิ่งRunEvolution/index.html" target="_blank" class="btn-launch">
+          <span>🚀 เปิดเว็บไซต์ทันที</span>
+        </a>
+      </div>
+
+      <!-- 06 -->
+      <div class="card" data-category="kids" data-name="เว็บคู่มือพัฒนาการลูกน้อย kiddev hub เลี้ยงลูก 0-10 ขวบ พัฒนาการสมอง">
+        <div class="card-top">
+          <div class="card-icon">👶</div>
+          <div class="card-id">#06</div>
+        </div>
+        <h3 class="card-title">06. เว็บคู่มือพัฒนาการลูกน้อย</h3>
+        <p class="card-desc">KidDev Hub • คู่มือพัฒนาการ การเรียนรู้ และการเลี้ยงลูกวัย 0-10 ขวบ ครอบคลุมจิตวิทยา สมอง การสื่อสาร และแนวทางการแก้ปัญหาพฤติกรรม</p>
+        <div class="card-meta">
+          <span class="tag">พัฒนาการเด็ก</span>
+          <span class="tag">0-10 ขวบ</span>
+          <span class="tag">คู่มือพ่อแม่</span>
+        </div>
+        <a href="06_เว็บคู่มือพัฒนาการลูกน้อย/index.html" target="_blank" class="btn-launch">
+          <span>🚀 เปิดเว็บไซต์ทันที</span>
+        </a>
+      </div>
+
+      <!-- 07 -->
+      <div class="card" data-category="kids" data-name="เว็บไอเดียกิจกรรมเด็ก playpal เล่นกับลูก กิจกรรมครอบครัว pwa">
+        <div class="card-top">
+          <div class="card-icon">🎨</div>
+          <div class="card-id">#07</div>
+        </div>
+        <h3 class="card-title">07. เว็บไอเดียกิจกรรมเด็ก</h3>
+        <p class="card-desc">PlayPal Web • รวม 32+ ไอเดียกิจกรรมเล่นกับลูก สนุก ปลอดภัย ทั้งกิจกรรม Sensory, Motor Skills และ Art ในบ้านและนอกบ้าน รองรับ PWA</p>
+        <div class="card-meta">
+          <span class="tag">32+ กิจกรรม</span>
+          <span class="tag">เล่นกับลูก</span>
+          <span class="tag">PWA Offline</span>
+        </div>
+        <a href="07_เว็บไอเดียกิจกรรมเด็ก/index.html" target="_blank" class="btn-launch">
+          <span>🚀 เปิดเว็บไซต์ทันที</span>
+        </a>
+      </div>
+
+      <!-- 08 -->
+      <div class="card" data-category="kids" data-name="เว็บอาหารเด็กเล็ก yumyum toddler เมนูหนูน้อย โภชนาการ 1-3 ขวบ nextjs">
+        <div class="card-top">
+          <div class="card-icon">🥣</div>
+          <div class="card-id">#08</div>
+        </div>
+        <h3 class="card-title">08. เว็บอาหารเด็กเล็ก</h3>
+        <p class="card-desc">YumYum Toddler • โภชนาการและเมนูอาหารสร้างสรรค์สำหรับเด็กเล็กวัย 1-3 ขวบ วางแผนมื้ออาหาร กรองสารก่อภูมิแพ้ และแนะนำโภชนาการ</p>
+        <div class="card-meta">
+          <span class="tag">Next.js App</span>
+          <span class="tag">อาหารเด็กเล็ก</span>
+          <span class="tag">Meal Planner</span>
+        </div>
+        <a href="08_เปิดเว็บ_อาหารเด็กเล็ก.bat" class="btn-launch btn-cmd">
+          <span>⚡ รันผ่าน 08_เปิดเว็บ_อาหารเด็กเล็ก.bat</span>
+        </a>
+      </div>
+
+      <!-- 09 -->
+      <div class="card" data-category="entertainment" data-name="เว็บเกมยานอวกาศ orbital survivor เกมแอ็กชัน scifi arcade">
+        <div class="card-top">
+          <div class="card-icon">🚀</div>
+          <div class="card-id">#09</div>
+        </div>
+        <h3 class="card-title">09. เว็บเกมยานอวกาศ</h3>
+        <p class="card-desc">Orbital Survivor • เกมยานอวกาศ Sci-Fi Action Roguelite ควบคุมยาน ยิงศัตรู เก็บไอเทมอัปเกรดอาวุธ เอาชีวิตรอดในวงโคจรอันตราย</p>
+        <div class="card-meta">
+          <span class="tag">Phaser / Vite</span>
+          <span class="tag">Sci-Fi Game</span>
+          <span class="tag">Roguelite</span>
+        </div>
+        <a href="09_เปิดเว็บ_เกมยานอวกาศ.bat" class="btn-launch btn-cmd">
+          <span>⚡ รันผ่าน 09_เปิดเว็บ_เกมยานอวกาศ.bat</span>
+        </a>
+      </div>
+
+      <!-- 10 -->
+      <div class="card" data-category="tech-finance" data-name="เว็บคลังpromptai nexus prompt hub prompts ai web engineering gemini">
+        <div class="card-top">
+          <div class="card-icon">🧠</div>
+          <div class="card-id">#10</div>
+        </div>
+        <h3 class="card-title">10. เว็บคลัง Prompt AI</h3>
+        <p class="card-desc">NEXUS PROMPT HUB • ศูนย์รวมสุดยอด AI & Web Engineering Prompts 200+ รายการ ดีไซน์ Futuristic Sci-Fi พร้อมระบบค้นหาและเชื่อมต่อ AI</p>
+        <div class="card-meta">
+          <span class="tag">200+ Prompts</span>
+          <span class="tag">Cyberpunk UI</span>
+          <span class="tag">AI Engineering</span>
+        </div>
+        <a href="10_เว็บคลังPromptAI/index.html" target="_blank" class="btn-launch">
+          <span>🚀 เปิดเว็บไซต์ทันที</span>
+        </a>
+      </div>
+
+      <!-- 11 -->
+      <div class="card" data-category="tech-finance" data-name="เว็บพอร์ตโฟลิโอ naruebest komol portfolio วิศวกรอิเล็กทรอนิกส์ resume">
+        <div class="card-top">
+          <div class="card-icon">💼</div>
+          <div class="card-id">#11</div>
+        </div>
+        <h3 class="card-title">11. เว็บพอร์ตโฟลิโอ</h3>
+        <p class="card-desc">Naruebest Komol | Electronic Engineer Portfolio • หน้าเว็บพอร์ตโฟลิโอส่วนตัว ผลงานทางวิศวกรรม ประสบการณ์ และเอกสาร Resume</p>
+        <div class="card-meta">
+          <span class="tag">Portfolio</span>
+          <span class="tag">Resume</span>
+          <span class="tag">วิศวกร</span>
+        </div>
+        <a href="11_เว็บพอร์ตโฟลิโอ/index.html" target="_blank" class="btn-launch">
+          <span>🚀 เปิดเว็บไซต์ทันที</span>
+        </a>
+      </div>
+
+      <!-- 12 -->
+      <div class="card" data-category="tech-finance" data-name="เว็บคอร์สวิศวกรรมระบบ personal codex 14 workbenches embedded misra">
+        <div class="card-top">
+          <div class="card-icon">⚙️</div>
+          <div class="card-id">#12</div>
+        </div>
+        <h3 class="card-title">12. เว็บคอร์สวิศวกรรมระบบ</h3>
+        <p class="card-desc">PERSONAL CODEX 101–102 • คอร์สวิศวกรรมระบบขั้นสูง พร้อม 14 Interactive Workbenches (SVPWM, PID, CANopen, Modbus, Gateway Simulator)</p>
+        <div class="card-meta">
+          <span class="tag">14 Workbenches</span>
+          <span class="tag">Embedded Systems</span>
+          <span class="tag">PWA Offline</span>
+        </div>
+        <a href="12_เว็บคอร์สวิศวกรรมระบบ/index.html" target="_blank" class="btn-launch">
+          <span>🚀 เปิดเว็บไซต์ทันที</span>
+        </a>
+      </div>
+
+      <!-- 13 -->
+      <div class="card" data-category="entertainment" data-name="เว็บอ่านนิยายออนไลน์ novel reader ebook reader หนังสือ นิยาย nextjs">
+        <div class="card-top">
+          <div class="card-icon">📖</div>
+          <div class="card-id">#13</div>
+        </div>
+        <h3 class="card-title">13. เว็บอ่านนิยายออนไลน์</h3>
+        <p class="card-desc">Novel Reader • แพลตฟอร์มอ่านนิยายและ E-Book ออนไลน์ หน้าตาสบายตา โหมดมืด/สว่าง ปรับฟอนต์ บุ๊กมาร์ก และระบบค้นหาเนื้อหา</p>
+        <div class="card-meta">
+          <span class="tag">Next.js</span>
+          <span class="tag">E-Book Reader</span>
+          <span class="tag">Dark Mode</span>
+        </div>
+        <a href="13_เปิดเว็บ_อ่านนิยายออนไลน์.bat" class="btn-launch btn-cmd">
+          <span>⚡ รันผ่าน 13_เปิดเว็บ_อ่านนิยายออนไลน์.bat</span>
+        </a>
+      </div>
+
+      <!-- 14 -->
+      <div class="card" data-category="entertainment" data-name="เว็บอ่านนิยายเซียนหนี่ 44 เล่ม xian ni ฝืนลิขิตฟ้า ข้าขอเป็นเซียน tts เสียงพากย์">
+        <div class="card-top">
+          <div class="card-icon">📜</div>
+          <div class="card-id">#14</div>
+        </div>
+        <h3 class="card-title">14. เว็บอ่านนิยายเซียนหนี่ 44 เล่ม</h3>
+        <p class="card-desc">Xian Ni (ฝืนลิขิตฟ้า ข้าขอเป็นเซียน) • ชุดจบ 44 เล่มสมบูรณ์ ระบบอ่านนิยายครบครัน พร้อมระบบเสียงพากย์ TTS ภาษาไทย และภาพปกแท้</p>
+        <div class="card-meta">
+          <span class="tag">44 เล่มจบ</span>
+          <span class="tag">ระบบเสียง TTS</span>
+          <span class="tag">Offline Reader</span>
+        </div>
+        <a href="14_เว็บอ่านนิยายเซียนหนี่44เล่ม/index.html" target="_blank" class="btn-launch">
+          <span>🚀 เปิดเว็บไซต์ทันที</span>
+        </a>
+      </div>
+
+    </div>
+
+    <footer>
+      <p>© 2026 Web Applications Hub • D:\00_INBOX\Web Application • จัดระเบียบครบถ้วน 14 เว็บไซต์</p>
+    </footer>
+  </div>
+
+  <script>
+    function filterCards() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const text = (card.innerText + " " + (card.getAttribute('data-name') || '')).toLowerCase();
+        if (text.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function filterCategory(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        if (cat === 'all' || card.getAttribute('data-category') === cat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      document.getElementById('searchInput').value = '';
+    }
+  </script>
+</body>
+</html>

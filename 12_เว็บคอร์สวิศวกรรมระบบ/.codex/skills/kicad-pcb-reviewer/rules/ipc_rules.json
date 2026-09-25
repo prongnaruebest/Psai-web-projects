@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "skill_name": "kicad-pcb-reviewer",
+  "version": "1.1.0",
+  "rules": [
+    {
+      "id": "IPC-CLR-01",
+      "category": "Electrical Clearance",
+      "severity": "CRITICAL",
+      "title": "Insufficient Clearance for 24V/48V Traces",
+      "threshold": "Min 0.25mm for 24V, Min 0.50mm for 48V (Bare Board External)",
+      "reference": "IPC-2221A Table 6-1 (Electrical Clearance)"
+    },
+    {
+      "id": "IPC-DIFF-01",
+      "category": "Signal Integrity",
+      "severity": "CRITICAL",
+      "title": "Split Ground Plane Under High-Speed Pairs",
+      "threshold": "Continuous reference plane required; zero slot/split crossings",
+      "reference": "High-Speed PCB Design Guidelines (Intel/TI Application Notes)"
+    },
+    {
+      "id": "IPC-DIFF-02",
+      "category": "Signal Integrity",
+      "severity": "MAJOR",
+      "title": "Differential Pair Length Mismatch",
+      "threshold": "Intra-pair length difference must be < 0.5mm for USB 2.0 High-Speed (480 Mbps)",
+      "reference": "USB 2.0 Hardware Design Specification"
+    },
+    {
+      "id": "IPC-PWR-01",
+      "category": "Power Decoupling",
+      "severity": "MAJOR",
+      "title": "Decoupling Capacitor Placement Distance",
+      "threshold": "Decoupling capacitor must be placed within 2.5mm of IC power pin with direct via to ground",
+      "reference": "STMicroelectronics AN4381 (Hardware Design Guide for STM32)"
+    }
+  ]
+}

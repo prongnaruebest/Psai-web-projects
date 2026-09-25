@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>วันนี้กินอะไรดี? - 300 เมนูคู่ครัวแม่บ้านมือโปร</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Prompt', 'sans-serif'],
+            kanit: ['Kanit', 'sans-serif'],
+          },
+          colors: {
+            kitchen: {
+              cream: '#FDFBF7',
+              warm: '#F7F3EB',
+              orange: '#E86424',
+              orangeLight: '#FFF1E8',
+              green: '#3A7D44',
+              greenLight: '#EBF5ED',
+              yellow: '#F5A623',
+              dark: '#2C2A29',
+              muted: '#7A736E'
+            }
+          },
+          boxShadow: {
+            'soft': '0 8px 30px rgba(0, 0, 0, 0.06)',
+            'card': '0 4px 20px rgba(232, 100, 36, 0.08)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FDFBF7;
+      color: #2C2A29;
+      font-family: 'Prompt', sans-serif;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F1ECE1;
+      border-radius: 999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #D8CEBE;
+      border-radius: 999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #E86424;
+    }
+    @keyframes pulse-gentle {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .animate-pulse-gentle {
+      animation: pulse-gentle 2s infinite ease-in-out;
+    }
+    @keyframes slot-spin {
+      0% { transform: translateY(0); filter: blur(0); }
+      50% { transform: translateY(-40px); filter: blur(2px); opacity: 0.5; }
+      100% { transform: translateY(0); filter: blur(0); opacity: 1; }
+    }
+    .spinning-card {
+      animation: slot-spin 0.25s infinite linear;
+    }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printArea, #printArea * {
+        visibility: visible;
+      }
+      #printArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#FDFBF7] text-[#2C2A29] antialiased">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#EAE3D2] transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('random')">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-500 to-[#E86424] flex items-center justify-center text-white text-2xl shadow-md shadow-orange-500/20">
+          🍳
+        </div>
+        <div>
+          <h1 class="text-xl font-bold font-kanit tracking-tight text-gray-900 leading-none">
+            วันนี้กินอะไรดี?
+          </h1>
+          <p class="text-xs text-[#E86424] font-medium mt-0.5">300 เมนูคู่ครัวแม่บ้านมือโปร</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="hidden md:flex items-center gap-1 bg-[#F1ECE1] p-1.5 rounded-2xl">
+        <button onclick="switchTab('random')" id="nav-random" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all bg-white text-[#E86424] shadow-sm">
+          🎲 สุ่มเมนูวันนี้
+        </button>
+        <button onclick="switchTab('catalog')" id="nav-catalog" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium text-gray-600 hover:text-gray-900 transition-all">
+          📖 คลัง 300 เมนู
+        </button>
+        <button onclick="switchTab('planner')" id="nav-planner" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium text-gray-600 hover:text-gray-900 transition-all">
+          📅 แพลนมื้อสัปดาห์
+        </button>
+        <button onclick="openShoppingList()" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium text-gray-600 hover:text-gray-900 transition-all flex items-center gap-1.5">
+          🛒 จ่ายตลาด <span id="shopCountBadge" class="bg-[#E86424] text-white text-xs px-1.5 py-0.5 rounded-full font-bold">0</span>
+        </button>
+        <button onclick="openFavorites()" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium text-gray-600 hover:text-gray-900 transition-all flex items-center gap-1.5">
+          ❤️ โปรด <span id="favCountBadge" class="bg-rose-500 text-white text-xs px-1.5 py-0.5 rounded-full font-bold">0</span>
+        </button>
+      </nav>
+
+      <!-- Mobile Action Bar Button -->
+      <div class="flex items-center gap-2 md:hidden">
+        <button onclick="openShoppingList()" class="relative p-2.5 rounded-xl bg-[#F1ECE1] text-gray-700">
+          🛒
+          <span id="shopCountBadgeMobile" class="absolute -top-1 -right-1 bg-[#E86424] text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-bold">0</span>
+        </button>
+        <button onclick="openFavorites()" class="relative p-2.5 rounded-xl bg-[#F1ECE1] text-gray-700">
+          ❤️
+          <span id="favCountBadgeMobile" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-bold">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Sub Navigation Bar -->
+    <div class="md:hidden flex items-center justify-around border-t border-[#EAE3D2] px-2 py-1.5 bg-[#FAF7F0] text-xs font-medium">
+      <button onclick="switchTab('random')" id="nav-mobile-random" class="px-3 py-1.5 rounded-lg text-[#E86424] font-semibold bg-white shadow-xs">🎲 สุ่มเมนู</button>
+      <button onclick="switchTab('catalog')" id="nav-mobile-catalog" class="px-3 py-1.5 rounded-lg text-gray-600">📖 300 เมนู</button>
+      <button onclick="switchTab('planner')" id="nav-mobile-planner" class="px-3 py-1.5 rounded-lg text-gray-600">📅 แพลนสัปดาห์</button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: RANDOMIZER (สุ่มวันนี้กินอะไรดี) -->
+    <!-- ========================================== -->
+    <section id="view-random" class="space-y-8 block">
+      
+      <!-- Hero Headline Banner -->
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#EBF5ED] text-[#3A7D44] border border-green-200">
+          ✨ หมดปัญหา "วันนี้ทำอะไรให้ที่บ้านกินดี?"
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold font-kanit text-gray-900 tracking-tight">
+          สุ่มเมนูเด็ด ครบสูตร & คุณประโยชน์
+        </h2>
+        <p class="text-sm sm:text-base text-gray-600 font-light">
+          คัดสรร 300 เมนูครอบครัว ปรุงง่าย อร่อยจริง พร้อมสัดส่วนเครื่องปรุง ทริคก้นครัว และคุณค่าโภชนาการ
+        </p>
+      </div>
+
+      <!-- Filter Controls Accordion / Pills -->
+      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-[#EAE3D2] shadow-soft max-w-4xl mx-auto space-y-5">
+        <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🎯</span>
+            <h3 class="font-bold text-gray-900 text-sm sm:text-base font-kanit">ตั้งค่าตัวกรองก่อนสุ่ม (ไม่บังคับ)</h3>
+          </div>
+          <button onclick="resetFilters()" class="text-xs text-gray-500 hover:text-[#E86424] font-medium underline">
+            ล้างตัวกรองทั้งหมด
+          </button>
+        </div>
+
+        <!-- Meal Type Filter -->
+        <div class="space-y-2">
+          <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider">มื้ออาหาร:</label>
+          <div class="flex flex-wrap gap-2" id="mealFilterGroup">
+            <button onclick="setMealFilter('all')" class="meal-btn active px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#E86424] text-white">ทุกมื้อ</button>
+            <button onclick="setMealFilter('เช้า')" class="meal-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">🌅 มื้อเช้า</button>
+            <button onclick="setMealFilter('กลางวัน')" class="meal-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">☀️ มื้อกลางวัน</button>
+            <button onclick="setMealFilter('เย็น')" class="meal-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">🌙 มื้อเย็น</button>
+          </div>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="space-y-2">
+          <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider">ประเภทอาหาร:</label>
+          <div class="flex flex-wrap gap-2" id="categoryFilterGroup">
+            <button onclick="setCatFilter('all')" class="cat-btn active px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#3A7D44] text-white">ทุกประเภท (300)</button>
+            <button onclick="setCatFilter('ต้ม/แกง')" class="cat-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">🍲 ต้ม/แกง</button>
+            <button onclick="setCatFilter('ผัด')" class="cat-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">🍳 ผัด</button>
+            <button onclick="setCatFilter('ทอด/ย่าง')" class="cat-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">🍗 ทอด/ย่าง</button>
+            <button onclick="setCatFilter('นึ่ง/ตุ๋น')" class="cat-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">🥣 นึ่ง/ตุ๋น</button>
+            <button onclick="setCatFilter('ยำ/สลัด')" class="cat-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">🥗 ยำ/ลาบ/ส้มตำ</button>
+            <button onclick="setCatFilter('อาหารจานเดียว')" class="cat-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">🍛 จานเดียว/เส้น</button>
+            <button onclick="setCatFilter('เมนูไข่')" class="cat-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">🥚 เมนูไข่</button>
+            <button onclick="setCatFilter('เมนูเด็ก')" class="cat-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">👶 เมนูเด็ก</button>
+            <button onclick="setCatFilter('เพื่อสุขภาพ')" class="cat-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">🥗 สุขภาพ/คลีน</button>
+          </div>
+        </div>
+
+        <!-- Cooking Time Filter -->
+        <div class="space-y-2">
+          <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider">เวลาในการทำ:</label>
+          <div class="flex flex-wrap gap-2" id="timeFilterGroup">
+            <button onclick="setTimeFilter('all')" class="time-btn active px-3.5 py-1.5 rounded-full text-xs font-medium bg-amber-600 text-white">ทุกเวลา</button>
+            <button onclick="setTimeFilter('fast')" class="time-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">⚡ เมนูด่วน (ไม่เกิน 15 นาที)</button>
+            <button onclick="setTimeFilter('medium')" class="time-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">⏱️ ปานกลาง (15-30 นาที)</button>
+            <button onclick="setTimeFilter('slow')" class="time-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">⏳ พิถีพิถัน/ตุ๋น (30+ นาที)</button>
+          </div>
+        </div>
+
+        <!-- Pantry / Fridge Filter (มีอะไรในตู้เย็น) -->
+        <div class="space-y-2 pt-2 border-t border-gray-100">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              🧊 วัตถุดิบที่มีในบ้าน (เลือกได้มากกว่า 1 อย่าง):
+            </label>
+            <span id="pantrySelectedText" class="text-xs text-[#E86424] font-medium"></span>
+          </div>
+          <div class="flex flex-wrap gap-1.5" id="pantryTagsGroup">
+            <!-- Dynamic Pantry items like หมู, ไก่, ไข่ไก่, กุ้ง, ปลา, เต้าหู้ etc. -->
+          </div>
+        </div>
+
+        <!-- Matching counter -->
+        <div class="text-right text-xs text-gray-500">
+          มีเมนูที่เข้าเงื่อนไข: <span id="filteredMatchCount" class="font-bold text-[#E86424]">300</span> เมนู
+        </div>
+      </div>
+
+      <!-- MAIN RANDOMIZER MACHINE CARD -->
+      <div class="max-w-xl mx-auto">
+        <div id="randomCard" class="bg-gradient-to-b from-white to-[#FDF8F3] rounded-3xl p-6 sm:p-8 border-2 border-orange-200 shadow-xl relative overflow-hidden transition-all duration-300">
+          <!-- Decorative Background Elements -->
+          <div class="absolute -right-8 -top-8 w-32 h-32 bg-orange-100 rounded-full blur-2xl pointer-events-none opacity-60"></div>
+          <div class="absolute -left-8 -bottom-8 w-32 h-32 bg-green-100 rounded-full blur-2xl pointer-events-none opacity-60"></div>
+
+          <!-- Current Dish Display -->
+          <div id="dishContent" class="text-center space-y-4 relative z-10">
+            <!-- Icon / Emoji -->
+            <div id="dishIcon" class="w-24 h-24 mx-auto bg-white rounded-3xl shadow-md border border-orange-100 flex items-center justify-center text-5xl transform transition-transform hover:scale-105 duration-200">
+              🍲
+            </div>
+
+            <!-- Tags & Category Pill -->
+            <div class="flex flex-wrap items-center justify-center gap-1.5" id="dishTags">
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-orange-100 text-[#E86424]">ต้ม/แกง</span>
+              <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600">⏱️ รวม 25 นาที</span>
+              <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-700">🔥 280 kcal</span>
+            </div>
+
+            <!-- Dish Title -->
+            <h3 id="dishName" class="text-2xl sm:text-3xl font-extrabold font-kanit text-gray-900 leading-tight">
+              ต้มยำกุ้งน้ำข้น
+            </h3>
+
+            <!-- Health Benefit Excerpt -->
+            <div class="bg-amber-50/80 border border-amber-200/60 rounded-2xl p-3.5 text-xs text-amber-900 leading-relaxed text-left flex items-start gap-2.5">
+              <span class="text-base flex-shrink-0">🌿</span>
+              <div>
+                <strong class="font-semibold">คุณประโยชน์เด่น:</strong>
+                <span id="dishBenefitsExcerpt">ข่า ตะไคร้ ใบมะกรูด อุดมด้วยน้ำมันหอมระเหยช่วยขับลม เจริญอาหาร และเสริมภูมิคุ้มกัน กุ้งให้โปรตีนสูง</span>
+              </div>
+            </div>
+
+            <!-- Main Ingredients Preview -->
+            <div class="text-xs text-gray-500 flex items-center justify-center gap-1.5 flex-wrap">
+              <span>วัตถุดิบหลัก:</span>
+              <span id="dishMainIngredients" class="font-medium text-gray-700">กุ้ง, เห็ดฟาง, นมข้นจืด</span>
+            </div>
+
+            <!-- Detail CTA Button -->
+            <div class="pt-2">
+              <button onclick="openCurrentRecipeModal()" class="w-full py-3 px-5 rounded-2xl bg-[#FFF6F0] hover:bg-orange-100 text-[#E86424] font-semibold text-sm transition-all border border-orange-200 flex items-center justify-center gap-2 shadow-xs">
+                <span>📖 เปิดดูสูตร วิธีทำ & วัตถุดิบทั้งหมด</span>
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Big Spin Button Controls -->
+        <div class="mt-6 flex flex-col sm:flex-row items-center gap-3">
+          <button onclick="spinRandomizer()" id="btnSpin" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-amber-500 via-[#E86424] to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold text-lg font-kanit shadow-lg shadow-orange-500/30 transform active:scale-98 transition-all flex items-center justify-center gap-2">
+            <span class="text-2xl">🎲</span>
+            <span>สุ่มเมนูนี้เลย!</span>
+          </button>
+          <button onclick="addToFavoritesFromCurrent()" class="w-full sm:w-auto py-4 px-5 rounded-2xl bg-white border border-rose-200 text-rose-500 hover:bg-rose-50 font-medium text-sm transition-all flex items-center justify-center gap-1.5 flex-shrink-0">
+            <span>❤️</span>
+            <span class="hidden sm:inline">บันทึกโปรด</span>
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: RECIPES CATALOG (คลัง 300 เมนู) -->
+    <!-- ========================================== -->
+    <section id="view-catalog" class="space-y-6 hidden">
+      <!-- Catalog Header & Search -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#EAE3D2] pb-6">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-bold font-kanit text-gray-900">
+            คลังสูตรอาหารครบครัน 300 เมนู
+          </h2>
+          <p class="text-xs sm:text-sm text-gray-500 mt-1">
+            ค้นหาตามชื่อเมนู วัตถุดิบ หรือคุณประโยชน์ พร้อมสูตรและขั้นตอนอย่างละเอียด
+          </p>
+        </div>
+
+        <!-- Search Bar Input -->
+        <div class="w-full md:w-80 relative">
+          <input 
+            type="text" 
+            id="catalogSearch" 
+            placeholder="ค้นหา เช่น กะเพรา, ปลากะพง, มะระ..." 
+            oninput="handleCatalogSearch()"
+            class="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#E86424] focus:border-transparent shadow-xs"
+          >
+          <span class="absolute left-3.5 top-3 text-gray-400 text-sm">🔍</span>
+          <button id="clearSearchBtn" onclick="clearCatalogSearch()" class="hidden absolute right-3 top-2.5 text-gray-400 hover:text-gray-600 text-xs bg-gray-100 rounded-full w-5 h-5 flex items-center justify-center">✕</button>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 custom-scrollbar" id="catalogCatPills">
+        <button onclick="filterCatalogCat('all')" class="cat-pill active px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap bg-[#3A7D44] text-white">ทั้งหมด (300)</button>
+        <button onclick="filterCatalogCat('ต้ม/แกง')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-400">🍲 ต้ม/แกง</button>
+        <button onclick="filterCatalogCat('ผัด')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-400">🍳 ผัด</button>
+        <button onclick="filterCatalogCat('ทอด/ย่าง')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-400">🍗 ทอด/ย่าง</button>
+        <button onclick="filterCatalogCat('นึ่ง/ตุ๋น')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-400">🥣 นึ่ง/ตุ๋น</button>
+        <button onclick="filterCatalogCat('ยำ/สลัด')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-400">🥗 ยำ/ลาบ</button>
+        <button onclick="filterCatalogCat('อาหารจานเดียว')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-400">🍛 จานเดียว</button>
+        <button onclick="filterCatalogCat('เมนูไข่')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-400">🥚 เมนูไข่</button>
+        <button onclick="filterCatalogCat('เมนูเด็ก')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-400">👶 เมนูเด็ก</button>
+        <button onclick="filterCatalogCat('เพื่อสุขภาพ')" class="cat-pill px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap bg-white text-gray-600 border border-gray-200 hover:border-gray-400">🥗 เพื่อสุขภาพ</button>
+      </div>
+
+      <!-- Results Stats & Sort -->
+      <div class="flex items-center justify-between text-xs text-gray-500">
+        <div>
+          พบ <span id="catalogCount" class="font-bold text-gray-900">300</span> เมนู
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span>เรียงตาม:</span>
+          <select id="catalogSort" onchange="renderCatalog()" class="bg-white border border-gray-200 rounded-lg px-2 py-1 text-xs text-gray-700 focus:outline-none">
+            <option value="id-asc">เมนูแนะนำ (1-300)</option>
+            <option value="name-asc">ชื่อ ก-ฮ</option>
+            <option value="time-asc">เวลาทำเร็วไปช้า</option>
+            <option value="cals-asc">แคลอรี่น้อยไปมาก</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 300 Recipes Grid -->
+      <div id="catalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <!-- Dynamic Cards Inserted Here -->
+      </div>
+
+      <!-- Pagination / Load More Controls -->
+      <div id="catalogPagination" class="flex items-center justify-center gap-2 pt-6">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: WEEKLY MEAL PLANNER (ตารางอาหารสัปดาห์) -->
+    <!-- ========================================== -->
+    <section id="view-planner" class="space-y-6 hidden">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#EAE3D2] pb-6">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-bold font-kanit text-gray-900">
+            วางแผนเมนูอาหารประจำสัปดาห์ 7 วัน
+          </h2>
+          <p class="text-xs sm:text-sm text-gray-500 mt-1">
+            จัดเตรียมมื้อ เช้า-กลางวัน-เย็น ล่วงหน้า ช่วยให้จ่ายตลาดง่าย ประหยัดงบ และไม่ซ้ำซาก
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="autoGenerateWeeklyPlan()" class="py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-[#E86424] text-white text-xs sm:text-sm font-semibold shadow-sm hover:opacity-95 transition-all flex items-center gap-1.5">
+            <span>✨</span>
+            <span>สุ่มจัดตารางอัตโนมัติ</span>
+          </button>
+          <button onclick="addAllPlannerToShoppingList()" class="py-2.5 px-4 rounded-xl bg-[#3A7D44] text-white text-xs sm:text-sm font-semibold shadow-sm hover:opacity-95 transition-all flex items-center gap-1.5">
+            <span>🛒</span>
+            <span>โอนเข้าลิสต์จ่ายตลาด</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Weekly Schedule Grid (Monday - Sunday) -->
+      <div class="grid grid-cols-1 md:grid-cols-7 gap-3" id="weeklyGrid">
+        <!-- Dynamic 7 Days Column -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- MODAL: RECIPE DETAIL (สูตรอาหารและวิธีทำอย่างละเอียด) -->
+  <!-- ========================================== -->
+  <div id="recipeModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 hidden transition-opacity">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden border border-gray-200">
+      
+      <!-- Modal Header Banner -->
+      <div class="p-5 sm:p-6 bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-b border-orange-100 flex items-start justify-between relative">
+        <div class="flex items-start gap-4">
+          <div id="modalIcon" class="w-16 h-16 rounded-2xl bg-white shadow-md border border-orange-200 flex items-center justify-center text-4xl flex-shrink-0">
+            🍲
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-1.5 mb-1" id="modalBadges">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#E86424] text-white" id="modalCategory">ต้ม/แกง</span>
+              <span class="px-2 py-0.5 rounded-full text-xs bg-gray-100 text-gray-700" id="modalDifficulty">ง่าย</span>
+              <span class="px-2 py-0.5 rounded-full text-xs bg-amber-100 text-amber-800" id="modalCalories">280 kcal</span>
+            </div>
+            <h3 id="modalName" class="text-xl sm:text-2xl font-bold font-kanit text-gray-900 leading-tight">
+              ต้มยำกุ้งน้ำข้น
+            </h3>
+            <p class="text-xs text-gray-500 mt-1 flex items-center gap-3">
+              <span>⏱️ เตรียม: <strong id="modalPrepTime">15 นาที</strong></span>
+              <span>🍳 ปรุง: <strong id="modalCookTime">10 นาที</strong></span>
+              <span>รวม: <strong id="modalTotalTime">25 นาที</strong></span>
+            </p>
+          </div>
+        </div>
+
+        <button onclick="closeRecipeModal()" class="w-9 h-9 rounded-full bg-white/80 hover:bg-white text-gray-500 hover:text-gray-800 flex items-center justify-center shadow-xs transition-all">
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Nav Subtabs -->
+      <div class="flex items-center border-b border-gray-200 bg-gray-50/80 px-4 sm:px-6 text-xs sm:text-sm font-medium">
+        <button onclick="switchModalTab('ingredients')" id="modal-tab-ingredients" class="modal-tab active py-3 px-4 text-[#E86424] border-b-2 border-[#E86424] font-semibold">
+          🥦 วัตถุดิบ & เครื่องปรุง
+        </button>
+        <button onclick="switchModalTab('steps')" id="modal-tab-steps" class="modal-tab py-3 px-4 text-gray-500 hover:text-gray-900 border-b-2 border-transparent">
+          👩‍🍳 ขั้นตอนการทำ
+        </button>
+        <button onclick="switchModalTab('benefits')" id="modal-tab-benefits" class="modal-tab py-3 px-4 text-gray-500 hover:text-gray-900 border-b-2 border-transparent">
+          🌿 คุณประโยชน์ & เคล็ดลับ
+        </button>
+      </div>
+
+      <!-- Modal Body Content Scrollable Area -->
+      <div class="p-5 sm:p-6 overflow-y-auto custom-scrollbar flex-grow space-y-6">
+
+        <!-- SUBTAB 1: INGREDIENTS -->
+        <div id="modal-content-ingredients" class="space-y-5">
+          <div class="flex items-center justify-between">
+            <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wider flex items-center gap-1.5">
+              <span>🥩</span> รายการวัตถุดิบสด (ติ๊กเช็กได้)
+            </h4>
+            <button onclick="addModalIngredientsToShoppingList()" class="text-xs font-semibold text-[#E86424] hover:underline flex items-center gap-1">
+              <span>🛒</span> เพิ่มลงลิสต์จ่ายตลาด
+            </button>
+          </div>
+          <ul class="space-y-2" id="modalIngredientsList">
+            <!-- Dynamic ingredients -->
+          </ul>
+
+          <div class="pt-4 border-t border-gray-100">
+            <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+              <span>🧂</span> ซอส & เครื่องปรุงรส
+            </h4>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-700" id="modalSeasoningsList">
+              <!-- Dynamic seasonings -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- SUBTAB 2: STEPS -->
+        <div id="modal-content-steps" class="space-y-5 hidden">
+          <!-- Kitchen Cooking Timer Widget -->
+          <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">⏱️</span>
+              <div>
+                <h5 class="text-xs font-bold text-amber-900 font-kanit">ตัวจับเวลาทำอาหารคู่ครัว</h5>
+                <p class="text-[11px] text-amber-700">ช่วยเตือนความจำ ไม่ให้ต้มเกินเวลา</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="timerDisplay" class="font-mono text-xl font-bold text-amber-900 bg-white px-3 py-1 rounded-xl border border-amber-200">
+                10:00
+              </span>
+              <button onclick="startTimer()" id="timerToggleBtn" class="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-medium transition-all">
+                เริ่ม
+              </button>
+              <button onclick="resetTimer()" class="px-2.5 py-1.5 rounded-xl bg-gray-200 hover:bg-gray-300 text-gray-700 text-xs font-medium transition-all">
+                รีเซ็ต
+              </button>
+            </div>
+          </div>
+
+          <div class="space-y-3" id="modalStepsList">
+            <!-- Dynamic step instructions -->
+          </div>
+        </div>
+
+        <!-- SUBTAB 3: BENEFITS & TIPS -->
+        <div id="modal-content-benefits" class="space-y-5 hidden">
+          <!-- Health Benefits Box -->
+          <div class="bg-[#EBF5ED] border border-green-200 rounded-2xl p-4 sm:p-5 space-y-2">
+            <div class="flex items-center gap-2 text-[#3A7D44] font-bold text-sm font-kanit">
+              <span class="text-lg">🌿</span>
+              <h4>คุณประโยชน์และคุณค่าทางโภชนาการ</h4>
+            </div>
+            <p id="modalBenefits" class="text-xs sm:text-sm text-green-900 leading-relaxed font-light">
+              ข่า ตะไคร้ ใบมะกรูด อุดมด้วยน้ำมันหอมระเหยช่วยขับลม เจริญอาหาร และเสริมภูมิคุ้มกัน กุ้งให้โปรตีนสูง
+            </p>
+          </div>
+
+          <!-- Homemaker Tips Box -->
+          <div class="bg-[#FFF8EB] border border-amber-200 rounded-2xl p-4 sm:p-5 space-y-2">
+            <div class="flex items-center gap-2 text-amber-800 font-bold text-sm font-kanit">
+              <span class="text-lg">💡</span>
+              <h4>เคล็ดลับก้นครัวแม่บ้านมือโปร (Kitchen Hack)</h4>
+            </div>
+            <p id="modalTips" class="text-xs sm:text-sm text-amber-900 leading-relaxed font-light">
+              ใส่น้ำมะนาวหลังปิดไฟเตาเสมอเพื่อป้องกันน้ำซุปมีรสขมฝาด
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer Action Bar -->
+      <div class="p-4 sm:p-5 bg-gray-50 border-t border-gray-200 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <button onclick="toggleFavoriteCurrentModal()" id="modalFavBtn" class="py-2 px-3.5 rounded-xl border border-rose-200 bg-white hover:bg-rose-50 text-rose-600 text-xs font-medium flex items-center gap-1.5 transition-all">
+            <span id="modalFavIcon">❤️</span>
+            <span id="modalFavText">บันทึกโปรด</span>
+          </button>
+          <button onclick="shareToLine()" class="py-2 px-3.5 rounded-xl border border-green-200 bg-white hover:bg-green-50 text-[#3A7D44] text-xs font-medium flex items-center gap-1.5 transition-all">
+            <span>💬</span>
+            <span>แชร์เข้าไลน์</span>
+          </button>
+          <button onclick="copyRecipeText()" class="py-2 px-3.5 rounded-xl border border-gray-200 bg-white hover:bg-gray-100 text-gray-700 text-xs font-medium flex items-center gap-1.5 transition-all">
+            <span>📋</span>
+            <span>คัดลอกสูตร</span>
+          </button>
+        </div>
+
+        <button onclick="printCurrentRecipe()" class="py-2 px-4 rounded-xl bg-gray-800 hover:bg-gray-900 text-white text-xs font-medium flex items-center gap-1.5 transition-all">
+          <span>🖨️</span>
+          <span>พิมพ์สูตรนี้</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: SHOPPING LIST (รายการซื้อของจ่ายตลาด) -->
+  <!-- ========================================== -->
+  <div id="shoppingModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 hidden transition-opacity">
+    <div class="bg-white rounded-3xl max-w-lg w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-gray-200">
+      
+      <div class="p-5 border-b border-gray-200 flex items-center justify-between bg-orange-50/50">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🛒</span>
+          <div>
+            <h3 class="font-bold text-lg font-kanit text-gray-900">รายการซื้อของจ่ายตลาด</h3>
+            <p class="text-xs text-gray-500">ติ๊กถูกเมื่อซื้อแล้ว หรือส่งให้พ่อบ้านทาง LINE</p>
+          </div>
+        </div>
+        <button onclick="closeShoppingList()" class="w-8 h-8 rounded-full bg-white text-gray-500 hover:text-gray-800 flex items-center justify-center shadow-xs">✕</button>
+      </div>
+
+      <!-- Add Custom Item Input -->
+      <div class="p-4 border-b border-gray-100 bg-gray-50 flex items-center gap-2">
+        <input type="text" id="customShopInput" placeholder="เพิ่มของที่ต้องซื้อ เช่น ไข่ไก่ 1 แผง..." class="flex-grow px-3 py-2 text-xs bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#E86424]" onkeypress="if(event.key==='Enter') addCustomShopItem()">
+        <button onclick="addCustomShopItem()" class="px-3.5 py-2 rounded-xl bg-[#E86424] text-white text-xs font-medium hover:bg-orange-600 transition-all">เพิ่ม</button>
+      </div>
+
+      <!-- List Items Container -->
+      <div class="p-5 overflow-y-auto custom-scrollbar flex-grow space-y-2" id="shoppingItemsList">
+        <!-- Rendered items -->
+      </div>
+
+      <!-- Shopping Footer Actions -->
+      <div class="p-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between gap-2">
+        <button onclick="clearShoppingList()" class="text-xs text-rose-500 hover:underline">
+          ล้างรายการทั้งหมด
+        </button>
+        <button onclick="copyShoppingListText()" class="py-2.5 px-4 rounded-xl bg-[#3A7D44] text-white text-xs font-semibold flex items-center gap-1.5 shadow-sm hover:opacity-95 transition-all">
+          <span>📋</span>
+          <span>คัดลอกส่ง LINE</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: FAVORITES (เมนูโปรดประจำบ้าน) -->
+  <!-- ========================================== -->
+  <div id="favoritesModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 hidden transition-opacity">
+    <div class="bg-white rounded-3xl max-w-xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-gray-200">
+      
+      <div class="p-5 border-b border-gray-200 flex items-center justify-between bg-rose-50/50">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">❤️</span>
+          <div>
+            <h3 class="font-bold text-lg font-kanit text-gray-900">เมนูโปรดประจำบ้าน</h3>
+            <p class="text-xs text-gray-500">เมนูที่คนในครอบครัวเรียกร้องบ่อยที่สุด</p>
+          </div>
+        </div>
+        <button onclick="closeFavorites()" class="w-8 h-8 rounded-full bg-white text-gray-500 hover:text-gray-800 flex items-center justify-center shadow-xs">✕</button>
+      </div>
+
+      <!-- Favorites List Container -->
+      <div class="p-5 overflow-y-auto custom-scrollbar flex-grow space-y-2.5" id="favoritesItemsList">
+        <!-- Rendered items -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Hidden Print Area for Clean Recipe Printing -->
+  <div id="printArea" class="hidden p-8">
+    <div id="printContent"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-[#EAE3D2] py-6 mt-12 text-center text-xs text-gray-500">
+    <div class="max-w-7xl mx-auto px-4 space-y-2">
+      <p class="font-medium text-gray-700">🍳 วันนี้กินอะไรดี? - แอปพลิเคชันผู้ช่วยแม่บ้านคิดเมนูอาหาร 300 เมนู</p>
+      <p>คลังสูตรอาหาร วัตถุดิบ ขั้นตอนการทำ และคุณประโยชน์เพื่อสุขภาพที่ดีของทุกคนในครอบครัว</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification element -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-gray-900 text-white text-xs px-4 py-3 rounded-2xl shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2">
+    <span id="toastIcon">✅</span>
+    <span id="toastMsg">ข้อความ</span>
+  </div>
+
+  <!-- Embedded Recipes Database (300 Recipes) -->
+  <script src="recipes_data.js"></script>
+
+  <!-- Application Logic -->
+  <script>
+    // Global State
+    let allRecipes = window.RECIPES_DATA || [];
+    let currentDish = null;
+    let favorites = JSON.parse(localStorage.getItem('kin_arai_dee_favs') || '[]');
+    let shoppingList = JSON.parse(localStorage.getItem('kin_arai_dee_shopping') || '[]');
+    let weeklyPlan = JSON.parse(localStorage.getItem('kin_arai_dee_plan') || '{}');
+    
+    // Filters State
+    let filterMeal = 'all';
+    let filterCat = 'all';
+    let filterTime = 'all';
+    let filterPantry = new Set();
+
+    // Catalog State
+    let catalogCat = 'all';
+    let catalogQuery = '';
+    let catalogPage = 1;
+    const itemsPerPage = 24;
+
+    // Kitchen Timer State
+    let timerDuration = 600; // 10 mins
+    let timerRemaining = 600;
+    let timerInterval = null;
+
+    // Web Audio Synthesizer (Zero-dependency sound effects)
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function playSound(type) {
+      try {
+        if (!audioCtx) audioCtx = new AudioContext();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        if (type === 'tick') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(220, now + 0.05);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        } else if (type === 'win') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(523.25, now); // C5
+          osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+          osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+          osc.frequency.setValueAtTime(1046.50, now + 0.3); // C6
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+          osc.start(now);
+          osc.stop(now + 0.6);
+        } else if (type === 'pop') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.exponentialRampToValueAtTime(600, now + 0.08);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'alarm') {
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(880, now);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+          osc.start(now);
+          osc.stop(now + 0.5);
+        }
+      } catch (e) {
+        // Audio policy ignore
+      }
+    }
+
+    // Initialize App
+    window.addEventListener('DOMContentLoaded', () => {
+      // If window.RECIPES_DATA wasn't loaded via script tag, try fetching
+      if (!allRecipes || allRecipes.length === 0) {
+        fetch('recipes.json')
+          .then(res => res.json())
+          .then(data => {
+            allRecipes = data;
+            initUI();
+          })
+          .catch(err => {
+            console.error('Failed to load recipes.json:', err);
+          });
+      } else {
+        initUI();
+      }
+    });
+
+    function initUI() {
+      initPantryTags();
+      updateFilteredCount();
+      // Select random initial dish
+      if (allRecipes.length > 0) {
+        currentDish = allRecipes[Math.floor(Math.random() * allRecipes.length)];
+        renderDish(currentDish);
+      }
+      updateBadges();
+      renderCatalog();
+      renderWeeklyGrid();
+    }
+
+    // Popular pantry ingredients in Thai homes
+    const commonPantryItems = [
+      "หมู", "ไก่", "กุ้ง", "ปลา", "ไข่ไก่", "หมูสับ", "หมูกรอบ", 
+      "เต้าหู้", "คะน้า", "ผักกาดขาว", "กะหล่ำปลี", "ผักบุ้ง", 
+      "มะเขือเปราะ", "ฟักทอง", "เห็ด", "วุ้นเส้น", "กะทิ"
+    ];
+
+    function initPantryTags() {
+      const container = document.getElementById('pantryTagsGroup');
+      container.innerHTML = '';
+      commonPantryItems.forEach(item => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `pantry-chip px-2.5 py-1 rounded-lg text-xs font-medium border border-gray-200 bg-gray-50 text-gray-700 hover:bg-gray-100 transition-all`;
+        btn.textContent = item;
+        btn.onclick = () => togglePantryFilter(item, btn);
+        container.appendChild(btn);
+      });
+    }
+
+    function togglePantryFilter(item, btn) {
+      playSound('pop');
+      if (filterPantry.has(item)) {
+        filterPantry.delete(item);
+        btn.classList.remove('bg-orange-500', 'text-white', 'border-orange-500');
+        btn.classList.add('bg-gray-50', 'text-gray-700', 'border-gray-200');
+      } else {
+        filterPantry.add(item);
+        btn.classList.add('bg-orange-500', 'text-white', 'border-orange-500');
+        btn.classList.remove('bg-gray-50', 'text-gray-700', 'border-gray-200');
+      }
+      updatePantrySelectionText();
+      updateFilteredCount();
+    }
+
+    function updatePantrySelectionText() {
+      const textEl = document.getElementById('pantrySelectedText');
+      if (filterPantry.size === 0) {
+        textEl.textContent = '';
+      } else {
+        textEl.textContent = `(เลือกไว้ ${filterPantry.size} อย่าง)`;
+      }
+    }
+
+    function setMealFilter(meal) {
+      playSound('pop');
+      filterMeal = meal;
+      document.querySelectorAll('.meal-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-[#E86424]', 'text-white');
+        btn.classList.add('bg-gray-100', 'text-gray-700');
+      });
+      event.target.classList.add('active', 'bg-[#E86424]', 'text-white');
+      event.target.classList.remove('bg-gray-100', 'text-gray-700');
+      updateFilteredCount();
+    }
+
+    function setCatFilter(cat) {
+      playSound('pop');
+      filterCat = cat;
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-[#3A7D44]', 'text-white');
+        btn.classList.add('bg-gray-100', 'text-gray-700');
+      });
+      event.target.classList.add('active', 'bg-[#3A7D44]', 'text-white');
+      event.target.classList.remove('bg-gray-100', 'text-gray-700');
+      updateFilteredCount();
+    }
+
+    function setTimeFilter(time) {
+      playSound('pop');
+      filterTime = time;
+      document.querySelectorAll('.time-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-amber-600', 'text-white');
+        btn.classList.add('bg-gray-100', 'text-gray-700');
+      });
+      event.target.classList.add('active', 'bg-amber-600', 'text-white');
+      event.target.classList.remove('bg-gray-100', 'text-gray-700');
+      updateFilteredCount();
+    }
+
+    function resetFilters() {
+      playSound('pop');
+      filterMeal = 'all';
+      filterCat = 'all';
+      filterTime = 'all';
+      filterPantry.clear();
+      document.querySelectorAll('.meal-btn').forEach((b, i) => {
+        if (i === 0) { b.classList.add('active', 'bg-[#E86424]', 'text-white'); b.classList.remove('bg-gray-100', 'text-gray-700'); }
+        else { b.classList.remove('active', 'bg-[#E86424]', 'text-white'); b.classList.add('bg-gray-100', 'text-gray-700'); }
+      });
+      document.querySelectorAll('.cat-btn').forEach((b, i) => {
+        if (i === 0) { b.classList.add('active', 'bg-[#3A7D44]', 'text-white'); b.classList.remove('bg-gray-100', 'text-gray-700'); }
+        else { b.classList.remove('active', 'bg-[#3A7D44]', 'text-white'); b.classList.add('bg-gray-100', 'text-gray-700'); }
+      });
+      document.querySelectorAll('.time-btn').forEach((b, i) => {
+        if (i === 0) { b.classList.add('active', 'bg-amber-600', 'text-white'); b.classList.remove('bg-gray-100', 'text-gray-700'); }
+        else { b.classList.remove('active', 'bg-amber-600', 'text-white'); b.classList.add('bg-gray-100', 'text-gray-700'); }
+      });
+      document.querySelectorAll('.pantry-chip').forEach(b => {
+        b.classList.remove('bg-orange-500', 'text-white', 'border-orange-500');
+        b.classList.add('bg-gray-50', 'text-gray-700', 'border-gray-200');
+      });
+      updatePantrySelectionText();
+      updateFilteredCount();
+      showToast('🔄 ล้างตัวกรองทั้งหมดแล้ว');
+    }
+
+    function getFilteredRecipes() {
+      return allRecipes.filter(r => {
+        // Meal filter
+        if (filterMeal !== 'all') {
+          if (!r.mealType.includes(filterMeal)) return false;
+        }
+        // Category filter
+        if (filterCat !== 'all') {
+          if (r.category !== filterCat && !r.tags.includes(filterCat)) return false;
+        }
+        // Time filter
+        const totalMinutes = parseInt(r.totalTime) || 20;
+        if (filterTime === 'fast' && totalMinutes > 15) return false;
+        if (filterTime === 'medium' && (totalMinutes <= 15 || totalMinutes > 30)) return false;
+        if (filterTime === 'slow' && totalMinutes <= 30) return false;
+        // Pantry filter
+        if (filterPantry.size > 0) {
+          const rPantry = (r.mainPantry || []).join(' ') + ' ' + (r.ingredients || []).map(i => i.item).join(' ');
+          let matchesAny = false;
+          for (let p of filterPantry) {
+            if (rPantry.includes(p)) {
+              matchesAny = true;
+              break;
+            }
+          }
+          if (!matchesAny) return false;
+        }
+        return true;
+      });
+    }
+
+    function updateFilteredCount() {
+      const matches = getFilteredRecipes();
+      document.getElementById('filteredMatchCount').textContent = matches.length;
+    }
+
+    // Randomizer Slot Animation
+    let isSpinning = false;
+    function spinRandomizer() {
+      if (isSpinning) return;
+      const candidates = getFilteredRecipes();
+      if (candidates.length === 0) {
+        showToast('⚠️ ไม่พบเมนูที่ตรงกับตัวกรอง กรุณากดล้างตัวกรอง');
+        return;
+      }
+
+      isSpinning = true;
+      const card = document.getElementById('randomCard');
+      card.classList.add('spinning-card');
+
+      let spinCount = 0;
+      const maxSpins = 16;
+      const interval = setInterval(() => {
+        playSound('tick');
+        const rand = candidates[Math.floor(Math.random() * candidates.length)];
+        renderDish(rand);
+        spinCount++;
+
+        if (spinCount >= maxSpins) {
+          clearInterval(interval);
+          card.classList.remove('spinning-card');
+          isSpinning = false;
+          // Final Winner Pick
+          const winner = candidates[Math.floor(Math.random() * candidates.length)];
+          currentDish = winner;
+          renderDish(winner);
+          playSound('win');
+          triggerConfetti();
+        }
+      }, 100);
+    }
+
+    function renderDish(dish) {
+      if (!dish) return;
+      document.getElementById('dishIcon').textContent = dish.icon || '🍲';
+      document.getElementById('dishName').textContent = dish.name;
+      document.getElementById('dishBenefitsExcerpt').textContent = dish.benefits;
+      document.getElementById('dishMainIngredients').textContent = (dish.mainPantry || []).slice(0, 4).join(', ') || 'วัตถุดิบสด';
+      
+      const tagsContainer = document.getElementById('dishTags');
+      tagsContainer.innerHTML = `
+        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-orange-100 text-[#E86424]">${dish.category}</span>
+        <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600">⏱️ ${dish.totalTime}</span>
+        <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-700">🔥 ${dish.calories}</span>
+        ${(dish.tags || []).slice(0, 2).map(t => `<span class="px-2 py-0.5 rounded-full text-[11px] bg-green-50 text-green-700">${t}</span>`).join('')}
+      `;
+    }
+
+    function triggerConfetti() {
+      if (window.confetti) {
+        confetti({
+          particleCount: 60,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#E86424', '#3A7D44', '#F5A623', '#FF6B6B']
+        });
+      }
+    }
+
+    // Modal Details Functions
+    function openRecipeModalById(id) {
+      const found = allRecipes.find(r => r.id === id);
+      if (found) {
+        currentDish = found;
+        openCurrentRecipeModal();
+      }
+    }
+
+    function openCurrentRecipeModal() {
+      if (!currentDish) return;
+      playSound('pop');
+      const r = currentDish;
+      document.getElementById('modalIcon').textContent = r.icon || '🍲';
+      document.getElementById('modalName').textContent = r.name;
+      document.getElementById('modalCategory').textContent = r.category;
+      document.getElementById('modalDifficulty').textContent = `ระดับ: ${r.difficulty}`;
+      document.getElementById('modalCalories').textContent = r.calories;
+      document.getElementById('modalPrepTime').textContent = r.prepTime;
+      document.getElementById('modalCookTime').textContent = r.cookTime;
+      document.getElementById('modalTotalTime').textContent = r.totalTime;
+
+      // Ingredients with interactive checkboxes
+      const ingsContainer = document.getElementById('modalIngredientsList');
+      ingsContainer.innerHTML = (r.ingredients || []).map((ing, i) => `
+        <li class="flex items-center justify-between p-2 rounded-xl hover:bg-gray-50 text-xs sm:text-sm text-gray-800 transition-colors">
+          <label class="flex items-center gap-2.5 cursor-pointer select-none">
+            <input type="checkbox" class="w-4 h-4 rounded text-orange-500 focus:ring-orange-400">
+            <span>${ing.item}</span>
+          </label>
+          <span class="font-semibold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-md text-xs">${ing.amount} ${ing.unit}</span>
+        </li>
+      `).join('');
+
+      // Seasonings
+      const seasContainer = document.getElementById('modalSeasoningsList');
+      seasContainer.innerHTML = (r.seasonings || []).map(s => `
+        <li class="flex items-center justify-between p-1.5 bg-gray-50 rounded-lg">
+          <span>${s.item}</span>
+          <span class="font-medium text-gray-500">${s.amount} ${s.unit}</span>
+        </li>
+      `).join('');
+
+      // Step-by-step
+      const stepsContainer = document.getElementById('modalStepsList');
+      stepsContainer.innerHTML = (r.steps || []).map((st, i) => `
+        <div class="flex items-start gap-3 p-3 rounded-2xl border border-gray-100 hover:border-orange-200 transition-colors">
+          <div class="w-6 h-6 rounded-full bg-orange-100 text-orange-700 font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+            ${i+1}
+          </div>
+          <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">${st.replace(/^\d+\.\s*/, '')}</p>
+        </div>
+      `).join('');
+
+      // Benefits & Tips
+      document.getElementById('modalBenefits').textContent = r.benefits;
+      document.getElementById('modalTips').textContent = r.tips;
+
+      // Set kitchen timer initial time according to cook time
+      const cookMin = parseInt(r.cookTime) || 10;
+      timerDuration = cookMin * 60;
+      timerRemaining = timerDuration;
+      updateTimerDisplay();
+      resetTimer();
+
+      updateModalFavBtn();
+      switchModalTab('ingredients');
+      document.getElementById('recipeModal').classList.remove('hidden');
+    }
+
+    function closeRecipeModal() {
+      playSound('pop');
+      document.getElementById('recipeModal').classList.add('hidden');
+      resetTimer();
+    }
+
+    function switchModalTab(tabName) {
+      document.querySelectorAll('.modal-tab').forEach(b => {
+        b.classList.remove('active', 'text-[#E86424]', 'border-[#E86424]', 'font-semibold');
+        b.classList.add('text-gray-500', 'border-transparent');
+      });
+      document.getElementById(`modal-tab-${tabName}`).classList.add('active', 'text-[#E86424]', 'border-[#E86424]', 'font-semibold');
+      document.getElementById(`modal-tab-${tabName}`).classList.remove('text-gray-500', 'border-transparent');
+
+      document.getElementById('modal-content-ingredients').classList.add('hidden');
+      document.getElementById('modal-content-steps').classList.add('hidden');
+      document.getElementById('modal-content-benefits').classList.add('hidden');
+      document.getElementById(`modal-content-${tabName}`).classList.remove('hidden');
+    }
+
+    // Kitchen Timer logic
+    function updateTimerDisplay() {
+      const min = Math.floor(timerRemaining / 60);
+      const sec = timerRemaining % 60;
+      document.getElementById('timerDisplay').textContent = 
+        `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+      const btn = document.getElementById('timerToggleBtn');
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        btn.textContent = 'เริ่มต่อ';
+        btn.classList.replace('bg-rose-600', 'bg-amber-600');
+      } else {
+        btn.textContent = 'หยุด';
+        btn.classList.replace('bg-amber-600', 'bg-rose-600');
+        timerInterval = setInterval(() => {
+          if (timerRemaining > 0) {
+            timerRemaining--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            btn.textContent = 'เสร็จแล้ว!';
+            playSound('alarm');
+            showToast('⏰ ถึงเวลาปิดไฟเตาแล้ว!');
+          }
+        }, 1000);
+      }
+    }
+
+    function resetTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      timerRemaining = timerDuration;
+      updateTimerDisplay();
+      const btn = document.getElementById('timerToggleBtn');
+      if (btn) {
+        btn.textContent = 'เริ่ม';
+        btn.classList.replace('bg-rose-600', 'bg-amber-600');
+      }
+    }
+
+    // Favorites Logic
+    function updateModalFavBtn() {
+      if (!currentDish) return;
+      const isFav = favorites.some(f => f.id === currentDish.id);
+      const icon = document.getElementById('modalFavIcon');
+      const text = document.getElementById('modalFavText');
+      if (isFav) {
+        icon.textContent = '💔';
+        text.textContent = 'เลิกโปรด';
+      } else {
+        icon.textContent = '❤️';
+        text.textContent = 'บันทึกโปรด';
+      }
+    }
+
+    function toggleFavoriteCurrentModal() {
+      if (!currentDish) return;
+      toggleFavorite(currentDish.id);
+      updateModalFavBtn();
+    }
+
+    function addToFavoritesFromCurrent() {
+      if (!currentDish) return;
+      const exists = favorites.some(f => f.id === currentDish.id);
+      if (!exists) {
+        favorites.push(currentDish);
+        saveFavorites();
+        playSound('pop');
+        showToast(`❤️ บันทึก "${currentDish.name}" เข้าเมนูโปรดแล้ว`);
+      } else {
+        showToast(`ℹ️ "${currentDish.name}" มีในรายการโปรดอยู่แล้ว`);
+      }
+    }
+
+    function toggleFavorite(id) {
+      playSound('pop');
+      const index = favorites.findIndex(f => f.id === id);
+      const r = allRecipes.find(item => item.id === id);
+      if (index >= 0) {
+        favorites.splice(index, 1);
+        showToast(`💔 นำ "${r ? r.name : ''}" ออกจากรายการโปรดแล้ว`);
+      } else if (r) {
+        favorites.push(r);
+        showToast(`❤️ บันทึก "${r.name}" เข้าเมนูโปรดแล้ว`);
+      }
+      saveFavorites();
+    }
+
+    function saveFavorites() {
+      localStorage.setItem('kin_arai_dee_favs', JSON.stringify(favorites));
+      updateBadges();
+      if (!document.getElementById('favoritesModal').classList.contains('hidden')) {
+        renderFavoritesList();
+      }
+    }
+
+    function openFavorites() {
+      playSound('pop');
+      renderFavoritesList();
+      document.getElementById('favoritesModal').classList.remove('hidden');
+    }
+
+    function closeFavorites() {
+      playSound('pop');
+      document.getElementById('favoritesModal').classList.add('hidden');
+    }
+
+    function renderFavoritesList() {
+      const container = document.getElementById('favoritesItemsList');
+      if (favorites.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-10 space-y-2 text-gray-400">
+            <span class="text-4xl block">🤍</span>
+            <p class="text-sm">ยังไม่มีเมนูโปรด</p>
+            <p class="text-xs text-gray-500">กดปุ่มรูปหัวใจที่เมนูใดก็ได้เพื่อบันทึกเก็บไว้ที่นี่</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = favorites.map(r => `
+        <div class="flex items-center justify-between p-3 rounded-2xl border border-gray-100 hover:border-orange-200 bg-white transition-all">
+          <div class="flex items-center gap-3 cursor-pointer" onclick="openRecipeModalById(${r.id}); closeFavorites();">
+            <span class="text-2xl">${r.icon || '🍲'}</span>
+            <div>
+              <h4 class="text-sm font-bold text-gray-900 font-kanit">${r.name}</h4>
+              <p class="text-xs text-gray-500">${r.category} • ⏱️ ${r.totalTime} • ${r.calories}</p>
+            </div>
+          </div>
+          <button onclick="toggleFavorite(${r.id})" class="text-xs text-rose-500 hover:text-rose-700 p-2">✕ ลบ</button>
+        </div>
+      `).join('');
+    }
+
+    // Shopping List Logic
+    function openShoppingList() {
+      playSound('pop');
+      renderShoppingList();
+      document.getElementById('shoppingModal').classList.remove('hidden');
+    }
+
+    function closeShoppingList() {
+      playSound('pop');
+      document.getElementById('shoppingModal').classList.add('hidden');
+    }
+
+    function addModalIngredientsToShoppingList() {
+      if (!currentDish || !currentDish.ingredients) return;
+      let count = 0;
+      currentDish.ingredients.forEach(ing => {
+        const itemText = `${ing.item} (${ing.amount} ${ing.unit})`;
+        if (!shoppingList.some(s => s.text === itemText)) {
+          shoppingList.push({ id: Date.now() + Math.random(), text: itemText, checked: false, recipe: currentDish.name });
+          count++;
+        }
+      });
+      saveShoppingList();
+      playSound('win');
+      showToast(`🛒 เพิ่มวัตถุดิบ ${count} รายการลงลิสต์จ่ายตลาดแล้ว!`);
+    }
+
+    function addCustomShopItem() {
+      const input = document.getElementById('customShopInput');
+      const val = input.value.trim();
+      if (!val) return;
+      shoppingList.push({ id: Date.now(), text: val, checked: false, recipe: 'รายการส่วนตัว' });
+      input.value = '';
+      saveShoppingList();
+      playSound('pop');
+    }
+
+    function toggleShoppingItem(id) {
+      playSound('tick');
+      const item = shoppingList.find(s => s.id === id);
+      if (item) {
+        item.checked = !item.checked;
+        saveShoppingList();
+      }
+    }
+
+    function removeShoppingItem(id) {
+      playSound('pop');
+      shoppingList = shoppingList.filter(s => s.id !== id);
+      saveShoppingList();
+    }
+
+    function clearShoppingList() {
+      if (shoppingList.length === 0) return;
+      if (confirm('คุณต้องการล้างรายการซื้อของทั้งหมดใช่หรือไม่?')) {
+        shoppingList = [];
+        saveShoppingList();
+        showToast('🗑️ ล้างรายการจ่ายตลาดเรียบร้อย');
+      }
+    }
+
+    function saveShoppingList() {
+      localStorage.setItem('kin_arai_dee_shopping', JSON.stringify(shoppingList));
+      updateBadges();
+      renderShoppingList();
+    }
+
+    function renderShoppingList() {
+      const container = document.getElementById('shoppingItemsList');
+      if (shoppingList.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-12 space-y-2 text-gray-400">
+            <span class="text-4xl block">🧺</span>
+            <p class="text-sm font-medium">ลิสต์จ่ายตลาดยังว่างอยู่</p>
+            <p class="text-xs text-gray-500">สามารถกดเพิ่มวัตถุดิบจากหน้ารายละเอียดเมนู หรือพิมพ์เพิ่มเองด้านบน</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = shoppingList.map(item => `
+        <div class="flex items-center justify-between p-2.5 rounded-xl border ${item.checked ? 'bg-gray-50 border-gray-100 text-gray-400' : 'bg-white border-gray-200 text-gray-800'} transition-all">
+          <label class="flex items-center gap-2.5 cursor-pointer flex-grow select-none">
+            <input type="checkbox" onchange="toggleShoppingItem(${item.id})" ${item.checked ? 'checked' : ''} class="w-4 h-4 rounded text-[#E86424] focus:ring-orange-400">
+            <span class="${item.checked ? 'line-through text-gray-400' : 'text-gray-800 font-medium'} text-xs sm:text-sm">${item.text}</span>
+          </label>
+          <span class="text-[10px] text-gray-400 px-2">${item.recipe || ''}</span>
+          <button onclick="removeShoppingItem(${item.id})" class="text-gray-400 hover:text-rose-500 text-xs p-1">✕</button>
+        </div>
+      `).join('');
+    }
+
+    function copyShoppingListText() {
+      if (shoppingList.length === 0) {
+        showToast('⚠️ ยังไม่มีรายการซื้อของ');
+        return;
+      }
+      let text = '🛒 รายการซื้อของจ่ายตลาดวันนี้:\n';
+      shoppingList.forEach((it, i) => {
+        text += `${i+1}. ${it.text} ${it.checked ? '✓' : ''}\n`;
+      });
+      navigator.clipboard.writeText(text).then(() => {
+        playSound('pop');
+        showToast('📋 คัดลอกรายการแล้ว! วางส่งใน LINE ได้เลย');
+      });
+    }
+
+    function updateBadges() {
+      const favCount = favorites.length;
+      document.getElementById('favCountBadge').textContent = favCount;
+      document.getElementById('favCountBadgeMobile').textContent = favCount;
+
+      const shopCount = shoppingList.filter(s => !s.checked).length;
+      document.getElementById('shopCountBadge').textContent = shopCount;
+      document.getElementById('shopCountBadgeMobile').textContent = shopCount;
+    }
+
+    // Share & Export
+    function shareToLine() {
+      if (!currentDish) return;
+      const r = currentDish;
+      const text = `🍽️ วันนี้กินเมนูนี้กันไหม: "${r.name}"\nประเภท: ${r.category} (${r.totalTime})\nประโยชน์: ${r.benefits}\n\nเปิดดูสูตรเต็มในแอปวันนี้กินอะไรดี!`;
+      const url = `https://line.me/R/msg/text/?${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+
+    function copyRecipeText() {
+      if (!currentDish) return;
+      const r = currentDish;
+      let text = `🍳 สูตรอาหาร: ${r.name} (${r.category})\n`;
+      text += `⏱️ เวลาเตรียม: ${r.prepTime} | เวลาปรุง: ${r.cookTime} | พลังงาน: ${r.calories}\n\n`;
+      text += `🥩 วัตถุดิบ:\n`;
+      (r.ingredients || []).forEach(ing => {
+        text += `- ${ing.item} ${ing.amount} ${ing.unit}\n`;
+      });
+      text += `\n🧂 เครื่องปรุง:\n`;
+      (r.seasonings || []).forEach(s => {
+        text += `- ${s.item} ${s.amount} ${s.unit}\n`;
+      });
+      text += `\n👩‍🍳 วิธีทำ:\n`;
+      (r.steps || []).forEach(st => {
+        text += `${st}\n`;
+      });
+      text += `\n🌿 คุณประโยชน์: ${r.benefits}\n`;
+      text += `💡 เคล็ดลับก้นครัว: ${r.tips}\n`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        playSound('pop');
+        showToast('📋 คัดลอกสูตรอาหารทั้งหมดเรียบร้อยแล้ว');
+      });
+    }
+
+    function printCurrentRecipe() {
+      if (!currentDish) return;
+      const r = currentDish;
+      const printArea = document.getElementById('printContent');
+      printArea.innerHTML = `
+        <div style="font-family: sans-serif; line-height: 1.6; max-width: 700px; margin: 0 auto; color: #222;">
+          <h1 style="color: #E86424; margin-bottom: 4px;">${r.icon || '🍲'} ${r.name}</h1>
+          <p style="color: #666; font-size: 14px; margin-top: 0;">ประเภท: ${r.category} | เวลา: ${r.totalTime} | แคลอรี่: ${r.calories}</p>
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 16px 0;">
+          
+          <h3>🥩 วัตถุดิบและเครื่องปรุง</h3>
+          <ul style="font-size: 14px;">
+            ${(r.ingredients || []).map(i => `<li>${i.item} : ${i.amount} ${i.unit}</li>`).join('')}
+            ${(r.seasonings || []).map(s => `<li>${s.item} : ${s.amount} ${s.unit}</li>`).join('')}
+          </ul>
+
+          <h3>👩‍🍳 ขั้นตอนการปรุง</h3>
+          <ol style="font-size: 14px;">
+            ${(r.steps || []).map(s => `<li>${s.replace(/^\d+\.\s*/, '')}</li>`).join('')}
+          </ol>
+
+          <div style="background: #f7f7f7; padding: 12px; border-radius: 8px; margin-top: 16px; font-size: 13px;">
+            <strong>🌿 คุณประโยชน์:</strong> ${r.benefits}<br><br>
+            <strong>💡 เคล็ดลับ:</strong> ${r.tips}
+          </div>
+        </div>
+      `;
+      window.print();
+    }
+
+    // Catalog Logic
+    function handleCatalogSearch() {
+      catalogQuery = document.getElementById('catalogSearch').value.toLowerCase().trim();
+      const clearBtn = document.getElementById('clearSearchBtn');
+      if (catalogQuery) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+      catalogPage = 1;
+      renderCatalog();
+    }
+
+    function clearCatalogSearch() {
+      document.getElementById('catalogSearch').value = '';
+      catalogQuery = '';
+      document.getElementById('clearSearchBtn').classList.add('hidden');
+      catalogPage = 1;
+      renderCatalog();
+    }
+
+    function filterCatalogCat(cat) {
+      playSound('pop');
+      catalogCat = cat;
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        btn.classList.remove('active', 'bg-[#3A7D44]', 'text-white');
+        btn.classList.add('bg-white', 'text-gray-600');
+      });
+      event.target.classList.add('active', 'bg-[#3A7D44]', 'text-white');
+      event.target.classList.remove('bg-white', 'text-gray-600');
+      catalogPage = 1;
+      renderCatalog();
+    }
+
+    function renderCatalog() {
+      const sortType = document.getElementById('catalogSort').value;
+      
+      let filtered = allRecipes.filter(r => {
+        // Cat filter
+        if (catalogCat !== 'all') {
+          if (r.category !== catalogCat && !r.tags.includes(catalogCat)) return false;
+        }
+        // Query search
+        if (catalogQuery) {
+          const matchName = r.name.toLowerCase().includes(catalogQuery);
+          const matchPantry = (r.mainPantry || []).join(' ').toLowerCase().includes(catalogQuery);
+          const matchIng = (r.ingredients || []).some(i => i.item.toLowerCase().includes(catalogQuery));
+          const matchBen = (r.benefits || '').toLowerCase().includes(catalogQuery);
+          if (!matchName && !matchPantry && !matchIng && !matchBen) return false;
+        }
+        return true;
+      });
+
+      // Sorting
+      if (sortType === 'name-asc') {
+        filtered.sort((a, b) => a.name.localeCompare(b.name, 'th'));
+      } else if (sortType === 'time-asc') {
+        filtered.sort((a, b) => (parseInt(a.totalTime)||0) - (parseInt(b.totalTime)||0));
+      } else if (sortType === 'cals-asc') {
+        filtered.sort((a, b) => (parseInt(a.calories)||0) - (parseInt(b.calories)||0));
+      } else {
+        filtered.sort((a, b) => a.id - b.id);
+      }
+
+      document.getElementById('catalogCount').textContent = filtered.length;
+
+      // Pagination slice
+      const totalPages = Math.ceil(filtered.length / itemsPerPage) || 1;
+      if (catalogPage > totalPages) catalogPage = totalPages;
+      const startIdx = (catalogPage - 1) * itemsPerPage;
+      const pageItems = filtered.slice(startIdx, startIdx + itemsPerPage);
+
+      const grid = document.getElementById('catalogGrid');
+      if (pageItems.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full text-center py-16 space-y-2 text-gray-400">
+            <span class="text-4xl block">🔍</span>
+            <p class="text-base font-medium">ไม่พบเมนูที่ตรงกับคำค้นหา</p>
+            <p class="text-xs">ลองค้นหาด้วยคำอื่น เช่น กะเพรา, แกงส้ม, ไก่, หรือเลือกหมวดหมู่อื่น</p>
+          </div>
+        `;
+        document.getElementById('catalogPagination').innerHTML = '';
+        return;
+      }
+
+      grid.innerHTML = pageItems.map(r => `
+        <div class="bg-white rounded-3xl p-4 border border-[#EAE3D2] shadow-xs hover:shadow-card transition-all duration-200 flex flex-col justify-between group">
+          <div>
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <span class="text-3xl p-2 rounded-2xl bg-orange-50/80 border border-orange-100">${r.icon || '🍲'}</span>
+              <button onclick="toggleFavorite(${r.id}); renderCatalog();" class="p-1.5 rounded-full hover:bg-rose-50 text-xs transition-colors">
+                ${favorites.some(f => f.id === r.id) ? '❤️' : '🤍'}
+              </button>
+            </div>
+            
+            <div class="flex items-center gap-1.5 mb-1.5">
+              <span class="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-orange-100 text-[#E86424]">${r.category}</span>
+              <span class="text-[11px] text-gray-500 font-medium">⏱️ ${r.totalTime}</span>
+              <span class="text-[11px] text-gray-400">• ${r.calories}</span>
+            </div>
+
+            <h4 class="font-bold text-base font-kanit text-gray-900 group-hover:text-[#E86424] transition-colors leading-snug cursor-pointer" onclick="openRecipeModalById(${r.id})">
+              ${r.name}
+            </h4>
+
+            <p class="text-xs text-gray-500 line-clamp-2 mt-1.5 font-light leading-relaxed">
+              ${r.benefits}
+            </p>
+          </div>
+
+          <div class="pt-3 mt-3 border-t border-gray-100 flex items-center justify-between text-xs">
+            <span class="text-gray-400 text-[11px]">รหัส #${r.id}</span>
+            <button onclick="openRecipeModalById(${r.id})" class="text-[#E86424] font-semibold hover:underline flex items-center gap-1">
+              เปิดสูตร <span>→</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      // Render Pagination Buttons
+      renderPaginationControls(totalPages);
+    }
+
+    function renderPaginationControls(totalPages) {
+      const container = document.getElementById('catalogPagination');
+      if (totalPages <= 1) {
+        container.innerHTML = '';
+        return;
+      }
+      let html = '';
+      if (catalogPage > 1) {
+        html += `<button onclick="setCatalogPage(${catalogPage - 1})" class="px-3 py-1.5 rounded-xl border border-gray-200 text-xs hover:bg-gray-100">← ก่อนหน้า</button>`;
+      }
+      
+      const maxButtons = 5;
+      let startPage = Math.max(1, catalogPage - 2);
+      let endPage = Math.min(totalPages, startPage + maxButtons - 1);
+      if (endPage - startPage < maxButtons - 1) {
+        startPage = Math.max(1, endPage - maxButtons + 1);
+      }
+
+      for (let p = startPage; p <= endPage; p++) {
+        html += `<button onclick="setCatalogPage(${p})" class="px-3 py-1.5 rounded-xl text-xs font-medium ${p === catalogPage ? 'bg-[#E86424] text-white' : 'border border-gray-200 hover:bg-gray-100'}">${p}</button>`;
+      }
+
+      if (catalogPage < totalPages) {
+        html += `<button onclick="setCatalogPage(${catalogPage + 1})" class="px-3 py-1.5 rounded-xl border border-gray-200 text-xs hover:bg-gray-100">ถัดไป →</button>`;
+      }
+      container.innerHTML = html;
+    }
+
+    function setCatalogPage(p) {
+      playSound('pop');
+      catalogPage = p;
+      renderCatalog();
+      window.scrollTo({ top: 300, behavior: 'smooth' });
+    }
+
+    // Weekly Planner Logic
+    const daysOfWeek = ['จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์', 'อาทิตย์'];
+    const mealsOfDay = ['เช้า', 'กลางวัน', 'เย็น'];
+
+    function renderWeeklyGrid() {
+      const container = document.getElementById('weeklyGrid');
+      container.innerHTML = daysOfWeek.map((day, dIdx) => `
+        <div class="bg-white rounded-2xl p-3 border border-[#EAE3D2] shadow-xs space-y-3">
+          <div class="font-bold text-sm text-center font-kanit pb-2 border-b border-gray-100 text-gray-900 bg-orange-50/50 py-1 rounded-xl">
+            วัน${day}
+          </div>
+          ${mealsOfDay.map(m => {
+            const key = `${day}_${m}`;
+            const dish = weeklyPlan[key];
+            return `
+              <div class="space-y-1">
+                <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block">${m === 'เช้า' ? '🌅 เช้า' : m === 'กลางวัน' ? '☀️ กลางวัน' : '🌙 เย็น'}</span>
+                ${dish ? `
+                  <div class="p-2 rounded-xl bg-orange-50/80 border border-orange-200 text-xs space-y-1 relative group">
+                    <div class="font-bold text-gray-800 line-clamp-1 cursor-pointer hover:text-orange-600" onclick="openRecipeModalById(${dish.id})">
+                      ${dish.icon || '🍲'} ${dish.name}
+                    </div>
+                    <div class="flex items-center justify-between text-[10px] text-gray-500">
+                      <span>${dish.totalTime}</span>
+                      <button onclick="removePlanItem('${key}')" class="text-rose-500 hover:text-rose-700 opacity-60 group-hover:opacity-100">✕</button>
+                    </div>
+                  </div>
+                ` : `
+                  <button onclick="assignMealToPlan('${key}', '${m}')" class="w-full py-2 px-1 text-center rounded-xl border border-dashed border-gray-200 text-[11px] text-gray-400 hover:border-orange-300 hover:text-orange-500 transition-colors">
+                    + สุ่ม/เลือก
+                  </button>
+                `}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `).join('');
+    }
+
+    function autoGenerateWeeklyPlan() {
+      if (allRecipes.length === 0) return;
+      playSound('win');
+      daysOfWeek.forEach(day => {
+        mealsOfDay.forEach(meal => {
+          const key = `${day}_${meal}`;
+          const candidates = allRecipes.filter(r => r.mealType && r.mealType.includes(meal));
+          const pool = candidates.length > 0 ? candidates : allRecipes;
+          weeklyPlan[key] = pool[Math.floor(Math.random() * pool.length)];
+        });
+      });
+      localStorage.setItem('kin_arai_dee_plan', JSON.stringify(weeklyPlan));
+      renderWeeklyGrid();
+      triggerConfetti();
+      showToast('✨ จัดตารางอาหาร 21 มื้อทั้ง 7 วันให้เรียบร้อยแล้ว!');
+    }
+
+    function assignMealToPlan(key, meal) {
+      playSound('pop');
+      const candidates = allRecipes.filter(r => r.mealType && r.mealType.includes(meal));
+      const pool = candidates.length > 0 ? candidates : allRecipes;
+      weeklyPlan[key] = pool[Math.floor(Math.random() * pool.length)];
+      localStorage.setItem('kin_arai_dee_plan', JSON.stringify(weeklyPlan));
+      renderWeeklyGrid();
+    }
+
+    function removePlanItem(key) {
+      playSound('pop');
+      delete weeklyPlan[key];
+      localStorage.setItem('kin_arai_dee_plan', JSON.stringify(weeklyPlan));
+      renderWeeklyGrid();
+    }
+
+    function addAllPlannerToShoppingList() {
+      const planKeys = Object.keys(weeklyPlan);
+      if (planKeys.length === 0) {
+        showToast('⚠️ ตารางอาหารประจำสัปดาห์ยังว่างอยู่');
+        return;
+      }
+      let count = 0;
+      planKeys.forEach(k => {
+        const dish = weeklyPlan[k];
+        if (dish && dish.ingredients) {
+          dish.ingredients.forEach(ing => {
+            const itemText = `${ing.item} (${ing.amount} ${ing.unit})`;
+            if (!shoppingList.some(s => s.text === itemText)) {
+              shoppingList.push({ id: Date.now() + Math.random(), text: itemText, checked: false, recipe: dish.name });
+              count++;
+            }
+          });
+        }
+      });
+      saveShoppingList();
+      playSound('win');
+      showToast(`🛒 โอนวัตถุดิบ ${count} รายการเข้าลิสต์จ่ายตลาดแล้ว!`);
+      openShoppingList();
+    }
+
+    // Tab Navigation
+    function switchTab(tab) {
+      playSound('pop');
+      document.getElementById('view-random').classList.add('hidden');
+      document.getElementById('view-catalog').classList.add('hidden');
+      document.getElementById('view-planner').classList.add('hidden');
+
+      // Top Desktop buttons
+      document.querySelectorAll('.nav-btn').forEach(b => {
+        b.classList.remove('bg-white', 'text-[#E86424]', 'shadow-sm');
+        b.classList.add('text-gray-600');
+      });
+      // Mobile buttons
+      document.getElementById('nav-mobile-random').classList.remove('text-[#E86424]', 'font-semibold', 'bg-white', 'shadow-xs');
+      document.getElementById('nav-mobile-catalog').classList.remove('text-[#E86424]', 'font-semibold', 'bg-white', 'shadow-xs');
+      document.getElementById('nav-mobile-planner').classList.remove('text-[#E86424]', 'font-semibold', 'bg-white', 'shadow-xs');
+
+      if (tab === 'random') {
+        document.getElementById('view-random').classList.remove('hidden');
+        document.getElementById('nav-random').classList.add('bg-white', 'text-[#E86424]', 'shadow-sm');
+        document.getElementById('nav-mobile-random').classList.add('text-[#E86424]', 'font-semibold', 'bg-white', 'shadow-xs');
+      } else if (tab === 'catalog') {
+        document.getElementById('view-catalog').classList.remove('hidden');
+        document.getElementById('nav-catalog').classList.add('bg-white', 'text-[#E86424]', 'shadow-sm');
+        document.getElementById('nav-mobile-catalog').classList.add('text-[#E86424]', 'font-semibold', 'bg-white', 'shadow-xs');
+        renderCatalog();
+      } else if (tab === 'planner') {
+        document.getElementById('view-planner').classList.remove('hidden');
+        document.getElementById('nav-planner').classList.add('bg-white', 'text-[#E86424]', 'shadow-sm');
+        document.getElementById('nav-mobile-planner').classList.add('text-[#E86424]', 'font-semibold', 'bg-white', 'shadow-xs');
+        renderWeeklyGrid();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Toast helper
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3200);
+    }
+  </script>
+</body>
+</html>

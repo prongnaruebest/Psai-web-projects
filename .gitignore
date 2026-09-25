@@ -12,3 +12,12 @@ test_*.h
 # System
 .DS_Store
 Thumbs.db
+
+# Dependencies & Build Outputs
+node_modules/
+dist/
+.next/
+.wrangler/
+.netlify/
+*.rar
+*.tar.gz

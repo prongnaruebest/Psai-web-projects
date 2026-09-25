@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naruebest Komol | Electronic Engineer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Sarabun', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-feature-settings: "cv02", "cv03", "cv04", "cv11"; }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+  </style>
+</head>
+<body class="bg-[#fafafa] text-slate-800 antialiased selection:bg-sky-100 selection:text-sky-900">
+
+  <!-- Navigation Bar -->
+  <nav class="fixed top-0 inset-x-0 z-50 glass-card transition-all duration-300 border-b border-slate-200/80">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm shadow-sm group-hover:scale-105 transition-transform">
+          NK
+        </div>
+        <div class="leading-tight">
+          <span class="font-semibold text-slate-900 tracking-tight block">นายนฤเบศ โกมล</span>
+          <span class="text-[11px] font-mono text-sky-600">Electronic Engineer</span>
+        </div>
+      </a>
+
+      <div class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
+        <a href="#about" class="hover:text-sky-600 transition-colors">เกี่ยวกับ</a>
+        <a href="#expertise" class="hover:text-sky-600 transition-colors">ความเชี่ยวชาญหลัก</a>
+        <a href="#projects" class="hover:text-sky-600 transition-colors">ผลงานโครงการ</a>
+        <a href="#fieldwork" class="hover:text-sky-600 transition-colors">งานติดตั้ง/ภาคสนาม</a>
+        <a href="#skills" class="hover:text-sky-600 transition-colors">ทักษะวิศวกรรม</a>
+        <a href="#certificates" class="hover:text-sky-600 transition-colors">ใบรับรอง</a>
+        <a href="#experience" class="hover:text-sky-600 transition-colors">ประวัติทำงาน</a>
+        <a href="#contact" class="hover:text-sky-600 transition-colors">ติดต่อ</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="Naruebest_Komol_Resume.pdf" download class="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold text-sky-700 bg-sky-50 border border-sky-200 rounded-full hover:bg-sky-100 transition-all shadow-sm">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          ดาวน์โหลด Resume (PDF)
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="top" class="pt-32 pb-20 md:pt-40 md:pb-24 border-b border-slate-200/80 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-12 gap-12 items-center">
+        
+        <div class="md:col-span-8 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Professional Electronic & Embedded Systems Engineer
+          </div>
+          
+          <div class="space-y-2">
+            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
+              นายนฤเบศ โกมล
+              <span class="block text-2xl sm:text-3xl font-normal text-slate-500 mt-1 font-sans">
+                (Mr. Naruebest Komol)
+              </span>
+            </h1>
+            <p class="text-lg sm:text-xl font-medium text-sky-700">
+              Electronic Engineer &bull; Hardware / Embedded Systems / Industrial Automation
+            </p>
+          </div>
+
+          <p class="text-base text-slate-600 leading-relaxed max-w-2xl font-normal">
+            วิศวกรอิเล็กทรอนิกส์ที่มีประสบการณ์ออกแบบและพัฒนาฮาร์ดแวร์ PCB 2-8 ชั้นตามมาตรฐานสากล IPC, ตู้ควบคุมระบบไฟฟ้าอัจฉริยะ (Electrical Integrated Control Cabinet), ระบบควบคุมอัตโนมัติ PLC/HMI และระบบสมองกลฝังตัว (Embedded Systems) พร้อมประสบการณ์ติดตั้งและปฏิบัติงานภาคสนามในระดับนานาชาติ
+          </p>
+
+          <div class="flex flex-wrap gap-4 pt-2">
+            <a href="#projects" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 shadow-sm transition-all">
+              ดูแฟ้มผลงานโครงการ
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+            <a href="#contact" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-sm font-medium hover:bg-slate-50 transition-all">
+              ข้อมูลการติดต่อ
+            </a>
+          </div>
+
+          <!-- Quick Metrics -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-100">
+            <div>
+              <div class="text-2xl font-bold font-mono text-slate-900">5+ ปี</div>
+              <div class="text-xs text-slate-500">ประสบการณ์สายงานวิศวกรรม</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold font-mono text-slate-900">12+</div>
+              <div class="text-xs text-slate-500">สถานีที่ออกแบบและติดตั้งระบบจริง</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold font-mono text-slate-900">8 ชั้น</div>
+              <div class="text-xs text-slate-500">ความเชี่ยวชาญ Multilayer PCB</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold font-mono text-slate-900">5 ใบ</div>
+              <div class="text-xs text-slate-500">Professional Certificates</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-span-4 flex flex-col items-center">
+          <div class="relative group">
+            <div class="absolute -inset-1.5 bg-gradient-to-r from-sky-400 to-indigo-500 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
+            <div class="relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-xl">
+              <img src="assets/img/profile_avatar.png" alt="นายนฤเบศ โกมล" class="w-full h-full object-cover object-center">
+            </div>
+          </div>
+          <div class="mt-4 text-center space-y-0.5">
+            <p class="text-xs font-mono font-medium text-slate-700">Electronic Engineer</p>
+            <p class="text-[11px] text-slate-400">Hardware &bull; Embedded &bull; Automation</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Core Engineering Expertise Section -->
+  <section id="expertise" class="py-20 border-b border-slate-200/80 bg-slate-50/70">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <div class="max-w-2xl mb-12">
+        <div class="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-sky-700 font-semibold mb-2">
+          Core Competencies
+        </div>
+        <h2 class="text-3xl font-bold text-slate-900 tracking-tight">
+          ขอบเขตความเชี่ยวชาญทางวิศวกรรม
+        </h2>
+        <p class="text-sm text-slate-600 mt-2">
+          สรุปความเชี่ยวชาญหลักที่สามารถนำไปประยุกต์ใช้ในการทำงานวิศวกรรมอิเล็กทรอนิกส์ ฮาร์ดแวร์ และระบบอัตโนมัติในทุกภาคอุตสาหกรรม
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        
+        <!-- Pillar 1 -->
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-4">
+          <div class="w-11 h-11 rounded-xl bg-sky-50 flex items-center justify-center text-sky-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">PCB Design & Hardware</h3>
+            <p class="text-xs text-slate-500 mt-1 font-mono">Schematic / Multilayer Layout / IPC Standard</p>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            ออกแบบแผ่นวงจรพิมพ์ตั้งแต่ 2 ถึง 8 ชั้น (Multilayer PCB) ด้วยโปรแกรม Altium Designer, KiCad, EasyEDA โดยคำนึงถึงสัญญาณรบกวน EMC/EMI พร้อมทักษะการประกอบและบัดกรีตามมาตรฐานสากล IPC
+          </p>
+          <div class="pt-2 flex flex-wrap gap-1.5">
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">Altium Advanced</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">IPC Soldering</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">EMC/EMI</span>
+          </div>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-4">
+          <div class="w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Embedded & Firmware</h3>
+            <p class="text-xs text-slate-500 mt-1 font-mono">STM32 / ESP32 / C Programming / Protocols</p>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            พัฒนาเฟิร์มแวร์ภาษา C สำหรับไมโครคอนโทรลเลอร์ประสิทธิภาพสูง STM32 (ARM Cortex) และ ESP32 การสื่อสารผ่านพอร์ต UART, SPI, I2C, CAN Bus, Ethernet LAN รวมถึงการส่งสัญญาณไร้สาย LoRa
+          </p>
+          <div class="pt-2 flex flex-wrap gap-1.5">
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">STM32 C/C++</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">Low-level Drivers</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">CAN / Ethernet</span>
+          </div>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-4">
+          <div class="w-11 h-11 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Automation & Control</h3>
+            <p class="text-xs text-slate-500 mt-1 font-mono">Control Cabinets / PLC / HMI / Motor Drives</p>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            ออกแบบตู้ควบคุมระบบไฟฟ้าอุตสาหกรรม (Control Cabinets) เขียนโปรแกรมควบคุม PLC (Mitsubishi, Omron) จอสัมผัส HMI และระบบควบคุมมอเตอร์ความแม่นยำสูง (Precision Motor Drives) พร้อมรองรับการสั่งงานระยะไกล
+          </p>
+          <div class="pt-2 flex flex-wrap gap-1.5">
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">PLC (Mitsubishi/Omron)</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">HMI Design</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">Wiring Diagram</span>
+          </div>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-4">
+          <div class="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Mechanical Design (CAD)</h3>
+            <p class="text-xs text-slate-500 mt-1 font-mono">SolidWorks / AutoCAD / FEA Simulation</p>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            มีทักษะและใบรับรอง SolidWorks ระดับมืออาชีพ (Essentials, Assembly, Simulation) วิเคราะห์ความแข็งแรงของชิ้นส่วนกลไก (FEA) เขียนแบบ 2D Drafting และประสานการผลิตชิ้นส่วนกลไกจริง
+          </p>
+          <div class="pt-2 flex flex-wrap gap-1.5">
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">SolidWorks Certified</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">AutoCAD 2D/3D</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">FEA Simulation</span>
+          </div>
+        </div>
+
+        <!-- Pillar 5 -->
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-4">
+          <div class="w-11 h-11 rounded-xl bg-teal-50 flex items-center justify-center text-teal-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Field Operations & Global Site</h3>
+            <p class="text-xs text-slate-500 mt-1 font-mono">Commissioning / Maintenance / Overseas Site</p>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            มีประสบการณ์ลงพื้นที่ปฏิบัติงานจริงทั้งในสภาพแวดล้อมเฉพาะทาง (ยอดเขาสูง, หอดูดาว) งานติดตั้ง ซ่อมบำรุง และ Commissioning ในระดับนานาชาติ เช่น สหรัฐอเมริกา, ชิลี และจีน
+          </p>
+          <div class="pt-2 flex flex-wrap gap-1.5">
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">Field Commissioning</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">International Sites</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">Troubleshooting</span>
+          </div>
+        </div>
+
+        <!-- Pillar 6 -->
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-4">
+          <div class="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Instruments & Testing</h3>
+            <p class="text-xs text-slate-500 mt-1 font-mono">Measurement / Circuit Simulation / Calibration</p>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            เชี่ยวชาญการใช้เครื่องมือวัดความละเอียดสูงทางวิศวกรรม เช่น Digital Oscilloscope, Power Analyzer, Multimeter พร้อมความสามารถในการจำลองพฤติกรรมวงจรด้วย PSpice, Proteus, Multisim
+          </p>
+          <div class="pt-2 flex flex-wrap gap-1.5">
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">Oscilloscope</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">Power Analyzer</span>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">PSpice/Proteus</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Projects Showcase Section -->
+  <section id="projects" class="py-20 border-b border-slate-200/80 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <div class="text-xs font-mono uppercase tracking-wider text-sky-700 font-semibold mb-2">
+            Featured Engineering Projects
+          </div>
+          <h2 class="text-3xl font-bold text-slate-900 tracking-tight">
+            ผลงานโครงการวิศวกรรมเด่น
+          </h2>
+        </div>
+        <p class="text-xs text-slate-500 max-w-md">
+          โครงการออกแบบ พัฒนา ผลิต และติดตั้งใช้งานจริงในระบบหอดูดาวและสถานีวิจัยทางวิทยาศาสตร์
+        </p>
+      </div>
+
+      <div class="space-y-12">
+
+        <!-- Project 1: Control Cabinets -->
+        <div class="p-8 rounded-2xl border border-slate-200 bg-[#fafafa] shadow-sm">
+          <div class="grid lg:grid-cols-12 gap-8 items-start">
+            <div class="lg:col-span-6 space-y-4">
+              <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded text-xs font-mono font-medium bg-sky-50 text-sky-800 border border-sky-200">
+                Core Automation Infrastructure
+              </div>
+              <h3 class="text-2xl font-bold text-slate-900">
+                Electrical Integrated Control Cabinet
+              </h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                ออกแบบสถาปัตยกรรมระบบไฟฟ้า ตู้ควบคุมหลัก โปรแกรม PLC, จอสัมผัส HMI และเลย์เอาต์อุปกรณ์ สำหรับการควบคุมการทำงานของโดมและกล้องโทรทรรศน์ทั้งหมด ทั้งการควบคุมภายในพื้นที่ (Local Control) และการควบคุมระยะไกลผ่านระบบเครือข่ายอัตโนมัติ (Remote Operation)
+              </p>
+              
+              <div class="space-y-2">
+                <div class="text-xs font-bold text-slate-900 uppercase tracking-wider font-mono">
+                  ประวัติการติดตั้งใช้งานจริง (2020 - 2024):
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-xs text-slate-600 font-mono">
+                  <div>&bull; TNO 1-meter & DIMM (2020)</div>
+                  <div>&bull; ROP สงขลา (2020, 2021)</div>
+                  <div>&bull; ROP ฉะเชิงเทรา (2021, 2024)</div>
+                  <div>&bull; AstroPark เชียงใหม่ (2022)</div>
+                  <div>&bull; Spring Brook ออสเตรเลีย (2022)</div>
+                  <div>&bull; CTIO ชิลี (2023)</div>
+                  <div>&bull; ROP ขอนแก่น (2023)</div>
+                  <div>&bull; SRO แคลิฟอร์เนีย สหรัฐฯ (2024)</div>
+                  <div class="col-span-2">&bull; Gao Mei Gu ลี่เจียง จีน (2024)</div>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap gap-2 pt-2">
+                <span class="px-2.5 py-1 text-xs rounded bg-white border border-slate-200 text-slate-700 font-mono">PLC (Omron/Mitsubishi)</span>
+                <span class="px-2.5 py-1 text-xs rounded bg-white border border-slate-200 text-slate-700 font-mono">HMI Interface</span>
+                <span class="px-2.5 py-1 text-xs rounded bg-white border border-slate-200 text-slate-700 font-mono">Network Switch / GPS</span>
+                <span class="px-2.5 py-1 text-xs rounded bg-white border border-slate-200 text-slate-700 font-mono">Wiring Diagram</span>
+              </div>
+            </div>
+
+            <div class="lg:col-span-6 grid sm:grid-cols-2 gap-4">
+              <div class="rounded-xl overflow-hidden border border-slate-200 bg-white">
+                <img src="assets/img/page_3_Image22.jpg" alt="Control Cabinet Diagram" class="w-full h-48 object-cover">
+                <div class="p-2 text-[11px] text-slate-500 font-mono text-center">Figure 1: ตู้ควบคุมระบบไฟฟ้าหลัก</div>
+              </div>
+              <div class="rounded-xl overflow-hidden border border-slate-200 bg-white">
+                <img src="assets/img/page_3_Image23.png" alt="Wiring Diagram" class="w-full h-48 object-contain bg-white p-1">
+                <div class="p-2 text-[11px] text-slate-500 font-mono text-center">Figure 2: Wiring Diagram การเดินสายและควบคุม</div>
+              </div>
+              <div class="sm:col-span-2 rounded-xl overflow-hidden border border-slate-200 bg-white">
+                <img src="assets/img/page_4_Image26.jpg" alt="CTIO Chile Installation" class="w-full h-52 object-cover">
+                <div class="p-2 text-[11px] text-slate-500 font-mono text-center">Figure 3: งานติดตั้งตู้ควบคุม ณ หอดูดาว Cerro Tololo Inter-American Observatory (CTIO) ประเทศชิลี (2023)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 & 3: RFI Mount and Filter Wheel -->
+        <div class="grid md:grid-cols-2 gap-8">
+          
+          <!-- RFI Tracking Mount -->
+          <div class="p-8 rounded-2xl border border-slate-200 bg-[#fafafa] shadow-sm flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded text-xs font-mono font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Precision Motion System
+              </div>
+              <h3 class="text-xl font-bold text-slate-900">
+                Radio Frequency Interference (RFI) Tracking Mount
+              </h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                แพลตฟอร์มฐานติดตามวัตถุท้องฟ้าและสัญญาณคลื่นรบกวน 2 แกน (Azimuth และ Altitude) สำหรับติดตั้งอุปกรณ์ตรวจจับคลื่นรบกวนความถี่วิทยุ รองรับทั้ง Sidereal และ Non-sidereal tracking ชิ้นส่วนกลไกผลิตเสร็จสมบูรณ์ในปี 2567 และประกอบพร้อมใช้งานจริงในปี 2568
+              </p>
+              <div class="rounded-xl overflow-hidden border border-slate-200 bg-white p-2">
+                <img src="assets/img/page_5_Image34.jpg" alt="RFI Mount" class="w-full h-56 object-contain">
+                <div class="p-2 text-[11px] text-slate-500 font-mono text-center">Figure 5: The Radio Frequency Interference (RFI) Mount</div>
+              </div>
+            </div>
+            <div class="pt-4 border-t border-slate-200 mt-4 flex flex-wrap gap-2">
+              <span class="px-2 py-0.5 text-xs font-mono rounded bg-white border border-slate-200 text-slate-600">Az/Alt Dual Axis</span>
+              <span class="px-2 py-0.5 text-xs font-mono rounded bg-white border border-slate-200 text-slate-600">Sidereal Tracking</span>
+              <span class="px-2 py-0.5 text-xs font-mono rounded bg-white border border-slate-200 text-slate-600">SolidWorks 3D</span>
+            </div>
+          </div>
+
+          <!-- TRT Precision Filter Wheel -->
+          <div class="p-8 rounded-2xl border border-slate-200 bg-[#fafafa] shadow-sm flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded text-xs font-mono font-medium bg-indigo-50 text-indigo-800 border border-indigo-200">
+                Precision Optics Control
+              </div>
+              <h3 class="text-xl font-bold text-slate-900">
+                Precision Filter Wheel & Controller
+              </h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                ออกแบบพัฒนาวงจร PCB, ซอฟต์แวร์ และส่วนติดต่อประสาน (Interface) สำหรับวงล้อจับยึดแก้วกรองแสงความแม่นยำสูง รองรับฟิลเตอร์สูงสุดถึง 23 ช่อง สามารถเชื่อมต่อควบคุมผ่าน LAN และทำงานประสานกับระบบเครือข่ายทางไกลอัตโนมัติได้อย่างแม่นยำ
+              </p>
+              <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-900 p-2">
+                <img src="assets/img/page_6_Image39.jpg" alt="TRT Filter Wheel" class="w-full h-56 object-contain">
+                <div class="p-2 text-[11px] text-slate-400 font-mono text-center">Figure 6: The Precision Filter Wheel (รองรับ 23 ฟิลเตอร์)</div>
+              </div>
+            </div>
+            <div class="pt-4 border-t border-slate-200 mt-4 flex flex-wrap gap-2">
+              <span class="px-2 py-0.5 text-xs font-mono rounded bg-white border border-slate-200 text-slate-600">23-Filter Carousel</span>
+              <span class="px-2 py-0.5 text-xs font-mono rounded bg-white border border-slate-200 text-slate-600">LAN Network Control</span>
+              <span class="px-2 py-0.5 text-xs font-mono rounded bg-white border border-slate-200 text-slate-600">PCB & Firmware</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Project 4 & 5: Smart PLC & Weather Station -->
+        <div class="grid md:grid-cols-2 gap-8">
+          
+          <!-- Smart PLC Using STM32 -->
+          <div class="p-8 rounded-2xl border border-slate-200 bg-[#fafafa] shadow-sm space-y-4">
+            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded text-xs font-mono font-medium bg-amber-50 text-amber-800 border border-amber-200">
+              Embedded Hardware Architecture
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">
+              Smart PLC using STM32 + OLED + Ethernet
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              การออกแบบฮาร์ดแวร์บอร์ดคอนโทรลเลอร์ Smart PLC โดยใช้ไมโครคอนโทรลเลอร์ประสิทธิภาพสูง STM32 พร้อมหน้าจอแสดงผล OLED และชิปเชื่อมต่อเครือข่ายความเร็วสูง LAN Ethernet สำหรับงานสื่อสารและควบคุมอุตสาหกรรม
+            </p>
+            <div class="rounded-xl overflow-hidden border border-slate-200 bg-white p-2">
+              <img src="assets/img/page_4_Image27.jpg" alt="Smart PLC STM32" class="w-full h-48 object-contain">
+              <div class="p-2 text-[11px] text-slate-500 font-mono text-center">Figure 4: The Smart PLC Using STM32 with OLED interface & Ethernet</div>
+            </div>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white border border-slate-200">Filter Wheel Controller PCB (v1, v2)</span>
+              <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white border border-slate-200">Allsky Camera PCB (v1)</span>
+              <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white border border-slate-200">Balloon PCB ESP32 LoRa</span>
+              <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white border border-slate-200">ESP32 Power Metering</span>
+            </div>
+          </div>
+
+          <!-- Housing Weather Station -->
+          <div class="p-8 rounded-2xl border border-slate-200 bg-[#fafafa] shadow-sm space-y-4">
+            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded text-xs font-mono font-medium bg-teal-50 text-teal-800 border border-teal-200">
+              Sensor Integration & Enclosure
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">
+              The Housing Weather Station (v1) & Setup
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              สถานีตรวจวัดสภาพอากาศต้นแบบสำหรับติดตั้งภายนอกอาคาร บูรณาการเซนเซอร์ตรวจวัดอุณหภูมิ, ความชื้น, ความกดอากาศ และแรงลม สื่อสารส่งข้อมูลแบบไร้สาย ประหยัดพลังงาน พร้อมการติดตั้งใช้งานจริงภาคสนาม
+            </p>
+            <div class="rounded-xl overflow-hidden border border-slate-200 bg-white p-2">
+              <img src="assets/img/page_6_Image38.jpg" alt="Housing Weather Station" class="w-full h-48 object-contain">
+              <div class="p-2 text-[11px] text-slate-500 font-mono text-center">Figure 5: Housing for Weather Station (v1)</div>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs text-slate-600">
+              <div>&bull; เซนเซอร์วัดอุณหภูมิ/ความชื้น</div>
+              <div>&bull; เซนเซอร์ความดัน/ลม</div>
+              <div>&bull; การส่งสัญญาณไร้สายระยะไกล</div>
+              <div>&bull; มาตรฐานตู้ทนสภาพแวดล้อมกลางแจ้ง</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Field Engineering & Maintenance Showcase -->
+  <section id="fieldwork" class="py-20 border-b border-slate-200/80 bg-slate-50/70">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <div class="max-w-2xl mb-12">
+        <div class="text-xs font-mono uppercase tracking-wider text-sky-700 font-semibold mb-2">
+          Field Operations & Reliability
+        </div>
+        <h2 class="text-3xl font-bold text-slate-900 tracking-tight">
+          งานติดตั้งและซ่อมบำรุงภาคสนาม
+        </h2>
+        <p class="text-sm text-slate-600 mt-2">
+          ความพร้อมและประสบการณ์ในการลงพื้นที่ปฏิบัติงานจริงทั้งสถานีสังเกตการณ์บนยอดเขาสูง สถานีสังเกตการณ์ต่างประเทศ และงานระบบไฟฟ้า/ควบคุม
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm flex flex-col">
+          <div class="h-52 overflow-hidden bg-slate-200">
+            <img src="assets/img/page_7_Image42.jpg" alt="SRO Maintenance" class="w-full h-full object-cover">
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between space-y-2">
+            <div>
+              <div class="text-xs font-mono text-sky-600 font-medium">SRO, California (2024)</div>
+              <div class="text-sm font-bold text-slate-900 mt-1">Annual Maintenance</div>
+              <p class="text-xs text-slate-600 mt-1">การบำรุงรักษาประจำปีของระบบอุปกรณ์ ณ Sierra Remote Observatories สหรัฐอเมริกา</p>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400">Figure 7</span>
+          </div>
+        </div>
+
+        <div class="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm flex flex-col">
+          <div class="h-52 overflow-hidden bg-slate-200">
+            <img src="assets/img/page_7_Image43.jpg" alt="MRES Drive System" class="w-full h-full object-cover">
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between space-y-2">
+            <div>
+              <div class="text-xs font-mono text-sky-600 font-medium">Drive Optimization</div>
+              <div class="text-sm font-bold text-slate-900 mt-1">MRES Drive System</div>
+              <p class="text-xs text-slate-600 mt-1">ปรับปรุงและพัฒนาชุดขับเคลื่อน (Drive System) ของอุปกรณ์ MRES เพื่อเพิ่มความเสถียรและแม่นยำ</p>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400">Figure 8</span>
+          </div>
+        </div>
+
+        <div class="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm flex flex-col">
+          <div class="h-52 overflow-hidden bg-slate-200">
+            <img src="assets/img/page_7_Image44.jpg" alt="Weather Station Setup" class="w-full h-full object-cover">
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between space-y-2">
+            <div>
+              <div class="text-xs font-mono text-sky-600 font-medium">Chiang Mai Setup</div>
+              <div class="text-sm font-bold text-slate-900 mt-1">Weather Station Setup</div>
+              <p class="text-xs text-slate-600 mt-1">ติดตั้งและสอบเทียบสถานีตรวจวัดสภาพอากาศบนเสาทาวเวอร์ ณ อุทยานดาราศาสตร์สิรินธร</p>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400">Figure 9</span>
+          </div>
+        </div>
+
+        <div class="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm flex flex-col">
+          <div class="h-52 overflow-hidden bg-slate-200">
+            <img src="assets/img/page_7_Image45.jpg" alt="ROP-SKA Electrical Wiring" class="w-full h-full object-cover">
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between space-y-2">
+            <div>
+              <div class="text-xs font-mono text-sky-600 font-medium">Regional Site</div>
+              <div class="text-sm font-bold text-slate-900 mt-1">Dome Electrical Wiring</div>
+              <p class="text-xs text-slate-600 mt-1">ติดตั้งระบบไฟฟ้าและเดินสายสัญญาณควบคุมทั้งหมดภายในอาคารโดม หอดูดาวภูมิภาค</p>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400">Figure 10</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Technical Skills Matrix -->
+  <section id="skills" class="py-20 border-b border-slate-200/80 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <div class="max-w-2xl mb-12">
+        <div class="text-xs font-mono uppercase tracking-wider text-sky-700 font-semibold mb-2">
+          Comprehensive Capabilities
+        </div>
+        <h2 class="text-3xl font-bold text-slate-900 tracking-tight">
+          ทักษะและความสามารถทางวิศวกรรม
+        </h2>
+        <p class="text-sm text-slate-600 mt-2">
+          ทักษะรอบด้านครอบคลุมฮาร์ดแวร์, เฟิร์มแวร์, ระบบควบคุมอุตสาหกรรม, การออกแบบกลไก และเครื่องมือวัดความละเอียดสูง
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        
+        <!-- Hardware & PCB -->
+        <div class="p-6 rounded-2xl border border-slate-200 bg-[#fafafa] shadow-sm space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-sky-50 flex items-center justify-center text-sky-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+            </div>
+            <h3 class="font-bold text-slate-900 text-base">PCB & Hardware Design</h3>
+          </div>
+          <ul class="text-xs space-y-2.5 text-slate-600">
+            <li class="flex items-start gap-2"><span class="text-sky-500 font-bold">&bull;</span><span><strong>Altium Designer</strong> (Advanced Certified), KiCad, EasyEDA, Eagle, PCB Wizard</span></li>
+            <li class="flex items-start gap-2"><span class="text-sky-500 font-bold">&bull;</span><span>ออกแบบ PCB 2 ชั้น ถึง 8 ชั้น (Multilayer PCB)</span></li>
+            <li class="flex items-start gap-2"><span class="text-sky-500 font-bold">&bull;</span><span>มาตรฐานการบัดกรีและประกอบ <strong>IPC PCB Standards</strong></span></li>
+            <li class="flex items-start gap-2"><span class="text-sky-500 font-bold">&bull;</span><span>การออกแบบคำนึงถึง <strong>EMC/EMI Shielding</strong> และการจัดการ Ground loop</span></li>
+            <li class="flex items-start gap-2"><span class="text-sky-500 font-bold">&bull;</span><span>การทำ Wiring Diagram และ Schematic ผ่าน Microsoft Visio</span></li>
+          </ul>
+        </div>
+
+        <!-- Embedded & Automation -->
+        <div class="p-6 rounded-2xl border border-slate-200 bg-[#fafafa] shadow-sm space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </div>
+            <h3 class="font-bold text-slate-900 text-base">Embedded & Control</h3>
+          </div>
+          <ul class="text-xs space-y-2.5 text-slate-600">
+            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold">&bull;</span><span><strong>Microcontrollers:</strong> STM32 (ARM Cortex), ESP32, Arduino</span></li>
+            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold">&bull;</span><span><strong>Programming:</strong> ภาษา C สำหรับ Embedded Systems, Driver Development</span></li>
+            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold">&bull;</span><span><strong>Communication:</strong> UART, SPI, I2C, CAN Bus, Ethernet LAN, LoRa</span></li>
+            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold">&bull;</span><span><strong>PLC & Automation:</strong> Mitsubishi, Omron</span></li>
+            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold">&bull;</span><span>ออกแบบระบบจอสัมผัส HMI และการรีโมทผ่านเครือข่าย</span></li>
+          </ul>
+        </div>
+
+        <!-- Mechanical & Measurement -->
+        <div class="p-6 rounded-2xl border border-slate-200 bg-[#fafafa] shadow-sm space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+            </div>
+            <h3 class="font-bold text-slate-900 text-base">Mechanical & Testing</h3>
+          </div>
+          <ul class="text-xs space-y-2.5 text-slate-600">
+            <li class="flex items-start gap-2"><span class="text-indigo-500 font-bold">&bull;</span><span><strong>CAD Tools:</strong> SolidWorks (Essentials, Assembly, Simulation Certified), AutoCAD</span></li>
+            <li class="flex items-start gap-2"><span class="text-indigo-500 font-bold">&bull;</span><span>แปลงแบบจำลอง 3D สู่การผลิตจริงและตรวจสอบความเข้ากันได้เชิงกล</span></li>
+            <li class="flex items-start gap-2"><span class="text-indigo-500 font-bold">&bull;</span><span><strong>เครื่องมือวัด:</strong> Oscilloscope, Digital Multimeter, Power Analyzer</span></li>
+            <li class="flex items-start gap-2"><span class="text-indigo-500 font-bold">&bull;</span><span><strong>จำลองวงจร:</strong> PSpice, Proteus, Multisim</span></li>
+            <li class="flex items-start gap-2"><span class="text-indigo-500 font-bold">&bull;</span><span>ประสบการณ์ควบคุมเครื่องตัดเลเซอร์ CNC และงานแผ่นโลหะ</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Professional Certificates Section -->
+  <section id="certificates" class="py-20 border-b border-slate-200/80 bg-slate-50/70">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <div class="max-w-2xl mb-12">
+        <div class="text-xs font-mono uppercase tracking-wider text-sky-700 font-semibold mb-2">
+          Verified Credentials
+        </div>
+        <h2 class="text-3xl font-bold text-slate-900 tracking-tight">
+          วุฒิบัตรและใบรับรองวิชาชีพ (Certificates)
+        </h2>
+        <p class="text-sm text-slate-600 mt-2">
+          หลักฐานการผ่านการฝึกอบรมระดับสูงจากสถาบันและองค์กรมาตรฐานสากล
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Cert 1: Altium -->
+        <div class="p-4 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-3">
+          <div class="rounded-xl overflow-hidden border border-slate-100 bg-slate-50">
+            <img src="assets/img/page_8_Image48.jpg" alt="Altium Designer Certificate" class="w-full h-44 object-contain p-2">
+          </div>
+          <div>
+            <div class="text-[11px] font-mono text-sky-600">Altium Thailand / Embedded Tech</div>
+            <div class="text-sm font-bold text-slate-900 mt-0.5">Altium Designer Advanced Course</div>
+            <p class="text-xs text-slate-500 mt-1">ผ่านการอบรมการออกแบบวงจรและการทำ PCB ขั้นสูงด้วย Altium Designer</p>
+          </div>
+        </div>
+
+        <!-- Cert 2: IPC Soldering -->
+        <div class="p-4 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-3">
+          <div class="rounded-xl overflow-hidden border border-slate-100 bg-slate-50">
+            <img src="assets/img/page_8_Image52.jpg" alt="IPC PCB Soldering Certificate" class="w-full h-44 object-contain p-2">
+          </div>
+          <div>
+            <div class="text-[11px] font-mono text-sky-600">Global Electronics Association (IPC)</div>
+            <div class="text-sm font-bold text-slate-900 mt-0.5">Fundamentals of Hand Soldering (IPC)</div>
+            <p class="text-xs text-slate-500 mt-1">ใบรับรองมาตรฐานการประกอบและการบัดกรีอุปกรณ์อิเล็กทรอนิกส์ตามเกณฑ์ IPC</p>
+          </div>
+        </div>
+
+        <!-- Cert 3: SolidWorks Essentials -->
+        <div class="p-4 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-3">
+          <div class="rounded-xl overflow-hidden border border-slate-100 bg-slate-50">
+            <img src="assets/img/page_8_Image49.jpg" alt="SolidWorks Essentials Certificate" class="w-full h-44 object-contain p-2">
+          </div>
+          <div>
+            <div class="text-[11px] font-mono text-sky-600">DETI / Dassault Systèmes</div>
+            <div class="text-sm font-bold text-slate-900 mt-0.5">SolidWorks Essentials Course</div>
+            <p class="text-xs text-slate-500 mt-1">การสร้างโมเดลชิ้นส่วน 3 มิติ และการออกเอกสารแบบสั่งผลิต 2D Drafting</p>
+          </div>
+        </div>
+
+        <!-- Cert 4: SolidWorks Assembly -->
+        <div class="p-4 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-3">
+          <div class="rounded-xl overflow-hidden border border-slate-100 bg-slate-50">
+            <img src="assets/img/page_8_Image50.jpg" alt="SolidWorks Assembly Certificate" class="w-full h-44 object-contain p-2">
+          </div>
+          <div>
+            <div class="text-[11px] font-mono text-sky-600">DETI / Dassault Systèmes</div>
+            <div class="text-sm font-bold text-slate-900 mt-0.5">SolidWorks Assembly Course</div>
+            <p class="text-xs text-slate-500 mt-1">การประกอบชิ้นงานกลไกที่ซับซ้อน การตรวจสอบการชนกันของชิ้นส่วน (Interference Detection)</p>
+          </div>
+        </div>
+
+        <!-- Cert 5: SolidWorks Simulation -->
+        <div class="p-4 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-3">
+          <div class="rounded-xl overflow-hidden border border-slate-100 bg-slate-50">
+            <img src="assets/img/page_8_Image51.jpg" alt="SolidWorks Simulation Certificate" class="w-full h-44 object-contain p-2">
+          </div>
+          <div>
+            <div class="text-[11px] font-mono text-sky-600">DETI / Dassault Systèmes</div>
+            <div class="text-sm font-bold text-slate-900 mt-0.5">SolidWorks Simulation Online Course</div>
+            <p class="text-xs text-slate-500 mt-1">การวิเคราะห์ความแข็งแรงเชิงกล (FEA Analysis) ภายใต้แรงเค้นและภาระโหลดใช้งานจริง</p>
+          </div>
+        </div>
+
+        <!-- Academic Degree -->
+        <div class="p-4 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-3">
+          <div class="rounded-xl overflow-hidden border border-slate-100 bg-slate-50">
+            <img src="assets/img/transcript.jpg" alt="RMUTL Transcript" class="w-full h-44 object-cover object-top p-1">
+          </div>
+          <div>
+            <div class="text-[11px] font-mono text-sky-600">มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา</div>
+            <div class="text-sm font-bold text-slate-900 mt-0.5">Transcript วศ.บ. อิเล็กทรอนิกส์</div>
+            <p class="text-xs text-slate-500 mt-1">GPA: 3.05 รวม 141 หน่วยกิต & สหกิจศึกษา ณ Hana Microelectronics</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Work History Timeline -->
+  <section id="experience" class="py-20 border-b border-slate-200/80 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <div class="max-w-2xl mb-12">
+        <div class="text-xs font-mono uppercase tracking-wider text-sky-700 font-semibold mb-2">
+          Career Journey
+        </div>
+        <h2 class="text-3xl font-bold text-slate-900 tracking-tight">
+          ประวัติการทำงานและการศึกษา
+        </h2>
+      </div>
+
+      <div class="space-y-8 relative before:absolute before:inset-0 before:left-4 md:before:left-1/2 before:w-0.5 before:bg-slate-200">
+        
+        <!-- Experience 1 -->
+        <div class="relative flex flex-col md:flex-row items-start gap-8 group">
+          <div class="flex items-center gap-4 md:w-1/2 md:justify-end md:text-right">
+            <div>
+              <div class="text-xs font-mono text-sky-600 font-semibold">ก.ค. 2563 - ปัจจุบัน (4+ ปี)</div>
+              <h3 class="text-lg font-bold text-slate-900 mt-0.5">สถาบันวิจัยดาราศาสตร์แห่งชาติ (สดร.)</h3>
+              <p class="text-xs text-slate-500">National Astronomical Research Institute of Thailand (NARIT)</p>
+            </div>
+          </div>
+          
+          <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-4 border-white bg-sky-600 shadow-sm z-10"></div>
+
+          <div class="pl-12 md:pl-0 md:w-1/2">
+            <div class="p-6 rounded-2xl border border-slate-200 bg-[#fafafa] shadow-sm space-y-2">
+              <div class="text-sm font-bold text-slate-900">ตำแหน่ง: Electronic Engineer / Technician</div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                สังกัดศูนย์ปฏิบัติการหอดูดาวและวิศวกรรม (COOE) รับผิดชอบการออกแบบและวิเคราะห์วงจรอิเล็กทรอนิกส์, ออกแบบแผ่นวงจรพิมพ์ PCB 2-8 ชั้นตามมาตรฐาน IPC, ออกแบบและติดตั้งตู้ควบคุมระบบไฟฟ้าอัจฉริยะในทุกหอดูดาวของสถาบันทั้งไทยและต่างประเทศ, เขียนโปรแกรม PLC/HMI และการสื่อสารเครือข่ายอัตโนมัติ
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience 2 -->
+        <div class="relative flex flex-col md:flex-row items-start gap-8 group">
+          <div class="flex items-center gap-4 md:w-1/2 md:justify-end md:text-right">
+            <div>
+              <div class="text-xs font-mono text-slate-500 font-semibold">มิ.ย. 2562 - ก.ค. 2563 (1 ปี)</div>
+              <h3 class="text-lg font-bold text-slate-900 mt-0.5">บริษัท ที.เค. สแตนเลสสตีล จำกัด</h3>
+              <p class="text-xs text-slate-500">T.K. Stainless Steel Co., Ltd.</p>
+            </div>
+          </div>
+          
+          <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-4 border-white bg-slate-400 shadow-sm z-10"></div>
+
+          <div class="pl-12 md:pl-0 md:w-1/2">
+            <div class="p-6 rounded-2xl border border-slate-200 bg-[#fafafa] shadow-sm space-y-2">
+              <div class="text-sm font-bold text-slate-900">ตำแหน่ง: Sheet Metal Designer & CNC Laser Machine Operator</div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                ออกแบบชิ้นงานโลหะแผ่นและเขียนแบบด้วย AutoCAD ควบคุมเครื่องตัดเลเซอร์โลหะ CNC และการประสานงานการผลิตชิ้นส่วนวิศวกรรม
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education 1 -->
+        <div class="relative flex flex-col md:flex-row items-start gap-8 group">
+          <div class="flex items-center gap-4 md:w-1/2 md:justify-end md:text-right">
+            <div>
+              <div class="text-xs font-mono text-slate-500 font-semibold">ส.ค. 2558 - มี.ค. 2562</div>
+              <h3 class="text-lg font-bold text-slate-900 mt-0.5">ปริญญาตรี วศ.บ. วิศวกรรมอิเล็กทรอนิกส์</h3>
+              <p class="text-xs text-slate-500">มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา (RMUTL)</p>
+            </div>
+          </div>
+          
+          <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-4 border-white bg-emerald-500 shadow-sm z-10"></div>
+
+          <div class="pl-12 md:pl-0 md:w-1/2">
+            <div class="p-6 rounded-2xl border border-slate-200 bg-[#fafafa] shadow-sm space-y-2">
+              <div class="text-sm font-bold text-slate-900">Bachelor of Engineering (Electronics Engineering)</div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                เกรดเฉลี่ยสะสม 3.05 สหกิจศึกษา ณ บริษัท ฮานา ไมโครอิเล็คโทรนิคส จำกัด (มหาชน) โรงงานลำพูน ได้รับประสบการณ์การผลิตและทดสอบอุปกรณ์ไมโครอิเล็กทรอนิกส์ระดับสากล
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education 2 -->
+        <div class="relative flex flex-col md:flex-row items-start gap-8 group">
+          <div class="flex items-center gap-4 md:w-1/2 md:justify-end md:text-right">
+            <div>
+              <div class="text-xs font-mono text-slate-500 font-semibold">พ.ค. 2555 - มี.ค. 2558</div>
+              <h3 class="text-lg font-bold text-slate-900 mt-0.5">ประกาศนียบัตรวิชาชีพ (ปวช.) ช่างอิเล็กทรอนิกส์</h3>
+              <p class="text-xs text-slate-500">วิทยาลัยเทคนิคเชียงใหม่ (Chiang Mai Technical College)</p>
+            </div>
+          </div>
+          
+          <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-4 border-white bg-slate-400 shadow-sm z-10"></div>
+
+          <div class="pl-12 md:pl-0 md:w-1/2">
+            <div class="p-6 rounded-2xl border border-slate-200 bg-[#fafafa] shadow-sm space-y-2">
+              <div class="text-sm font-bold text-slate-900">Vocational Certificate in Electronics</div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                เกรดเฉลี่ยสะสม 3.72 ฝึกงาน ณ บริษัท ฟิวเจอร์ อิเล็กทรอนิกส์ จำกัด (ศูนย์ซ่อมเครื่องใช้ไฟฟ้า Samsung Service Center)
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Contact & Personal Details -->
+  <section id="contact" class="py-20 bg-slate-50/70">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <div class="p-8 sm:p-12 rounded-3xl border border-slate-200 bg-white shadow-sm grid md:grid-cols-12 gap-8">
+        
+        <div class="md:col-span-7 space-y-4">
+          <div class="text-xs font-mono uppercase tracking-wider text-sky-700 font-semibold">
+            Get in Touch
+          </div>
+          <h2 class="text-3xl font-bold text-slate-900 tracking-tight">
+            ข้อมูลการติดต่อ & รายละเอียดส่วนบุคคล
+          </h2>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            พร้อมนำความรู้ ทักษะเชิงปฏิบัติการ และประสบการณ์ด้านฮาร์ดแวร์/เฟิร์มแวร์และระบบอัตโนมัติ ร่วมสร้างสรรค์และขับเคลื่อนความสำเร็จขององค์กร
+          </p>
+
+          <div class="grid sm:grid-cols-2 gap-4 pt-4 text-xs">
+            <div class="p-3.5 rounded-xl bg-[#fafafa] border border-slate-100 space-y-1">
+              <span class="text-slate-400 font-mono">อีเมล:</span>
+              <div class="font-semibold text-slate-900">prong.naruebest@gmail.com</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-[#fafafa] border border-slate-100 space-y-1">
+              <span class="text-slate-400 font-mono">เบอร์โทรศัพท์:</span>
+              <div class="font-semibold text-slate-900">092-2682519</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-[#fafafa] border border-slate-100 space-y-1 sm:col-span-2">
+              <span class="text-slate-400 font-mono">ที่อยู่:</span>
+              <div class="font-semibold text-slate-900">170/2 หมู่ 9 ต.หนองแหย่ง อ.สันทราย จ.เชียงใหม่ 50210</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-span-5 flex flex-col justify-between p-6 rounded-2xl bg-[#fafafa] border border-slate-200 space-y-4">
+          <div>
+            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">ข้อมูลส่วนบุคคลเพิ่มเติม</div>
+            <ul class="text-xs space-y-2 text-slate-600">
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">&bull;</span> สัญชาติไทย อายุ 28 ปี (เกิด 2 ธันวาคม 2539)</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">&bull;</span> สถานภาพทางทหาร: ได้รับการยกเว้นแล้ว (Exempted)</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">&bull;</span> สุขภาพร่างกายแข็งแรง สมบูรณ์ พร้อมเดินทางทั้งในและต่างประเทศ</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">&bull;</span> มีใบอนุญาตขับขี่รถยนต์ส่วนบุคคล</li>
+            </ul>
+          </div>
+
+          <div class="pt-4 border-t border-slate-200">
+            <a href="Naruebest_Komol_Resume.pdf" download class="w-full py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-sm transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              ดาวน์โหลดเอกสารประวัติและผลงานฉบับเต็ม (PDF)
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 text-center text-xs text-slate-400 font-mono border-t border-slate-200 bg-white">
+    &copy; 2026 Naruebest Komol &bull; Electronic Engineer Portfolio
+  </footer>
+
+</body>
+</html>

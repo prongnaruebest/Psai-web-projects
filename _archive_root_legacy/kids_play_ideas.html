@@ -1,0 +1,2213 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlayPal — รวม 32+ ไอเดียกิจกรรมเล่นกับลูก สนุก ปลอดภัย ในบ้านและทุกที่</title>
+  
+  <!-- PWA & Mobile App Meta Tags -->
+  <link rel="manifest" href="./playpal_manifest.json">
+  <meta name="theme-color" content="#FF6B6B">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="PlayPal">
+  <link rel="apple-touch-icon" href="./playpal-icon.svg">
+  <link rel="icon" type="image/svg+xml" href="./playpal-icon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"IBM Plex Sans Thai"', 'sans-serif'],
+            display: ['Fredoka', '"IBM Plex Sans Thai"', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              cream: '#FFFDF9',
+              coral: '#FF6B6B',
+              coralLight: '#FFE5E5',
+              yellow: '#FFD166',
+              yellowLight: '#FFF6DE',
+              mint: '#06D6A0',
+              mintLight: '#E2FAF3',
+              blue: '#4D96FF',
+              blueLight: '#E8F2FF',
+              purple: '#9B5DE5',
+              purpleLight: '#F3E8FF',
+              navy: '#1E293B',
+              slate: '#475569'
+            }
+          },
+          boxShadow: {
+            'playful': '0 8px 0 0 rgba(0, 0, 0, 0.08)',
+            'playful-hover': '0 4px 0 0 rgba(0, 0, 0, 0.08)',
+            'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FAF7F2;
+      background-image: radial-gradient(#E8DFD8 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: #CBD5E1;
+      border-radius: 9999px;
+    }
+    @keyframes bounce-slow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .animate-bounce-slow {
+      animation: bounce-slow 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans text-brand-navy flex flex-col antialiased selection:bg-brand-yellowLight selection:text-brand-navy">
+
+  <!-- TOP NAVBAR -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-amber-100 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between py-3">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-coral to-brand-yellow flex items-center justify-center shadow-md text-white text-2xl shadow-brand-coral/20">
+          🎈
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-2xl font-bold font-display tracking-tight text-slate-800">PlayPal</h1>
+            <span class="text-[11px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded-full bg-brand-mintLight text-emerald-700 border border-brand-mint/30">32+ กิจกรรม</span>
+          </div>
+          <p class="text-xs text-slate-500 font-medium">ไอเดียเล่นสนุกกับลูก เสริมพัฒนาการในบ้าน เดินทาง และก่อนนอน</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- PWA Install Button (Shown on browsers supporting PWA install) -->
+        <button id="pwaInstallBtn" onclick="installPWA()" class="hidden items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition-all duration-200 active:scale-95 animate-pulse">
+          <span>📲</span>
+          <span class="hidden sm:inline">ติดตั้งแอป</span>
+        </button>
+
+        <!-- Favorites Tab Button -->
+        <button id="favTabBtn" onclick="toggleFavoritesView()" class="relative flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-medium bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200/70 transition-all duration-200">
+          <span class="text-base">⭐</span>
+          <span class="hidden sm:inline">กิจกรรมที่เซฟไว้</span>
+          <span id="favCountBadge" class="bg-amber-500 text-white text-xs font-bold px-1.5 py-0.2 rounded-full min-w-5 text-center">0</span>
+        </button>
+
+        <!-- Quick Randomize Button -->
+        <button onclick="triggerRandomizer()" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-brand-coral hover:bg-red-500 text-white shadow-sm hover:shadow transition-all duration-200 active:scale-95">
+          <span class="text-lg">🎲</span>
+          <span class="hidden md:inline">สุ่มกิจกรรมด่วน</span>
+          <span class="md:hidden">สุ่มด่วน</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 py-6 sm:py-8">
+
+    <!-- HERO SECTION -->
+    <section class="mb-8 rounded-3xl bg-gradient-to-r from-orange-100/90 via-amber-50 to-emerald-50/70 p-6 sm:p-8 border border-orange-200/50 shadow-card relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-brand-yellow/20 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="absolute right-6 top-6 text-6xl opacity-20 select-none hidden lg:block animate-bounce-slow">🚀</div>
+
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-orange-200 text-xs font-semibold text-orange-700 mb-3 shadow-xs">
+          <span>✨</span> ค้นหาไอเดียพร้อมเล่นได้ภายใน 30 วินาที • ครบทั้ง 0-10 ปี
+        </div>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-800 tracking-tight leading-snug">
+          วันนี้เล่นอะไรกับลูกดีนะ? 🌟
+        </h2>
+        <p class="mt-2 text-slate-600 text-sm sm:text-base leading-relaxed">
+          ลดเวลาคิด เพิ่มเวลาคุณภาพ! รวบรวม 32 กิจกรรมทั้งในบ้าน บนโต๊ะ ระหว่างเดินทางในรถ กิจกรรมก่อนนอน และการทดลอง STEM
+        </p>
+
+        <!-- SEARCH INPUT -->
+        <div class="mt-5 relative">
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="🔍 ค้นหาตามชื่อ หรือ อุปกรณ์ (เช่น เทป, ไม้ไอติม, ลูกโป่ง, ข้าวสาร, ในรถ, ก่อนนอน, STEM)..."
+            class="w-full pl-11 pr-24 py-3.5 rounded-2xl bg-white border border-amber-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-3 focus:ring-brand-coral/30 focus:border-brand-coral transition text-sm sm:text-base shadow-sm"
+            oninput="handleSearch(this.value)"
+          >
+          <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">
+            🔎
+          </div>
+          <button 
+            id="clearSearchBtn" 
+            onclick="clearSearch()" 
+            class="hidden absolute right-3 top-1/2 -translate-y-1/2 px-2.5 py-1 text-xs text-slate-500 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition"
+          >
+            ล้างคำค้น
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTER PANEL -->
+    <section class="mb-8 bg-white rounded-3xl p-5 sm:p-6 border border-slate-100 shadow-sm">
+      <div class="flex flex-col gap-4">
+        
+        <!-- Filter Category 1: Age Range -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 w-24 flex items-center gap-1.5 shrink-0">
+            <span>👶</span> ช่วงวัย:
+          </span>
+          <div class="flex flex-wrap gap-1.5" id="ageFilters">
+            <button onclick="setFilter('age', 'all')" class="filter-btn active-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="age" data-val="all">ทั้งหมด</button>
+            <button onclick="setFilter('age', '0-1')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="age" data-val="0-1">0-1 ปี (ทารก)</button>
+            <button onclick="setFilter('age', '1-3')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="age" data-val="1-3">1-3 ปี (เตาะแตะ)</button>
+            <button onclick="setFilter('age', '3-6')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="age" data-val="3-6">3-6 ปี (ปฐมวัย)</button>
+            <button onclick="setFilter('age', '6+')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="age" data-val="6+">6+ ปี (ประถม/STEM)</button>
+          </div>
+        </div>
+
+        <!-- Filter Category 2: Energy Level -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 pt-3 border-t border-slate-100">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 w-24 flex items-center gap-1.5 shrink-0">
+            <span>⚡</span> ระดับพลัง:
+          </span>
+          <div class="flex flex-wrap gap-1.5" id="energyFilters">
+            <button onclick="setFilter('energy', 'all')" class="filter-btn active-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="energy" data-val="all">ทั้งหมด</button>
+            <button onclick="setFilter('energy', 'Low')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="energy" data-val="Low">🧘 สงบ / ฝึกสมาธิ (Low)</button>
+            <button onclick="setFilter('energy', 'Medium')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="energy" data-val="Medium">🎨 ขยับปานกลาง (Medium)</button>
+            <button onclick="setFilter('energy', 'High')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="energy" data-val="High">🏃 ปล่อยพลังเยอะ (High)</button>
+          </div>
+        </div>
+
+        <!-- Filter Category 3: Location / Place (EXPANDED) -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 pt-3 border-t border-slate-100">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 w-24 flex items-center gap-1.5 shrink-0">
+            <span>📍</span> บริบท/ที่:
+          </span>
+          <div class="flex flex-wrap gap-1.5" id="locationFilters">
+            <button onclick="setFilter('location', 'all')" class="filter-btn active-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="location" data-val="all">ทุกสถานที่</button>
+            <button onclick="setFilter('location', 'in')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="location" data-val="in">🏠 ในบ้านห้องนั่งเล่น</button>
+            <button onclick="setFilter('location', 'table')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="location" data-val="table">🪑 บนโต๊ะ / พื้นที่จำกัด</button>
+            <button onclick="setFilter('location', 'car')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="location" data-val="car">🚗 ในรถ / ระหว่างเดินทาง</button>
+            <button onclick="setFilter('location', 'bedtime')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="location" data-val="bedtime">🛏️ ก่อนนอน / ผ่อนคลาย</button>
+            <button onclick="setFilter('location', 'out')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="location" data-val="out">🌳 นอกบ้าน / สวน / ระเบียง</button>
+          </div>
+        </div>
+
+        <!-- Filter Category 4: Materials -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 pt-3 border-t border-slate-100">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 w-24 flex items-center gap-1.5 shrink-0">
+            <span>📦</span> อุปกรณ์:
+          </span>
+          <div class="flex flex-wrap gap-1.5" id="materialFilters">
+            <button onclick="setFilter('material', 'all')" class="filter-btn active-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="material" data-val="all">ทั้งหมด</button>
+            <button onclick="setFilter('material', 'recycle')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="material" data-val="recycle">📦 ของรีไซเคิล / กล่อง / ไม้ไอติม</button>
+            <button onclick="setFilter('material', 'messy')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="material" data-val="messy">💧 น้ำ / สี / แป้งโดว์ / สัมผัส</button>
+            <button onclick="setFilter('material', 'none')" class="filter-btn inactive-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150" data-filter="material" data-val="none">👐 แทบไม่ใช้อุปกรณ์ / เกมปากเปล่า</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Active Filter Summary & Reset -->
+      <div id="filterSummaryBar" class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+        <div class="flex items-center gap-2">
+          <span>พบ <strong id="resultCount" class="text-brand-coral font-bold text-sm">32</strong> กิจกรรม</span>
+          <span id="activeFilterTags" class="inline-flex gap-1.5"></span>
+        </div>
+        <button onclick="resetFilters()" class="text-slate-400 hover:text-brand-coral transition underline font-medium">ล้างตัวกรองทั้งหมด</button>
+      </div>
+    </section>
+
+    <!-- SECTION TITLE / VIEW STATUS -->
+    <div class="flex items-center justify-between mb-5">
+      <div class="flex items-center gap-2">
+        <h3 id="currentViewTitle" class="text-xl font-bold text-slate-800">
+          คลังไอเดียกิจกรรมทั้งหมด
+        </h3>
+        <span id="favoritesNoticeBadge" class="hidden text-xs bg-amber-100 text-amber-800 font-semibold px-2 py-0.5 rounded-full">โหมดรายการโปรด</span>
+      </div>
+      
+      <!-- Sort or View options -->
+      <div class="text-xs text-slate-500">
+        💡 คลิกที่การ์ดเพื่อดู <span class="font-medium text-slate-700">Checklist อุปกรณ์</span> & <span class="font-medium text-slate-700">คำชวนคุยกับลูก</span>
+      </div>
+    </div>
+
+    <!-- ACTIVITY CARDS GRID -->
+    <div id="activityGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+      <!-- Activity Cards will be dynamically injected here -->
+    </div>
+
+    <!-- EMPTY STATE -->
+    <div id="emptyState" class="hidden py-16 text-center bg-white rounded-3xl border border-slate-100 p-8">
+      <div class="text-6xl mb-4">🔍</div>
+      <h4 class="text-lg font-bold text-slate-700 mb-1">ไม่พบกิจกรรมที่ตรงกับเงื่อนไขนี้</h4>
+      <p class="text-sm text-slate-500 max-w-md mx-auto mb-5">
+        ลองปรับเปลี่ยนตัวกรอง หรือค้นหาด้วยคำง่ายๆ เช่น "ในรถ", "ก่อนนอน", "ไม้ไอติม", "กล่อง", หรือ "ลูกโป่ง"
+      </p>
+      <button onclick="resetFilters()" class="px-5 py-2.5 bg-brand-coral text-white font-medium rounded-xl text-sm shadow-sm hover:bg-red-500 transition">
+        รีเซ็ตตัวกรองทั้งหมด
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ACTIVITY DETAIL MODAL -->
+  <div id="detailModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-white w-full max-w-2xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden transform scale-95 transition-transform duration-300" id="modalContainer">
+      
+      <!-- Modal Header -->
+      <div class="p-6 bg-gradient-to-r from-amber-50 via-orange-50/60 to-white border-b border-slate-100 flex items-start justify-between relative">
+        <div class="flex items-start gap-4">
+          <div id="modalIcon" class="w-14 h-14 rounded-2xl bg-white shadow-sm border border-amber-100 flex items-center justify-center text-3xl shrink-0">
+            🎲
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-1.5" id="modalBadges">
+              <!-- Dynamic Badges -->
+            </div>
+            <h3 id="modalTitle" class="text-xl sm:text-2xl font-bold text-slate-800 leading-snug">
+              ชื่อกิจกรรม
+            </h3>
+            <p id="modalSubtitle" class="text-xs sm:text-sm text-slate-500 mt-1">
+              คำอธิบายภาพรวมกิจกรรม
+            </p>
+          </div>
+        </div>
+
+        <button onclick="closeDetailModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition shrink-0">
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 overflow-y-auto custom-scrollbar space-y-6 flex-1 text-sm text-slate-700">
+        
+        <!-- Meta details banner -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-100 text-center">
+          <div>
+            <span class="block text-[11px] text-slate-400 font-semibold uppercase">เวลาเตรียม</span>
+            <span id="modalPrepTime" class="font-bold text-slate-800">5 นาที</span>
+          </div>
+          <div>
+            <span class="block text-[11px] text-slate-400 font-semibold uppercase">เวลาเล่น</span>
+            <span id="modalPlayTime" class="font-bold text-slate-800">20 นาที</span>
+          </div>
+          <div>
+            <span class="block text-[11px] text-slate-400 font-semibold uppercase">ระดับพลังงาน</span>
+            <span id="modalEnergy" class="font-bold text-slate-800">Medium</span>
+          </div>
+          <div>
+            <span class="block text-[11px] text-slate-400 font-semibold uppercase">สถานที่</span>
+            <span id="modalLocation" class="font-bold text-slate-800">ในบ้าน</span>
+          </div>
+        </div>
+
+        <!-- Section 1: Materials Checklist -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span class="text-base">📋</span> Checklist อุปกรณ์ (แตะเพื่อติ๊กเตรียมของ):
+            </h4>
+            <span class="text-[11px] text-slate-400">ใช้อุปกรณ์หาง่าย</span>
+          </div>
+          <div id="modalMaterialsList" class="space-y-2">
+            <!-- Dynamic checklist items -->
+          </div>
+        </div>
+
+        <!-- Section 2: Step-by-Step Instructions -->
+        <div>
+          <h4 class="text-sm font-bold text-slate-900 flex items-center gap-2 mb-3">
+            <span class="text-base">🎯</span> วิธีเล่นทีละขั้นตอน:
+          </h4>
+          <div id="modalStepsList" class="space-y-3">
+            <!-- Dynamic steps -->
+          </div>
+        </div>
+
+        <!-- Section 3: Learning Outcomes -->
+        <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100">
+          <h4 class="text-sm font-bold text-emerald-900 flex items-center gap-2 mb-2">
+            <span class="text-base">🧠</span> สิ่งที่ลูกได้เรียนรู้ (ทักษะและพัฒนาการ):
+          </h4>
+          <ul id="modalOutcomesList" class="list-disc list-inside space-y-1 text-emerald-800 text-xs sm:text-sm">
+            <!-- Dynamic outcomes -->
+          </ul>
+        </div>
+
+        <!-- Section 4: Parent Conversation Prompts -->
+        <div class="p-4 rounded-2xl bg-amber-50/70 border border-amber-200/60">
+          <h4 class="text-sm font-bold text-amber-900 flex items-center gap-2 mb-1.5">
+            <span class="text-base">💬</span> คำชวนคุยสร้างสายสัมพันธ์ (Parent Prompt):
+          </h4>
+          <p class="text-xs text-amber-700/80 mb-2">ถามคำถามปลายเปิดเพื่อกระตุ้นความคิด จินตนาการ และภาษา</p>
+          <div id="modalParentPrompts" class="text-xs sm:text-sm text-amber-900 font-medium italic pl-3 border-l-2 border-amber-400 space-y-1">
+            <!-- Dynamic parent conversation prompt -->
+          </div>
+        </div>
+
+        <!-- Section 5: Safety Warning -->
+        <div id="modalSafetyBox" class="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 flex items-start gap-2.5 text-xs text-rose-800">
+          <span class="text-base shrink-0">⚠️</span>
+          <div>
+            <strong class="font-bold">ข้อควรระวังความปลอดภัย:</strong>
+            <span id="modalSafetyText">ต้องมีผู้ใหญ่ดูแลใกล้ชิดเสมอ</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 sm:p-5 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+        <button id="modalFavBtn" onclick="toggleModalFavorite()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition">
+          <span id="modalFavIcon">🤍</span>
+          <span id="modalFavText">บันทึกกิจกรรมนี้</span>
+        </button>
+
+        <button onclick="closeDetailModal()" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-semibold text-sm transition">
+          ปิดหน้าต่าง
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RANDOMIZER MODAL (Boredom Buster Roulette) -->
+  <div id="randomModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl p-6 text-center border-4 border-amber-200 transform scale-90 transition-transform duration-300" id="randomContainer">
+      
+      <div class="text-5xl mb-2 animate-bounce-slow" id="rouletteIcon">
+        🎲
+      </div>
+      <h3 class="text-xl font-extrabold text-slate-800 mb-1" id="randomModalTitle">
+        กำลังสุ่มกิจกรรมปราบเบื่อ...
+      </h3>
+      <p class="text-xs text-slate-500 mb-5" id="randomModalSubtitle">
+        หมุนวงล้อค้นหากิจกรรมที่ใช่สำหรับเวลานี้ จาก 32 ไอเดีย
+      </p>
+
+      <!-- Slot Box -->
+      <div class="p-5 rounded-2xl bg-gradient-to-tr from-amber-50 to-orange-50 border-2 border-dashed border-amber-300 min-h-[120px] flex flex-col items-center justify-center mb-6">
+        <span id="rouletteActivityName" class="text-lg font-bold text-brand-coral transition-all">
+          ... กำลังเลือก ...
+        </span>
+        <span id="rouletteActivitySkill" class="text-xs text-slate-500 mt-1">
+          ...
+        </span>
+      </div>
+
+      <div class="flex items-center justify-center gap-3">
+        <button id="viewPickedBtn" onclick="openPickedActivity()" class="hidden px-5 py-2.5 rounded-xl bg-brand-coral hover:bg-red-500 text-white font-bold text-sm shadow-md transition">
+          ดูวิธีเล่นกิจกรรมนี้เลย! ✨
+        </button>
+        <button onclick="closeRandomModal()" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium text-sm transition">
+          ปิด
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="mt-12 bg-white border-t border-slate-200/70 py-8 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2 font-display text-slate-700 text-sm font-bold">
+        <span>🎈</span> PlayPal — คลัง 32 ไอเดียสร้างสรรค์เพื่อทุกช่วงเวลาครอบครัว
+      </div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <span>ในบ้าน • ในรถ • ก่อนนอน • วิทยาศาสตร์ STEM</span>
+        <span>•</span>
+        <span>Connection First</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC & 32 HIGH-QUALITY ACTIVITIES DATA -->
+  <script>
+    const activities = [
+      // 1-12: ORIGINAL CORE COLLECTION
+      {
+        id: 1,
+        title: "เทปกาวช่วยกู้ชีพสัตว์จิ๋ว",
+        subtitle: "ภารกิจแกะเทปกาวช่วยเพื่อนสัตว์ ฝึกกล้ามเนื้อมัดเล็กและการแก้ปัญหา",
+        icon: "🦁",
+        age: "1-3",
+        ageLabel: "1-3 ปี",
+        energy: "Low",
+        energyLabel: "สงบ / ฝึกสมาธิ",
+        location: "table",
+        locationLabel: "บนโต๊ะ / ถาด",
+        materialType: "recycle",
+        prepTime: "3 นาที",
+        playTime: "15-25 นาที",
+        mainSkill: "กล้ามเนื้อมัดเล็ก & นิ้วมือ (Pincer Grasp)",
+        tags: ["กล้ามเนื้อมัดเล็ก", "มีสมาธิ", "ของหาง่าย"],
+        materials: [
+          "เทปกาวนิตโตะ หรือ เทปหนังไก่ (Washi tape / Masking tape)",
+          "โมเดลสัตว์ของเล่น, ฝาขวดน้ำ หรือช้อนพลาสติก 4-6 ชิ้น",
+          "ถาด หรือ แผ่นรองโต๊ะ"
+        ],
+        steps: [
+          "นำของเล่นสัตว์ขนาดเล็กวางบนถาดหรือโต๊ะ",
+          "ใช้เทปกาวแปะทับของเล่นยึดติดกับพื้นโต๊ะ 1-2 ทบ (อย่าแปะแน่นจนเกินไปสำหรับเด็กเล็ก)",
+          "เล่าเรื่องกระตุ้นจินตนาการ: 'โอ๊ะโอ! ลูกสิงโตติดกับดัก ใครจะช่วยน้องออกมาได้นะ?'",
+          "ปล่อยให้เด็กใช้ปลายนิ้วมือค่อยๆ ดึงและแกะเทปกาวออกทีละชิ้นด้วยตนเอง"
+        ],
+        outcomes: [
+          "ฝึกการหยิบจับด้วยนิ้วหัวแม่มือและนิ้วชี้ (Pincer Grasp) สำคัญต่อการจับดินสอในอนาคต",
+          "ฝึกสมาธิจดจ่อ (Attention Span) และความเพียรพยายาม",
+          "กระตุ้นการประสานงานระหว่างสายตากับมือ (Hand-Eye Coordination)"
+        ],
+        parentPrompts: [
+          "น้องสิงโตบอกว่าขอบคุณมากเลย! ตัวต่อไปน้องอยากช่วยใครก่อนดีนะ?",
+          "เทปกาวมันเหนียวไหมลูก? ต้องดึงจากมุมไหนถึงจะหลุดง่ายที่สุดนะ?"
+        ],
+        safetyWarning: "เลือกของเล่นที่ไม่มีขนาดเล็กเกินไปจนเสี่ยงติดคอ (ป้องกันการเอาเข้าปาก) และระวังการอมเทปกาว"
+      },
+      {
+        id: 2,
+        title: "บับเบิ้ลระเบิดพลังเป่าสี",
+        subtitle: "เป่าฟองสบู่ผสมสีลงบนกระดาษ เกิดลวดลายศิลปะมหัศจรรย์",
+        icon: "🫧",
+        age: "3-6",
+        ageLabel: "3-6 ปี",
+        energy: "Medium",
+        energyLabel: "ขยับปานกลาง",
+        location: "in",
+        locationLabel: "ในบ้าน / โต๊ะทำงานศิลปะ",
+        materialType: "messy",
+        prepTime: "5 นาที",
+        playTime: "25-35 นาที",
+        mainSkill: "การควบคุมลมหายใจ & ศิลปะสร้างสรรค์",
+        tags: ["ศิลปะ", "ฝึกกล้ามเนื้อปาก", "สีสัน"],
+        materials: [
+          "น้ำยาล้างจานเด็ก หรือ แชมพูสระผมเด็ก 2 ช้อนโต๊ะ",
+          "สีผสมอาหาร หรือ สีน้ำล้างออกได้ (Washable paint)",
+          "น้ำเปล่าครึ่งแก้ว",
+          "หลอดดูดน้ำ (เจาะรูเล็กๆ ใกล้ปากดูดป้องกันการเผลอดื่ม)",
+          "กระดาษวาดเขียนแผ่นใหญ่"
+        ],
+        steps: [
+          "ผสมน้ำ น้ำยาฟองสบู่ และสีผสมอาหารลงในถ้วยพลาสติกใบเตี้ย",
+          "ซ้อมให้ลูก 'เป่าลมออก' แทนการดูด (ลองเป่าฝ่ามือให้รู้สึกถึงลม)",
+          "จุ่มหลอดลงในถ้วยแล้วให้ลูกเป่าจนเกิดฟองฟูขึ้นมาพ้นปากถ้วย",
+          "นำกระดาษวาดเขียนมาแตะคว่ำลงบนฟองสบู่เบาๆ เมื่อยกขึ้นจะเกิดลวดลายวงกลมสวยงาม"
+        ],
+        outcomes: [
+          "ฝึกกล้ามเนื้อรอบช่องปากและการควบคุมลมหายใจ ซึ่งช่วยส่งเสริมการออกเสียงพูด",
+          "เรียนรู้เรื่องการผสมสีและปฏิกิริยาของแรงตึงผิวฟองสบู่",
+          "กระตุ้นความคิดสร้างสรรค์และศิลปะ Visual Arts"
+        ],
+        parentPrompts: [
+          "ดูลายฟองสบู่นี้สิลูก รูปร่างคล้ายอะไรนะ? ดวงจันทร์ ก้อนเมฆ หรือดอกไม้?",
+          "ถ้าเราเอาสีเหลืองมาเป่าทับสีน้ำเงิน จะเกิดสีอะไรขึ้นเอ่ย?"
+        ],
+        safetyWarning: "ต้องดูแลใกล้ชิด เจาะรูเล็กๆ ที่หลอดดูดเพื่อป้องกันไม่ให้เด็กดูดน้ำสบู่เข้าปาก"
+      },
+      {
+        id: 3,
+        title: "เขาวงกตกล่องลังลูกปิงปอง",
+        subtitle: "สร้างสนามเขาวงกตจากกล่องกระดาษและหลอดกาแฟ ฝึกแก้ปัญหาตามหลัก STEM",
+        icon: "📦",
+        age: "3-6",
+        ageLabel: "3-6 ปี",
+        energy: "Low",
+        energyLabel: "สงบ / ฝึกสมาธิ",
+        location: "table",
+        locationLabel: "บนโต๊ะ / บนตัก",
+        materialType: "recycle",
+        prepTime: "8 นาที",
+        playTime: "20-40 นาที",
+        mainSkill: "การวางแผนเชิงพื้นที่ (Spatial Logic) & STEM",
+        tags: ["STEM", "แก้ปัญหา", "ของรีไซเคิล"],
+        materials: [
+          "ฝากล่องรองเท้า หรือ กล่องกระดาษแบนๆ 1 ใบ",
+          "หลอดกาแฟ หรือ แท่งไอติม 8-10 ชิ้น",
+          "กาวสองหน้า หรือ กาวแท่ง",
+          "ลูกปิงปอง หรือ ลูกแก้ว (สำหรับเด็กโต)",
+          "กรรไกร (คุณพ่อคุณแม่ช่วยตัด)"
+        ],
+        steps: [
+          "ตัดหลอดกาแฟเป็นท่อนสั้น-ยาวตามต้องการ",
+          "ชวนลูกช่วยออกแบบเส้นทาง: จุดเริ่มต้น (Start) และ ทางออก (Goal)",
+          "แปะหลอดกาแฟลงบนก้นกล่องให้เป็นกำแพงเขาวงกต",
+          "ใส่ลูกปิงปองลงไป ให้เด็กถือขอบกล่องสองมือ ค่อยๆ เอียงกล่องเพื่อเลี้ยงลูกปิงปองให้ถึงจุดหมาย"
+        ],
+        outcomes: [
+          "ฝึกทักษะการทรงตัวของมือทั้งสองข้างและความสมดุล (Bilateral Coordination)",
+          "พัฒนาการคิดแบบเหตุและผล (Cause and Effect) แรงโน้มถ่วงและทิศทาง",
+          "ฝึกสมาธิและความอดทนต่อความผิดหวังเมื่อลูกบอลตกหลุม"
+        ],
+        parentPrompts: [
+          "เอียงซ้ายหรือเอียงขวาดีนะ ลูกปิงปองถึงจะไม่ชนกำแพง?",
+          "เราจะเพิ่มกับดักตรงไหนดีเพื่อให้น่าตื่นเต้นขึ้น?"
+        ],
+        safetyWarning: "กรณีใช้ลูกแก้ว ควรระวังเด็กเล็กเอาเข้าปาก สำหรับเด็กเล็กแนะนำให้ใช้ลูกปิงปองขนาดมาตรฐาน"
+      },
+      {
+        id: 4,
+        title: "ขวดมหาสมุทรสงบใจ (Calm Down Bottle)",
+        subtitle: "ขวดเขย่าวิบวับฝึกการมองตามและช่วยจัดการอารมณ์เมื่อลูกหงุดหงิด",
+        icon: "🌊",
+        age: "0-1",
+        ageLabel: "0-1 ปี",
+        energy: "Low",
+        energyLabel: "สงบ / สมาธิ",
+        location: "bedtime",
+        locationLabel: "ก่อนนอน / บนที่นอน",
+        materialType: "messy",
+        prepTime: "5 นาที",
+        playTime: "15-20 นาที",
+        mainSkill: "การควบคุมอารมณ์ (Emotion Regulation) & Sensory",
+        tags: ["Sensory", "สงบสติ", "มอนเตสซอรี่", "ก่อนนอน"],
+        materials: [
+          "ขวดน้ำพลาสติกใสล้างสะอาด 1 ขวด",
+          "เบบี้ออยล์ (Baby Oil) หรือ น้ำเชื่อมใส",
+          "น้ำอุ่นผสมสีผสมอาหารสีฟ้า 1 หยด",
+          "กากเพชร (Glitter) หรือ ลูกปัดสีสดใส",
+          "ปืนกาว หรือ เทปกาวพันฝาขวดแน่นหนา"
+        ],
+        steps: [
+          "เติมน้ำสีฟ้าลงไปประมาณครึ่งขวด",
+          "เติมเบบี้ออยล์ลงไปจนเกือบเต็มขวด (น้ำกับน้ำมันจะแยกชั้นกัน)",
+          "ใส่กากเพชรหรือเลื่อมลงไป",
+          "ปิดฝาขวดให้แน่นและใช้เทปกาวพันรอบฝาอย่างปลอดภัย",
+          "ให้ลูกเขย่า แล้วนั่งสังเกตฟองอากาศและกากเพชรที่ค่อยๆ ตกตะกอนอย่างช้าๆ"
+        ],
+        outcomes: [
+          "ช่วยลดความเครียด ผ่อนคลายอารมณ์เมื่อเด็กมีภาวะ Tantrum หรือโมโห",
+          "กระตุ้นพัฒนาการสายตา การโฟกัสและการมองตามวัตถุ (Visual Tracking)",
+          "เรียนรู้เรื่องความหนาแน่นของของเหลวเบื้องต้น"
+        ],
+        parentPrompts: [
+          "ดูลูกปัดวิบวับสิลูก มันกำลังว่ายน้ำช้าๆ เหมือนปลาตัวไหนนะ?",
+          "เรามาหายใจเข้าลึกๆ รอจนกากเพชรตกลงถึงก้นขวดกันนะ"
+        ],
+        safetyWarning: "ต้องซีลฝาขวดด้วยเทปกาวหรือกาวร้อนให้แน่นหนา ป้องกันน้ำรั่วซึม"
+      },
+      {
+        id: 5,
+        title: "ลาวาภูเขาไฟในแก้วห้องครัว",
+        subtitle: "การทดลองวิทย์ฟองฟู่ตื่นตาตื่นใจจากเบกกิ้งโซดาและน้ำส้มสายชู",
+        icon: "🌋",
+        age: "3-6",
+        ageLabel: "3-6 ปี",
+        energy: "Medium",
+        energyLabel: "ขยับปานกลาง",
+        location: "table",
+        locationLabel: "ห้องครัว / ถาดรอง",
+        materialType: "messy",
+        prepTime: "3 นาที",
+        playTime: "20-30 นาที",
+        mainSkill: "การสังเกตทางวิทยาศาสตร์ (Scientific Inquiry)",
+        tags: ["STEM", "การทดลอง", "ตื่นเต้น"],
+        materials: [
+          "เบกกิ้งโซดา (ผงฟูทำขนม) 2-3 ช้อนโต๊ะ",
+          "น้ำส้มสายชู 1/2 ถ้วย",
+          "สีผสมอาหารสีแดงหรือส้ม",
+          "น้ำยาล้างจาน 2-3 หยด (ช่วยให้ฟองฟูอยู่นาน)",
+          "ถาดรองกันเลอะ"
+        ],
+        steps: [
+          "วางแก้วน้ำลงตรงกลางถาดรอง",
+          "ตักเบกกิ้งโซดาใส่แก้ว หยดสีผสมอาหารและน้ำยาล้างจานลงไป",
+          "ให้ลูกเป็นคนใช้ช้อนหรือถ้วยเล็กๆ ค่อยๆ เทน้ำส้มสายชูลงในแก้ว",
+          "เฝ้าดูปฏิกิริยาลาวาฟองฟูสีส้มแดงทะลักล้นแก้วออกมาอย่างน่าตื่นเต้น!"
+        ],
+        outcomes: [
+          "เรียนรู้เรื่องปฏิกิริยากรดและด่าง ก่อให้เกิดก๊าซคาร์บอนไดออกไซด์",
+          "ส่งเสริมความอยากรู้อยากเห็นและการตั้งสมมติฐาน (Curiosity)",
+          "ฝึกการตวง การตัก และการเทของเหลว"
+        ],
+        parentPrompts: [
+          "ลูกคิดว่าจะเกิดอะไรขึ้นถ้าเราเทน้ำส้มสายชูลงไปอีก?",
+          "ได้ยินเสียงซ่าๆ ไหมลูก? เสียงนั้นเกิดจากอะไรกันนะ?"
+        ],
+        safetyWarning: "น้ำส้มสายชูมีกลิ่นฉุนและอาจแสบตาได้ ห้ามนำเข้าตา และล้างมือทันทีหลังเล่น"
+      },
+      {
+        id: 6,
+        title: "สปายเลเซอร์เชือกฟางหลบสิ่งกีดขวาง",
+        subtitle: "ภารกิจสายลับตัวจิ๋ว ลอดผ่านเส้นเลเซอร์โดยไม่แตะโดนเชือก",
+        icon: "🕵️",
+        age: "3-6",
+        ageLabel: "3-6 ปี",
+        energy: "High",
+        energyLabel: "ปล่อยพลังเยอะ",
+        location: "in",
+        locationLabel: "โถงทางเดิน / ห้องนั่งเล่น",
+        materialType: "recycle",
+        prepTime: "6 นาที",
+        playTime: "25-45 นาที",
+        mainSkill: "กล้ามเนื้อมัดใหญ่ (Gross Motor) & การรับรู้ร่างกาย",
+        tags: ["ปล่อยพลัง", "กล้ามเนื้อมัดใหญ่", "ตื่นเต้น"],
+        materials: [
+          "เชือกฟาง, ไหมพรม หรือ เทปกระดาษกาวสีแดง",
+          "เก้าอี้, ขาโต๊ะ หรือขอบผนังโถงทางเดิน",
+          "ของเล่นเป้าหมายสำหรับวางไว้ปลายทาง (เช่น ขุมทรัพย์สมบัติ)"
+        ],
+        steps: [
+          "ผูกเชือกฟางไขว้ไปมาระหว่างขาโต๊ะหรือโถงทางเดิน ระดับสูง-ต่ำต่างกันให้เหมือนลำแสงเลเซอร์",
+          "นำตุ๊กตาหรือของเล่นไปวางไว้ที่ปลายทาง",
+          "กำหนดกติกา: 'ภารกิจลับ! เดิน มุด คลาน ข้ามเลเซอร์ไปหยิบสมบัติโดยห้ามแตะโดนเชือกเด็ดขาด'",
+          "จับเวลาเล่นเพื่อเพิ่มความสนุกสนานและท้าทาย"
+        ],
+        outcomes: [
+          "พัฒนากล้ามเนื้อแกนกลางลำตัว แขน และขา (Gross Motor Skills)",
+          "การรับรู้มิติสัมพันธ์ของร่างกายในพื้นที่ว่าง (Spatial Body Awareness)",
+          "การวางแผนการเคลื่อนไหวแบบ Problem-solving ทางกายภาพ"
+        ],
+        parentPrompts: [
+          "ท่าไหนจะมุดเชือกเส้นนี้ได้ง่ายกว่านะ? คลานแบบจระเข้ หรือกระโดดแบบกบ?",
+          "สายลับคิดว่าก้าวเท้าข้างไหนก่อนดีเพื่อไม่ให้โดนเชือก?"
+        ],
+        safetyWarning: "เก็บของมีคมและวัตถุที่อาจสะดุดล้มออกจากพื้นที่เล่น ผูกเชือกกับจุดที่มั่นคงแข็งแรง"
+      },
+      {
+        id: 7,
+        title: "นักสำรวจทางเดินสัมผัสธรรมชาติ (Sensory Walk)",
+        subtitle: "เดินเท้าเปล่าสัมผัสพื้นผิวที่หลากหลาย ปลุกประสาทสัมผัสใต้ฝ่าเท้า",
+        icon: "👣",
+        age: "1-3",
+        ageLabel: "1-3 ปี",
+        energy: "Medium",
+        energyLabel: "ขยับปานกลาง",
+        location: "in",
+        locationLabel: "พื้นบ้าน / ระเบียง",
+        materialType: "recycle",
+        prepTime: "5 นาที",
+        playTime: "20 นาที",
+        mainSkill: "ประสาทสัมผัสการรับรู้ (Sensory Integration)",
+        tags: ["Sensory", "สัมผัสเท้า", "ผ่อนคลาย"],
+        materials: [
+          "กะละมังแบน หรือ ถาดพลาสติก 3-4 ใบเรียงต่อกัน",
+          "วัตถุผิวสัมผัสต่างกัน เช่น: แผ่นบับเบิ้ลกันกระแทก, ฟองน้ำล้างจานนุ่มๆ, ก้อนหินกลมมน, ใบไม้แห้ง, พรมขนสัตว์"
+        ],
+        steps: [
+          "จัดวางถาดเรียงต่อกันเป็นเส้นทางเดินยาว",
+          "ใส่สิ่งของที่มีผิวสัมผัสต่างกันลงในแต่ละถาด (นุ่ม, ขรุขระ, กรอบแกรบ, ลื่น)",
+          "ถอดถุงเท้าให้ลูก แล้วจูงมือพาเดินย่ำผ่านทีละถาดช้าๆ",
+          "ชวนลูกหยุดยืน สัมผัสความรู้สึก และบรรยายว่ารู้สึกอย่างไร"
+        ],
+        outcomes: [
+          "กระตุ้นปลายประสาทใต้ฝ่าเท้า เสริมสร้างสมดุลการทรงตัว (Proprioceptive System)",
+          "พัฒนาคำศัพท์เกี่ยวกับผิวสัมผัส (นุ่ม, แข็ง, สาก, เย็น, จั๊กจี้)",
+          "ช่วยผ่อนคลายระบบประสาทและอารมณ์"
+        ],
+        parentPrompts: [
+          "ถาดนี้เดินแล้วรู้สึกยังไงลูก? จั๊กจี้เท้าไหม?",
+          "อันไหนนุ่มที่สุดเหมือนเตียงนอน และอันไหนกรอบแกรบเหมือนใบไม้?"
+        ],
+        safetyWarning: "ตรวจดูสิ่งของให้แน่ใจว่าไม่มีมุมแหลมคม และจับมือลูกไว้ระหว่างเดินเพื่อป้องกันการลื่นล้ม"
+      },
+      {
+        id: 8,
+        title: "โรงละครหุ่นเงามือและไฟฉาย",
+        subtitle: "ดับไฟห้อง เล่านิทานเงาใต้แสงไฟ ปลุกจินตนาการและภาษา",
+        icon: "🔦",
+        age: "1-3",
+        ageLabel: "1-3 ปี",
+        energy: "Low",
+        energyLabel: "สงบ / สมาธิ",
+        location: "bedtime",
+        locationLabel: "ก่อนนอน / ห้องนอน",
+        materialType: "none",
+        prepTime: "2 นาที",
+        playTime: "15-25 นาที",
+        mainSkill: "ภาษา การเล่าเรื่อง & จินตนาการ",
+        tags: ["ก่อนนอน", "จินตนาการ", "ไม่ใช้อุปกรณ์"],
+        materials: [
+          "ไฟฉาย หรือ แฟลชโทรศัพท์มือถือ",
+          "ผนังห้องสีเรียบ หรือ ผ้าปูที่นอนสีขาวขึงไว้",
+          "มือของพ่อแม่และลูก (หรือของเล่นรูปสัตว์)"
+        ],
+        steps: [
+          "หรี่ไฟหรือปิดไฟในห้องให้สลัว",
+          "เปิดไฟฉายส่องตรงไปที่ผนัง",
+          "สอนลูกทำเงามือง่ายๆ เช่น ผีเสื้อ (ไขว้นิ้วโป้งกระพือปีก), สุนัขปากขยับ, นกบิน",
+          "ลองเลื่อนไฟฉายเข้า-ออกเพื่อให้ลูกสังเกตเงาขนาด 'ยักษ์' และเงาขนาด 'จิ๋ว'",
+          "ผลัดกันแต่งเรื่องราวนิทานสั้นๆ จากเงาที่เกิดขึ้น"
+        ],
+        outcomes: [
+          "ลดความกลัวความมืด สร้างทัศนคติเชิงบวกต่อเวลาก่อนนอน",
+          "เรียนรู้เรื่องการเดินทางของแสงและเงา (ต้นกำเนิดแสง ระยะทาง ขนาด)",
+          "พัฒนาทักษะการสื่อสารและโครงสร้างการเล่าเรื่อง (Narrative Skills)"
+        ],
+        parentPrompts: [
+          "เจ้านกเงานี้กำลังบินไปหาใครที่ไหนนะ?",
+          "ทำไมพอยกมือเข้าใกล้ไฟฉาย เงานกถึงตัวโตคับบ้านเลยล่ะ?"
+        ],
+        safetyWarning: "อย่าส่องไฟฉายเข้าดวงตาลูกโดยตรง"
+      },
+      {
+        id: 9,
+        title: "ภารกิจสายสืบตามล่ารหัสสี (Color Scavenger Hunt)",
+        subtitle: "เกมตามหาสิ่งของสีเดียวกันในบ้าน วิ่งสนุก ฝึกแยกแยะหมวดหมู่",
+        icon: "🎨",
+        age: "1-3",
+        ageLabel: "1-3 ปี",
+        energy: "High",
+        energyLabel: "ปล่อยพลังเยอะ",
+        location: "in",
+        locationLabel: "ทั่วทั้งบ้าน",
+        materialType: "recycle",
+        prepTime: "2 นาที",
+        playTime: "20-30 นาที",
+        mainSkill: "การสังเกต & จำแนกหมวดหมู่ (Cognitive Sorting)",
+        tags: ["ปล่อยพลัง", "จำแนกสี", "เกมไว"],
+        materials: [
+          "กระดาษสี 4-5 สี (แดง, เหลือง, น้ำเงิน, เขียว) หรือ จานกระดาษระบายสี",
+          "ตะกร้าใบเล็กสำหรับใส่ของ"
+        ],
+        steps: [
+          "วางแผ่นกระดาษสีไว้บนพื้นเป็น 'ฐานรับของ'",
+          "หยิบแผ่นสีแดงขึ้นมา แล้วออกคำสั่ง: 'ภารกิจที่ 1: หาของในบ้านที่เป็นสีแดงมา 3 ชิ้น เริ่มได้!'",
+          "ให้ลูกวิ่งสำรวจรอบบ้าน หยิบสิ่งของที่ปลอดภัย เช่น ตัวต่อสีแดง ช้อนสีแดง ถุงเท้าสีแดง",
+          "นำมาวางจับคู่บนแผ่นกระดาษสีที่ถูกต้อง และนับจำนวนไปด้วยกัน"
+        ],
+        outcomes: [
+          "ฝึกทักษะการแยกแยะหมวดหมู่ทางสายตา (Visual Discrimination)",
+          "ได้ขยับร่างกาย เผาผลาญพลังงานอย่างสร้างสรรค์",
+          "ฝึกฟังและทำตามคำสั่งแบบ Multi-step instructions"
+        ],
+        parentPrompts: [
+          "สีเขียวนี้เหมือนผักอะไรที่เราเคยกินนะ?",
+          "ของชิ้นนี้มี 2 สีด้วยกัน เราควรเอาไปวางไว้ตรงไหนดีนะ?"
+        ],
+        safetyWarning: "เก็บของแตกง่ายหรือสิ่งของอันตรายให้พ้นมือก่อนเริ่มเกม และไม่ควรวิ่งในห้องน้ำ"
+      },
+      {
+        id: 10,
+        title: "แข่งเป่าเรือกระดาษหลอดกาแฟ",
+        subtitle: "พับเรือลอยน้ำ แข่งเป่าลมเข้าเส้นชัย เรียนรู้แรงลอยตัวและแรงลม",
+        icon: "⛵",
+        age: "3-6",
+        ageLabel: "3-6 ปี",
+        energy: "Medium",
+        energyLabel: "ขยับปานกลาง",
+        location: "table",
+        locationLabel: "กะละมัง / ถาดน้ำ",
+        materialType: "messy",
+        prepTime: "4 นาที",
+        playTime: "20-30 นาที",
+        mainSkill: "ฟิสิกส์เบื้องต้น & การควบคุมการหายใจ",
+        tags: ["STEM", "เล่นน้ำ", "เป่าลม"],
+        materials: [
+          "กระดาษกันน้ำ (เช่น กระดาษนิตยสารมันๆ หรือ ฝาขวดน้ำติดใบเรือกระดาษ)",
+          "กะละมังใส่น้ำ หรือ ถาดอบขนมทรงลึกใส่น้ำ",
+          "หลอดดูดน้ำคนละ 1 อัน"
+        ],
+        steps: [
+          "ชวนลูกพับเรือกระดาษลำเล็กๆ หรือนำฝาขวดน้ำมาเสียบไม้จิ้มฟันติดกระดาษเป็นใบเรือ",
+          "นำเรือไปลอยในกะละมังน้ำ กำหนดเส้นสตาร์ทและเส้นชัย",
+          "ใช้หลอดเป่าลมใส่ใบเรือเพื่อขับเคลื่อนให้เรือวิ่งไปข้างหน้า",
+          "ทดลองเป่าเบาๆ เทียบกับเป่าแรงๆ สังเกตความเร็วของเรือ"
+        ],
+        outcomes: [
+          "เรียนรู้หลักการทางวิทยาศาสตร์เรื่องแรงลม (Wind Force) และการลอย-จม (Buoyancy)",
+          "เสริมสร้างความจุปอดและการควบคุมกล้ามเนื้อกระบังลม",
+          "ฝึกน้ำใจนักกีฬาและการเล่นตามกติกา"
+        ],
+        parentPrompts: [
+          "ถ้าเราเป่าที่ด้านข้างของเรือ เรือจะเลี้ยวไปทางไหนนะ?",
+          "ทำไมเรือถึงลอยน้ำได้ แต่ก้อนหินถึงจมลงไปก้นถาดล่ะลูก?"
+        ],
+        safetyWarning: "ปูผ้าขนหนูรองใต้กะละมังน้ำเพื่อป้องกันพื้นลื่น และมีผู้ใหญ่ดูแลการเล่นน้ำตลอดเวลา"
+      },
+      {
+        id: 11,
+        title: "โยนลูกบอลถุงเท้าลงตะกร้าผ้า",
+        subtitle: "เปลี่ยนงานบ้านเป็นเกมกีฬา กลิ้งม้วนถุงเท้าแล้วซู้ตลงห่วง",
+        icon: "🧦",
+        age: "1-3",
+        ageLabel: "1-3 ปี",
+        energy: "High",
+        energyLabel: "ปล่อยพลังเยอะ",
+        location: "in",
+        locationLabel: "ห้องนั่งเล่น",
+        materialType: "none",
+        prepTime: "2 นาที",
+        playTime: "15-25 นาที",
+        mainSkill: "การกะระยะสายตากับมือ & ทักษะกล้ามเนื้อ",
+        tags: ["กีฬาในบ้าน", "ถุงเท้า", "ง่ายสุดๆ"],
+        materials: [
+          "ถุงเท้าสะอาดม้วนเป็นก้อนกลม 5-8 คู่",
+          "ตะกร้าผ้า หรือ ลังกระดาษ 1-2 ใบ",
+          "เชือกหรือเทปกาวติดพื้นทำเส้นชู้ต"
+        ],
+        steps: [
+          "ชวนลูกช่วยกันม้วนถุงเท้าให้เป็นก้อนกลมๆ (ฝึกใช้สองมือบิดม้วน)",
+          "วางตะกร้าผ้าไว้ที่มุมห้อง และแปะเทปกาวบนพื้นเป็นจุดยืนโยน",
+          "เริ่มจากระยะใกล้ 1 ก้าว แล้วค่อยๆ ขยับถอยหลังไกลขึ้นเมื่อโยนลง",
+          "สร้างกฎพิเศษ เช่น โยนลงได้ 1 คะแนน โยนมือซ้ายได้ 2 คะแนน!"
+        ],
+        outcomes: [
+          "พัฒนาการกะระยะลึก-ไกลและการควบคุมแรงขว้างของแขน (Motor Planning)",
+          "การนับตัวเลขคะแนนแบบเห็นภาพจริง",
+          "กิจกรรมปลอดภัย ไม่ทำลายข้าวของในบ้านเพราะลูกบอลถุงเท้านุ่มนิ่ม"
+        ],
+        parentPrompts: [
+          "ถ้าตะกร้าอยู่ไกลขึ้น เราต้องออกแรงขว้างมากขึ้นหรือน้อยลงนะ?",
+          "รอบนี้ลองโยนแบบลอดใต้ขากันดูไหมว่าจะลงตะกร้าหรือเปล่า!"
+        ],
+        safetyWarning: "ปลอดภัยสูง ตรวจสอบเพียงไม่ให้มีสิ่งกีดขวางรอบจุดที่เด็กวิ่งเก็บถุงเท้า"
+      },
+      {
+        id: 12,
+        title: "สถานีจำลองล้างผักผลไม้ (Practical Life)",
+        subtitle: "ฝึกทักษะชีวิตประจำวันสไตล์มอนเตสซอรี่ สนุกกับการขัดถูและเทน้ำ",
+        icon: "🍎",
+        age: "1-3",
+        ageLabel: "1-3 ปี",
+        energy: "Medium",
+        energyLabel: "ขยับปานกลาง",
+        location: "table",
+        locationLabel: "ห้องครัว / โต๊ะเล็ก",
+        materialType: "messy",
+        prepTime: "4 นาที",
+        playTime: "20-35 นาที",
+        mainSkill: "ทักษะชีวิต (Practical Life) & ความเป็นอิสระ",
+        tags: ["มอนเตสซอรี่", "ฝึกดูแลตัวเอง", "มีสมาธิ"],
+        materials: [
+          "กะละมังใบเล็ก 2 ใบ (ใบหนึ่งใส่น้ำ ใบหนึ่งสำหรับวางผึ่ง)",
+          "แปรงขนนุ่มอันเล็ก หรือ ฟองน้ำ",
+          "ผักหรือผลไม้ของจริงที่มีเปลือกหนา (เช่น ส้ม, แอปเปิ้ล, แครอท, มะนาว)",
+          "ผ้าขนหนูผืนเล็กสำหรับเช็ดแห้ง"
+        ],
+        steps: [
+          "จัดโต๊ะเตี้ยๆ วางกะละมังน้ำและผักผลไม้ไว้ข้างกัน",
+          "สาธิตให้ลูกดูอย่างช้าๆ: หยิบผลส้มจุ่มน้ำ ใช้แปรงขัดเบาๆ ให้ทั่ว แล้วใช้ผ้าซับให้แห้ง",
+          "ส่งมอบอุปกรณ์ให้ลูกลงมือทำตามลำดับขั้นตอนด้วยตนเอง",
+          "เมื่อทำเสร็จ ชวนลูกนำผลไม้ไปปอกหรือรับประทานร่วมกันเป็นของว่าง"
+        ],
+        outcomes: [
+          "ส่งเสริมความภาคภูมิใจในตนเอง (Self-esteem) ผ่านการทำงานบ้านที่มีคุณค่าจริง",
+          "ฝึกสมาธิต่อเนื่องตามธรรมชาติและกระบวนการทำงานที่เป็นลำดับขั้นตอน (Sequencing)",
+          "พัฒนากล้ามเนื้อมือผ่านการบีบฟองน้ำและการขัดถู"
+        ],
+        parentPrompts: [
+          "เปลือกแครอทเปียกน้ำแล้วสีสดขึ้นไหมลูก?",
+          "ช่วยแม่เลือกหน่อยสิว่า ผลไม้ลูกไหนพร้อมนำไปกินเป็นของว่างแล้วบ้าง?"
+        ],
+        safetyWarning: "เลือกผักผลไม้ที่ไม่มีเหลี่ยมคม ระวังพื้นเปียกลื่น และไม่ใช้วัตถุของมีคมในการหั่น"
+      },
+
+      // 13-17: ROAD TRIP & CAR ACTIVITIES (NEW!)
+      {
+        id: 13,
+        title: "บิงโกล่าสัญลักษณ์ริมทาง (Road Trip Bingo)",
+        subtitle: "มองออกนอกหน้าต่างรถ มองหาสิ่งของตามการ์ดบิงโก เปลี่ยนการเดินทางให้เป็นเกมล่าสมบัติ",
+        icon: "🚗",
+        age: "3-6",
+        ageLabel: "3-6 ปี",
+        energy: "Low",
+        energyLabel: "สงบ / ฝึกสมาธิ",
+        location: "car",
+        locationLabel: "ในรถ / เดินทาง",
+        materialType: "none",
+        prepTime: "2 นาที",
+        playTime: "30-60 นาที",
+        mainSkill: "การสังเกตทางสายตา & สมาธิต่อเนื่อง",
+        tags: ["ในรถ", "เดินทาง", "สายตา", "ไม่ต้องใช้อุปกรณ์"],
+        materials: [
+          "กระดาษวาดตาราง 3x3 ช่อง หรือรูปภาพสิ่งของริมทาง (เช่น สะพานลอย, รถเมล์สีส้ม, เสาสัญญาณ, ปั๊มน้ำมัน, วัว)",
+          "ดินสอ หรือ สติกเกอร์แปะทับเมื่อเจอ"
+        ],
+        steps: [
+          "ก่อนออกเดินทาง วาดตาราง 9 ช่อง ใส่รูปหรือสัญลักษณ์ง่ายๆ ที่พบได้บนถนน",
+          "ให้ลูกมองออกนอกหน้าต่างรถ เมื่อสังเกตเห็นสิ่งของตรงกับในช่อง ให้กากบาทหรือแปะสติกเกอร์ทับ",
+          "ใครได้ครบแถวแนวนอน แนวตั้ง หรือทแยงมุมก่อนให้ตะโกน 'บิงโก!'",
+          "หากไม่มีกระดาษ สามารถเปลี่ยนเป็นเล่นแบบปากเปล่า โดยพ่อแม่กำหนดเป้าหมายให้ช่วยกันหา"
+        ],
+        outcomes: [
+          "ฝึกการมองสำรวจสภาพแวดล้อมจริง ลดอาการเมารถจากการก้มมองหน้าจอแท็บเล็ต",
+          "เสริมทักษะการจับคู่ภาพและการจดจำรูปทรง",
+          "สร้างความตื่นเต้นและลดความเบื่อหน่ายระหว่างเดินทางไกล"
+        ],
+        parentPrompts: [
+          "คันข้างหน้าป้ายทะเบียนมีเลขอะไรบ้างนะ?",
+          "ลูกเห็นต้นไม้ที่มีดอกสีชมพูข้างทางนั่นไหม?"
+        ],
+        safetyWarning: "เด็กต้องนั่งคาร์ซีทและคาดเข็มขัดนิรภัยตลอดเวลา ห้ามเอื้อมมือหรือยื่นศีรษะออกนอกหน้าต่าง"
+      },
+      {
+        id: 14,
+        title: "เกม 20 คำถามทายใจสัตว์โลก (Twenty Questions)",
+        subtitle: "เกมทายคำปริศนาในรถ ฝึกการคิดเชิงตรรกะและการตั้งคำถามแบบคัดกรอง",
+        icon: "❓",
+        age: "6+",
+        ageLabel: "6+ ปี",
+        energy: "Low",
+        energyLabel: "สงบ / สมาธิ",
+        location: "car",
+        locationLabel: "ในรถ / เดินทาง",
+        materialType: "none",
+        prepTime: "0 นาที",
+        playTime: "15-30 นาที",
+        mainSkill: "การคิดเชิงวิพากษ์ (Critical Thinking) & นิรนัย",
+        tags: ["ในรถ", "เกมปากเปล่า", "แก้ปัญหา", "ตรรกะ"],
+        materials: [
+          "ไม่ต้องใช้อุปกรณ์ใดๆ (เกมปากเปล่า 100%)"
+        ],
+        steps: [
+          "คนหนึ่งแอบคิดชื่อ 'สัตว์' ไว้ในใจ 1 ชนิด (เช่น ช้าง, เพนกวิน, ค้างคาว)",
+          "ผู้เล่นที่เหลือมีโควตาถามคำถามได้ไม่เกิน 20 คำถาม",
+          "คำถามต้องตอบได้แค่ 'ใช่' หรือ 'ไม่ใช่' เท่านั้น (เช่น 'สัตว์ตัวนี้บินได้ใช่ไหม?', 'อาศัยอยู่ในน้ำใช่ไหม?')",
+          "ช่วยกันวิเคราะห์และทายชื่อสัตว์ให้ถูกต้องภายใน 20 ข้อ"
+        ],
+        outcomes: [
+          "ฝึกการจำแนกหมวดหมู่แบบกว้างไปแคบ (Deductive Reasoning)",
+          "พัฒนาทักษะการสื่อสาร การฟังอย่างตั้งใจ และการตั้งคำถามที่มีประสิทธิภาพ",
+          "สนุกสนานร่วมกันได้ทั้งคันรถ ไม่ก่อกวนสมาธิผู้ขับขี่"
+        ],
+        parentPrompts: [
+          "ถ้าคำตอบคือ 'ไม่ได้อยู่ในน้ำ' เราตัดสัตว์กลุ่มไหนออกไปได้บ้างนะ?",
+          "เราจะถามเรื่องอาหารหรือเรื่องที่อยู่อาศัยดีกว่ากันเพื่อจำกัดตัวเลือก?"
+        ],
+        safetyWarning: "พ่อแม่ที่ทำหน้าที่ขับรถควรมีสมาธิกับการขับขี่ ให้ผู้โดยสารหรือคุณพ่อ/คุณแม่ข้างๆ เป็นผู้ดำเนินเกมหลัก"
+      },
+      {
+        id: 15,
+        title: "นิทานต่อคำ 1 ประโยคมหัศจรรย์ (One-Sentence Story)",
+        subtitle: "ผลัดกันแต่งนิทานคนละประโยค สร้างเรื่องราวผจญภัยสุดฮาในรถ",
+        icon: "📖",
+        age: "3-6",
+        ageLabel: "3-6 ปี",
+        energy: "Low",
+        energyLabel: "สงบ / เพลินๆ",
+        location: "car",
+        locationLabel: "ในรถ / เดินทาง",
+        materialType: "none",
+        prepTime: "0 นาที",
+        playTime: "15-20 นาที",
+        mainSkill: "ภาษา การเล่าเรื่อง & ความคิดยืดหยุ่น (Cognitive Flexibility)",
+        tags: ["ในรถ", "นิทาน", "จินตนาการ", "ไม่ใช้อุปกรณ์"],
+        materials: [
+          "จินตนาการและเสียงพูดคุย"
+        ],
+        steps: [
+          "คุณพ่อหรือคุณแม่เริ่มเปิดเรื่องด้วย 1 ประโยค เช่น 'กาลครั้งหนึ่ง มีแมวอ้วนตัวหนึ่งที่บินได้...'",
+          "ลูกพูดต่ออีก 1 ประโยค เช่น 'มันบินไปเจอกับปราสาทขนมหวานบนก้อนเมฆ'",
+          "ผลัดกันพูดคนละ 1 ประโยควนไปเรื่อยๆ จนเกิดเป็นเรื่องราวแฟนตาซีสุดสนุก",
+          "จบเรื่องเมื่อเรื่องราวดำเนินมาถึงจุดไคลแมกซ์และแฮปปี้เอนดิ้ง"
+        ],
+        outcomes: [
+          "ฝึกทักษะการทำงานของสมอง EF ด้าน Cognitive Flexibility (การปรับตัวตามข้อมูลใหม่ที่เพื่อนส่งต่อมา)",
+          "ขยายคลังคำศัพท์และโครงสร้างไวยากรณ์ภาษาไทยอย่างเป็นธรรมชาติ",
+          "กระชับความสัมพันธ์ผ่านเสียงหัวเราะและมุกตลกที่คิดขึ้นสดๆ"
+        ],
+        parentPrompts: [
+          "แล้วเจ้าแมวจะแก้ปัญหานี้ยังไงดีนะ เมื่อขนมหวานเริ่มละลาย?",
+          "ใครจะโผล่เข้ามาช่วยเป็นตัวละครต่อไปดี?"
+        ],
+        safetyWarning: "ช่วยปรับระดับเสียงการพูดคุยไม่ให้ดังรบกวนสมาธิคนขับรถ"
+      },
+      {
+        id: 16,
+        title: "ล่าสีรถสะสมแต้ม (Car Color Hunter)",
+        subtitle: "เกมแข่งนับสีรถที่วิ่งสวนมา ฝึกการสังเกตและการนับเลขคำนวณง่ายๆ",
+        icon: "🚥",
+        age: "3-6",
+        ageLabel: "3-6 ปี",
+        energy: "Medium",
+        energyLabel: "ขยับปานกลาง",
+        location: "car",
+        locationLabel: "ในรถ / เดินทาง",
+        materialType: "none",
+        prepTime: "1 นาที",
+        playTime: "20-30 นาที",
+        mainSkill: "คณิตศาสตร์เบื้องต้น & การรับรู้สี",
+        tags: ["ในรถ", "เดินทาง", "นับเลข", "สีสัน"],
+        materials: [
+          "นิ้วมือนับเลข หรือ กระดาษโน้ตจดแต้ม"
+        ],
+        steps: [
+          "เลือกรถสีประจำตัวคนละสี (เช่น แม่เลือกสีขาว ลูกเลือกสีแดง หรือหาสีหายากเช่น สีเหลือง)",
+          "ให้คะแนน: รถทั่วไปได้ 1 แต้ม, รถสีหายาก (เช่น สีเขียวมะนาว หรือ รถตู้ลายการ์ตูน) ได้ 3 แต้ม!",
+          "เมื่อมองเห็นรถสีของตนเอง ให้ชี้บอกพร้อมบวกคะแนนสะสม",
+          "เมื่อถึงไฟแดงหรือปั๊มน้ำมัน สรุปคะแนนรวมไปด้วยกัน"
+        ],
+        outcomes: [
+          "ฝึกการสังเกตอย่างรวดเร็ว (Visual Scanning)",
+          "พัฒนาทักษะการนับจำนวน 1-10 และการบวกเลขเบื้องต้น",
+          "ฝึกการมีน้ำใจนักกีฬา รู้แพ้รู้ชนะ"
+        ],
+        parentPrompts: [
+          "ตอนนี้น้องได้ 3 คัน รวมกับอีก 2 คัน เป็นกี่คันแล้วนะ?",
+          "ทำไมรถสีเหลืองถึงไม่ค่อยมีบนถนนนะลูก คิดว่าเพราะอะไร?"
+        ],
+        safetyWarning: "เตือนไม่ให้เด็กกระโดดหรือปลดสายนิรภัยขณะชี้ดูรถ"
+      },
+      {
+        id: 17,
+        title: "สติกเกอร์กระจกเล่าเรื่อง (Window Cling Art)",
+        subtitle: "แปะสติกเกอร์ซิลิโคนลอกออกได้บนกระจกรถ สร้างฉากนิทานส่วนตัว",
+        icon: "🪟",
+        age: "1-3",
+        ageLabel: "1-3 ปี",
+        energy: "Low",
+        energyLabel: "สงบ / สมาธิ",
+        location: "car",
+        locationLabel: "ในรถ / หน้าต่าง",
+        materialType: "recycle",
+        prepTime: "1 นาที",
+        playTime: "20-35 นาที",
+        mainSkill: "จินตนาการ & กล้ามเนื้อมัดเล็ก",
+        tags: ["ในรถ", "สติกเกอร์", "เด็กเล็ก", "เงียบสงบ"],
+        materials: [
+          "สติกเกอร์เจล หรือ สติกเกอร์สูญญากาศไร้กาว (Window Clings) รูปสัตว์หรือยานพาหนะ",
+          "ทิชชู่เปียกเช็ดทำความสะอาดกระจกก่อนเล่น"
+        ],
+        steps: [
+          "เช็ดกระจกหน้าต่างฝั่งที่ลูกนั่งให้สะอาดปลอดภัย",
+          "ให้ลูกเลือกสติกเกอร์สูญญากาศมาแปะบนกระจกข้างตัว",
+          "ชวนดูวิวข้างนอก เช่น แปะรูปวัวลงบนทุ่งหญ้าของจริงข้างนอก หรือแปะรูปนกให้บินบนท้องฟ้าจริง",
+          "ลอกออกและเปลี่ยนตำแหน่งได้ไม่จำกัดครั้ง ไม่ทิ้งคราบกาว"
+        ],
+        outcomes: [
+          "ช่วยให้เด็กเล็กนั่งนิ่งสงบได้นานตลอดการเดินทางโดยไม่ต้องพึ่งหน้าจอ",
+          "ฝึกการใช้ปลายนิ้วมือลอกและแปะวัตถุบางๆ",
+          "เชื่อมโยงวัตถุจำลองเข้ากับทิวทัศน์โลกความเป็นจริงภายนอกหน้าต่าง"
+        ],
+        parentPrompts: [
+          "น้องกระต่ายอยากไปแอบอยู่หลังต้นไม้ข้างทางต้นไหนนะ?",
+          "ท้องฟ้าจริงข้างนอกกำลังมีก้อนเมฆลอยผ่านสติกเกอร์เครื่องบินของเราแล้ว!"
+        ],
+        safetyWarning: "ใช้เฉพาะสติกเกอร์สูญญากาศนุ่มนิ่ม ป้องกันการเอาเข้าปาก และเล่นที่กระจกฝั่งที่ล็อกหน้าต่างอัตโนมัติแล้วเท่านั้น"
+      },
+
+      // 18-22: BEDTIME & CALM DOWN WIND-DOWN ACTIVITIES (NEW!)
+      {
+        id: 18,
+        title: "นวดทำพิซซ่าบนหลังลูก (Back Pizza Gentle Massage)",
+        subtitle: "เกมสัมผัสผ่อนคลายกล้ามเนื้อก่อนนอน นวดหลังจำลองการนวดแป้งและโรยท็อปปิ้ง",
+        icon: "🍕",
+        age: "1-3",
+        ageLabel: "1-3 ปี",
+        energy: "Low",
+        energyLabel: "สงบ / เตรียมหลับ",
+        location: "bedtime",
+        locationLabel: "ก่อนนอน / บนเตียง",
+        materialType: "none",
+        prepTime: "0 นาที",
+        playTime: "10-15 นาที",
+        mainSkill: "การผ่อนคลายกล้ามเนื้อ (Deep Touch Pressure) & สายใยรัก",
+        tags: ["ก่อนนอน", "นวดสัมผัส", "อบอุ่น", "หลับง่าย"],
+        materials: [
+          "เตียงนอนนุ่มๆ หรือ หมอนข้าง",
+          "มืออุ่นๆ ของคุณพ่อคุณแม่ (อาจใช้เบบี้โลชั่นกลิ่นลาเวนเดอร์อ่อนๆ)"
+        ],
+        steps: [
+          "ให้ลูกนอนคว่ำหน้าลงบนเตียงอย่างสบายตัว",
+          "เริ่มสเต็ปนวดแป้ง: ใช้ฝ่ามือกดเบาๆ บนหลังลูก 'นวดแป้งพิซซ่า นุ่มๆ ให้แบนราบ...'",
+          "ทาซอสมะเขือเทศ: ลูบฝ่ามือเป็นวงกลมเบาๆ อบอุ่นทั่วแผ่นหลัง",
+          "โรยหน้าชีสและเห็ด: ใช้นิ้วมือทั้งสิบแตะเคาะเบาๆ เหมือนฝนตกทั่วหลัง",
+          "นำเข้าเตาอบ: กอดลูกเบาๆ อบอุ่นเพื่อให้พิซซ่าสุกหอมพร้อมนอน"
+        ],
+        outcomes: [
+          "การนวดสัมผัสลึก (Deep Touch Pressure) ช่วยกระตุ้นระบบประสาทพาราซิมพาเทติก ช่วยให้ร่างกายผ่อนคลายและหลับลึก",
+          "ลดความกังวลและความตื่นตัวสะสมจากกิจกรรมทั้งวัน",
+          "สร้างความผูกพันและสัมผัสที่ปลอดภัย (Secure Attachment)"
+        ],
+        parentPrompts: [
+          "วันนี้พิซซ่าของหนูอยากโรยหน้าอะไรดีนะ? มีชีส ชีสเยอะๆ ไหม?",
+          "รู้สึกอุ่นและสบายตัวพร้อมนอนหรือยังเอ่ย?"
+        ],
+        safetyWarning: "ใช้น้ำหนักมือที่นุ่มนวล ระวังอย่ากดกระดูกสันหลังแรงจนเกินไป"
+      },
+      {
+        id: 19,
+        title: "โยคะยืดเหยียดนิทานสัตว์หลับปุ๋ย (Bedtime Animal Yoga)",
+        subtitle: "ท่ายืดเส้นคลายกล้ามเนื้อง่ายๆ เลียนแบบสัตว์เตรียมเข้านอน",
+        icon: "🧘",
+        age: "3-6",
+        ageLabel: "3-6 ปี",
+        energy: "Low",
+        energyLabel: "สงบ / ยืดเหยียด",
+        location: "bedtime",
+        locationLabel: "ก่อนนอน / บนพรมห้องนอน",
+        materialType: "none",
+        prepTime: "1 นาที",
+        playTime: "10-15 นาที",
+        mainSkill: "การรับรู้ร่างกาย & การควบคุมลมหายใจ",
+        tags: ["ก่อนนอน", "โยคะเด็ก", "ยืดเหยียด", "สงบ"],
+        materials: [
+          "พรม หรือ ที่นอนนุ่มๆ"
+        ],
+        steps: [
+          "ท่าที่ 1 ผีเสื้อพับปีก: นั่งประกบฝ่าเท้า ขยับเข่าเบาๆ แล้วก้มตัวลงพักผ่อน",
+          "ท่าที่ 2 แมวยืดขี้เกียจ (Cat-Cow): คุกเข่าโก่งหลังขึ้นแล้วหายใจออก หายใจเข้าแอ่นหลังเบาๆ",
+          "ท่าที่ 3 เต่าหดหัวในกระดอง (Child's Pose): นั่งทับส้นเท้า ก้มตัวราบกับพื้น ยื่นแขนไปข้างหน้า หายใจเข้าลึกๆ",
+          "ท่าที่ 4 ปลาดาวนอนหงาย (Savasana): นอนหงายกางแขนขา หลับตาลงช้าๆ ฟังเสียงลมหายใจ"
+        ],
+        outcomes: [
+          "ช่วยคลายความตึงตัวของกล้ามเนื้อหลัง คอ และขาหลังจากการวิ่งเล่นทั้งวัน",
+          "ฝึกการกำหนดลมหายใจเข้า-ออกยาวๆ ช่วยลดอัตราการเต้นของหัวใจ",
+          "ปรับคลื่นสมองให้เข้าสู่ภาวะสงบ พร้อมเข้าสู่การนอนหลับที่มีคุณภาพ"
+        ],
+        parentPrompts: [
+          "เจ้าเต่าน้อยค่อยๆ หดตัวในกระดองที่อบอุ่น เงียบสงบมากเลยใช่ไหมลูก?",
+          "เรามาฟังเสียงหายใจของตัวเองกันนะ ฟู่... สบายจัง"
+        ],
+        safetyWarning: "ทำบนเบาะหรือที่นอนนุ่ม ไม่ควรบังคับหรือดัดร่างกายเด็กมากเกินไป เน้นความสบาย"
+      },
+      {
+        id: 20,
+        title: "ขวดโหลบันทึกความสุขประจำวัน (Gratitude Jar)",
+        subtitle: "พูดคุยเรื่องดีๆ 3 เรื่องก่อนนอน ปลูกฝังหัวใจแห่งความสุขและทัศนคติเชิงบวก",
+        icon: "✨",
+        age: "6+",
+        ageLabel: "6+ ปี",
+        energy: "Low",
+        energyLabel: "สงบ / จิตใจดี",
+        location: "bedtime",
+        locationLabel: "ก่อนนอน / หัวเตียง",
+        materialType: "recycle",
+        prepTime: "2 นาที",
+        playTime: "10 นาที",
+        mainSkill: "จิตวิทยาเชิงบวก (Gratitude) & การสื่อสารอารมณ์",
+        tags: ["ก่อนนอน", "ความสุข", "ครอบครัว", "จิตวิทยา"],
+        materials: [
+          "ขวดโหลแก้ว หรือ กล่องพลาสติกใส 1 ใบ",
+          "เศษกระดาษโน้ตสีสวยๆ และปากกา"
+        ],
+        steps: [
+          "นั่งคุยกันบนเตียงใต้แสงไฟสีอุ่น",
+          "ชวนลูกเล่าเรื่อง: 'วันนี้มีเรื่องอะไรบ้างนะที่ทำให้หนูยิ้มหรือรู้สึกมีความสุข?'",
+          "ช่วยกันเขียนหรือวาดสิ่งนั้นลงบนกระดาษใบเล็ก 1-3 แผ่น (เช่น ได้กินไอติม, ช่วยเพื่อนเก็บของ, กอดกับแม่)",
+          "ม้วนกระดาษหย่อนลงในขวดโหลสะสมไว้",
+          "ทุกสิ้นเดือนสามารถเปิดขวดโหลออกมาอ่านความทรงจำดีๆ ร่วมกัน"
+        ],
+        outcomes: [
+          "ฝึกสมองให้มองเห็นสิ่งดีๆ รอบตัว (Growth & Positive Mindset)",
+          "ลดความเครียดและความวิตกกังวลก่อนนอน ทำให้หลับฝันดี",
+          "สร้างพื้นที่ปลอดภัยทางอารมณ์ระหว่างพ่อแม่กับลูก"
+        ],
+        parentPrompts: [
+          "เรื่องที่ทำให้ลูกยิ้มกว้างที่สุดในวันนี้คืออะไรเอ่ย?",
+          "ใครทำอะไรดีๆ ให้หนูบ้างนะวันนี้ และหนูรู้สึกขอบคุณเขาเรื่องอะไร?"
+        ],
+        safetyWarning: "หากใช้ขวดโหลแก้ว ควรให้ผู้ปกครองเป็นผู้ถือวางบนโต๊ะหัวเตียง"
+      },
+      {
+        id: 21,
+        title: "หายใจเป่าขนนกล่องลอย (Feather Gentle Breathing)",
+        subtitle: "เป่าขนนกให้ลอยในอากาศ ฝึกสติและชะลอจังหวะลมหายใจให้ยาวขึ้น",
+        icon: "🪶",
+        age: "1-3",
+        ageLabel: "1-3 ปี",
+        energy: "Low",
+        energyLabel: "สงบ / กำหนดลมหายใจ",
+        location: "bedtime",
+        locationLabel: "ก่อนนอน / โต๊ะเล็ก",
+        materialType: "none",
+        prepTime: "1 นาที",
+        playTime: "10 นาที",
+        mainSkill: "การฝึกสติ (Mindfulness) & กล้ามเนื้อปอด",
+        tags: ["ก่อนนอน", "ฝึกลมหายใจ", "สติ", "สงบ"],
+        materials: [
+          "ขนนกสังเคราะห์นุ่มๆ 1-2 อัน หรือ สำลีก้อนคลี่บางๆ"
+        ],
+        steps: [
+          "ให้ลูกวางขนนกไว้บนฝ่ามือข้างหนึ่ง",
+          "สูดลมหายใจเข้าทางจมูกลึกๆ ให้พุงป่อง",
+          "ค่อยๆ เป่าลมออกจากปากเบาๆ สม่ำเสมอ เพื่อให้ขนนกสั่นไหวแต่ไม่ปลิวตกจากมือ",
+          "รอบต่อไป ลองเป่าขึ้นไปในอากาศแล้วดูว่าใครจะเลี้ยงขนนกให้ลอยได้นานที่สุดก่อนจะแตะพื้น"
+        ],
+        outcomes: [
+          "ชะลออัตราการหายใจ ช่วยให้ร่างกายสงบลงอย่างรวดเร็ว",
+          "ฝึกสมาธิและความจดจ่ออยู่กับปัจจุบันขณะ (Mindfulness)",
+          "ช่วยเด็กที่มีสมาธิสั้นหรือกระสับกระส่ายก่อนนอนให้เข้าสู่โหมดพักผ่อน"
+        ],
+        parentPrompts: [
+          "ลองเป่าให้เบาที่สุดจนขนนกแทบไม่ขยับดูสิลูก เหมือนสายลมอ่อนๆ ในป่า",
+          "ลมหายใจของเราอุ่นไหมนะ?"
+        ],
+        safetyWarning: "ใช้ขนนกที่สะอาด ระวังอย่าให้เด็กสูดเอาเศษขนหรือสำลีเข้าจมูก"
+      },
+      {
+        id: 22,
+        title: "เกมเงียบเสียงจับเวลา (Silence Challenge)",
+        subtitle: "ฝึกฟังเสียงรอบตัวในความเงียบ 60 วินาที ปรับโสตประสาทสู่ความสงบ",
+        icon: "🤫",
+        age: "3-6",
+        ageLabel: "3-6 ปี",
+        energy: "Low",
+        energyLabel: "เงียบสงบสุดๆ",
+        location: "bedtime",
+        locationLabel: "ก่อนนอน / ห้องนอน",
+        materialType: "none",
+        prepTime: "0 นาที",
+        playTime: "5-10 นาที",
+        mainSkill: "การฟังอย่างตั้งใจ (Auditory Processing) & การควบคุมตนเอง",
+        tags: ["ก่อนนอน", "เงียบสงบ", "มอนเตสซอรี่", "ฝึกสมาธิ"],
+        materials: [
+          "นาฬิกาทราย หรือ นาฬิกาจับเวลา 1 นาที"
+        ],
+        steps: [
+          "ปิดเสียงโทรทัศน์ หรี่ไฟห้องนอนลง",
+          "ชวนลูกเล่นภารกิจ: 'เรามาเป็นรูปปั้นเวทมนตร์ ปิดปาก ปิดตา แล้วเงียบสนิท 60 วินาที'",
+          "ระหว่างที่เงียบ ให้ใช้หูตั้งใจฟังเสียงที่ซ่อนอยู่ในบ้านและนอกบ้าน",
+          "เมื่อหมดเวลา เปิดตาแล้วกระซิบเล่าให้กันฟังว่าได้ยินเสียงอะไรบ้าง (เช่น เสียงลมพัด, เสียงนาฬิกาเดิน, เสียงจิ้งหรีด, เสียงแอร์)"
+        ],
+        outcomes: [
+          "ทักษะการยับยั้งชั่งใจ (Inhibitory Control) องค์ประกอบสำคัญของสมอง EF",
+          "พัฒนาการประมวลผลเสียงและการได้ยิน (Auditory Discrimination)",
+          "ลดทอนเสียงรบกวนรอบตัว เตรียมคลื่นสมองให้พร้อมหลับสนิท"
+        ],
+        parentPrompts: [
+          "เมื่อกี้ลูกได้ยินเสียงกี่เสียงนะ? มีเสียงอะไรที่เบาที่สุดที่หนูจับได้?",
+          "ความเงียบนี้รู้สึกสบายและอบอุ่นดีไหมลูก?"
+        ],
+        safetyWarning: "ไม่มีข้อควรระวังอันตราย เหมาะกับเด็กทุกช่วงวัยก่อนนอน"
+      },
+
+      // 23-27: STEM & BIG KIDS EXPERIMENTS 6-10 YEARS (NEW!)
+      {
+        id: 23,
+        title: "วิศวกรน้อยสะพานไม้ไอติมรับน้ำหนัก (Truss Bridge)",
+        subtitle: "ท้าทายออกแบบสะพานโครงถักรูปสามเหลี่ยม ทดสอบว่ารับน้ำหนักหนังสือได้กี่เล่ม!",
+        icon: "🌉",
+        age: "6+",
+        ageLabel: "6+ ปี",
+        energy: "Medium",
+        energyLabel: "ขยับปานกลาง",
+        location: "table",
+        locationLabel: "บนโต๊ะ / พื้นห้อง",
+        materialType: "recycle",
+        prepTime: "5 นาที",
+        playTime: "40-60 นาที",
+        mainSkill: "วิศวกรรมโครงสร้าง (Structural Engineering) & STEM",
+        tags: ["STEM", "เด็กโต", "แก้ปัญหา", "สิ่งประดิษฐ์"],
+        materials: [
+          "ไม้ไอติม 30-50 แท่ง",
+          "ปืนกาวร้อน (ผู้ปกครองช่วยดูแล) หรือ กาวลาเท็กซ์ / ดินน้ำมัน",
+          "หนังสือเล่มหนา หรือ กระป๋องน้ำอัดลมสำหรับใช้ทดสอบน้ำหนัก"
+        ],
+        steps: [
+          "เรียนรู้หลักการวิศวกรรม: รูปสามเหลี่ยมกระจายแรงได้ดีกว่ารูปสี่เหลี่ยม",
+          "ชวนลูกวางแผนและต่อไม้ไอติมเป็นโครงถักรูปสามเหลี่ยม (Truss)",
+          "ประกอบเป็นสะพานเชื่อมข้ามระหว่างโต๊ะสองตัว หรือเก้าอี้สองตัว",
+          "เริ่มวางน้ำหนักทดสอบทีละชิ้น (วางหนังสือทีละเล่ม) บันทึกว่าสะพานรับน้ำหนักได้สูงสุดเท่าไรก่อนจะเริ่มงอ!"
+        ],
+        outcomes: [
+          "เข้าใจหลักฟิสิกส์เรื่องแรงกด แรงดึง (Tension & Compression) และการกระจายน้ำหนัก",
+          "ฝึกกระบวนการทางวิศวกรรม: ออกแบบ -> สร้าง -> ทดสอบ -> ปรับปรุง (Iterative Design)",
+          "พัฒนาความอดทนและการทำงานละเอียดประณีต"
+        ],
+        parentPrompts: [
+          "ทำไมโครงสร้างรูปสามเหลี่ยมถึงแข็งแรงกว่ารูปสี่เหลี่ยมนะ?",
+          "จุดไหนของสะพานที่ดูเหมือนจะรับน้ำหนักมากที่สุด เราจะเสริมแรงตรงนั้นยังไงดี?"
+        ],
+        safetyWarning: "หากใช้ปืนกาวร้อน ผู้ปกครองควรเป็นผู้หยอดกาวเพื่อป้องกันการโดนลวกมือ"
+      },
+      {
+        id: 24,
+        title: "จรวดลูกโป่งพลังลมรางคู่ (Double Balloon Rocket)",
+        subtitle: "ประดิษฐ์จรวดลูกโป่งพุ่งไปตามเส้นเชือก แข่งขันความเร็วตามกฎการเคลื่อนที่ของนิวตัน",
+        icon: "🚀",
+        age: "6+",
+        ageLabel: "6+ ปี",
+        energy: "High",
+        energyLabel: "ปล่อยพลังเยอะ",
+        location: "in",
+        locationLabel: "ห้องนั่งเล่น / โถงทางเดิน",
+        materialType: "recycle",
+        prepTime: "5 นาที",
+        playTime: "30-45 นาที",
+        mainSkill: "ฟิสิกส์แรงกิริยา-ปฏิกิริยา (Newton's Third Law)",
+        tags: ["STEM", "วิทยาศาสตร์", "แข่งความเร็ว", "ลูกโป่ง"],
+        materials: [
+          "ลูกโป่งทรงยาวหรือทรงกลม 2-4 ลูก",
+          "เชือกฟาง หรือ เอ็นตกปลา ยาว 4-5 เมตร จำนวน 2 เส้น",
+          "หลอดกาแฟตรง 2 อัน",
+          "เทปกาว",
+          "เก้าอี้สำหรับผูกปลายเชือก"
+        ],
+        steps: [
+          "ร้อยเชือกเข้าไปในหลอดกาแฟ แล้วผูกขึงเชือกให้ตึงขนานกันระหว่างเก้าอี้สองฝั่งของห้อง",
+          "เป่าลูกโป่งให้พองแต่ไม่ต้องมัดปาก ใช้มือจับบีบไว้",
+          "ใช้เทปกาวแปะยึดลูกโป่งติดกับหลอดกาแฟที่ร้อยอยู่บนเส้นเชือก",
+          "ดึงลูกโป่งมาที่จุดสตาร์ท นับถอยหลัง '3... 2... 1... ปล่อย!'",
+          "ปล่อยมือจากปากลูกโป่ง ลมที่พุ่งออกจะขับดันลูกโป่งให้พุ่งทะยานไปตามเชือกอย่างรวดเร็ว!"
+        ],
+        outcomes: [
+          "เรียนรู้กฎข้อที่ 3 ของนิวตัน: แรงกิริยาเท่ากับแรงปฏิกิริยา (Action = Reaction)",
+          "ทดลองตัวแปรต้น-ตัวแปรตาม: ปริมาณลมในลูกโป่งส่งผลต่อระยะทางและความเร็วอย่างไร",
+          "สนุกกับการแข่งขันแบบกีฬาผสมวิทยาศาสตร์"
+        ],
+        parentPrompts: [
+          "ลูกโป่งพุ่งไปข้างหน้า ลมพุ่งไปทางไหนนะลูก?",
+          "ถ้าเราเปลี่ยนขนาดหลอดกาแฟ หรือรูปทรงลูกโป่ง จะวิ่งได้เร็วขึ้นไหม?"
+        ],
+        safetyWarning: "เก็บเศษลูกโป่งที่แตกทิ้งทันที ป้องกันเด็กเล็กหยิบเข้าปาก"
+      },
+      {
+        id: 25,
+        title: "เครื่องกรองน้ำธรรมชาติหลายชั้น (DIY Water Filtration)",
+        subtitle: "เปลี่ยนน้ำโคลนขุ่นให้ใสด้วยชั้นกรอง กรวด ทราย และถ่านหุงต้ม",
+        icon: "🧪",
+        age: "6+",
+        ageLabel: "6+ ปี",
+        energy: "Low",
+        energyLabel: "สมาธิ / วิทย์",
+        location: "table",
+        locationLabel: "ระเบียง / อ่างล้างจาน",
+        materialType: "messy",
+        prepTime: "10 นาที",
+        playTime: "35-50 นาที",
+        mainSkill: "นิเวศวิทยา & วิทยาศาสตร์สิ่งแวดล้อม",
+        tags: ["STEM", "การทดลอง", "กรองน้ำ", "ธรรมชาติ"],
+        materials: [
+          "ขวดน้ำพลาสติกใส 1.5 ลิตร (ตัดก้นขวดออก คว่ำปากขวดลง)",
+          "สำลี หรือ ผ้าขาวบาง",
+          "ถ่านหุงต้มทุบเป็นก้อนเล็ก",
+          "ทรายละเอียด และ ทรายหยาบสะอาด",
+          "ก้อนกรวดเล็กและหินมน",
+          "น้ำผสมดินโคลนขุ่นๆ 1 แก้ว"
+        ],
+        steps: [
+          "คว่ำขวดน้ำลง ปิดปากขวดด้วยผ้าขาวบางและสำลีไว้ชั้นล่างสุด",
+          "ใส่ชั้นกรองเรียงลำดับจากล่างขึ้นบน: ถ่านละเอียด -> ทรายละเอียด -> ทรายหยาบ -> ก้อนกรวด",
+          "วางปากขวดรองรับด้วยแก้วน้ำใส",
+          "ค่อยๆ เทน้ำโคลนขุ่นลงไปด้านบน เฝ้าดูน้ำที่ค่อยๆ ซึมผ่านแต่ละชั้น",
+          "สังเกตน้ำที่หยดลงแก้วด้านล่างว่ามีความใสแตกต่างจากตอนแรกอย่างไร!"
+        ],
+        outcomes: [
+          "เข้าใจหลักการกรองเชิงกล (Mechanical Filtration) และการดูดซับกลิ่นของคาร์บอน (ถ่าน)",
+          "ตระหนักถึงคุณค่าของทรัพยากรน้ำและการอนุรักษ์สิ่งแวดล้อม",
+          "ฝึกการบันทึกผลการทดลองเชิงประจักษ์"
+        ],
+        parentPrompts: [
+          "ทำไมเราต้องเอาหินก้อนใหญ่อยู่บนสุด แล้วเอาทรายกับสำลีอยู่ล่างสุดนะ?",
+          "น้ำใสแล้ว เราดื่มได้เลยไหมลูก? (ชวนคุยเรื่องเชื้อโรคขนาดจิ๋วที่ตาเปล่ามองไม่เห็น)"
+        ],
+        safetyWarning: "น้ำที่ผ่านการกรองนี้ใสขึ้นแต่ยังมีแบคทีเรีย **ห้ามดื่มเด็ดขาด** ใช้เพื่อการเรียนรู้เท่านั้น"
+      },
+      {
+        id: 26,
+        title: "สมุดเปิดไวภาพยนตร์อนิเมชัน (Flipbook Animation)",
+        subtitle: "วาดรูปต่อเนื่องที่ขอบกระดาษ แล้วกรีดเปิดไวๆ สร้างภาพเคลื่อนไหวมหัศจรรย์",
+        icon: "🎬",
+        age: "6+",
+        ageLabel: "6+ ปี",
+        energy: "Low",
+        energyLabel: "สงบ / ศิลปะ",
+        location: "table",
+        locationLabel: "บนโต๊ะเขียนหนังสือ",
+        materialType: "recycle",
+        prepTime: "2 นาที",
+        playTime: "30-50 นาที",
+        mainSkill: "ภาพลวงตาทางสายตา (Persistence of Vision) & อนิเมชัน",
+        tags: ["STEM", "อนิเมชัน", "วาดรูป", "เด็กโต"],
+        materials: [
+          "สมุดกระดาษโน้ตเล่มเล็กหนาๆ (Sticky notes หรือ สมุดฉีก)",
+          "ดินสอ หรือ ปากกาเมจิก"
+        ],
+        steps: [
+          "เปิดไปที่หน้าสุดท้ายของสมุด วาดรูปง่ายๆ ชิดขอบกระดาษ (เช่น มนุษย์กิ่งไม้ หรือ ลูกบอลอยู่บนพื้น)",
+          "เปิดขึ้นมาหน้าก่อนหน้า วาดรูปเดิมแต่ขยับตำแหน่งไปเล็กน้อย (เช่น ลูกบอลลอยสูงขึ้น)",
+          "ทำซ้ำต่อเนื่องกัน 15-20 หน้า",
+          "ใช้นิ้วหัวแม่มือกรีดเปิดขอบสมุดอย่างรวดเร็ว ภาพนิ่งจะเคลื่อนไหวเหมือนการ์ตูนทีวี!"
+        ],
+        outcomes: [
+          "เข้าใจปรากฏการณ์ภาพติดตาของมนุษย์ (Persistence of Vision) ซึ่งเป็นพื้นฐานของภาพยนตร์",
+          "ฝึกการคิดเป็นลำดับขั้นตอน (Sequential Planning)",
+          "เสริมสร้างสมาธิ ความแม่นยำ และความคิดสร้างสรรค์เชิงศิลปะดิจิทัลเบื้องต้น"
+        ],
+        parentPrompts: [
+          "ถ้าเราวาดระยะห่างของลูกบอลแต่ละหน้าให้กว้างขึ้น ลูกบอลจะเด้งเร็วขึ้นหรือช้าลงนะ?",
+          "ลองเพิ่มตัวละครอีกตัวเข้ามาทักทายกันดูไหม?"
+        ],
+        safetyWarning: "ระวังขอบกระดาษบาดนิ้วมือ ควรเลือกสมุดที่มุมกระดาษไม่แหลมคม"
+      },
+      {
+        id: 27,
+        title: "เรือพลังงานแรงตึงผิวน้ำ (Surface Tension Boat)",
+        subtitle: "เรือกระดาษจิ๋วพุ่งวาบเมื่อหยดน้ำยาล้างจาน เรียนรู้ฟิสิกส์แรงตึงผิวของน้ำ",
+        icon: "🚤",
+        age: "6+",
+        ageLabel: "6+ ปี",
+        energy: "Low",
+        energyLabel: "สงบ / การทดลอง",
+        location: "table",
+        locationLabel: "ถาดน้ำ / ห้องครัว",
+        materialType: "messy",
+        prepTime: "3 นาที",
+        playTime: "20-30 นาที",
+        mainSkill: "วิทยาศาสตร์เคมีฟิสิกส์ (Surface Tension Physics)",
+        tags: ["STEM", "การทดลองวิทย์", "เล่นน้ำ"],
+        materials: [
+          "กระดาษแข็ง หรือ แผ่นพลาสติกบางๆ (เช่น ฝากล่องพลาสติกใส)",
+          "กรรไกร",
+          "ถาดใส่น้ำ หรือ อ่างน้ำกว้างๆ",
+          "น้ำยาล้างจาน 1 หยด และ ไม้จิ้มฟัน"
+        ],
+        steps: [
+          "ตัดกระดาษแข็งเป็นรูปหัวเรือสามเหลี่ยม ขนาดประมาณ 3-4 ซม. และบากเป็นร่องรูปตัว V ที่ท้ายเรือ",
+          "วางเรือเบาๆ บนผิวน้ำที่นิ่งสนิท",
+          "นำปลายไม้จิ้มฟันจุ่มน้ำยาล้างจานเพียงเล็กน้อย",
+          "นำไม้จิ้มฟันไปแตะที่ผิวน้ำตรงร่องตัว V ท้ายเรือ... สังเกตเรือจะพุ่งไปข้างหน้าอย่างรวดเร็วราวกับติดเครื่องยนต์!"
+        ],
+        outcomes: [
+          "เรียนรู้เรื่องแรงตึงผิวของน้ำ และคุณสมบัติของสารลดแรงตึงผิว (Surfactant)",
+          "เข้าใจปรากฏการณ์ Marangoni Effect แบบเห็นภาพจริง",
+          "ส่งเสริมการสังเกตรายละเอียดเล็กๆ ในธรรมชาติ"
+        ],
+        parentPrompts: [
+          "ทำไมพอแตะน้ำยาล้างจานครั้งแรกเรือถึงพุ่งได้ แต่พอแตะซ้ำรอบสองในน้ำเดิมเรือถึงไม่ค่อยวิ่งแล้วล่ะ?",
+          "(เฉลยชวนคิด: เพราะแรงตึงผิวในน้ำถูกทำลายไปหมดแล้ว ต้องเปลี่ยนน้ำใหม่)"
+        ],
+        safetyWarning: "ระวังน้ำยาล้างจานกระเด็นเข้าตา ล้างมือให้สะอาดหลังการทดลอง"
+      },
+
+      // 28-32: SENSORY & MOTOR PLAY FOR BABIES/TODDLERS 0-3 YEARS (NEW!)
+      {
+        id: 28,
+        title: "บ่อขุดค้นสมบัติข้าวสารสีรุ้ง (Rainbow Rice Sensory)",
+        subtitle: "สัมผัสเม็ดข้าวสารหลากสี ตัก เท ฝังกลบของเล่น ปลุกประสาทสัมผัสแบบมอนเตสซอรี่",
+        icon: "🌈",
+        age: "1-3",
+        ageLabel: "1-3 ปี",
+        energy: "Medium",
+        energyLabel: "ขยับปานกลาง",
+        location: "table",
+        locationLabel: "ในบ้าน / กะละมังบนพรม",
+        materialType: "messy",
+        prepTime: "5 นาที",
+        playTime: "30-50 นาที",
+        mainSkill: "การบูรณาการประสาทสัมผัส (Sensory Processing)",
+        tags: ["Sensory", "มอนเตสซอรี่", "เด็กเล็ก", "ข้าวสาร"],
+        materials: [
+          "ข้าวสาร 3-4 ถ้วย (ย้อมสีผสมอาหารผสมน้ำส้มสายชูเล็กน้อยแล้วตากแห้ง หรือใช้ข้าวสารธรรมชาติ)",
+          "กะละมัง หรือ กระบะพลาสติกขอบเตี้ย",
+          "ช้อน ถ้วยตวง กรวย และของเล่นชิ้นเล็กๆ ที่ซ่อนไว้ใต้ข้าวสาร"
+        ],
+        steps: [
+          "เทข้าวสารสีรุ้งลงในกระบะ",
+          "ซ่อนของเล่น เช่น ไดโนเสาร์ หรือ ฝาขวดน้ำ ไว้ใต้ชั้นข้าวสาร",
+          "ให้ลูกใช้มือเปล่าคุ้ย เขี่ย สัมผัสเม็ดข้าวสาร ค้นหาของเล่นที่ซ่อนอยู่",
+          "ให้เด็กใช้ช้อนตักข้าวสารใส่ถ้วย เทผ่านกรวย ฝึกฟังเสียงเม็ดข้าวตกกระทบกะละมัง"
+        ],
+        outcomes: [
+          "พัฒนาการประสานงานของกล้ามเนื้อมือและข้อมือ (Wrist Stability)",
+          "ให้ความรู้สึกสงบและผ่อนคลายอย่างน่าอัศจรรย์ผ่านการสัมผัสเนื้อละเอียด",
+          "ฝึกสมาธิและความจดจ่ออยู่กับงานตรงหน้าได้อย่างยาวนาน"
+        ],
+        parentPrompts: [
+          "เสียงข้าวสารไหลลงถ้วยฟังดูเหมือนเสียงอะไรนะลูก? เหมือนฝนตกไหม?",
+          "ในมือน้องตอนนี้รู้สึกเย็นๆ หรืออุ่นๆ เอ่ย?"
+        ],
+        safetyWarning: "ระวังเด็กเล็กนำข้าวสารเข้าปากหรือยัดใส่จมูก ต้องมีผู้ปกครองดูแลไม่คลาดสายตา"
+      },
+      {
+        id: 29,
+        title: "แป้งโดว์โฮมเมดสูตรปลอดภัย (Taste-Safe Playdough)",
+        subtitle: "ปั้น ขยำ นวด แป้งโดว์ทำเองจากแป้งสาลีและน้ำมันพืช ไร้สารเคมี ปลอดภัยต่อเด็กเล็ก",
+        icon: "🥟",
+        age: "1-3",
+        ageLabel: "1-3 ปี",
+        energy: "Medium",
+        energyLabel: "ขยับปานกลาง",
+        location: "table",
+        locationLabel: "บนโต๊ะอาหาร / ถาดรอง",
+        materialType: "messy",
+        prepTime: "8 นาที",
+        playTime: "30-45 นาที",
+        mainSkill: "ความแข็งแรงของอุ้งมือและนิ้วมือ (Hand Strength)",
+        tags: ["Sensory", "ปั้นแป้ง", "ปลอดภัย", "เด็กเล็ก"],
+        materials: [
+          "แป้งสาลีอเนกประสงค์ 1 ถ้วย",
+          "เกลือป่น 1/4 ถ้วย",
+          "น้ำอุ่น 1/2 ถ้วย ผสมสีผสมอาหาร",
+          "น้ำมันพืช 1 ช้อนโต๊ะ",
+          "พิมพ์กดคุกกี้ หรือ ไม้คลึงแป้งของเล่น"
+        ],
+        steps: [
+          "ผสมแป้งสาลี เกลือ น้ำมันพืช และน้ำอุ่นสีสวยในชาม ผสมและนวดจนเนียนไม่ติดมือ (ไม่ต้องตั้งไฟ)",
+          "ให้ลูกช่วยขยำ บีบ นวด ดึงแป้งยืดออก",
+          "ปั้นเป็นก้อนกลมๆ ทำเป็นขนมเค้กจำลอง หรือสัตว์ตัวโปรด",
+          "ใช้ช้อนหรือพิมพ์กดลายลงบนเนื้อแป้งโดว์"
+        ],
+        outcomes: [
+          "เสริมสร้างกล้ามเนื้ออุ้งมือ ซึ่งเป็นพื้นฐานสำคัญที่สุดของการเขียนหนังสือ",
+          "ส่งเสริมจินตนาการสามมิติ (3D Spatial Thinking)",
+          "ปลอดภัย 100% แม้เด็กเล็กจะเผลอนำเข้าปากชิม (แต่จะเค็มจนเด็กคายออกเองตามธรรมชาติ)"
+        ],
+        parentPrompts: [
+          "เนื้อแป้งนิ่มเหมือนอะไรนะ? มาช่วยแม่ทำขนมปังอบกันเถอะ!",
+          "ถ้าเราเอาสีเหลืองมานวดผสมกับสีแดง แป้งจะกลายเป็นสีอะไรนะลูก?"
+        ],
+        safetyWarning: "แม้จะเป็น Taste-safe แต่ไม่ใช่อาหารสำหรับรับประทานจริง ไม่ควรให้เด็กกลืนกินเป็นปริมาณมาก"
+      },
+      {
+        id: 30,
+        title: "ตกปลาแม่เหล็กฝาขวดน้ำ (Magnetic Bottle Fishing)",
+        subtitle: "ภารกิจตกปลาจำลองในกะละมัง ฝึกสมาธิและความแม่นยำของสายตากับมือ",
+        icon: "🎣",
+        age: "1-3",
+        ageLabel: "1-3 ปี",
+        energy: "Low",
+        energyLabel: "สงบ / ฝึกสมาธิ",
+        location: "in",
+        locationLabel: "ในบ้าน / ถาดน้ำ",
+        materialType: "recycle",
+        prepTime: "5 นาที",
+        playTime: "20-30 นาที",
+        mainSkill: "ความสัมพันธ์ระหว่างสายตากับมือ (Hand-Eye Coordination)",
+        tags: ["สมาธิ", "แม่เหล็ก", "ตกปลา", "ของรีไซเคิล"],
+        materials: [
+          "ฝาขวดน้ำพลาสติก 8-10 ฝา (เสียบคลิปหนีบกระดาษโลหะไว้ที่ฝา)",
+          "ตะเกียบ หรือ กิ่งไม้สั้น 1 อัน",
+          "เชือกยาวประมาณ 30 ซม.",
+          "แม่เหล็กกลมขนาดเล็กมัดติดที่ปลายเชือก",
+          "กะละมังใส่น้ำตื้นๆ"
+        ],
+        steps: [
+          "นำฝาขวดน้ำติดคลิปโลหะไปลอยน้ำในกะละมังเป็น 'ฝูงปลา'",
+          "ส่งคันเบ็ดแม่เหล็กให้ลูกถือ",
+          "ให้ลูกเล็งและหย่อนแม่เหล็กให้ดูดติดคลิปหนีบกระดาษเพื่อดึงปลาขึ้นมาจากน้ำ",
+          "เมื่อตกได้ ให้ชวนลูกนับจำนวนปลาที่จับได้และแยกตามสีของฝาขวด"
+        ],
+        outcomes: [
+          "ฝึกสมาธิจดจ่อและการอยู่นิ่งเพื่อเล็งเป้าหมาย",
+          "เรียนรู้แรงดึงดูดของแม่เหล็กกับโลหะ",
+          "ฝึกการควบคุมกล้ามเนื้อแขนให้นิ่งและมั่นคง"
+        ],
+        parentPrompts: [
+          "ปลาตัวสีฟ้ากำลังว่ายน้ำมาแล้ว! ค่อยๆ หย่อนเบ็ดลงไปนะลูก...",
+          "ติดแล้ว! เย้! ตัวนี้ตัวใหญ่มากเลยใช่ไหม?"
+        ],
+        safetyWarning: "มัดแม่เหล็กให้แน่นหนาป้องกันการหลุดกลืน และระวังคลิปหนีบกระดาษแหลมคม"
+      },
+      {
+        id: 31,
+        title: "อุโมงค์ลอดกล่องลังรถไฟยักษ์ (Cardboard Box Tunnel)",
+        subtitle: "เปลี่ยนกล่องพัสดุเป็นอุโมงค์ลับและโบกี้รถไฟ ฝึกคลานเสริมสร้างสมองสองซีก",
+        icon: "🚂",
+        age: "0-1",
+        ageLabel: "0-1 ปี",
+        energy: "High",
+        energyLabel: "ปล่อยพลังเยอะ",
+        location: "in",
+        locationLabel: "พื้นห้องนั่งเล่น",
+        materialType: "recycle",
+        prepTime: "3 นาที",
+        playTime: "20-35 นาที",
+        mainSkill: "การเคลื่อนไหวสลับข้าง (Cross-Lateral Crawling)",
+        tags: ["เด็กเล็ก", "คลาน", "กล่องลัง", "ปล่อยพลัง"],
+        materials: [
+          "กล่องกระดาษพัสดุขนาดใหญ่ 1-2 กล่อง (เปิดหัว-ท้ายทะลุกัน)",
+          "ผ้าห่มนุ่มๆ ปูรองด้านในกล่อง",
+          "ของเล่นมีเสียงกรุ๊งกริ๊งวางไว้ปลายอุโมงค์"
+        ],
+        steps: [
+          "เปิดฝากล่องกระดาษทั้งสองฝั่งให้เป็นท่ออุโมงค์ลอด",
+          "คุณพ่อยืนอยู่ฝั่งหนึ่ง คุณแม่อยู่ปลายอีกฝั่งหนึ่ง",
+          "เขย่าของเล่นให้มีเสียงเรียกร้องความสนใจที่ปลายอุโมงค์: 'จ๊ะเอ๋! มุดมาหาแม่เร็วคนเก่ง'",
+          "ให้ลูกคลานมุดผ่านอุโมงค์กล่องกระดาษด้วยความตื่นเต้น",
+          "เจาะหน้าต่างเล็กๆ ด้านข้างกล่องไว้เล่นจ๊ะเอ๋มองลอดออกมา"
+        ],
+        outcomes: [
+          "การคลานสลับแขนขา (Cross-Crawl) มีความสำคัญสูงสุดต่อการเชื่อมต่อของเส้นประสาทสมองสองซีก (Corpus Callosum)",
+          "สร้างความกล้าหาญ เอาชนะความกลัวในพื้นที่ปิดมืด",
+          "พัฒนากล้ามเนื้อไหล่ แขน และสะโพก"
+        ],
+        parentPrompts: [
+          "จ๊ะเอ๋! เห็นหน้าแม่ไหมลูก? รถไฟปู๊นๆ กำลังจะออกจากอุโมงค์แล้ว!",
+          "เก่งมากเลย คลานออกมาหาพ่อได้แล้ว!"
+        ],
+        safetyWarning: "ตรวจดูลวดเย็บกระดาษ (ลูกแม็กซ์) และเศษเทปกาวคมๆ ในกล่องลังออกให้หมดก่อนให้เด็กเล่น"
+      },
+      {
+        id: 32,
+        title: "ภาพประทับรอยนิ้วมือและฝ่าเท้าสัตว์แฟนซี (Handprint Art)",
+        subtitle: "แต้มสีลงบนฝ่ามือและฝ่าเท้า ประทับลงกระดาษแปลงร่างเป็นยีราฟและผีเสื้อ",
+        icon: "🖐️",
+        age: "0-1",
+        ageLabel: "0-1 ปี",
+        energy: "Low",
+        energyLabel: "สงบ / ศิลปะ",
+        location: "table",
+        locationLabel: "บนโต๊ะ / แผ่นรองกันเลอะ",
+        materialType: "messy",
+        prepTime: "4 นาที",
+        playTime: "15-25 นาที",
+        mainSkill: "การรับรู้สัมผัสทางผิวหนัง (Tactile Perception) & บันทึกความทรงจำ",
+        tags: ["0-1 ปี", "ทารก", "ความทรงจำ", "ศิลปะ"],
+        materials: [
+          "สีฟิงเกอร์เพ้นท์สำหรับเด็ก (Non-Toxic & Washable finger paint)",
+          "กระดาษวาดเขียนแผ่นหนา หรือ แคนวาสผ้า",
+          "ผ้าเปียกเช็ดทำความสะอาดทันที",
+          "ปากกาเมจิกสำหรับคุณพ่อคุณแม่ช่วยวาดเติมตา จมูก หู"
+        ],
+        steps: [
+          "ทาสีลงบนฝ่ามือหรือฝ่าเท้าของลูกเบาๆ (ให้ลูกได้สัมผัสความเย็นและนุ่มของเนื้อสี)",
+          "ประทับฝ่ามือหรือฝ่าเท้าลงบนกระดาษขาวอย่างอ่อนโยน",
+          "เช็ดทำความสะอาดมือและเท้าของลูกทันที",
+          "เมื่อสีแห้ง ชวนลูกดูรอยประทับ แล้วใช้ปากกาเติมรายละเอียด: รอยฝ่าเท้ากลายเป็นตัวยีราฟ, รอยฝ่ามือคู่กันกลายเป็นปีกผีเสื้อแสนสวย",
+          "เขียนวันที่และอายุของลูกไว้เป็นของขวัญความทรงจำครอบครัว"
+        ],
+        outcomes: [
+          "กระตุ้นหน่วยรับความรู้สึกใต้ผิวหนัง (Tactile Stimulation)",
+          "สร้างการรับรู้ตัวตน (Self-concept) ว่านี่คือรอยมือและรอยเท้าของตนเอง",
+          "เป็นชิ้นงานศิลปะความทรงจำอันทรงคุณค่าที่เก็บไว้ดูเมื่อเติบโต"
+        ],
+        parentPrompts: [
+          "สีเย็นสบายมือไหมลูก? ดูกล้ามเนื้อมือจิ๋วของหนูสิ!",
+          "รอยเท้าน้อยๆ นี้แปลงร่างกลายเป็นเจ้ายีราฟคอยาวแล้วนะ!"
+        ],
+        safetyWarning: "ใช้เฉพาะสีที่ผ่านการรับรองความปลอดภัยสำหรับเด็กทารก (Non-toxic) และล้างออกทันทีหลังพิมพ์รอย"
+      }
+    ];
+
+    // APPLICATION STATE
+    let currentFilters = {
+      age: 'all',
+      energy: 'all',
+      location: 'all',
+      material: 'all',
+      search: ''
+    };
+    let favorites = JSON.parse(localStorage.getItem('playpal_favorites') || '[]');
+    let isFavoritesOnlyView = false;
+    let currentlySelectedActivity = null;
+    let rouletteInterval = null;
+
+    // INITIALIZATION
+    document.addEventListener('DOMContentLoaded', () => {
+      updateFavoritesCounter();
+      renderActivities();
+    });
+
+    // RENDER ACTIVITIES GRID
+    function renderActivities() {
+      const grid = document.getElementById('activityGrid');
+      const emptyState = document.getElementById('emptyState');
+      const resultCount = document.getElementById('resultCount');
+
+      const filtered = activities.filter(act => {
+        // Favorites filter view
+        if (isFavoritesOnlyView && !favorites.includes(act.id)) {
+          return false;
+        }
+
+        // Age filter
+        if (currentFilters.age !== 'all') {
+          if (currentFilters.age === '0-1' && act.age !== '0-1') return false;
+          if (currentFilters.age === '1-3' && act.age !== '1-3') return false;
+          if (currentFilters.age === '3-6' && act.age !== '3-6') return false;
+          if (currentFilters.age === '6+' && act.age !== '6+') return false;
+        }
+
+        // Energy filter
+        if (currentFilters.energy !== 'all' && act.energy !== currentFilters.energy) {
+          return false;
+        }
+
+        // Location filter
+        if (currentFilters.location !== 'all' && act.location !== currentFilters.location) {
+          return false;
+        }
+
+        // Material filter
+        if (currentFilters.material !== 'all' && act.materialType !== currentFilters.material) {
+          return false;
+        }
+
+        // Search text filter
+        if (currentFilters.search.trim()) {
+          const q = currentFilters.search.toLowerCase();
+          const matchTitle = act.title.toLowerCase().includes(q);
+          const matchSubtitle = act.subtitle.toLowerCase().includes(q);
+          const matchMaterials = act.materials.some(m => m.toLowerCase().includes(q));
+          const matchSkill = act.mainSkill.toLowerCase().includes(q);
+          const matchTags = act.tags.some(t => t.toLowerCase().includes(q));
+          const matchLocation = act.locationLabel.toLowerCase().includes(q);
+          if (!matchTitle && !matchSubtitle && !matchMaterials && !matchSkill && !matchTags && !matchLocation) {
+            return false;
+          }
+        }
+
+        return true;
+      });
+
+      resultCount.textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+
+      grid.innerHTML = filtered.map(act => {
+        const isFav = favorites.includes(act.id);
+        const energyBg = act.energy === 'High' ? 'bg-rose-50 text-rose-700 border-rose-200' :
+                         act.energy === 'Medium' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                         'bg-emerald-50 text-emerald-700 border-emerald-200';
+
+        const locationBadge = act.location === 'car' ? '🚗 ในรถ' :
+                              act.location === 'bedtime' ? '🛏️ ก่อนนอน' :
+                              act.location === 'table' ? '🪑 บนโต๊ะ' :
+                              act.location === 'out' ? '🌳 นอกบ้าน' : '🏠 ในบ้าน';
+
+        return `
+          <div class="bg-white rounded-3xl p-5 sm:p-6 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 relative">
+            
+            <!-- Card Top: Badges & Favorite Button -->
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200/60">
+                    👶 ${act.ageLabel}
+                  </span>
+                  <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200/60">
+                    ${locationBadge}
+                  </span>
+                  <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold border ${energyBg}">
+                    ${act.energyLabel}
+                  </span>
+                </div>
+
+                <button 
+                  onclick="toggleFavorite(${act.id}, event)" 
+                  title="บันทึกกิจกรรมโปรด"
+                  class="w-9 h-9 rounded-full flex items-center justify-center transition ${isFav ? 'bg-amber-50 text-amber-500 scale-110' : 'bg-slate-50 text-slate-400 hover:bg-amber-50 hover:text-amber-500'}"
+                >
+                  <span class="text-base">${isFav ? '⭐' : '🤍'}</span>
+                </button>
+              </div>
+
+              <!-- Icon & Title -->
+              <div class="flex items-start gap-3.5 mb-3">
+                <div class="w-12 h-12 rounded-2xl bg-amber-50/80 border border-amber-200/50 flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition-transform">
+                  ${act.icon}
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-base sm:text-lg group-hover:text-brand-coral transition leading-snug">
+                    ${act.title}
+                  </h4>
+                  <span class="inline-block text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md mt-1">
+                    🎯 ${act.mainSkill}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Subtitle / Short Description -->
+              <p class="text-xs sm:text-sm text-slate-500 line-clamp-2 mb-4 leading-relaxed">
+                ${act.subtitle}
+              </p>
+
+              <!-- Materials sample preview -->
+              <div class="mb-4 text-xs text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                <div class="font-semibold text-slate-400 text-[10px] uppercase mb-1">อุปกรณ์หลัก:</div>
+                <div class="truncate text-slate-700">📦 ${act.materials[0]}</div>
+              </div>
+            </div>
+
+            <!-- Card Bottom Action Bar -->
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+              <span class="flex items-center gap-1">
+                ⏱️ เตรียม ${act.prepTime}
+              </span>
+              <button 
+                onclick="openDetailModal(${act.id})" 
+                class="px-3.5 py-1.5 rounded-xl font-bold bg-amber-50 hover:bg-brand-coral text-amber-900 hover:text-white border border-amber-200 hover:border-transparent transition-all duration-200 flex items-center gap-1"
+              >
+                <span>ดูวิธีเล่น</span>
+                <span>👉</span>
+              </button>
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    // FILTER LOGIC
+    function setFilter(type, value) {
+      currentFilters[type] = value;
+      
+      // Update UI buttons active state
+      const containerId = type === 'age' ? 'ageFilters' :
+                          type === 'energy' ? 'energyFilters' :
+                          type === 'location' ? 'locationFilters' : 'materialFilters';
+      
+      const buttons = document.getElementById(containerId).querySelectorAll('.filter-btn');
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-val') === value) {
+          btn.classList.remove('inactive-filter');
+          btn.classList.add('active-filter');
+        } else {
+          btn.classList.remove('active-filter');
+          btn.classList.add('inactive-filter');
+        }
+      });
+
+      updateActiveFilterTags();
+      renderActivities();
+    }
+
+    // UPDATE ACTIVE FILTER BADGES
+    function updateActiveFilterTags() {
+      const tagContainer = document.getElementById('activeFilterTags');
+      const activeTags = [];
+
+      if (currentFilters.age !== 'all') activeTags.push(`วัย: ${currentFilters.age}`);
+      if (currentFilters.energy !== 'all') activeTags.push(`พลัง: ${currentFilters.energy}`);
+      if (currentFilters.location !== 'all') {
+        const locLabel = currentFilters.location === 'car' ? 'ในรถ' :
+                         currentFilters.location === 'bedtime' ? 'ก่อนนอน' :
+                         currentFilters.location === 'table' ? 'บนโต๊ะ' :
+                         currentFilters.location === 'out' ? 'นอกบ้าน' : 'ในบ้าน';
+        activeTags.push(`ที่: ${locLabel}`);
+      }
+      if (currentFilters.material !== 'all') activeTags.push(`อุปกรณ์: ${currentFilters.material}`);
+      if (currentFilters.search) activeTags.push(`ค้นหา: "${currentFilters.search}"`);
+
+      if (activeTags.length > 0) {
+        tagContainer.innerHTML = activeTags.map(t => 
+          `<span class="bg-amber-100/70 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-md">${t}</span>`
+        ).join('');
+      } else {
+        tagContainer.innerHTML = '';
+      }
+    }
+
+    // RESET ALL FILTERS
+    function resetFilters() {
+      currentFilters = { age: 'all', energy: 'all', location: 'all', material: 'all', search: '' };
+      document.getElementById('searchInput').value = '';
+      document.getElementById('clearSearchBtn').classList.add('hidden');
+      isFavoritesOnlyView = false;
+      document.getElementById('favoritesNoticeBadge').classList.add('hidden');
+      document.getElementById('currentViewTitle').textContent = 'คลังไอเดียกิจกรรมทั้งหมด';
+      
+      ['ageFilters', 'energyFilters', 'locationFilters', 'materialFilters'].forEach(id => {
+        const btns = document.getElementById(id).querySelectorAll('.filter-btn');
+        btns.forEach(b => {
+          if (b.getAttribute('data-val') === 'all') {
+            b.classList.remove('inactive-filter');
+            b.classList.add('active-filter');
+          } else {
+            b.classList.remove('active-filter');
+            b.classList.add('inactive-filter');
+          }
+        });
+      });
+
+      updateActiveFilterTags();
+      renderActivities();
+    }
+
+    // SEARCH HANDLING
+    function handleSearch(val) {
+      currentFilters.search = val;
+      const clearBtn = document.getElementById('clearSearchBtn');
+      if (val.trim()) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+      updateActiveFilterTags();
+      renderActivities();
+    }
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      handleSearch('');
+    }
+
+    // FAVORITES (LOCAL STORAGE)
+    function toggleFavorite(id, event) {
+      if (event) event.stopPropagation();
+      const index = favorites.indexOf(id);
+      if (index > -1) {
+        favorites.splice(index, 1);
+      } else {
+        favorites.push(id);
+      }
+      localStorage.setItem('playpal_favorites', JSON.stringify(favorites));
+      updateFavoritesCounter();
+      renderActivities();
+
+      // If modal is open, sync modal favorite button too
+      if (currentlySelectedActivity && currentlySelectedActivity.id === id) {
+        syncModalFavButton();
+      }
+    }
+
+    function updateFavoritesCounter() {
+      const count = favorites.length;
+      document.getElementById('favCountBadge').textContent = count;
+    }
+
+    function toggleFavoritesView() {
+      isFavoritesOnlyView = !isFavoritesOnlyView;
+      const title = document.getElementById('currentViewTitle');
+      const badge = document.getElementById('favoritesNoticeBadge');
+      const favBtn = document.getElementById('favTabBtn');
+
+      if (isFavoritesOnlyView) {
+        title.textContent = 'กิจกรรมโปรดที่คุณบันทึกไว้';
+        badge.classList.remove('hidden');
+        favBtn.classList.add('ring-2', 'ring-amber-400', 'bg-amber-100');
+      } else {
+        title.textContent = 'คลังไอเดียกิจกรรมทั้งหมด';
+        badge.classList.add('hidden');
+        favBtn.classList.remove('ring-2', 'ring-amber-400', 'bg-amber-100');
+      }
+      renderActivities();
+    }
+
+    // DETAIL MODAL
+    function openDetailModal(id) {
+      const act = activities.find(a => a.id === id);
+      if (!act) return;
+      currentlySelectedActivity = act;
+
+      document.getElementById('modalIcon').textContent = act.icon;
+      document.getElementById('modalTitle').textContent = act.title;
+      document.getElementById('modalSubtitle').textContent = act.subtitle;
+      document.getElementById('modalPrepTime').textContent = act.prepTime;
+      document.getElementById('modalPlayTime').textContent = act.playTime;
+      document.getElementById('modalEnergy').textContent = act.energyLabel;
+      document.getElementById('modalLocation').textContent = act.locationLabel;
+      document.getElementById('modalSafetyText').textContent = act.safetyWarning;
+
+      // Badges
+      const badgesContainer = document.getElementById('modalBadges');
+      badgesContainer.innerHTML = `
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700">👶 ${act.ageLabel}</span>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800">🎯 ${act.mainSkill}</span>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-800">📍 ${act.locationLabel}</span>
+      `;
+
+      // Materials Checklist
+      const materialsContainer = document.getElementById('modalMaterialsList');
+      materialsContainer.innerHTML = act.materials.map((m, idx) => `
+        <label class="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100/80 cursor-pointer transition select-none text-xs sm:text-sm">
+          <input type="checkbox" class="mt-0.5 w-4 h-4 rounded text-brand-coral focus:ring-brand-coral/30 cursor-pointer" onchange="this.nextElementSibling.classList.toggle('line-through', this.checked); this.nextElementSibling.classList.toggle('text-slate-400', this.checked)">
+          <span class="text-slate-700 leading-snug">${m}</span>
+        </label>
+      `).join('');
+
+      // Steps List
+      const stepsContainer = document.getElementById('modalStepsList');
+      stepsContainer.innerHTML = act.steps.map((step, idx) => `
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-full bg-amber-100 text-amber-800 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
+            ${idx + 1}
+          </div>
+          <p class="text-slate-700 leading-relaxed text-xs sm:text-sm">${step}</p>
+        </div>
+      `).join('');
+
+      // Outcomes List
+      const outcomesContainer = document.getElementById('modalOutcomesList');
+      outcomesContainer.innerHTML = act.outcomes.map(out => `<li>${out}</li>`).join('');
+
+      // Parent Prompts
+      const promptsContainer = document.getElementById('modalParentPrompts');
+      promptsContainer.innerHTML = act.parentPrompts.map(p => `<div>“${p}”</div>`).join('');
+
+      syncModalFavButton();
+
+      // Show Modal with Animation
+      const modal = document.getElementById('detailModal');
+      const container = document.getElementById('modalContainer');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      container.classList.remove('scale-95');
+      container.classList.add('scale-100');
+    }
+
+    function closeDetailModal() {
+      const modal = document.getElementById('detailModal');
+      const container = document.getElementById('modalContainer');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.classList.remove('opacity-100');
+      container.classList.add('scale-95');
+      container.classList.remove('scale-100');
+      currentlySelectedActivity = null;
+    }
+
+    function syncModalFavButton() {
+      if (!currentlySelectedActivity) return;
+      const isFav = favorites.includes(currentlySelectedActivity.id);
+      const icon = document.getElementById('modalFavIcon');
+      const text = document.getElementById('modalFavText');
+      if (isFav) {
+        icon.textContent = '⭐';
+        text.textContent = 'บันทึกแล้ว (คลิกเพื่อยกเลิก)';
+      } else {
+        icon.textContent = '🤍';
+        text.textContent = 'บันทึกกิจกรรมนี้';
+      }
+    }
+
+    function toggleModalFavorite() {
+      if (!currentlySelectedActivity) return;
+      toggleFavorite(currentlySelectedActivity.id);
+    }
+
+    // RANDOMIZER (BOREDOM BUSTER ROULETTE)
+    let pickedRandomActivity = null;
+
+    function triggerRandomizer() {
+      const modal = document.getElementById('randomModal');
+      const container = document.getElementById('randomContainer');
+      const nameEl = document.getElementById('rouletteActivityName');
+      const skillEl = document.getElementById('rouletteActivitySkill');
+      const viewBtn = document.getElementById('viewPickedBtn');
+      const titleEl = document.getElementById('randomModalTitle');
+      const iconEl = document.getElementById('rouletteIcon');
+
+      viewBtn.classList.add('hidden');
+      titleEl.textContent = 'กำลังสุ่มกิจกรรมปราบเบื่อ...';
+      iconEl.textContent = '🎲';
+      iconEl.classList.add('animate-spin');
+
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      container.classList.remove('scale-90');
+      container.classList.add('scale-100');
+
+      let counter = 0;
+      const totalTicks = 18;
+      
+      if (rouletteInterval) clearInterval(rouletteInterval);
+
+      rouletteInterval = setInterval(() => {
+        const randIndex = Math.floor(Math.random() * activities.length);
+        const item = activities[randIndex];
+        nameEl.textContent = `${item.icon} ${item.title}`;
+        skillEl.textContent = `🎯 ${item.mainSkill}`;
+        counter++;
+
+        if (counter >= totalTicks) {
+          clearInterval(rouletteInterval);
+          pickedRandomActivity = item;
+          iconEl.classList.remove('animate-spin');
+          iconEl.textContent = item.icon;
+          titleEl.textContent = '🎉 กิจกรรมวันนี้คือ!';
+          nameEl.textContent = `${item.icon} ${item.title}`;
+          skillEl.textContent = `👶 ${item.ageLabel} • ⏱️ เตรียม ${item.prepTime} • 🎯 ${item.mainSkill}`;
+          viewBtn.classList.remove('hidden');
+        }
+      }, 80);
+    }
+
+    function closeRandomModal() {
+      if (rouletteInterval) clearInterval(rouletteInterval);
+      const modal = document.getElementById('randomModal');
+      const container = document.getElementById('randomContainer');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.classList.remove('opacity-100');
+      container.classList.add('scale-90');
+      container.classList.remove('scale-100');
+    }
+
+    function openPickedActivity() {
+      if (!pickedRandomActivity) return;
+      const id = pickedRandomActivity.id;
+      closeRandomModal();
+      setTimeout(() => {
+        openDetailModal(id);
+      }, 200);
+    }
+
+    // CLOSE ON ESCAPE & BACKDROP CLICK
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDetailModal();
+        closeRandomModal();
+      }
+    });
+
+    document.getElementById('detailModal').addEventListener('click', (e) => {
+      if (e.target.id === 'detailModal') closeDetailModal();
+    });
+
+    document.getElementById('randomModal').addEventListener('click', (e) => {
+      if (e.target.id === 'randomModal') closeRandomModal();
+    });
+
+    // PWA SERVICE WORKER & INSTALL LOGIC
+    let deferredInstallPrompt = null;
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./playpal_sw.js')
+          .then(reg => {
+            console.log('PlayPal PWA Service Worker Registered:', reg.scope);
+          })
+          .catch(err => {
+            console.warn('PlayPal PWA SW registration skipped or failed:', err);
+          });
+      });
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      const installBtn = document.getElementById('pwaInstallBtn');
+      if (installBtn) {
+        installBtn.classList.remove('hidden');
+        installBtn.classList.add('inline-flex');
+      }
+    });
+
+    function installPWA() {
+      if (!deferredInstallPrompt) {
+        alert('💡 คุณสามารถติดตั้ง PlayPal ลงหน้าจอมือถือได้ง่ายๆ:\n- บน Chrome/Android: กดจุด 3 จุด (⋮) > เลือก "ติดตั้งแอป" หรือ "เพิ่มลงในหน้าจอหลัก"\n- บน Safari/iOS: กดปุ่มแชร์ (สี่เหลี่ยมลูกศรชี้ขึ้น) > เลือก "เพิ่มไปยังหน้าจอโฮม (Add to Home Screen)" ครับ');
+        return;
+      }
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt.userChoice.then((choice) => {
+        if (choice.outcome === 'accepted') {
+          console.log('User accepted PlayPal install');
+          const installBtn = document.getElementById('pwaInstallBtn');
+          if (installBtn) installBtn.classList.add('hidden');
+        }
+        deferredInstallPrompt = null;
+      });
+    }
+  </script>
+
+  <!-- CUSTOM BUTTON STYLES -->
+  <style>
+    .active-filter {
+      background-color: #FF6B6B;
+      color: white;
+      box-shadow: 0 2px 6px rgba(255, 107, 107, 0.35);
+      border-color: #FF6B6B;
+    }
+    .inactive-filter {
+      background-color: #F8FAFC;
+      color: #64748B;
+      border: 1px solid #E2E8F0;
+    }
+    .inactive-filter:hover {
+      background-color: #F1F5F9;
+      color: #1E293B;
+      border-color: #CBD5E1;
+    }
+  </style>
+
+</body>
+</html>

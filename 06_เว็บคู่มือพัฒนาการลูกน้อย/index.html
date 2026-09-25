@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KidDev Hub — คู่มือพัฒนาการ การเรียนรู้ และการเลี้ยงลูก 0-10 ขวบ</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"IBM Plex Sans Thai"', 'sans-serif'],
+            display: ['Fredoka', '"IBM Plex Sans Thai"', 'sans-serif']
+          },
+          colors: {
+            warm: {
+              50: '#FDFBF7',
+              100: '#F7F3EA',
+              200: '#EFE7D5',
+              300: '#E2D3B6',
+              400: '#C7AE83',
+              500: '#A78B55',
+              800: '#4A3B1F',
+              900: '#2C220E'
+            },
+            coral: {
+              50: '#FFF5F3',
+              100: '#FFE8E4',
+              400: '#FF7D66',
+              500: '#F05D43',
+              600: '#D94329'
+            },
+            mint: {
+              50: '#F0FDF8',
+              100: '#DCFCEE',
+              400: '#34D399',
+              500: '#10B981',
+              600: '#059669'
+            },
+            sky: {
+              50: '#F0F9FF',
+              100: '#E0F2FE',
+              400: '#38BDF8',
+              500: '#0EA5E9',
+              600: '#0284C7'
+            },
+            honey: {
+              50: '#FFFBEB',
+              100: '#FEF3C7',
+              400: '#FBBF24',
+              500: '#F59E0B',
+              600: '#D97706'
+            },
+            lavender: {
+              50: '#FAF5FF',
+              100: '#F3E8FF',
+              400: '#C084FC',
+              500: '#A855F7',
+              600: '#9333EA'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #FDFBF7;
+      color: #2D3748;
+      -webkit-font-smoothing: antialiased;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .card-hover {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.08);
+    }
+    .tab-active {
+      background-color: #F05D43 !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 12px rgba(240, 93, 67, 0.25);
+    }
+    .age-pill-active {
+      background-color: #2C220E !important;
+      color: #FFFFFF !important;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans">
+
+  <!-- Top Announcement / Insight Bar -->
+  <aside aria-label="สาระน่ารู้ประจำวัน" class="bg-gradient-to-r from-coral-500 via-honey-500 to-mint-500 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-sm flex items-center justify-center gap-2">
+    <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-white/20 text-white font-bold text-xs uppercase tracking-wider">💡 Tip วันนี้</span>
+    <span>"เด็กเรียนรู้ผ่านความสัมพันธ์ที่ปลอดภัยและการเล่น การกอดและสบตาช่วยสร้างเซลล์สมองได้ดีกว่าแฟลชการ์ด"</span>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-warm-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20 gap-4">
+        
+        <!-- Logo -->
+        <a href="#" onclick="switchTab('milestones'); return false;" class="flex items-center gap-3 group flex-shrink-0">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-coral-100 flex items-center justify-center text-2xl group-hover:scale-105 transition-transform shadow-inner">
+            🌱
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-display font-bold text-xl sm:text-2xl text-warm-900 tracking-tight">KidDev</span>
+              <span class="font-display font-semibold text-lg text-coral-500">Hub</span>
+            </div>
+            <p class="text-[11px] sm:text-xs text-warm-500 font-medium hidden sm:block">คู่มือพัฒนาการ การเรียนรู้ & เลี้ยงลูก 0-10 ขวบ</p>
+          </div>
+        </a>
+
+        <!-- Global Search Bar -->
+        <div class="flex-1 max-w-md hidden md:block">
+          <div class="relative">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <input 
+              type="text" 
+              id="globalSearchInput" 
+              placeholder="ค้นหา เช่น โฟนิกส์, ท่องจำ, วัยทอง 2 ขวบ, เลือกอนุบาล, EF..." 
+              class="w-full pl-10 pr-4 py-2 text-sm bg-warm-50 border border-warm-200 rounded-full focus:outline-none focus:ring-2 focus:ring-coral-400 focus:bg-white transition-all text-warm-900 placeholder:text-gray-400"
+              oninput="handleGlobalSearch(this.value)"
+            >
+            <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-gray-600 bg-gray-100 rounded-full w-5 h-5 flex items-center justify-center">✕</button>
+          </div>
+        </div>
+
+        <!-- Quick Actions & Bookmark Drawer trigger -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <button 
+            onclick="openAdvisorModal()" 
+            class="flex items-center gap-1.5 bg-coral-50 hover:bg-coral-100 text-coral-600 px-3 sm:px-4 py-2 rounded-full font-medium text-xs sm:text-sm border border-coral-200 transition-colors"
+          >
+            <i data-lucide="sparkles" class="w-4 h-4 text-coral-500"></i>
+            <span class="hidden sm:inline">ถาม AI ที่ปรึกษา</span>
+            <span class="sm:hidden">AI ถามตอบ</span>
+          </button>
+
+          <button 
+            onclick="switchTab('bookmarks')" 
+            class="relative p-2.5 rounded-full hover:bg-warm-100 text-warm-800 transition-colors"
+            title="บทความและกิจกรรมที่บันทึกไว้"
+          >
+            <i data-lucide="bookmark" class="w-5 h-5"></i>
+            <span id="bookmarkBadge" class="hidden absolute top-1 right-1 w-4 h-4 bg-coral-500 text-white rounded-full text-[10px] flex items-center justify-center font-bold">0</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Search Bar (Only on small screens) -->
+      <div class="pb-3 md:hidden">
+        <div class="relative">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+          <input 
+            type="text" 
+            id="mobileSearchInput" 
+            placeholder="ค้นหา: ภาษา, สอนคณิต, วอลดอร์ฟ, มอนเตสซอรี่..." 
+            class="w-full pl-10 pr-4 py-2 text-xs bg-warm-50 border border-warm-200 rounded-full focus:outline-none focus:ring-2 focus:ring-coral-400"
+            oninput="handleGlobalSearch(this.value)"
+          >
+        </div>
+      </div>
+
+      <!-- Main Navigation Tabs (Scrollable on mobile) -->
+      <nav class="flex items-center gap-1 sm:gap-2 overflow-x-auto hide-scrollbar border-t border-warm-100 py-2 sm:py-2.5">
+        <button onclick="switchTab('milestones')" id="nav-milestones" class="nav-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap flex items-center gap-1.5 bg-warm-100 text-warm-800 hover:bg-warm-200">
+          <i data-lucide="baby" class="w-4 h-4"></i> พัฒนาการ & การสอนตามวัย
+        </button>
+        <button onclick="switchTab('language')" id="nav-language" class="nav-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap flex items-center gap-1.5 bg-warm-100 text-warm-800 hover:bg-warm-200">
+          <i data-lucide="languages" class="w-4 h-4"></i> ภาษา & สองภาษา
+        </button>
+        <button onclick="switchTab('math')" id="nav-math" class="nav-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap flex items-center gap-1.5 bg-warm-100 text-warm-800 hover:bg-warm-200">
+          <i data-lucide="calculator" class="w-4 h-4"></i> ปูพื้นฐานคณิต & ตรรกะ
+        </button>
+        <button onclick="switchTab('kindergarten')" id="nav-kindergarten" class="nav-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap flex items-center gap-1.5 bg-warm-100 text-warm-800 hover:bg-warm-200">
+          <i data-lucide="graduation-cap" class="w-4 h-4"></i> เลือกโรงเรียนอนุบาล + Quiz
+        </button>
+        <button onclick="switchTab('activities')" id="nav-activities" class="nav-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap flex items-center gap-1.5 bg-warm-100 text-warm-800 hover:bg-warm-200">
+          <i data-lucide="gamepad-2" class="w-4 h-4"></i> กิจกรรม & การเล่นส่งเสริมด้านต่างๆ
+        </button>
+        <button onclick="switchTab('discipline')" id="nav-discipline" class="nav-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap flex items-center gap-1.5 bg-warm-100 text-warm-800 hover:bg-warm-200">
+          <i data-lucide="heart-handshake" class="w-4 h-4"></i> วินัยเชิงบวก & รูทีน
+        </button>
+        <button onclick="switchTab('checklist')" id="nav-checklist" class="nav-btn px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap flex items-center gap-1.5 bg-warm-100 text-warm-800 hover:bg-warm-200">
+          <i data-lucide="check-circle-2" class="w-4 h-4"></i> เช็กลิสต์พัฒนาการ
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Age Filter Bar (Universal Sub-header) -->
+  <section class="bg-warm-100/70 border-b border-warm-200 py-2.5 px-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-2">
+      <div class="flex items-center gap-2 text-xs sm:text-sm text-warm-800 font-medium">
+        <i data-lucide="filter" class="w-4 h-4 text-warm-500"></i>
+        <span>เลือกกรองตามช่วงอายุ:</span>
+      </div>
+      <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto hide-scrollbar py-0.5">
+        <button onclick="setAgeFilter('all')" id="age-pill-all" class="age-pill px-3 py-1 rounded-full text-xs font-medium border border-warm-300 transition-all bg-white text-warm-800">
+          🌟 ทุกช่วงวัย
+        </button>
+        <button onclick="setAgeFilter('under1')" id="age-pill-under1" class="age-pill px-3 py-1 rounded-full text-xs font-medium border border-warm-300 transition-all bg-white text-warm-800">
+          🍼 ก่อน 1 ขวบ (0-12 เดือน)
+        </button>
+        <button onclick="setAgeFilter('1to3')" id="age-pill-1to3" class="age-pill px-3 py-1 rounded-full text-xs font-medium border border-warm-300 transition-all bg-white text-warm-800">
+          🧸 1 - 3 ขวบ (วัยเตาะแตะ)
+        </button>
+        <button onclick="setAgeFilter('3to6')" id="age-pill-3to6" class="age-pill px-3 py-1 rounded-full text-xs font-medium border border-warm-300 transition-all bg-white text-warm-800">
+          🎨 3 - 6 ขวบ (วัยอนุบาล)
+        </button>
+        <button onclick="setAgeFilter('7to10')" id="age-pill-7to10" class="age-pill px-3 py-1 rounded-full text-xs font-medium border border-warm-300 transition-all bg-white text-warm-800">
+          🚀 7 - 10 ขวบ (ประถมต้น)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+
+    <!-- Search Results View (Hidden by default) -->
+    <div id="search-view" class="hidden mb-8">
+      <div class="flex items-center justify-between mb-4 pb-2 border-b border-warm-200">
+        <h2 class="text-lg font-bold text-warm-900 flex items-center gap-2">
+          <i data-lucide="search" class="w-5 h-5 text-coral-500"></i>
+          <span>ผลการค้นหาสำหรับ: "<span id="searchKeyword" class="text-coral-600"></span>"</span>
+        </h2>
+        <button onclick="clearSearch()" class="text-xs text-warm-500 hover:text-warm-800 underline">ปิดผลการค้นหา</button>
+      </div>
+      <div id="searchResultsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 1: MILESTONES & LEARNING BY AGE       -->
+    <!-- ========================================== -->
+    <section id="view-milestones" class="tab-view space-y-8">
+      
+      <!-- Hero Banner -->
+      <div class="relative rounded-3xl bg-gradient-to-br from-coral-500 via-coral-400 to-honey-400 text-white p-6 sm:p-10 shadow-lg overflow-hidden">
+        <div class="relative z-10 max-w-2xl">
+          <span class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-xs font-bold uppercase tracking-wider mb-3">Early Childhood Development Matrix</span>
+          <h1 class="text-2xl sm:text-4xl font-display font-bold leading-tight mb-3">
+            พัฒนาการ การเรียนรู้ และการสอนลูกน้อยตามช่วงวัย
+          </h1>
+          <p class="text-white/90 text-sm sm:text-base leading-relaxed mb-6 font-light">
+            เข้าใจความต้องการของสมองและร่างกายในแต่ละช่วงวัย จากแรกเกิดสู่ 10 ขวบ เพื่อให้คุณพ่อคุณแม่สอนได้ตรงจุด ไม่เร่งรัดเกินวัย และไม่ปล่อยให้ช่วงเวลาทอง (Golden Window) หลุดลอยไป
+          </p>
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="bg-white/15 px-3 py-1.5 rounded-xl flex items-center gap-1.5"><i data-lucide="shield-check" class="w-4 h-4 text-yellow-200"></i> อิงหลักกุมารเวชศาสตร์</span>
+            <span class="bg-white/15 px-3 py-1.5 rounded-xl flex items-center gap-1.5"><i data-lucide="brain" class="w-4 h-4 text-yellow-200"></i> ทฤษฎี Executive Functions (EF)</span>
+            <span class="bg-white/15 px-3 py-1.5 rounded-xl flex items-center gap-1.5"><i data-lucide="smile" class="w-4 h-4 text-yellow-200"></i> เน้นวินัยเชิงบวก</span>
+          </div>
+        </div>
+        <!-- Decorative Circle -->
+        <div class="absolute -right-12 -bottom-12 w-64 h-64 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+      </div>
+
+      <!-- Quick Stage Selector Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+        <button onclick="scrollToAgeSection('stage-under1')" class="p-4 rounded-2xl bg-white border border-warm-200 hover:border-coral-300 card-hover text-left group">
+          <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🍼</div>
+          <span class="text-xs font-semibold text-coral-600 block">0 - 12 เดือน</span>
+          <h3 class="text-sm font-bold text-warm-900">ก่อน 1 ขวบ</h3>
+          <p class="text-[11px] text-warm-500 mt-1">ผูกพันปลอดภัย, ประสาทสัมผัส, คลาน-ยืน</p>
+        </button>
+        <button onclick="scrollToAgeSection('stage-1to3')" class="p-4 rounded-2xl bg-white border border-warm-200 hover:border-coral-300 card-hover text-left group">
+          <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🧸</div>
+          <span class="text-xs font-semibold text-honey-600 block">1 - 3 ขวบ</span>
+          <h3 class="text-sm font-bold text-warm-900">วัยเตาะแตะ</h3>
+          <p class="text-[11px] text-warm-500 mt-1">รับมือ Terrible Twos, พลังภาษา, เลิกเพอส</p>
+        </button>
+        <button onclick="scrollToAgeSection('stage-3to6')" class="p-4 rounded-2xl bg-white border border-warm-200 hover:border-coral-300 card-hover text-left group">
+          <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🎨</div>
+          <span class="text-xs font-semibold text-mint-600 block">3 - 6 ขวบ</span>
+          <h3 class="text-sm font-bold text-warm-900">วัยอนุบาล</h3>
+          <p class="text-[11px] text-warm-500 mt-1">ฝึกสมอง EF, เข้าสังคม, วินัยหน้าจอ</p>
+        </button>
+        <button onclick="scrollToAgeSection('stage-7to10')" class="p-4 rounded-2xl bg-white border border-warm-200 hover:border-coral-300 card-hover text-left group">
+          <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🚀</div>
+          <span class="text-xs font-semibold text-sky-600 block">7 - 10 ขวบ</span>
+          <h3 class="text-sm font-bold text-warm-900">วัยประถมต้น</h3>
+          <p class="text-[11px] text-warm-500 mt-1">Growth Mindset, จัดเวลา, แก้ปัญหาเพื่อน</p>
+        </button>
+      </div>
+
+      <!-- Detailed Age Sections Container -->
+      <div id="milestonesContentList" class="space-y-12">
+        <!-- Rendered via JS based on selected age filter -->
+      </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 2: LANGUAGE & BILINGUAL TRACK         -->
+    <!-- ========================================== -->
+    <section id="view-language" class="tab-view hidden space-y-8">
+      
+      <!-- Header -->
+      <div class="bg-gradient-to-r from-sky-500 to-blue-600 rounded-3xl text-white p-6 sm:p-8 shadow-md">
+        <div class="max-w-2xl">
+          <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-bold uppercase tracking-wider">Language Mastery Roadmap</span>
+          <h2 class="text-2xl sm:text-3xl font-display font-bold mt-2 mb-2">เน้นภาษาต้องฝึกอย่างไร? เลี้ยงลูก 2 ภาษาแบบธรรมชาติ</h2>
+          <p class="text-white/90 text-sm leading-relaxed">
+            ถอดรหัสการสร้างเด็กสองภาษา (Bilingual) และการสอนอ่านแบบ Phonics โดยไม่ต้องท่องจำ พร้อมคลังเกมภาษาในชีวิตประจำวันสำหรับวัย 0-10 ปี
+          </p>
+        </div>
+      </div>
+
+      <!-- 3 Pillars of Language Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- OPOL Guide -->
+        <div class="bg-white rounded-2xl p-6 border border-warm-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl mb-4 font-bold">1</div>
+            <h3 class="text-lg font-bold text-warm-900 mb-2">กลยุทธ์ OPOL (One Parent, One Language)</h3>
+            <p class="text-xs text-warm-500 mb-4 leading-relaxed">
+              วิธีสร้างเด็กสองภาษาที่ได้ผลที่สุด: พ่อพูดภาษาหนึ่ง แม่พูดอีกภาษาหนึ่งอย่างสม่ำเสมอ สมองเด็กจะแยกแยะสำเนียงและไวยากรณ์ได้อัตโนมัติโดยไม่สับสน
+            </p>
+            <ul class="text-xs space-y-2 text-warm-800">
+              <li class="flex items-start gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-mint-500 mt-0.5 flex-shrink-0"></i> ต้องสม่ำเสมออย่างน้อย 30% ของเวลาตื่นของลูก</li>
+              <li class="flex items-start gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-mint-500 mt-0.5 flex-shrink-0"></i> ไม่ต้องแปลไทยเป็นอังกฤษซ้ำ ให้ใช้ภาษากายชี้สิ่งของแทน</li>
+              <li class="flex items-start gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-mint-500 mt-0.5 flex-shrink-0"></i> หากลูกตอบกลับเป็นไทย ให้ทวนประโยคเป็นอังกฤษด้วยน้ำเสียงอ่อนโยน</li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-3 border-t border-warm-100">
+            <span class="text-[11px] text-sky-600 font-semibold">แนะนำสำหรับ: 0 - 6 ขวบ</span>
+          </div>
+        </div>
+
+        <!-- Phonics Step-by-Step -->
+        <div class="bg-white rounded-2xl p-6 border border-warm-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-coral-100 text-coral-600 flex items-center justify-center text-xl mb-4 font-bold">2</div>
+            <h3 class="text-lg font-bold text-warm-900 mb-2">เส้นทางเรียน Phonics (สะกดคำเป็น อ่านได้จริง)</h3>
+            <p class="text-xs text-warm-500 mb-4 leading-relaxed">
+              เลิกสอนท่องจำตัวอักษรแบบ A=เอ, B=บี แต่ให้สอนเสียงของตัวอักษร (Letter Sounds) ก่อนผสมคำ CVC (พยัญชนะ-สระ-ตัวสะกด)
+            </p>
+            <div class="bg-warm-50 p-3 rounded-xl border border-warm-200 text-xs space-y-1.5 mb-3">
+              <p class="font-bold text-warm-800">ลำดับการสอน Jolly Phonics Group 1:</p>
+              <p class="font-mono text-coral-600 font-semibold text-sm">s, a, t, i, p, n</p>
+              <p class="text-[11px] text-warm-500">แค่เรียน 6 ตัวนี้ ก็เริ่มผสมคำได้ทันที เช่น: sat, pin, pat, tap, sit, pan!</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-warm-100">
+            <span class="text-[11px] text-coral-600 font-semibold">แนะนำสำหรับ: 3.5 - 7 ขวบ</span>
+          </div>
+        </div>
+
+        <!-- Conversational Wealth -->
+        <div class="bg-white rounded-2xl p-6 border border-warm-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-honey-100 text-honey-600 flex items-center justify-center text-xl mb-4 font-bold">3</div>
+            <h3 class="text-lg font-bold text-warm-900 mb-2">การเพิ่มคลังคำศัพท์ด้วยนิทานโต้ตอบ</h3>
+            <p class="text-xs text-warm-500 mb-4 leading-relaxed">
+              การอ่านนิทานแบบ Dialogic Reading (ชวนคุยปลายเปิด) ช่วยขยายเส้นใยสมองด้านภาษามากกว่าการอ่านตามตัวหนังสือให้ลูกฟังเฉยๆ
+            </p>
+            <ul class="text-xs space-y-2 text-warm-800">
+              <li class="flex items-start gap-1.5"><i data-lucide="help-circle" class="w-3.5 h-3.5 text-honey-500 mt-0.5 flex-shrink-0"></i> ถาม "ลูกคิดว่าน้องหมีจะทำอะไรต่อ?"</li>
+              <li class="flex items-start gap-1.5"><i data-lucide="repeat" class="w-3.5 h-3.5 text-honey-500 mt-0.5 flex-shrink-0"></i> ขยายประโยค: ลูกพูด "รถวิ่ง" -> เราเสริม "ใช่เลย รถสีแดงคันใหญ่กำลังวิ่งเร็วมาก"</li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-3 border-t border-warm-100">
+            <span class="text-[11px] text-honey-600 font-semibold">แนะนำสำหรับ: ทุกช่วงวัย</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Practical Language Activities Library -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-warm-200 shadow-sm">
+        <h3 class="text-xl font-bold text-warm-900 mb-6 flex items-center gap-2">
+          <i data-lucide="dices" class="w-5 h-5 text-sky-500"></i>
+          <span>6 เกมฝึกภาษาในชีวิตประจำวัน (เล่นง่าย ไม่ต้องใช้อุปกรณ์)</span>
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="languageGamesList">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- FAQ: Bilingual & Language Myths -->
+      <div class="bg-warm-100/60 rounded-3xl p-6 sm:p-8 border border-warm-200">
+        <h3 class="text-xl font-bold text-warm-900 mb-4 flex items-center gap-2">
+          <i data-lucide="help-circle" class="w-5 h-5 text-coral-500"></i>
+          <span>คำถามพบบ่อย & ความเข้าใจผิดเรื่องภาษา</span>
+        </h3>
+        <div class="space-y-3" id="languageFaqAccordion">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 3: MATH & LOGICAL THINKING TRACK      -->
+    <!-- ========================================== -->
+    <section id="view-math" class="tab-view hidden space-y-8">
+      
+      <!-- Hero -->
+      <div class="bg-gradient-to-r from-mint-500 to-teal-600 rounded-3xl text-white p-6 sm:p-8 shadow-md">
+        <div class="max-w-2xl">
+          <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-bold uppercase tracking-wider">Mathematics & Logical Brain</span>
+          <h2 class="text-2xl sm:text-3xl font-display font-bold mt-2 mb-2">อยากให้ลูกเก่งคณิตและตรรกะ ต้องเริ่มอย่างไร?</h2>
+          <p class="text-white/90 text-sm leading-relaxed">
+            คณิตศาสตร์ที่แท้จริงไม่ใช่การจำสูตรคูณหรือบวกลบเลขเร็ว แต่คือ "การมองเห็นแบบรูป (Pattern) มิติสัมพันธ์ และตรรกะการแก้ปัญหา" ด้วยโมเดล CPA ระดับสากล
+          </p>
+        </div>
+      </div>
+
+      <!-- The Singapore CPA Model Explanation -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-warm-200 shadow-sm">
+        <div class="text-center max-w-2xl mx-auto mb-8">
+          <span class="text-xs font-bold text-mint-600 uppercase tracking-widest">Global Best Practice</span>
+          <h3 class="text-xl sm:text-2xl font-bold text-warm-900 mt-1">โมเดล CPA: หัวใจการเรียนคณิตศาสตร์ที่ลูกไม่มีวันเบื่อ</h3>
+          <p class="text-xs sm:text-sm text-warm-500 mt-2">ห้ามกระโดดไปสอนเขียนตัวเลขหรือทำใบงานก่อนที่เด็กจะผ่านขั้นรูปธรรมเด็ดขาด!</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+          <!-- Step 1: Concrete -->
+          <div class="bg-mint-50 rounded-2xl p-5 border border-mint-200 relative">
+            <span class="absolute top-4 right-4 text-xs font-bold px-2 py-0.5 bg-mint-200 text-mint-800 rounded-full">ขั้นที่ 1</span>
+            <div class="text-3xl mb-3">🍎 🍎 🍎</div>
+            <h4 class="font-bold text-warm-900 text-base mb-1">C - Concrete (รูปธรรม)</h4>
+            <p class="text-xs text-warm-600 mb-3">สัมผัสของจริง นับแอปเปิ้ล นับบล็อกไม้ ก้อนหิน ก้าวเดิน</p>
+            <p class="text-[11px] text-warm-500 bg-white p-2 rounded-lg border border-mint-100">
+              ตัวอย่าง: เอาส้ม 2 ผล มาบวกกับส้ม 3 ผล ให้ลูกใช้มือหยิบรวมกันแล้วนับทีละผล
+            </p>
+          </div>
+
+          <!-- Step 2: Pictorial -->
+          <div class="bg-sky-50 rounded-2xl p-5 border border-sky-200 relative">
+            <span class="absolute top-4 right-4 text-xs font-bold px-2 py-0.5 bg-sky-200 text-sky-800 rounded-full">ขั้นที่ 2</span>
+            <div class="text-3xl mb-3">🟡 🟡 + 🟡 🟡 🟡</div>
+            <h4 class="font-bold text-warm-900 text-base mb-1">P - Pictorial (ภาพวาด/สัญลักษณ์)</h4>
+            <p class="text-xs text-warm-600 mb-3">แปลงของจริงมาเป็นจุด วงกลม ตาราง 10 ช่อง (Ten-frames) หรือกราฟแท่ง</p>
+            <p class="text-[11px] text-warm-500 bg-white p-2 rounded-lg border border-sky-100">
+              ตัวอย่าง: วาดวงกลมแทนจำนวนส้ม หรือใช้ Bar Model วาดท่อนยาวแทนปริมาณ
+            </p>
+          </div>
+
+          <!-- Step 3: Abstract -->
+          <div class="bg-lavender-50 rounded-2xl p-5 border border-lavender-200 relative">
+            <span class="absolute top-4 right-4 text-xs font-bold px-2 py-0.5 bg-lavender-200 text-lavender-800 rounded-full">ขั้นที่ 3</span>
+            <div class="text-3xl mb-3 font-mono font-bold text-lavender-600">2 + 3 = 5</div>
+            <h4 class="font-bold text-warm-900 text-base mb-1">A - Abstract (นามธรรม)</h4>
+            <p class="text-xs text-warm-600 mb-3">ใช้ตัวเลขอารบิกและเครื่องหมายทางคณิตศาสตร์</p>
+            <p class="text-[11px] text-warm-500 bg-white p-2 rounded-lg border border-lavender-100">
+              ตัวอย่าง: เมื่อเด็กเข้าใจสองขั้นแรก ตัวเลข "5" จะมีความหมาย ไม่ใช่แค่ภาพวาดลายเส้นที่ต้องจำ
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Pillars of Early Math Foundations -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white p-5 rounded-2xl border border-warm-200 shadow-sm">
+          <div class="w-10 h-10 rounded-xl bg-mint-100 text-mint-600 flex items-center justify-center text-xl mb-3">🧩</div>
+          <h4 class="font-bold text-warm-900 text-sm mb-1">1. แบบรูปและความต่อเนื่อง (Patterns)</h4>
+          <p class="text-xs text-warm-500 leading-relaxed">
+            รากฐานของการทำนายและพีชคณิต ชวนลูกเรียง: แดง-เหลือง-แดง-เหลือง... ชิ้นต่อไปคือสีอะไร?
+          </p>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-warm-200 shadow-sm">
+          <div class="w-10 h-10 rounded-xl bg-honey-100 text-honey-600 flex items-center justify-center text-xl mb-3">⚖️</div>
+          <h4 class="font-bold text-warm-900 text-sm mb-1">2. การเปรียบเทียบและการวัด (Measurement)</h4>
+          <p class="text-xs text-warm-500 leading-relaxed">
+            หนัก-เบา, สั้น-ยาว, สูง-เตี้ย, มากกว่า-น้อยกว่า จากสิ่งของรอบตัว เช่น ช้อนสั้นกว่าตะเกียบ
+          </p>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-warm-200 shadow-sm">
+          <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl mb-3">📦</div>
+          <h4 class="font-bold text-warm-900 text-sm mb-1">3. มิติสัมพันธ์และเรขาคณิต (Spatial Sense)</h4>
+          <p class="text-xs text-warm-500 leading-relaxed">
+            การต่อเลโก้ ต่อจิ๊กซอว์ พับกระดาษ เรียนรู้คำบอกทิศทาง: ข้างบน ข้างใต้ ด้านหลัง ระหว่าง
+          </p>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-warm-200 shadow-sm">
+          <div class="w-10 h-10 rounded-xl bg-coral-100 text-coral-600 flex items-center justify-center text-xl mb-3">💻</div>
+          <h4 class="font-bold text-warm-900 text-sm mb-1">4. Unplugged Coding (โค้ดดิ้งไม่ใช้จอ)</h4>
+          <p class="text-xs text-warm-500 leading-relaxed">
+            ฝึกคิดเป็นขั้นตอน (Algorithm) เช่น "เกมเดินตามคำสั่งลูกศรบนพื้นบ้านเพื่อไปเก็บสมบัติ"
+          </p>
+        </div>
+      </div>
+
+      <!-- Math Games around the House -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-warm-200 shadow-sm">
+        <h3 class="text-xl font-bold text-warm-900 mb-4 flex items-center gap-2">
+          <i data-lucide="utensils" class="w-5 h-5 text-mint-600"></i>
+          <span>กิจกรรมคณิตศาสตร์ในบ้าน (ไม่ต้องซื้อคอร์สเรียนพิเศษ)</span>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="homeMathActivitiesList">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 4: KINDERGARTEN GUIDE & QUIZ          -->
+    <!-- ========================================== -->
+    <section id="view-kindergarten" class="tab-view hidden space-y-8">
+      
+      <!-- Header -->
+      <div class="bg-gradient-to-r from-honey-500 via-coral-500 to-warm-800 rounded-3xl text-white p-6 sm:p-8 shadow-md">
+        <div class="max-w-2xl">
+          <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-bold uppercase tracking-wider">School Decision Framework</span>
+          <h2 class="text-2xl sm:text-3xl font-display font-bold mt-2 mb-2">เลือกโรงเรียนอนุบาลอย่างไรให้เหมาะกับลูก?</h2>
+          <p class="text-white/90 text-sm leading-relaxed">
+            ไม่มีโรงเรียนที่ดีที่สุดในโลก มีแต่ "โรงเรียนที่เหมาะกับลูกและตรงกับวิถีชีวิตครอบครัวมากที่สุด" เปรียบเทียบ 5 แนวการสอนหลัก พร้อมแบบทดสอบวิเคราะห์แนวโรงเรียน
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Quiz Card -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-coral-200 shadow-md">
+        <div class="flex items-center justify-between flex-wrap gap-3 mb-6 pb-4 border-b border-warm-100">
+          <div>
+            <span class="text-xs font-bold text-coral-600 uppercase tracking-wider">Interactive Assessment Tool</span>
+            <h3 class="text-xl font-bold text-warm-900">🎯 แบบทดสอบ: ค้นหาแนวโรงเรียนอนุบาลที่ใช่สำหรับครอบครัวคุณ</h3>
+          </div>
+          <span class="text-xs text-warm-500">ตอบเพียง 5 ข้อ ใช้เวลา 2 นาที</span>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quizContainer">
+          <!-- Questions will appear here step by step -->
+        </div>
+      </div>
+
+      <!-- Comparison of 5 Major Pedagogies -->
+      <div class="space-y-4">
+        <h3 class="text-xl font-bold text-warm-900 flex items-center gap-2">
+          <i data-lucide="book-open" class="w-5 h-5 text-coral-500"></i>
+          <span>เจาะลึก 5 แนวทางหลักของโรงเรียนอนุบาลในไทย</span>
+        </h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="pedagogiesList">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- 7 Golden Criteria Before Enrolling -->
+      <div class="bg-warm-100/70 rounded-3xl p-6 sm:p-8 border border-warm-200">
+        <h3 class="text-xl font-bold text-warm-900 mb-6 flex items-center gap-2">
+          <i data-lucide="clipboard-check" class="w-5 h-5 text-mint-600"></i>
+          <span>7 เกณฑ์ทองคำที่ต้องตรวจเช็คเมื่อไปดูสถานที่จริง (School Tour)</span>
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="schoolChecklistCriteria">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 5: PLAY & ACTIVITIES MATRIX            -->
+    <!-- ========================================== -->
+    <section id="view-activities" class="tab-view hidden space-y-8">
+      
+      <!-- Header -->
+      <div class="bg-gradient-to-r from-coral-500 via-honey-400 to-mint-500 rounded-3xl text-white p-6 sm:p-8 shadow-md">
+        <div class="max-w-2xl">
+          <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-bold uppercase tracking-wider">Play is the Work of Childhood</span>
+          <h2 class="text-2xl sm:text-3xl font-display font-bold mt-2 mb-2">การเล่นและกิจกรรมส่งเสริมพัฒนาการแต่ละด้าน</h2>
+          <p class="text-white/90 text-sm leading-relaxed">
+            เด็กไม่ได้เล่นเพื่อฆ่าเวลา แต่การเล่นคือวิธีที่สมองสร้างเครือข่ายใยประสาท ค้นหากิจกรรมเจาะจงตามทักษะที่ต้องการกระตุ้น
+          </p>
+        </div>
+      </div>
+
+      <!-- Daily Activity Spinner Box -->
+      <div class="bg-white rounded-3xl p-6 border border-warm-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="space-y-1 text-center md:text-left">
+          <span class="text-xs font-bold text-coral-600 uppercase tracking-wider">🎲 วันนี้ไม่รู้จะเล่นอะไรดี?</span>
+          <h3 class="text-lg font-bold text-warm-900">กดสุ่มไอเดียกิจกรรมสนุกๆ ประจำวัน</h3>
+          <p class="text-xs text-warm-500">กิจกรรมเสริม EF และกล้ามเนื้อ ใช้อุปกรณ์ง่ายๆ ในบ้าน</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="spinRandomActivity()" class="bg-gradient-to-r from-coral-500 to-honey-500 hover:from-coral-600 hover:to-honey-600 text-white font-bold px-6 py-3 rounded-full text-sm shadow-md hover:shadow-lg transition-all flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-4 h-4"></i> สุ่มกิจกรรมเดี๋ยวนี้!
+          </button>
+        </div>
+      </div>
+
+      <!-- Domain Category Tabs -->
+      <div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-2">
+        <button onclick="setDomainFilter('all')" id="domain-all" class="domain-btn px-4 py-2 rounded-2xl text-xs font-bold border border-warm-300 bg-warm-900 text-white shadow-sm">
+          ทั้งหมด
+        </button>
+        <button onclick="setDomainFilter('gross_motor')" id="domain-gross_motor" class="domain-btn px-4 py-2 rounded-2xl text-xs font-bold border border-warm-300 bg-white text-warm-800 hover:bg-warm-100">
+          🏃‍♂️ กล้ามเนื้อมัดใหญ่ (Gross Motor)
+        </button>
+        <button onclick="setDomainFilter('fine_motor')" id="domain-fine_motor" class="domain-btn px-4 py-2 rounded-2xl text-xs font-bold border border-warm-300 bg-white text-warm-800 hover:bg-warm-100">
+          🖐️ กล้ามเนื้อมัดเล็ก (Fine Motor)
+        </button>
+        <button onclick="setDomainFilter('ef')" id="domain-ef" class="domain-btn px-4 py-2 rounded-2xl text-xs font-bold border border-warm-300 bg-white text-warm-800 hover:bg-warm-100">
+          🧠 ทักษะสมอง EF (Executive Functions)
+        </button>
+        <button onclick="setDomainFilter('social_emotional')" id="domain-social_emotional" class="domain-btn px-4 py-2 rounded-2xl text-xs font-bold border border-warm-300 bg-white text-warm-800 hover:bg-warm-100">
+          ❤️ อารมณ์และสังคม (Social-Emotional)
+        </button>
+        <button onclick="setDomainFilter('sensory_stem')" id="domain-sensory_stem" class="domain-btn px-4 py-2 rounded-2xl text-xs font-bold border border-warm-300 bg-white text-warm-800 hover:bg-warm-100">
+          🔬 ประสาทสัมผัส & STEM
+        </button>
+      </div>
+
+      <!-- Activities Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="activitiesGrid">
+        <!-- Rendered dynamically -->
+      </div>
+
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 6: POSITIVE DISCIPLINE & ROUTINES     -->
+    <!-- ========================================== -->
+    <section id="view-discipline" class="tab-view hidden space-y-8">
+      
+      <!-- Header -->
+      <div class="bg-gradient-to-r from-coral-500 to-warm-800 rounded-3xl text-white p-6 sm:p-8 shadow-md">
+        <div class="max-w-2xl">
+          <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-bold uppercase tracking-wider">Positive Discipline & Routines</span>
+          <h2 class="text-2xl sm:text-3xl font-display font-bold mt-2 mb-2">วินัยเชิงบวก ตารางเวลา และการรับมือพฤติกรรม</h2>
+          <p class="text-white/90 text-sm leading-relaxed">
+            "สอนลูกด้วยความอ่อนโยนแต่มั่นคง (Kind but Firm)" คลังเปลี่ยนคำพูดแทนคำว่า ห้าม/อย่า/หยุด พร้อมตารางการนอนและอาหารตามช่วงวัย
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Phrase Converter -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-warm-200 shadow-sm">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-6 pb-4 border-b border-warm-100">
+          <div>
+            <span class="text-xs font-bold text-coral-600 uppercase tracking-wider">Transforming Language</span>
+            <h3 class="text-xl font-bold text-warm-900">🔄 เครื่องมือเปลี่ยนคำพูด: เปลี่ยน "คำสั่งห้าม" เป็น "คำพูดเชิงบวก"</h3>
+            <p class="text-xs text-warm-500 mt-1">สมองเด็กประมวลผลคำว่า "อย่า" ได้ช้า ให้บอกสิ่งที่ "อยากให้ทำ" แทน</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="phrasesList">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Sleep & Nutrition Guidelines Table -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-warm-200 shadow-sm">
+        <h3 class="text-xl font-bold text-warm-900 mb-6 flex items-center gap-2">
+          <i data-lucide="moon" class="w-5 h-5 text-sky-500"></i>
+          <span>ชั่วโมงการนอนและโภชนาการที่เหมาะสม (Sleep & Nutrition by Age)</span>
+        </h3>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-warm-100/70 text-warm-900 border-b border-warm-200">
+                <th class="p-3 font-bold rounded-l-xl">ช่วงวัย</th>
+                <th class="p-3 font-bold">ชั่วโมงนอนรวม / วัน</th>
+                <th class="p-3 font-bold">การนอนกลางวัน (Nap)</th>
+                <th class="p-3 font-bold">โภชนาการหลัก</th>
+                <th class="p-3 font-bold rounded-r-xl">กฎเกณฑ์เวลาหน้าจอ (Screen)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-warm-100" id="sleepRoutineRows">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 7: MILESTONE CHECKLIST TRACKER        -->
+    <!-- ========================================== -->
+    <section id="view-checklist" class="tab-view hidden space-y-8">
+      
+      <!-- Header -->
+      <div class="bg-gradient-to-r from-mint-500 to-sky-500 rounded-3xl text-white p-6 sm:p-8 shadow-md">
+        <div class="max-w-2xl">
+          <span class="px-3 py-1 rounded-full bg-white/20 text-xs font-bold uppercase tracking-wider">Self-Assessment Checklist</span>
+          <h2 class="text-2xl sm:text-3xl font-display font-bold mt-2 mb-2">เช็กลิสต์พัฒนาการพื้นฐานของลูก (บันทึกได้จริง)</h2>
+          <p class="text-white/90 text-sm leading-relaxed">
+            ติ๊กบันทึกทักษะที่ลูกทำได้แล้ว ระบบจะจำข้อมูลไว้ในเครื่องของคุณโดยอัตโนมัติ เพื่อนำไปปรึกษากุมารแพทย์ในวันตรวจสุขภาพ
+          </p>
+        </div>
+      </div>
+
+      <!-- Checklist Container -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-warm-200 shadow-sm space-y-6">
+        <div class="flex items-center justify-between flex-wrap gap-4 pb-4 border-b border-warm-100">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-mint-100 text-mint-600 flex items-center justify-center font-bold text-lg" id="checklistProgressPercent">
+              0%
+            </div>
+            <div>
+              <h3 class="font-bold text-warm-900 text-base">ความก้าวหน้าพัฒนาการ</h3>
+              <p class="text-xs text-warm-500" id="checklistProgressDetail">ทำได้แล้ว 0 จาก 0 รายการ</p>
+            </div>
+          </div>
+          <button onclick="resetChecklist()" class="text-xs text-coral-600 hover:text-coral-800 underline">ล้างข้อมูลเช็กลิสต์ทั้งหมด</button>
+        </div>
+
+        <div class="space-y-6" id="checklistSections">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 8: BOOKMARKS / SAVED ITEMS            -->
+    <!-- ========================================== -->
+    <section id="view-bookmarks" class="tab-view hidden space-y-6">
+      <div class="flex items-center justify-between pb-4 border-b border-warm-200">
+        <div>
+          <h2 class="text-2xl font-bold text-warm-900 flex items-center gap-2">
+            <i data-lucide="bookmark" class="w-6 h-6 text-coral-500"></i>
+            <span>เนื้อหาและกิจกรรมที่คุณบันทึกไว้</span>
+          </h2>
+          <p class="text-xs text-warm-500 mt-1">เก็บบทความที่ต้องการนำไปลองเล่นกับลูก หรือทบทวนในภายหลัง</p>
+        </div>
+        <button onclick="clearAllBookmarks()" class="text-xs text-coral-600 hover:text-coral-800 underline">ลบทั้งหมด</button>
+      </div>
+
+      <div id="bookmarksGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Rendered dynamically -->
+      </div>
+      <div id="noBookmarksMsg" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-warm-300">
+        <div class="text-4xl mb-3">🔖</div>
+        <h4 class="font-bold text-warm-800 text-sm">ยังไม่มีรายการที่บันทึกไว้</h4>
+        <p class="text-xs text-warm-500 mt-1">กดไอคอนบุ๊กมาร์กที่การ์ดบทความหรือกิจกรรม เพื่อเก็บไว้อ่านตรงนี้</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- MODAL: AI PARENTING ADVISOR SIMULATOR      -->
+  <!-- ========================================== -->
+  <div id="advisorModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-xl rounded-3xl shadow-2xl flex flex-col max-h-[85vh] overflow-hidden border border-warm-200">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-coral-500 to-honey-500 text-white p-4 sm:p-5 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-xl">
+            🐝
+          </div>
+          <div>
+            <h3 class="font-bold text-base">ครูใจดี & หมอผึ้ง (AI Parenting Advisor)</h3>
+            <p class="text-xs text-white/90">ที่ปรึกษาจิตวิทยาเด็กและการเลี้ยงลูกเชิงบวก</p>
+          </div>
+        </div>
+        <button onclick="closeAdvisorModal()" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors">
+          ✕
+        </button>
+      </div>
+
+      <!-- Chat History -->
+      <div id="chatHistory" class="flex-1 p-4 overflow-y-auto space-y-3 bg-warm-50 text-xs sm:text-sm">
+        <div class="flex items-start gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-coral-100 flex items-center justify-center text-coral-600 flex-shrink-0 text-sm">🐝</div>
+          <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-warm-200 shadow-sm max-w-[85%] text-warm-900 leading-relaxed">
+            สวัสดีค่ะคุณพ่อคุณแม่! ครูใจดีพร้อมให้คำปรึกษาเรื่องพัฒนาการ พฤติกรรม วินัยเชิงบวก หรือการส่งเสริมภาษาและคณิตศาสตร์ของลูกน้อยวัย 0-10 ปีค่ะ สามารถพิมพ์ถามหรือเลือกคำถามยอดฮิตด้านล่างได้เลยนะคะ ❤️
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Suggested Prompts -->
+      <div class="px-4 py-2 bg-white border-t border-warm-100 flex gap-2 overflow-x-auto hide-scrollbar">
+        <button onclick="askPrompt('ลูก 2 ขวบชอบกรี๊ดและทิ้งตัวลงพื้นเวลาไม่ได้ดั่งใจ ควรรับมืออย่างไร?')" class="whitespace-nowrap px-3 py-1 bg-warm-100 hover:bg-warm-200 text-warm-800 text-[11px] rounded-full transition-colors">
+          🗣️ ลูกกรี๊ดทิ้งตัว (Tantrum)
+        </button>
+        <button onclick="askPrompt('อยากสอนโฟนิกส์ (Phonics) ลูกเองที่บ้าน เริ่มต้นก้าวแรกยังไงดี?')" class="whitespace-nowrap px-3 py-1 bg-warm-100 hover:bg-warm-200 text-warm-800 text-[11px] rounded-full transition-colors">
+          🔤 เริ่มต้น Phonics อย่างไร
+        </button>
+        <button onclick="askPrompt('อนุบาล Play-based กับ อนุบาลวิชาการ แบบไหนดีกว่ากันสำหรับระยะยาว?')" class="whitespace-nowrap px-3 py-1 bg-warm-100 hover:bg-warm-200 text-warm-800 text-[11px] rounded-full transition-colors">
+          🏫 Play-based vs วิชาการ
+        </button>
+        <button onclick="askPrompt('ลูก 5 ขวบชอบแย่งของเล่นเพื่อนและไม่ยอมแบ่งปัน สอนอย่างไรไม่ให้รู้สึกผิด?')" class="whitespace-nowrap px-3 py-1 bg-warm-100 hover:bg-warm-200 text-warm-800 text-[11px] rounded-full transition-colors">
+          🤝 ฝึกการแบ่งปัน
+        </button>
+      </div>
+
+      <!-- Chat Input Area -->
+      <div class="p-3 bg-white border-t border-warm-200 flex gap-2">
+        <input 
+          type="text" 
+          id="chatInput" 
+          placeholder="พิมพ์ข้อสงสัย เช่น ลูกติดจอ, ไม่ยอมกินข้าว, สอนบวกลบ..." 
+          class="flex-1 px-4 py-2.5 text-xs sm:text-sm bg-warm-50 border border-warm-200 rounded-full focus:outline-none focus:ring-2 focus:ring-coral-400"
+          onkeydown="if(event.key==='Enter') sendChatMessage()"
+        >
+        <button onclick="sendChatMessage()" class="bg-coral-500 hover:bg-coral-600 text-white px-4 py-2.5 rounded-full font-bold text-xs flex items-center gap-1 shadow-sm transition-all">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          <span>ส่ง</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-warm-900 text-warm-200 mt-16 pt-12 pb-8 border-t border-warm-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🌱</span>
+            <span class="font-display font-bold text-xl text-white">KidDev Hub</span>
+          </div>
+          <p class="text-xs text-warm-300 leading-relaxed font-light">
+            ศูนย์รวมความรู้ด้านการศึกษาปฐมวัย จิตวิทยาพัฒนาการ และคู่มือการเลี้ยงดูเชิงบวกสำหรับครอบครัวยุคใหม่ ตั้งแต่แรกเกิดจนถึง 10 ปี
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3">หมวดหมู่เนื้อหา</h4>
+          <ul class="text-xs space-y-2 text-warm-300">
+            <li><a href="#" onclick="switchTab('milestones'); return false;" class="hover:text-coral-400">พัฒนาการตามช่วงวัย 0-10 ปี</a></li>
+            <li><a href="#" onclick="switchTab('language'); return false;" class="hover:text-coral-400">วิธีฝึกสองภาษา & Phonics</a></li>
+            <li><a href="#" onclick="switchTab('math'); return false;" class="hover:text-coral-400">คณิตศาสตร์โมเดล CPA & โค้ดดิ้ง</a></li>
+            <li><a href="#" onclick="switchTab('kindergarten'); return false;" class="hover:text-coral-400">คู่มือเลือกโรงเรียนอนุบาล</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3">เครื่องมือสำหรับผู้ปกครอง</h4>
+          <ul class="text-xs space-y-2 text-warm-300">
+            <li><a href="#" onclick="switchTab('discipline'); return false;" class="hover:text-coral-400">เปลี่ยนคำพูดเชิงบวก (Phrase Finder)</a></li>
+            <li><a href="#" onclick="switchTab('kindergarten'); return false;" class="hover:text-coral-400">แบบทดสอบแนวโรงเรียนอนุบาล</a></li>
+            <li><a href="#" onclick="switchTab('activities'); return false;" class="hover:text-coral-400">สุ่มกิจกรรมประจำวัน (Daily Activity)</a></li>
+            <li><a href="#" onclick="switchTab('checklist'); return false;" class="hover:text-coral-400">เช็กลิสต์พัฒนาการเด็ก</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-3">ข้อควรระวังทางการแพทย์</h4>
+          <p class="text-[11px] text-warm-400 leading-relaxed">
+            เนื้อหาในเว็บไซต์นี้มีจุดประสงค์เพื่อให้ความรู้ทั่วไปและการส่งเสริมพัฒนาการในบ้าน ไม่สามารถใช้แทนการวินิจฉัยหรือรักษาทางการแพทย์ หากสงสัยว่าลูกมีพัฒนาการล่าช้าผิดปกติ ควรปรึกษากุมารแพทย์ผู้เชี่ยวชาญโดยตรง
+          </p>
+        </div>
+
+      </div>
+
+      <div class="border-t border-warm-800 pt-6 text-center text-xs text-warm-500">
+        <p>© 2026 KidDev Hub — สร้างสรรค์เพื่อเด็กๆ และคุณพ่อคุณแม่ทุกคน ❤️</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic & Comprehensive Knowledge Data -->
+  <script src="./app.js"></script>
+</body>
+</html>

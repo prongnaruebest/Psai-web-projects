@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F1E2E"/>
+      <stop offset="50%" stop-color="#14293D"/>
+      <stop offset="100%" stop-color="#0B1520"/>
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8BE9FD"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background rounded squircle -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)"/>
+  
+  <!-- Blueprint Grid -->
+  <path d="M64 128 h384 M64 256 h384 M64 384 h384 M128 64 v384 M256 64 v384 M384 64 v384" 
+        stroke="#6FC6DE" stroke-width="1.5" stroke-opacity="0.12" stroke-dasharray="4 6"/>
+  
+  <!-- Outer Technical Border & Corner Accents -->
+  <rect x="36" y="36" width="440" height="440" rx="90" fill="none" stroke="#24405C" stroke-width="4"/>
+  <rect x="48" y="48" width="416" height="416" rx="80" fill="none" stroke="#6FC6DE" stroke-width="1.5" stroke-opacity="0.3"/>
+  
+  <!-- Corner ticks -->
+  <path d="M48 90 V48 H90 M422 48 H464 V90 M464 422 V464 H422 M90 464 H48 V422" 
+        stroke="url(#amberGrad)" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+  <!-- Center Microchip / Codex Core -->
+  <rect x="156" y="156" width="200" height="200" rx="36" fill="#182F45" stroke="#38BDF8" stroke-width="4" filter="url(#glow)"/>
+  <rect x="176" y="176" width="160" height="160" rx="24" fill="#0D1B2A" stroke="#24405C" stroke-width="2"/>
+
+  <!-- Microchip Pins -->
+  <!-- Top Pins -->
+  <path d="M196 156 V124 M256 156 V124 M316 156 V124" stroke="url(#cyanGrad)" stroke-width="5" stroke-linecap="round"/>
+  <!-- Bottom Pins -->
+  <path d="M196 356 V388 M256 356 V388 M316 356 V388" stroke="url(#cyanGrad)" stroke-width="5" stroke-linecap="round"/>
+  <!-- Left Pins -->
+  <path d="M156 196 H124 M156 256 H124 M156 316 H124" stroke="url(#cyanGrad)" stroke-width="5" stroke-linecap="round"/>
+  <!-- Right Pins -->
+  <path d="M356 196 H388 M356 256 H388 M356 316 H388" stroke="url(#cyanGrad)" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Trace Lines & Nodes -->
+  <circle cx="124" cy="196" r="5" fill="#F59E0B"/>
+  <circle cx="124" cy="316" r="5" fill="#38BDF8"/>
+  <circle cx="388" cy="196" r="5" fill="#38BDF8"/>
+  <circle cx="388" cy="316" r="5" fill="#F59E0B"/>
+  <circle cx="196" cy="124" r="5" fill="#38BDF8"/>
+  <circle cx="316" cy="124" r="5" fill="#F59E0B"/>
+  <circle cx="196" cy="388" r="5" fill="#F59E0B"/>
+  <circle cx="316" cy="388" r="5" fill="#38BDF8"/>
+
+  <!-- Codex Symbol: Code Bracket & Delta Core -->
+  <path d="M226 216 L196 256 L226 296" stroke="url(#cyanGrad)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M286 216 L316 256 L286 296" stroke="url(#cyanGrad)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <polygon points="256,224 274,268 238,268" fill="url(#amberGrad)"/>
+  <circle cx="256" cy="286" r="5" fill="#FCD34D"/>
+
+  <!-- Subtitle Text / Badge -->
+  <text x="256" y="428" font-family="'Archivo', 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="800" 
+        letter-spacing="6" fill="#8FA3B5" text-anchor="middle">PERSONAL CODEX</text>
+  <text x="256" y="448" font-family="'IBM Plex Mono', 'Consolas', monospace" font-size="12" font-weight="600" 
+        letter-spacing="2" fill="#E8A33D" text-anchor="middle">AI WORK SYSTEM 101-102</text>
+</svg>
