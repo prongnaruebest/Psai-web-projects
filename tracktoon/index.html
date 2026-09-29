@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrackToon & Donghua - บันทึกตอนล่าสุด อนิเมะ & มังงะ by Psai</title>
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'><rect width='32' height='32' rx='8' fill='%230284c7'/><path d='M6 8h20M6 16h14M6 24h10' stroke='white' stroke-width='2.8' stroke-linecap='round'/><circle cx='24' cy='20' r='5' fill='%2338bdf8'/><path d='M22 20l1.5 1.5L26 18' stroke='white' stroke-width='1.5' stroke-linecap='round'/></svg>" type="image/svg+xml">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Prompt', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col font-sans transition-colors duration-200">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      
+      <!-- Logo & Branding -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-600 via-sky-600 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-sky-500/20 ring-2 ring-sky-500/30">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <h1 class="text-lg sm:text-xl font-black text-white tracking-tight">TrackToon & Donghua</h1>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/30">#18 by Psai</span>
+          </div>
+          <p class="text-xs text-slate-400">ระบบบันทึกความคืบหน้า อนิเมะจีน & มันฮวา ประจำวัน พร้อมปุ่มกด +1 ตอนทันใจ</p>
+        </div>
+      </div>
+
+      <!-- Quick Header Actions -->
+      <div class="flex items-center gap-2 self-end sm:self-auto">
+        <!-- Copy Raw List Button (Instant!) -->
+        <button 
+          onclick="copyTextSummary()" 
+          class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shadow-xs active:scale-95"
+          title="คัดลอกข้อความสรุปทั้งหมดเพื่อส่งแชทหรือบันทึกโน้ต"
+        >
+          <svg class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="hidden md:inline">คัดลอกสรุป</span>
+        </button>
+
+        <!-- Import Raw Text -->
+        <button 
+          onclick="openImportModal()" 
+          class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shadow-xs active:scale-95"
+          title="นำเข้าจากข้อความดิบ"
+        >
+          <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span class="hidden md:inline">นำเข้าข้อความ</span>
+        </button>
+
+        <!-- Backup Dropdown / Menu -->
+        <button 
+          onclick="downloadJsonBackup()" 
+          class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer"
+          title="สำรองข้อมูลเป็นไฟล์ JSON"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+            <polyline points="7 3 7 8 15 8"></polyline>
+          </svg>
+        </button>
+
+        <button 
+          onclick="triggerJsonUpload()" 
+          class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer"
+          title="กู้คืนข้อมูลจากไฟล์ JSON"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+        </button>
+        <input type="file" id="jsonFileInput" class="hidden" accept=".json" onchange="handleJsonFileSelect(event)">
+
+        <!-- Warm Night Dark Theme Badge (ธีมเดียวถนอมสายตา) -->
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700/80 text-xs text-slate-300 font-medium shadow-xs" title="ธีมมืดถนอมสายตา (Warm Night Dark) - ชาร์โคลนุ่มนวล สบายตา">
+          <span class="text-amber-400">🌙</span>
+          <span class="hidden md:inline text-slate-300">มืดถนอมสายตา</span>
+        </div>
+
+        <!-- Add Button (Big) -->
+        <button 
+          onclick="openAddModal()" 
+          class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-md shadow-sky-900/30 cursor-pointer active:scale-95"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span>เพิ่มเรื่องใหม่</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full flex flex-col gap-6">
+
+    <!-- Top Dashboard Stats -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+      
+      <!-- Total Items -->
+      <div class="glass-card rounded-2xl p-4 flex items-center justify-between border-l-4 border-l-sky-500">
+        <div>
+          <span class="text-xs text-slate-400 font-medium">รวมเรื่องทั้งหมด</span>
+          <div id="statTotalCount" class="text-xl sm:text-2xl font-bold text-slate-100 font-mono mt-0.5">25 เรื่อง</div>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center">
+          📚
+        </div>
+      </div>
+
+      <!-- Anime Donghua -->
+      <div class="glass-card rounded-2xl p-4 flex items-center justify-between border-l-4 border-l-amber-500">
+        <div>
+          <span class="text-xs text-slate-400 font-medium">อนิเมะจีน</span>
+          <div id="statAnimeCount" class="text-base sm:text-lg font-bold text-amber-400 font-mono mt-0.5">6 เรื่อง</div>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+          🎬
+        </div>
+      </div>
+
+      <!-- Manga / Webtoon -->
+      <div class="glass-card rounded-2xl p-4 flex items-center justify-between border-l-4 border-l-cyan-500">
+        <div>
+          <span class="text-xs text-slate-400 font-medium">มันฮวา / มังงะ</span>
+          <div id="statMangaCount" class="text-base sm:text-lg font-bold text-cyan-400 font-mono mt-0.5">19 เรื่อง</div>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+          📖
+        </div>
+      </div>
+
+      <!-- Favorites -->
+      <div class="glass-card rounded-2xl p-4 flex items-center justify-between border-l-4 border-l-rose-500">
+        <div>
+          <span class="text-xs text-slate-400 font-medium">เรื่องโปรด ⭐</span>
+          <div id="statFavCount" class="text-xl sm:text-2xl font-bold text-rose-400 font-mono mt-0.5">1 เรื่อง</div>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center">
+          ⭐
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Filter & Toolbar Bar -->
+    <div class="glass-panel rounded-2xl p-3 sm:p-4 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 sm:gap-4">
+      
+      <!-- Category Tabs -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 scrollbar-none">
+        <button 
+          data-category="all" 
+          class="cat-tab-btn px-3.5 py-1.5 rounded-xl bg-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+        >
+          <span>ทั้งหมด</span>
+          <span id="countTabAll" class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-800 text-slate-300 font-mono">25</span>
+        </button>
+
+        <button 
+          data-category="anime" 
+          class="cat-tab-btn px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-white text-xs font-bold transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+        >
+          <span>🎬 อนิเมะจีน</span>
+          <span id="countTabAnime" class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-800 text-slate-400 font-mono">6</span>
+        </button>
+
+        <button 
+          data-category="manga" 
+          class="cat-tab-btn px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-white text-xs font-bold transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+        >
+          <span>📖 อ่านตูน</span>
+          <span id="countTabManga" class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-800 text-slate-400 font-mono">19</span>
+        </button>
+
+        <button 
+          data-category="favorite" 
+          class="cat-tab-btn px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-amber-400 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+        >
+          <span>⭐ เรื่องโปรด</span>
+          <span id="countTabFav" class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-800 text-slate-400 font-mono">1</span>
+        </button>
+      </div>
+
+      <!-- Search & Filters -->
+      <div class="flex flex-wrap items-center gap-2">
+        
+        <!-- Search Input -->
+        <div class="relative flex-1 sm:w-60 min-w-[160px]">
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="ค้นหาชื่อเรื่อง, ตัวละคร..." 
+            class="w-full pl-8 pr-7 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+          >
+          <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <button id="clearSearchBtn" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">✕</button>
+        </div>
+
+        <!-- Sort Select -->
+        <select 
+          id="sortSelect" 
+          class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-sky-500 cursor-pointer"
+        >
+          <option value="updated">🕒 อัปเดตล่าสุด</option>
+          <option value="fav_first">⭐ เรื่องโปรดขึ้นก่อน</option>
+          <option value="ep_desc">📈 ตอนมาก ➔ น้อย</option>
+          <option value="ep_asc">📉 ตอนน้อย ➔ มาก</option>
+          <option value="title">🔤 ชื่อเรื่อง ก-ฮ / A-Z</option>
+        </select>
+
+        <!-- View Switcher (Table vs Grid) -->
+        <div class="flex items-center rounded-xl bg-slate-800 border border-slate-700 p-0.5">
+          <button id="viewTableBtn" class="px-2.5 py-1.5 rounded-lg bg-slate-700 text-cyan-400 text-xs font-bold transition cursor-pointer flex items-center gap-1.5" title="มุมมองตารางแนวนอน แยกหมวดหมู่">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+            <span>ตาราง</span>
+          </button>
+          <button id="viewGridBtn" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white text-xs font-bold transition cursor-pointer flex items-center gap-1.5" title="มุมมองการ์ด">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>การ์ด</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Quick Add Form Bar (เพิ่มเรื่องด่วนไม่ต้องเปิดป๊อปอัป) -->
+    <div class="glass-card rounded-2xl p-3 sm:p-4 border border-sky-500/30 bg-sky-950/20 shadow-md">
+      <form id="quickAddForm" class="flex flex-col md:flex-row items-stretch md:items-center gap-2.5">
+        <div class="flex items-center gap-2 text-xs font-bold text-sky-400 whitespace-nowrap">
+          <span class="w-6 h-6 rounded-lg bg-sky-500/20 text-sky-300 flex items-center justify-center font-bold text-sm">➕</span>
+          <span>เพิ่มเรื่องด่วน:</span>
+        </div>
+
+        <!-- Category Picker -->
+        <select id="quickCategory" class="px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white focus:outline-none focus:ring-1 focus:ring-sky-500 cursor-pointer">
+          <option value="anime">🎬 อนิเมะจีน</option>
+          <option value="manga">📖 อ่านตูน / มันฮวา</option>
+        </select>
+
+        <!-- Title Input -->
+        <input 
+          type="text" 
+          id="quickTitle" 
+          required 
+          placeholder="พิมพ์ชื่อเรื่องใหม่ (เช่น พรรคมารกลียุค, Omniscient Reader)..." 
+          class="flex-1 px-3.5 py-2 rounded-xl bg-slate-800/90 border border-slate-700 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+        >
+
+        <!-- Alias / Protagonist Input -->
+        <input 
+          type="text" 
+          id="quickAlias" 
+          placeholder="ตัวละคร / ชื่อย่อ (ไม่บังคับ)" 
+          class="w-full md:w-44 px-3 py-2 rounded-xl bg-slate-800/90 border border-slate-700 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+        >
+
+        <!-- Current Episode -->
+        <div class="flex items-center gap-1.5 w-full md:w-32">
+          <input 
+            type="number" 
+            id="quickEp" 
+            min="0" 
+            value="1" 
+            placeholder="ตอน" 
+            class="w-full px-3 py-2 rounded-xl bg-slate-800/90 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:ring-1 focus:ring-sky-500 text-center"
+          >
+          <span id="quickUnitLabel" class="text-xs text-slate-400 whitespace-nowrap font-mono">ep</span>
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          class="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white text-xs font-bold shadow-md shadow-sky-950/40 flex items-center justify-center gap-1.5 transition cursor-pointer active:scale-95 whitespace-nowrap"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span>เพิ่มเรื่องทันที</span>
+        </button>
+
+        <!-- Detailed Modal Button -->
+        <button 
+          type="button" 
+          onclick="openAddModal()" 
+          class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-medium transition cursor-pointer whitespace-nowrap flex items-center justify-center gap-1"
+          title="เปิดฟอร์มใส่โน้ต/ลิงก์แบบละเอียด"
+        >
+          <span>⚙️ ใส่รายละเอียด</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Items Container (Separated by Categories) -->
+    <div id="itemListContainer" class="w-full space-y-6">
+      <!-- Generated via JS -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden text-center py-16 px-4">
+      <div class="w-16 h-16 rounded-2xl bg-slate-800 text-slate-400 flex items-center justify-center mx-auto mb-3 text-2xl">
+        🔍
+      </div>
+      <h3 class="text-base font-bold text-slate-200">ไม่พบรายการที่ค้นหา</h3>
+      <p class="text-xs text-slate-400 mt-1">ลองเปลี่ยนคำค้นหา หรือรีเซ็ตตัวกรอง</p>
+      <button onclick="resetToDefaults()" class="mt-4 px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 cursor-pointer">
+        คืนค่า 25 เรื่องดั้งเดิม
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-auto border-t border-slate-800/80 bg-slate-900/60 py-4 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>พัฒนาสำหรับระบบบันทึกความคืบหน้ารายวัน • <strong>Psai Web Application Suite</strong></p>
+      <div class="flex items-center gap-3">
+        <button onclick="openExportModal()" class="hover:text-slate-300 transition cursor-pointer">📋 ดูสรุปข้อความ</button>
+        <span>•</span>
+        <button onclick="resetToDefaults()" class="hover:text-rose-400 transition cursor-pointer">🔄 รีเซ็ตข้อมูลเริ่มต้น</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal: Add / Edit Item -->
+  <div id="itemModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xs">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-5 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+        <h3 id="modalTitle" class="text-base font-bold text-white flex items-center gap-2">
+          ➕ เพิ่มเรื่องใหม่
+        </h3>
+        <button onclick="closeItemModal()" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <form id="editForm" class="flex flex-col gap-3">
+        <input type="hidden" id="editId">
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">หมวดหมู่</label>
+            <select id="editCategory" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white focus:outline-none focus:ring-1 focus:ring-sky-500">
+              <option value="anime">🎬 อนิเมะจีน (Donghua)</option>
+              <option value="manga">📖 มันฮวา / มังงะ (Webtoon)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">สถานะ</label>
+            <select id="editStatus" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white focus:outline-none focus:ring-1 focus:ring-sky-500">
+              <option value="watching">กำลังตาม (Active)</option>
+              <option value="on_hold">ดองไว้ก่อน (On Hold)</option>
+              <option value="completed">จบแล้ว (Completed)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">ชื่อเรื่อง *</label>
+          <input type="text" id="editTitle" required placeholder="เช่น ภูตถังซาน 2, Solo Max-Level Newbie" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">ตัวละครเอก / ชื่อย่อ</label>
+          <input type="text" id="editAlias" placeholder="เช่น หวี่เฮ่า, หวังหลิน, ผู้เล่นหน้าใหม่" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">ตอนล่าสุดที่ดู/อ่าน</label>
+            <input type="number" id="editEp" min="0" value="1" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:ring-1 focus:ring-sky-500">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1">หน่วยนับ</label>
+            <select id="editUnit" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white focus:outline-none focus:ring-1 focus:ring-sky-500">
+              <option value="ep">ep</option>
+              <option value="ตอนที่">ตอนที่</option>
+              <option value="เล่มที่">เล่มที่</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">บันทึกข้อความ / โน้ตย่อ</label>
+          <input type="text" id="editNote" placeholder="เช่น กำลังถึงช่วงประลอง, รอวันเสาร์" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">ลิงก์ดู/อ่านประจำ (ไม่บังคับ)</label>
+          <input type="url" id="editUrl" placeholder="https://..." class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
+        </div>
+
+        <div class="flex items-center gap-2 pt-1">
+          <input type="checkbox" id="editFavorite" class="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 bg-slate-800 border-slate-700 cursor-pointer">
+          <label for="editFavorite" class="text-xs text-slate-300 font-medium cursor-pointer">⭐ ปักหมุดเป็นเรื่องโปรด (ขึ้นอันดับต้นๆ)</label>
+        </div>
+
+        <div class="flex items-center justify-between gap-2 pt-4 border-t border-slate-800 mt-2">
+          <button type="button" id="deleteBtn" onclick="handleDeleteItem()" class="hidden px-3 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-semibold cursor-pointer">
+            ลบเรื่องนี้
+          </button>
+          
+          <div class="flex items-center gap-2 ml-auto">
+            <button type="button" onclick="closeItemModal()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold cursor-pointer">
+              ยกเลิก
+            </button>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold shadow-md cursor-pointer">
+              บันทึกข้อมูล
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Export Raw Text -->
+  <div id="exportModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xs">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-5 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          📋 สรุปรายการข้อความ (พร้อมคัดลอก)
+        </h3>
+        <button onclick="closeExportModal()" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <p class="text-xs text-slate-400 mb-3">
+        จัดรูปแบบข้อความตรงตามแบบที่คุณบันทึกไว้ สามารถกดปุ่มคัดลอกเพื่อนำไปวางใน LINE หรือแอปโน้ตได้ทันที
+      </p>
+
+      <textarea id="exportTextarea" readonly rows="12" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 font-mono leading-relaxed focus:outline-none"></textarea>
+
+      <div class="flex items-center justify-end gap-2 mt-4 pt-3 border-t border-slate-800">
+        <button onclick="closeExportModal()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold cursor-pointer">
+          ปิดหน้าต่าง
+        </button>
+        <button onclick="copyFromExportModal()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md flex items-center gap-1.5 cursor-pointer">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span>คัดลอกทั้งหมด</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Import Raw Text -->
+  <div id="importModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xs">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-5 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          📥 นำเข้าจากข้อความดิบ
+        </h3>
+        <button onclick="closeImportModal()" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <p class="text-xs text-slate-400 mb-2">
+        วางข้อความรายการอนิเมะหรือมังงะของคุณลงในช่องด้านล่าง ระบบจะแยกชื่อเรื่องและเลขตอนให้อัตโนมัติ:
+      </p>
+
+      <textarea id="importTextarea" rows="10" placeholder="ตัวอย่าง:
+อนิเมะจีนน่าดู--
+หวี่เฮ่า/ภูตถังซาน2 ep 161
+*หวังหลิน/ฝืนลิขิตฟ้าข้าขอเป็นเซียน ep 152
+
+อ่านตูน
+Solo Max-Level Newbie ผู้เล่นหน้าใหม่เลเวลแมกซ์ ep 271" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-slate-200 font-mono leading-relaxed focus:outline-none focus:ring-1 focus:ring-sky-500"></textarea>
+
+      <div class="flex items-center justify-end gap-2 mt-4 pt-3 border-t border-slate-800">
+        <button onclick="closeImportModal()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold cursor-pointer">
+          ยกเลิก
+        </button>
+        <button onclick="processRawTextImport()" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold shadow-md cursor-pointer">
+          ยืนยันการนำเข้า
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer"></div>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>

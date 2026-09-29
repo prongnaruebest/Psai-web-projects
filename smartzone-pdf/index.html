@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="clear">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Zone AI (sZai) - PDF Studio & Interactive Flipbook</title>
+  <meta name="description" content="Edit PDFs, create interactive flipbooks, organize pages, merge or split files, and export pages as images. Free, private, and processed in your browser.">
+  <meta name="theme-color" content="#059669">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23059669' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z'/><path d='M6 6h10'/><path d='M6 10h10'/></svg>" type="image/svg+xml">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor Libraries (100% Local & Offline) -->
+  <script src="./vendor/pdf.worker.min.js"></script>
+  <script src="./vendor/pdf.min.js"></script>
+  <script src="./vendor/pdf-lib.min.js"></script>
+  <script src="./vendor/jszip.min.js"></script>
+  <script src="./vendor/page-flip.browser.js"></script>
+
+  <!-- Application Styles -->
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="brand-wrapper" onclick="switchTab('home')">
+      <div class="brand-icon-box">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+          <path d="M6 6h10"/>
+          <path d="M6 10h10"/>
+          <path d="M6 14h6"/>
+        </svg>
+      </div>
+      <div class="brand-titles">
+        <div class="brand-name">Smart Zone AI</div>
+        <div class="brand-badge" data-i18n="brand_sub">PDF Toolkit & Flipbook</div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-links">
+      <button class="nav-tab-btn active" data-tab="home" data-i18n="nav_home">
+        <span>🏠</span> หน้าหลัก
+      </button>
+      <button class="nav-tab-btn" data-tab="flipbook" data-i18n="nav_flipbook">
+        <span>📖</span> ฟลิปบุ๊ก (Flipbook)
+      </button>
+      <button class="nav-tab-btn" data-tab="edit" data-i18n="nav_edit">
+        <span>✏️</span> แก้ไข PDF
+      </button>
+      <button class="nav-tab-btn" data-tab="merge" data-i18n="nav_merge">
+        <span>📑</span> รวมไฟล์ PDF
+      </button>
+      <button class="nav-tab-btn" data-tab="split" data-i18n="nav_split">
+        <span>✂️</span> แยกหน้า PDF
+      </button>
+      <button class="nav-tab-btn" data-tab="organize" data-i18n="nav_organize">
+        <span>🗂️</span> จัดเรียงหน้า
+      </button>
+      <button class="nav-tab-btn" data-tab="images" data-i18n="nav_images">
+        <span>🖼️</span> แปลงเป็นรูปภาพ
+      </button>
+    </nav>
+
+    <!-- Action Bar & Controls -->
+    <div class="nav-actions">
+      <button class="btn-pill-opt theme-toggle-btn" id="btn-theme-toggle" title="สลับธีม สว่าง (Clear) / มืด (Dark)">☀️ ธีม Clear</button>
+      <button class="btn-pill-opt" id="btn-sound-toggle" title="เปิด/ปิดเสียงพลิกหน้า">🔊 เสียงเปิด</button>
+      <button class="btn-pill-opt" id="btn-lang-toggle" title="สลับภาษา">
+        <span>🌐</span> <span id="lang-label">TH</span>
+      </button>
+      <div class="security-badge">
+        <span>🔒 Zero Uploads</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Body -->
+  <main class="main-content">
+
+    <!-- HOME / HERO SECTION -->
+    <section class="hero-section home-only">
+      <div class="hero-pill">
+        <span>⚡</span> <span data-i18n="privacy_badge">🔒 ประมวลผลบนเบราว์เซอร์ 100% • ปลอดภัย ไร้การอัปโหลด</span>
+      </div>
+      <h1 class="hero-title" data-i18n="hero_title">
+        เครื่องมือจัดการ PDF <span>ส่วนตัว & ไร้เซิร์ฟเวอร์</span>
+      </h1>
+      <p class="hero-subtitle" data-i18n="hero_sub">
+        สร้างฟลิปบุ๊กสมจริง 3D, แก้ไขเอกสาร, ใส่ลายเซ็น, ปิดข้อความลับ, รวมและแยกหน้า PDF ได้รวดเร็ว ประมวลผลในเครื่องคุณ 100%
+      </p>
+
+      <div class="hero-features-bar">
+        <div class="hero-feature-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span data-i18n="feature_1">สมจริงด้วยฟิสิกส์ 3D</span>
+        </div>
+        <div class="hero-feature-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span data-i18n="feature_2">แก้ไขและลงลายเซ็น</span>
+        </div>
+        <div class="hero-feature-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span data-i18n="feature_3">ความปลอดภัยสูงสุด</span>
+        </div>
+        <div class="hero-feature-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span data-i18n="feature_4">ทำงานออฟไลน์ได้</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN UPLOAD DROPZONE (HOME ONLY) -->
+    <div class="upload-wrapper home-only" id="upload-dropzone">
+      <input type="file" id="global-pdf-input" accept="application/pdf" style="display: none;">
+      
+      <div class="upload-icon-circle">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+      </div>
+
+      <h2 class="upload-title" data-i18n="drop_title">ลากและวางไฟล์ PDF ที่นี่</h2>
+      <p class="upload-subtitle" data-i18n="drop_sub">หรือคลิกเพื่อเลือกไฟล์จากคอมพิวเตอร์ของคุณ (รองรับไฟล์สูงสุด 500 MB)</p>
+
+      <div class="upload-btn-row">
+        <button class="btn-primary" onclick="document.getElementById('global-pdf-input').click()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span data-i18n="btn_select_file">เลือกไฟล์ PDF</span>
+        </button>
+        <button class="btn-secondary btn-load-demo-action" data-i18n="btn_load_demo">
+          📄 โหลดไฟล์ตัวอย่าง Demo
+        </button>
+      </div>
+
+      <div class="upload-meta">
+        <span>🔒 Zero Uploads • 100% Client-Side</span>
+        <span>•</span>
+        <span>⚡ รวดเร็ว ปลอดภัยระดับสูงสุด</span>
+        <span>•</span>
+        <span>📦 ไม่จำกัดขนาดหน้า</span>
+      </div>
+    </div>
+
+    <!-- 6 QUICK TOOLS GRID (HOME ONLY) -->
+    <div class="tools-grid home-only">
+      <!-- Card 1: Flipbook -->
+      <div class="tool-card" data-tab="flipbook">
+        <div class="tool-card-header">
+          <div class="tool-icon-wrapper">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <span class="tool-badge">3D Physics</span>
+        </div>
+        <div class="tool-card-body">
+          <h3>Interactive Flipbook</h3>
+          <p>เปลี่ยนไฟล์ PDF ให้กลายเป็นหนังสือฟลิปบุ๊ก 3 มิติ พลิกหน้าได้สมจริง พร้อมเสียงและแสงเงา ส่งออกเป็นเว็บเปิดดูได้ทุกที่</p>
+        </div>
+        <div class="tool-card-footer">
+          <span class="tool-output-desc">Interactive web flipbook</span>
+          <span class="tool-btn">เปิดฟลิปบุ๊ก →</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Edit PDF -->
+      <div class="tool-card" data-tab="edit">
+        <div class="tool-card-header">
+          <div class="tool-icon-wrapper">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <span class="tool-badge">Visual Suite</span>
+        </div>
+        <div class="tool-card-body">
+          <h3>Edit PDF</h3>
+          <p>เพิ่มข้อความ, วาดไฮไลต์, ลงลายเซ็นดิจิทัล, ขีดเส้นคาด, เซ็นเซอร์ข้อมูลลับ (Redact) และประทับตราอนุมัติ</p>
+        </div>
+        <div class="tool-card-footer">
+          <span class="tool-output-desc">One editable PDF</span>
+          <span class="tool-btn">เปิดเครื่องมือแก้ไข →</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Merge -->
+      <div class="tool-card" data-tab="merge">
+        <div class="tool-card-header">
+          <div class="tool-icon-wrapper">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          </div>
+          <span class="tool-badge">Multi-file</span>
+        </div>
+        <div class="tool-card-body">
+          <h3>Merge PDFs</h3>
+          <p>รวมไฟล์ PDF หลายไฟล์เข้าด้วยกันเป็นไฟล์เดียว ลากจัดเรียงลำดับไฟล์ได้ตามต้องการ ประมวลผลรวดเร็ว</p>
+        </div>
+        <div class="tool-card-footer">
+          <span class="tool-output-desc">One merged PDF</span>
+          <span class="tool-btn">เปิดเครื่องมือรวมไฟล์ →</span>
+        </div>
+      </div>
+
+      <!-- Card 4: Split -->
+      <div class="tool-card" data-tab="split">
+        <div class="tool-card-header">
+          <div class="tool-icon-wrapper">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+          </div>
+          <span class="tool-badge">Precision</span>
+        </div>
+        <div class="tool-card-body">
+          <h3>Split PDF</h3>
+          <p>แยกทุกหน้าออกเป็นไฟล์ PDF แยกรายหน้า (ดาวน์โหลดเป็น ZIP) หรือระบุช่วงหน้าที่ต้องการดึงออกมา</p>
+        </div>
+        <div class="tool-card-footer">
+          <span class="tool-output-desc">ZIP of separate PDF pages</span>
+          <span class="tool-btn">เปิดเครื่องมือแยกหน้า →</span>
+        </div>
+      </div>
+
+      <!-- Card 5: Organize -->
+      <div class="tool-card" data-tab="organize">
+        <div class="tool-card-header">
+          <div class="tool-icon-wrapper">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <span class="tool-badge">Visual Grid</span>
+        </div>
+        <div class="tool-card-body">
+          <h3>Organize Pages</h3>
+          <p>ดูตัวอย่างทุกหน้าในแบบ Grid หมุนหน้า 90°, ย้ายสลับตำแหน่งหน้า หรือลบหน้าที่ไม่ต้องการออกอย่างอิสระ</p>
+        </div>
+        <div class="tool-card-footer">
+          <span class="tool-output-desc">One organized PDF</span>
+          <span class="tool-btn">เปิดเครื่องมือจัดหน้า →</span>
+        </div>
+      </div>
+
+      <!-- Card 6: PDF to Images -->
+      <div class="tool-card" data-tab="images">
+        <div class="tool-card-header">
+          <div class="tool-icon-wrapper">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <span class="tool-badge">High Resolution</span>
+        </div>
+        <div class="tool-card-body">
+          <h3>PDF to Images</h3>
+          <p>แปลงหน้าเอกสาร PDF ทุกหน้าเป็นไฟล์ภาพคมชัดสูง PNG หรือ JPG พร้อมตัวเลือกความละเอียดและดาวน์โหลด ZIP</p>
+        </div>
+        <div class="tool-card-footer">
+          <span class="tool-output-desc">ZIP of JPG or PNG images</span>
+          <span class="tool-btn">เปิดเครื่องมือแปลงรูป →</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ====================================================================
+         WORKSPACE 1: INTERACTIVE FLIPBOOK
+         ==================================================================== -->
+    <section class="workspace-container" id="view-flipbook">
+      <div class="workspace-header">
+        <div class="file-info-badge">
+          <div class="file-icon-box">📖</div>
+          <div>
+            <div class="file-name file-name-display">ยังไม่ได้เลือกไฟล์</div>
+            <div class="file-stats file-pages-display">0 หน้า</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+          <button class="btn-secondary btn-load-demo-action">📄 สลับใช้ Demo</button>
+          <button class="btn-primary" id="btn-export-standalone" data-i18n="btn_export_html">
+            💾 ส่งออกเป็นเว็บ Flipbook แบบ Standalone
+          </button>
+        </div>
+      </div>
+
+      <!-- 3D Flipbook Stage -->
+      <div class="flipbook-stage-wrapper">
+        <div class="flipbook-container" id="flipbook-wrapper">
+          <div style="text-align:center;color:var(--text-muted);padding:3rem;">
+            <p style="font-size:1.1rem;margin-bottom:1rem;">ยังไม่มีไฟล์ที่กำลังเปิด</p>
+            <button class="btn-primary btn-load-demo-action">📄 โหลดไฟล์ตัวอย่าง Demo ทันที</button>
+          </div>
+        </div>
+
+        <!-- Controls Bar -->
+        <div class="flipbook-controls-bar">
+          <button class="flip-btn" id="flip-btn-prev">◀ หน้าก่อนหน้า</button>
+          <div style="display:flex;align-items:center;gap:0.35rem;">
+            <input type="number" id="flip-page-input" class="page-jump-input" min="1" value="1">
+            <span id="flip-total-pages" style="font-size:0.85rem;color:var(--text-dim);">/ 0</span>
+          </div>
+          <button class="flip-btn" id="flip-btn-next">หน้าถัดไป ▶</button>
+        </div>
+
+        <!-- Flipbook Thumbnails Drawer -->
+        <div class="thumbnails-drawer" id="flip-thumbnails-drawer"></div>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         WORKSPACE 2: EDIT PDF
+         ==================================================================== -->
+    <section class="workspace-container" id="view-edit">
+      <div class="workspace-header">
+        <div class="file-info-badge">
+          <div class="file-icon-box">✏️</div>
+          <div>
+            <div class="file-name file-name-display">ยังไม่ได้เลือกไฟล์</div>
+            <div class="file-stats" id="editor-page-indicator">หน้า 1 จาก 1</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:0.75rem;align-items:center;">
+          <button class="flip-btn" id="editor-prev-btn">◀ หน้าก่อน</button>
+          <button class="flip-btn" id="editor-next-btn">หน้าถัดไป ▶</button>
+          <button class="btn-primary" id="btn-save-edited-pdf" data-i18n="btn_save_pdf">
+            💾 บันทึกและดาวน์โหลด PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- Editor Action Toolbar -->
+      <div class="editor-toolbar">
+        <div class="editor-tools-group">
+          <button class="tool-opt-btn editor-tool-btn active-tool" data-tool="select" title="เลือก/ขยับ">✋</button>
+          <button class="tool-opt-btn editor-tool-btn" data-tool="text" title="เพิ่มข้อความ">T</button>
+          <button class="tool-opt-btn editor-tool-btn" data-tool="draw" title="ปากกาวาดเขียน">✏️</button>
+          <button class="tool-opt-btn editor-tool-btn" data-tool="highlight" title="ปากกาไฮไลต์ข้อความ">🖍️</button>
+          <button class="tool-opt-btn editor-tool-btn" data-tool="redact" title="เซ็นเซอร์ข้อความลับ (Redact)">⬛</button>
+          <button class="tool-opt-btn editor-tool-btn" data-tool="rect" title="วาดกล่องสี่เหลี่ยม">▭</button>
+          <div class="divider-vert"></div>
+          <button class="tool-opt-btn" id="btn-open-sig-modal" title="ใส่ลายเซ็นดิจิทัล">✍️ ลายเซ็น</button>
+          <div class="divider-vert"></div>
+          <!-- Stamp quick actions -->
+          <button class="flip-btn btn-stamp-action" data-stamp="CONFIDENTIAL">🔒 ลับเฉพาะ</button>
+          <button class="flip-btn btn-stamp-action" data-stamp="APPROVED">✅ อนุมัติแล้ว</button>
+          <button class="flip-btn btn-stamp-action" data-stamp="DRAFT">📝 ฉบับร่าง</button>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <label style="font-size:0.8rem;color:var(--text-dim);display:flex;align-items:center;gap:0.35rem;">
+            สี:
+            <input type="color" id="editor-color-picker" class="color-input-btn" value="#1fe0ad">
+          </label>
+        </div>
+      </div>
+
+      <!-- Editor Drawing Viewport -->
+      <div class="editor-stage-viewport">
+        <div id="editor-canvas-container">
+          <div style="text-align:center;color:var(--text-muted);padding:3rem;">
+            <p>กรุณาเลือกไฟล์ PDF หรือโหลดไฟล์ตัวอย่างเพื่อเริ่มแก้ไข</p>
+            <button class="btn-primary btn-load-demo-action" style="margin-top:1rem;">📄 โหลดตัวอย่าง</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         WORKSPACE 3: MERGE PDFS
+         ==================================================================== -->
+    <section class="workspace-container" id="view-merge">
+      <div class="workspace-header">
+        <div>
+          <h2 style="font-size:1.2rem;font-weight:700;">รวมหลายไฟล์ PDF เป็นไฟล์เดียว (Merge PDFs)</h2>
+          <p style="font-size:0.85rem;color:var(--text-dim);">เลือกไฟล์ที่ต้องการรวมและจัดเรียงลำดับได้อิสระ</p>
+        </div>
+
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <input type="file" id="merge-multi-input" accept="application/pdf" multiple style="display:none;">
+          <button class="btn-secondary" onclick="loadDemoMergeFiles()" title="ทดสอบรวมไฟล์ด้วยตัวอย่าง 2 ชุด">
+            📄 โหลดตัวอย่าง 2 ไฟล์
+          </button>
+          <button class="btn-secondary" onclick="document.getElementById('merge-multi-input').click()">
+            ➕ เพิ่มไฟล์ PDF
+          </button>
+          <button class="btn-primary" id="btn-execute-merge" disabled data-i18n="btn_merge_now">
+            รวมไฟล์ PDF ทั้งหมด
+          </button>
+        </div>
+      </div>
+
+      <div class="merge-list" id="merge-files-list">
+        <div class="merge-empty-dropzone" id="merge-dropzone" style="text-align:center;padding:3.5rem 1.5rem;color:var(--text-dim);background:var(--bg-card);border:2px dashed var(--border-card);border-radius:var(--radius-lg);transition:all 0.2s;">
+          <div style="font-size:2.8rem;margin-bottom:0.75rem;">📑</div>
+          <p style="font-size:1.1rem;font-weight:700;color:var(--text-main);margin-bottom:0.4rem;">ลากไฟล์ PDF มาวางที่นี่ หรือคลิกปุ่มเพื่อเลือกไฟล์</p>
+          <p style="font-size:0.88rem;color:var(--text-dim);margin-bottom:1.5rem;max-width:480px;margin-left:auto;margin-right:auto;">รองรับการรวมไฟล์ PDF หลายไฟล์พร้อมกัน จัดลำดับหน้าก่อน-หลังได้อิสระ ประมวลผลปลอดภัยในเครื่อง 100%</p>
+          <div style="display:flex;gap:0.85rem;justify-content:center;flex-wrap:wrap;">
+            <button class="btn-primary" onclick="document.getElementById('merge-multi-input').click()">📂 เลือกไฟล์ PDF จากเครื่อง</button>
+            <button class="btn-secondary" onclick="loadDemoMergeFiles()">📄 โหลดไฟล์ตัวอย่าง 2 ไฟล์ (ทดสอบ)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         WORKSPACE 4: SPLIT PDF
+         ==================================================================== -->
+    <section class="workspace-container" id="view-split">
+      <div class="workspace-header">
+        <div class="file-info-badge">
+          <div class="file-icon-box">✂️</div>
+          <div>
+            <div class="file-name file-name-display">ยังไม่ได้เลือกไฟล์</div>
+            <div class="file-stats file-pages-display">0 หน้า</div>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="btn-execute-split" data-i18n="btn_split_now">
+          แยกหน้าและดาวน์โหลด (ZIP)
+        </button>
+      </div>
+
+      <div style="max-width:700px;margin:2rem auto;width:100%;background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-lg);padding:2rem;display:flex;flex-direction:column;gap:1.5rem;">
+        <h3 style="font-size:1.15rem;font-weight:700;">เลือกรูปแบบการแยกหน้า:</h3>
+
+        <label style="display:flex;align-items:flex-start;gap:0.75rem;cursor:pointer;">
+          <input type="radio" name="split-mode" value="all" checked style="margin-top:0.3rem;">
+          <div>
+            <div style="font-weight:700;color:var(--text-main);">แยกทุกหน้าเป็น PDF เดี่ยว (Export Every Page)</div>
+            <div style="font-size:0.85rem;color:var(--text-dim);">สร้างไฟล์แยกหน้าละ 1 ไฟล์ แล้วบีบอัดเป็น .ZIP ให้ดาวน์โหลดทีเดียว</div>
+          </div>
+        </label>
+
+        <label style="display:flex;align-items:flex-start;gap:0.75rem;cursor:pointer;">
+          <input type="radio" name="split-mode" value="range" style="margin-top:0.3rem;">
+          <div style="flex:1;">
+            <div style="font-weight:700;color:var(--text-main);">ดึงเฉพาะช่วงหน้าที่ระบุ (Extract Page Range)</div>
+            <div style="font-size:0.85rem;color:var(--text-dim);margin-bottom:0.5rem;">เช่น: ระบุ 1-2, 4 เพื่อดึงเฉพาะหน้า 1, 2 และ 4 รวมเป็นไฟล์ใหม่</div>
+            <input type="text" id="split-range-input" placeholder="ตัวอย่าง: 1-2, 4" style="width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:0.6rem;color:#fff;">
+          </div>
+        </label>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         WORKSPACE 5: ORGANIZE PAGES
+         ==================================================================== -->
+    <section class="workspace-container" id="view-organize">
+      <div class="workspace-header">
+        <div class="file-info-badge">
+          <div class="file-icon-box">🗂️</div>
+          <div>
+            <div class="file-name file-name-display">ยังไม่ได้เลือกไฟล์</div>
+            <div class="file-stats file-pages-display">0 หน้า</div>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="btn-save-organize">
+          💾 บันทึกลำดับหน้าใหม่ (Download PDF)
+        </button>
+      </div>
+
+      <div class="organize-grid" id="organize-grid">
+        <div style="grid-column: 1 / -1; text-align:center;padding:3rem;color:var(--text-dim);">
+          <p>กรุณาเลือกไฟล์ PDF หรือโหลดตัวอย่างเพื่อเริ่มจัดเรียงหน้า</p>
+          <button class="btn-primary btn-load-demo-action" style="margin-top:1rem;">📄 โหลดตัวอย่าง</button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         WORKSPACE 6: PDF TO IMAGES
+         ==================================================================== -->
+    <section class="workspace-container" id="view-images">
+      <div class="workspace-header">
+        <div class="file-info-badge">
+          <div class="file-icon-box">🖼️</div>
+          <div>
+            <div class="file-name file-name-display">ยังไม่ได้เลือกไฟล์</div>
+            <div class="file-stats file-pages-display">0 หน้า</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+          <select id="select-image-format" class="flip-btn">
+            <option value="png">PNG (คมชัดสูงสุด)</option>
+            <option value="jpeg">JPG (ขนาดไฟล์เล็ก)</option>
+          </select>
+          <select id="select-image-scale" class="flip-btn">
+            <option value="1">1x (มาตรฐาน 72 DPI)</option>
+            <option value="2" selected>2x (ความละเอียดสูง 150 DPI)</option>
+            <option value="3">3x (คมชัดพิเศษ 300 DPI)</option>
+          </select>
+          <button class="btn-primary" id="btn-download-all-images" data-i18n="btn_download_zip">
+            ดาวน์โหลดรูปทั้งหมดเป็น ZIP
+          </button>
+        </div>
+      </div>
+
+      <div class="images-gallery-grid" id="images-gallery">
+        <div style="grid-column: 1 / -1; text-align:center;padding:3rem;color:var(--text-dim);">
+          <p>กรุณาเลือกไฟล์ PDF หรือโหลดตัวอย่างเพื่อแปลงเป็นรูปภาพ</p>
+          <button class="btn-primary btn-load-demo-action" style="margin-top:1rem;">📄 โหลดตัวอย่าง</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Signature Drawer / Modal -->
+  <div class="modal-backdrop" id="signature-modal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 class="modal-title">วาดลายเซ็นดิจิทัลของคุณ</h3>
+        <button class="btn-close-modal" id="btn-close-sig-modal">✕</button>
+      </div>
+
+      <div class="sig-canvas-box">
+        <canvas id="signature-canvas" width="460" height="200"></canvas>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <button class="btn-secondary" id="btn-clear-sig">ล้างลายเซ็น</button>
+        <button class="btn-primary" id="btn-insert-sig">แทรกลายเซ็นลงในหน้า</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loading-text">กำลังประมวลผล...</div>
+    <div class="loading-subtext" id="loading-subtext">ทำงานในเครื่องของคุณ 100%</div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Application Script -->
+  <script src="./app.js"></script>
+</body>
+</html>

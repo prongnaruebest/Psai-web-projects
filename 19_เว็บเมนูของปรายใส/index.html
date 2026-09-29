@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#173b4d">
+  <meta name="description" content="เลือกวัตถุดิบที่มี แล้วค้นหาเมนูอาหารสำหรับเด็กตามวัย เวลา และข้อจำกัดด้านอาหาร">
+  <title>เมนูของปรายใส</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23173b4d'/%3E%3Cpath d='M15 31h34a17 17 0 0 1-34 0Z' fill='%23f5c45e'/%3E%3Cpath d='M21 24c4-6 18-6 22 0' fill='none' stroke='%23fff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="เมนูของปรายใส หน้าหลัก"><span class="brandmark">ป</span><span>เมนูของปรายใส</span></a>
+    <div class="header-actions">
+      <button class="ghost" id="favoritesButton" type="button">เมนูโปรด <span id="favoriteCount">0</span></button>
+      <button class="ghost" id="shoppingButton" type="button">รายการซื้อ <span id="shoppingCount">0</span></button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="brief">
+      <div><p class="eyebrow">วัตถุดิบที่บ้าน → เมนูที่ทำได้</p><h1>วันนี้ให้ปรายใสกินอะไรดี?</h1><p>เลือกของที่มี ระบบจะเรียงเมนูที่ทำได้ก่อน พร้อมบอกของที่ขาด เวลา และวิธีเตรียมให้เหมาะกับวัย</p></div>
+      <img src="./toddler-meal.webp" alt="ตัวอย่างอาหารเนื้อนุ่มสำหรับเด็ก" width="420" height="220">
+    </section>
+
+    <section class="settings" aria-label="ตัวกรองเมนู">
+      <label>วัยของลูก<select id="age"><option value="6">6–8 เดือน</option><option value="9">9–11 เดือน</option><option value="12">12–17 เดือน</option><option value="18" selected>18–23 เดือน</option><option value="24">2 ปีขึ้นไป</option></select></label>
+      <label>มื้ออาหาร<select id="meal"><option value="all">ทุกมื้อ</option><option value="เช้า">มื้อเช้า</option><option value="กลางวัน">มื้อกลางวัน</option><option value="เย็น">มื้อเย็น</option><option value="ว่าง">อาหารว่าง</option></select></label>
+      <label>เวลาสูงสุด<select id="maxTime"><option value="999">ไม่จำกัด</option><option value="10">ไม่เกิน 10 นาที</option><option value="20">ไม่เกิน 20 นาที</option><option value="30">ไม่เกิน 30 นาที</option></select></label>
+      <label>เนื้อสัมผัส<select id="texture"><option value="all">ทุกแบบ</option><option value="บดเนียน">บดเนียน</option><option value="บดหยาบ">บดหยาบ</option><option value="ชิ้นนุ่ม">ชิ้นนุ่ม</option><option value="หยิบกิน">หยิบกิน</option></select></label>
+      <button class="filter-button" id="moreFilters" type="button" aria-expanded="false">สารก่อภูมิแพ้และอุปกรณ์ <span id="activeFilterCount">0</span></button>
+    </section>
+
+    <section class="advanced" id="advancedFilters" hidden>
+      <fieldset><legend>ไม่แสดงเมนูที่มี</legend><div class="check-grid" id="allergenFilters"></div></fieldset>
+      <fieldset><legend>อุปกรณ์ที่มี</legend><div class="check-grid" id="equipmentFilters"></div></fieldset>
+    </section>
+
+    <section class="workspace">
+      <aside class="panel ingredient-panel">
+        <div class="panel-head"><div><p class="step">ขั้นที่ 1</p><h2>เลือกวัตถุดิบที่มี</h2></div><span class="count" id="selectedCount">0 รายการ</span></div>
+        <input class="search" id="search" type="search" placeholder="ค้นหา เช่น ไข่ ฟักทอง ปลา" autocomplete="off">
+        <div class="tabs" id="tabs" role="tablist" aria-label="หมวดวัตถุดิบ"></div>
+        <div class="ingredients" id="ingredients"></div>
+        <div class="panel-actions"><button class="link-danger" id="resetIngredients" type="button">ล้างที่เลือก</button><button class="primary" id="findButton" type="button">ดูเมนูที่ทำได้</button></div>
+      </aside>
+
+      <section class="results" id="results">
+        <div class="results-head"><div><p class="step">ขั้นที่ 2</p><h2>เมนูที่แนะนำ</h2><p id="summary">เลือกวัตถุดิบเพื่อค้นหาเมนู</p></div><div class="result-actions"><button class="secondary" id="randomButton" type="button">สุ่มเมนู</button><select id="sort" aria-label="เรียงลำดับ"><option value="match">ตรงกับของที่มี</option><option value="time">เวลาน้อยที่สุด</option><option value="missing">ของขาดน้อยที่สุด</option></select></div></div>
+        <div class="cards" id="cards"></div>
+      </section>
+    </section>
+
+    <section class="history-section"><div><h2>เมนูที่ดูล่าสุด</h2><p>เก็บไว้เฉพาะในอุปกรณ์นี้</p></div><div class="history-list" id="recentList"></div></section>
+    <section class="safety"><h2>ข้อควรระวัง</h2><p>ปรับขนาดและเนื้อสัมผัสตามทักษะการเคี้ยวและกลืน นำก้าง กระดูก และเมล็ดแข็งออก ปรุงเนื้อสัตว์และไข่ให้สุก และดูแลเด็กขณะรับประทานเสมอ</p></section>
+    <p class="disclaimer">ข้อมูลนี้เป็นแนวทางจัดเตรียมอาหารทั่วไป ไม่ใช่คำแนะนำทางการแพทย์ เด็กแต่ละคนมีพัฒนาการและประวัติแพ้อาหารต่างกัน หากมีโรคประจำตัว น้ำหนักขึ้นไม่เหมาะสม กลืนลำบาก หรือสงสัยว่าแพ้อาหาร ควรปรึกษากุมารแพทย์หรือนักกำหนดอาหารเด็ก</p>
+    <div class="data-control"><button class="link-danger" id="clearDataButton" type="button">ล้างข้อมูลที่บันทึกในอุปกรณ์นี้</button></div>
+  </main>
+
+  <button class="mobile-find" id="mobileFind" type="button">ดูเมนูที่ทำได้ <span id="mobileSelectedCount">0</span></button>
+
+  <dialog id="recipeDialog"><div id="recipeContent"></div></dialog>
+  <dialog id="listDialog"><div id="listContent"></div></dialog>
+  <dialog id="confirmDialog"><div class="dialog-body"><h2>ล้างข้อมูลทั้งหมด?</h2><p>รายการโปรด ประวัติ และค่าที่เลือกในอุปกรณ์นี้จะถูกลบ</p><div class="dialog-actions"><button class="secondary" id="cancelClear">ยกเลิก</button><button class="danger" id="confirmClear">ล้างข้อมูล</button></div></div></dialog>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
