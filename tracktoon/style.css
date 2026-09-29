@@ -1,31 +1,31 @@
 @charset "UTF-8";
 
 /* ==========================================================================
-   TrackToon - 🌙 ธีมมืดถนอมสายตา (Warm Night Dark)
-   ออกแบบพิเศษเพื่อการอ่านง่าย สบายตา ไม่แสบตาในที่มืด และมองเห็นตัวเลขตอนชัดเจน
+   TrackToon - 🍵 ธีมมัจฉะถนอมสายตา (Matcha Zen Dark)
+   ออกแบบพิเศษในโทนชาเขียวมัจฉะธรรมชาติ ตัวหนังสือคมชัด สบายตา ไม่แสบตา และผ่อนคลาย
    ========================================================================== */
 
-/* Custom Smooth Scrollbars */
+/* Custom Smooth Scrollbars in Matcha Tones */
 ::-webkit-scrollbar {
   width: 9px;
   height: 9px;
 }
 ::-webkit-scrollbar-track {
-  background: #101622;
+  background: #0d150f;
 }
 ::-webkit-scrollbar-thumb {
-  background: #253346;
+  background: #253828;
   border-radius: 9999px;
-  border: 2px solid #101622;
+  border: 2px solid #0d150f;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b4e68;
+  background: #3b573f;
 }
 
-/* Base Body - Warm Night Charcoal */
+/* Base Body - Deep Matcha Charcoal */
 body {
-  background-color: #0f1520;
-  color: #e2e8f0;
+  background-color: #0c140e;
+  color: #d8e5d7;
   font-family: 'Prompt', sans-serif;
   letter-spacing: 0.015em;
   -webkit-font-smoothing: antialiased;
@@ -34,62 +34,62 @@ body {
 
 /* Header */
 header {
-  background: rgba(15, 21, 32, 0.94);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid #1e2a3c;
+  background: rgba(12, 20, 14, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid #1e3022;
 }
 
-/* Glass Panels & Cards */
+/* Glass Panels & Cards in Matcha */
 .glass-panel {
-  background: rgba(20, 28, 42, 0.75);
+  background: rgba(18, 29, 20, 0.78);
   backdrop-filter: blur(10px);
-  border: 1px solid #223044;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
+  border: 1px solid #283e2c;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
 }
 
 .glass-card {
-  background: rgba(22, 31, 47, 0.75);
+  background: rgba(19, 31, 22, 0.8);
   backdrop-filter: blur(8px);
-  border: 1px solid #23334a;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  border: 1px solid #283e2c;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
-  background: rgba(27, 39, 58, 0.9);
-  border-color: #38bdf8;
+  background: rgba(25, 41, 29, 0.95);
+  border-color: #52b788;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), 0 0 16px -2px rgba(82, 183, 136, 0.2);
 }
 
 /* ==========================================================================
-   Horizontal Table Styles (ออกแบบให้อ่านง่ายเป็นพิเศษ - Maximum Legibility)
+   Horizontal Table Styles (ธีมมัจฉะ คมชัด อ่านง่ายสูงสุด)
    ========================================================================== */
 .tracker-table-container {
   overflow-x: auto;
   border-radius: 1rem;
-  border: 1px solid #223249;
-  background: #141c2b;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid #263d2a;
+  background: #121d15;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
 }
 
 .tracker-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  font-size: 0.875rem; /* 14px ให้อ่านสบายตาขึ้น */
+  font-size: 0.875rem; /* 14px */
   text-align: left;
 }
 
 /* Table Header */
 .tracker-table th {
-  background: #101724;
-  color: #94a3b8;
+  background: #0f1911;
+  color: #a4c2a3;
   font-weight: 600;
   font-size: 0.8125rem;
   padding: 0.95rem 1.15rem;
-  border-bottom: 2px solid #223249;
+  border-bottom: 2px solid #273e2b;
   white-space: nowrap;
   letter-spacing: 0.025em;
 }
@@ -97,16 +97,16 @@ header {
 /* Table Body Cells */
 .tracker-table td {
   padding: 0.95rem 1.15rem;
-  border-bottom: 1px solid #1c2738;
+  border-bottom: 1px solid #1a291d;
   vertical-align: middle;
 }
 
-/* Zebra Striping ให้อ่านแนวนอนตามบรรทัดได้ง่าย สบายตา */
+/* Zebra Striping */
 .tracker-table tbody tr:nth-child(even) {
-  background-color: rgba(18, 25, 38, 0.6);
+  background-color: rgba(16, 26, 18, 0.65);
 }
 .tracker-table tbody tr:nth-child(odd) {
-  background-color: rgba(22, 31, 47, 0.4);
+  background-color: rgba(20, 32, 23, 0.45);
 }
 
 /* Row Hover */
@@ -114,44 +114,45 @@ header {
   transition: background-color 0.15s ease;
 }
 .tracker-table tbody tr:hover {
-  background-color: #1e2c40 !important;
+  background-color: #213525 !important;
 }
 
-/* Pinned Favorite Rows */
+/* Pinned Favorite Rows - Warm Golden Tea / Hojicha */
 .tracker-table tbody tr.is-fav {
-  background-color: rgba(245, 158, 11, 0.08) !important;
-  border-left: 4px solid #f59e0b;
+  background-color: rgba(217, 155, 38, 0.09) !important;
+  border-left: 4px solid #e0a944;
 }
 .tracker-table tbody tr.is-fav:hover {
-  background-color: rgba(245, 158, 11, 0.14) !important;
+  background-color: rgba(217, 155, 38, 0.16) !important;
 }
 
-/* Episode Badge (ชัดเจน อ่านง่ายมาก) */
+/* Episode Badge (Matcha Leaf Highlight) */
 .ep-interactive-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
   padding: 0.4rem 0.85rem;
   border-radius: 0.75rem;
-  background: #0f1624;
-  border: 1px solid #283950;
-  color: #f1f5f9;
+  background: #0f1811;
+  border: 1px solid #2d4531;
+  color: #f3f8f3;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
-  font-size: 0.9375rem; /* ~15px */
+  font-size: 0.9375rem;
   transition: all 0.15s ease;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35);
 }
 .ep-interactive-badge:hover {
-  background: #182236;
-  border-color: #34d399;
+  background: #17261b;
+  border-color: #52b788;
+  color: #ffffff;
   transform: scale(1.03);
 }
 
 /* Micro animation for episode update */
 @keyframes bumpPulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.15); color: #34d399; }
+  50% { transform: scale(1.15); color: #52b788; }
   100% { transform: scale(1); }
 }
 
@@ -176,6 +177,10 @@ header {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   transform: translateY(20px);
   opacity: 0;
+  background: #17261b !important;
+  border: 1px solid #36543b !important;
+  color: #f3f8f3 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 10px rgba(82, 183, 136, 0.2);
 }
 
 .toast.show {
@@ -183,13 +188,13 @@ header {
   opacity: 1;
 }
 
-/* Inputs & Form Controls */
+/* Inputs & Form Controls in Matcha */
 input, select, textarea {
-  background-color: #121927 !important;
-  color: #f1f5f9 !important;
-  border-color: #24344b !important;
+  background-color: #101a12 !important;
+  color: #f4f8f4 !important;
+  border-color: #29402e !important;
 }
 input:focus, select:focus, textarea:focus {
-  border-color: #38bdf8 !important;
-  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25) !important;
+  border-color: #52b788 !important;
+  box-shadow: 0 0 0 2px rgba(82, 183, 136, 0.25) !important;
 }

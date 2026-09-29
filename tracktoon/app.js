@@ -394,7 +394,7 @@ function showToast(message, type = 'success') {
   const bgClasses = type === 'success' 
     ? 'bg-emerald-600 text-white shadow-emerald-500/20' 
     : type === 'info' 
-      ? 'bg-sky-600 text-white shadow-sky-500/20'
+      ? 'bg-teal-700 text-white shadow-teal-500/20'
       : 'bg-rose-600 text-white shadow-rose-500/20';
 
   toast.className = `toast px-4 py-2.5 rounded-xl shadow-lg border border-white/20 text-xs sm:text-sm font-medium flex items-center gap-2 ${bgClasses}`;
@@ -610,21 +610,21 @@ function renderGridView(container, list) {
   container.innerHTML = list.map(item => {
     const isAnime = item.category === 'anime';
     const catBadge = isAnime
-      ? '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">🎬 อนิเมะจีน</span>'
-      : '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-sky-500/10 text-sky-400 border border-sky-500/20">📖 มันฮวา / มังงะ</span>';
+      ? '<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-950/60 text-amber-300 border border-amber-700/50">🎬 อนิเมะจีน</span>'
+      : '<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-950/60 text-emerald-300 border border-emerald-700/50">📖 มันฮวา / มังงะ</span>';
 
     const starClass = item.isFavorite
       ? 'text-amber-400 fill-amber-400 scale-110'
-      : 'text-slate-500 hover:text-amber-400';
+      : 'text-[#628064] hover:text-amber-400';
 
     const statusBadge = item.status === 'on_hold'
-      ? '<span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-700 text-slate-300">📦 ดองไว้</span>'
+      ? '<span class="text-[10px] px-1.5 py-0.5 rounded bg-[#1f3022] text-[#b3ccb1] border border-[#2e4732]">📦 ดองไว้</span>'
       : item.status === 'completed'
-        ? '<span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300">✓ จบแล้ว</span>'
+        ? '<span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-950/70 text-emerald-300 border border-emerald-800/60">✓ จบแล้ว</span>'
         : '';
 
     return `
-      <div class="glass-card rounded-2xl p-4 flex flex-col justify-between relative group ${item.isFavorite ? 'ring-1 ring-amber-500/40 bg-amber-500/5' : ''}">
+      <div class="glass-card rounded-2xl p-4 flex flex-col justify-between relative group ${item.isFavorite ? 'ring-1 ring-amber-500/40 bg-amber-950/10' : ''}">
         
         <!-- Header Info -->
         <div>
@@ -638,7 +638,7 @@ function renderGridView(container, list) {
               <!-- Favorite Button -->
               <button 
                 onclick="toggleFavorite('${item.id}')" 
-                class="p-1 rounded-lg hover:bg-slate-700/50 transition cursor-pointer"
+                class="p-1 rounded-lg hover:bg-[#1a2b1e] transition cursor-pointer"
                 title="${item.isFavorite ? 'นำออกจากรายการโปรด' : 'ปักหมุดเป็นเรื่องโปรด'}"
               >
                 <svg class="w-5 h-5 ${starClass} transition-transform" viewBox="0 0 24 24" fill="${item.isFavorite ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
@@ -649,7 +649,7 @@ function renderGridView(container, list) {
               <!-- Edit / Menu Button -->
               <button 
                 onclick="openEditModal('${item.id}')" 
-                class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/50 transition cursor-pointer"
+                class="p-1 rounded-lg text-[#8ea98c] hover:text-white hover:bg-[#1a2b1e] transition cursor-pointer"
                 title="แก้ไขข้อมูล"
               >
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -662,16 +662,16 @@ function renderGridView(container, list) {
 
           <!-- Title & Alias -->
           <div class="mb-3">
-            <h3 class="font-bold text-slate-100 text-base leading-snug group-hover:text-cyan-300 transition-colors line-clamp-1" title="${item.title}">
+            <h3 class="font-bold text-[#f4f8f4] text-base leading-snug group-hover:text-[#86efac] transition-colors line-clamp-1" title="${item.title}">
               ${item.title}
             </h3>
             ${item.alias ? `
-              <p class="text-xs text-cyan-400/90 font-medium mt-0.5 line-clamp-1" title="${item.alias}">
+              <p class="text-xs text-[#9ec49c] font-semibold mt-0.5 line-clamp-1" title="${item.alias}">
                 👤 ${item.alias}
               </p>
             ` : ''}
             ${item.note ? `
-              <p class="text-[11px] text-slate-400 mt-1 line-clamp-1 italic" title="${item.note}">
+              <p class="text-[11px] text-[#849f83] mt-1 line-clamp-1 italic" title="${item.note}">
                 💬 ${item.note}
               </p>
             ` : ''}
@@ -679,9 +679,9 @@ function renderGridView(container, list) {
         </div>
 
         <!-- Episode Counter & Main Actions -->
-        <div class="pt-3 border-t border-slate-700/50">
+        <div class="pt-3 border-t border-[#1e3022]">
           <div class="flex items-center justify-between mb-3">
-            <div class="text-xs text-slate-400">
+            <div class="text-xs text-[#9db79c]">
               ความคืบหน้า:
             </div>
             
@@ -689,12 +689,12 @@ function renderGridView(container, list) {
             <button 
               id="ep-badge-${item.id}"
               onclick="promptExactEp('${item.id}')"
-              class="px-3 py-1 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-600/60 text-slate-100 font-mono font-bold text-sm sm:text-base flex items-center gap-1.5 transition cursor-pointer shadow-inner"
+              class="px-3 py-1 rounded-xl bg-[#101a12] hover:bg-[#18261b] border border-[#273d2a] text-[#f4f8f4] font-mono font-bold text-sm sm:text-base flex items-center gap-1.5 transition cursor-pointer shadow-inner"
               title="คลิกเพื่อแก้ไขเลขตอนโดยตรง"
             >
-              <span class="text-xs font-normal text-slate-400">${item.unit || 'ep'}</span>
-              <span class="text-emerald-400">${item.currentEp || 0}</span>
-              <svg class="w-3 h-3 text-slate-500 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <span class="text-xs font-normal text-[#869f84]">${item.unit || 'ep'}</span>
+              <span class="text-[#52b788]">${item.currentEp || 0}</span>
+              <svg class="w-3 h-3 text-[#628064] opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
               </svg>
             </button>
@@ -704,7 +704,7 @@ function renderGridView(container, list) {
           <div class="grid grid-cols-4 gap-1.5">
             <button 
               onclick="incrementEp('${item.id}', -1)"
-              class="py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition border border-slate-700 flex items-center justify-center cursor-pointer active:scale-95"
+              class="py-2 rounded-xl bg-[#152217] hover:bg-[#1d3020] text-[#cbe0ca] hover:text-white text-xs font-bold transition border border-[#273d2a] flex items-center justify-center cursor-pointer active:scale-95"
               title="ลด 1 ตอน"
             >
               -1
@@ -712,7 +712,7 @@ function renderGridView(container, list) {
             
             <button 
               onclick="incrementEp('${item.id}', 1)"
-              class="col-span-2 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold transition shadow-md shadow-emerald-900/30 flex items-center justify-center gap-1 cursor-pointer active:scale-95"
+              class="col-span-2 py-2 rounded-xl bg-gradient-to-r from-emerald-700 via-teal-700 to-green-600 hover:from-emerald-600 hover:to-green-500 text-white text-xs font-bold transition shadow-md shadow-emerald-950/40 flex items-center justify-center gap-1 cursor-pointer active:scale-95"
               title="เพิ่ม 1 ตอน"
             >
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
@@ -724,7 +724,7 @@ function renderGridView(container, list) {
 
             <button 
               onclick="incrementEp('${item.id}', 5)"
-              class="py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-400 hover:text-emerald-300 text-xs font-bold transition border border-slate-700 flex items-center justify-center cursor-pointer active:scale-95"
+              class="py-2 rounded-xl bg-[#152217] hover:bg-[#1d3020] text-[#52b788] hover:text-[#74c69d] text-xs font-bold transition border border-[#273d2a] flex items-center justify-center cursor-pointer active:scale-95"
               title="เพิ่มทีละ 5 ตอน (อ่านรวดเดียว)"
             >
               +5
@@ -732,9 +732,9 @@ function renderGridView(container, list) {
           </div>
 
           <!-- Footer Links: Next Search & Timestamp -->
-          <div class="flex items-center justify-between text-[11px] text-slate-400 mt-3 pt-2 border-t border-slate-800/60">
+          <div class="flex items-center justify-between text-[11px] text-[#869f84] mt-3 pt-2 border-t border-[#1a291d]">
             <span class="flex items-center gap-1 text-[10px]">
-              <svg class="w-3 h-3 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg class="w-3 h-3 text-[#628064]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
               </svg>
               ${formatRelativeTime(item.updatedAt)}
@@ -742,7 +742,7 @@ function renderGridView(container, list) {
 
             <button 
               onclick="openSearchNext('${item.id}')"
-              class="text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-medium transition cursor-pointer hover:underline"
+              class="text-[#74c69d] hover:text-[#a7e3ae] flex items-center gap-1 font-medium transition cursor-pointer hover:underline"
               title="ค้นหาตอนต่อไปใน Google ทันที"
             >
               <span>หาตอน ${(item.currentEp || 0) + 1}</span>
@@ -801,13 +801,13 @@ function renderCategoryTableView(container, list) {
       title: 'หมวดที่ 2: 📖 อ่านตูน (มันฮวา / มังงะ / Webtoon)',
       icon: '📖',
       categoryKey: 'manga',
-      badgeClass: 'bg-sky-500/15 text-sky-400 border border-sky-500/30',
+      badgeClass: 'bg-teal-500/15 text-teal-300 border border-teal-500/30',
       items: mangaItems
     });
   }
 
   container.innerHTML = sectionsHtml || `
-    <div class="text-center py-12 text-slate-400 text-sm glass-card rounded-2xl">
+    <div class="text-center py-12 text-[#9ab598] text-sm glass-card rounded-2xl border border-[#273d2a]">
       ไม่พบรายการในหมวดหมู่นี้
     </div>
   `;
@@ -819,38 +819,38 @@ function renderSingleCategoryTable(config) {
   const totalEps = items.reduce((acc, cur) => acc + (cur.currentEp || 0), 0);
 
   const rowsHtml = items.map((item, index) => {
-    const starClass = item.isFavorite ? 'text-amber-400 fill-amber-400' : 'text-slate-500 hover:text-amber-400';
+    const starClass = item.isFavorite ? 'text-amber-400 fill-amber-400' : 'text-[#587357] hover:text-amber-400';
     return `
-      <tr class="${item.isFavorite ? 'is-fav' : ''} border-b border-slate-800/80 hover:bg-slate-800/40 transition">
+      <tr class="${item.isFavorite ? 'is-fav' : ''} border-b border-[#1b2b1d] hover:bg-[#18281a]/70 transition">
         <!-- ลำดับ & ดาว -->
         <td class="text-center py-3 px-3">
           <div class="flex items-center justify-center gap-1.5">
-            <button onclick="toggleFavorite('${item.id}')" class="p-1 rounded hover:bg-slate-700/50 transition cursor-pointer" title="${item.isFavorite ? 'นำออกจากรายการโปรด' : 'ปักหมุดเป็นเรื่องโปรด'}">
+            <button onclick="toggleFavorite('${item.id}')" class="p-1 rounded hover:bg-[#203623] transition cursor-pointer" title="${item.isFavorite ? 'นำออกจากรายการโปรด' : 'ปักหมุดเป็นเรื่องโปรด'}">
               <svg class="w-4 h-4 ${starClass} transition-transform" viewBox="0 0 24 24" fill="${item.isFavorite ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
               </svg>
             </button>
-            <span class="font-mono text-xs text-slate-500 font-bold">#${index + 1}</span>
+            <span class="font-mono text-xs text-[#728f70] font-bold">#${index + 1}</span>
           </div>
         </td>
 
         <!-- ตัวละคร / ชื่อย่อ -->
         <td class="py-3 px-3.5 whitespace-nowrap">
           ${item.alias ? `
-            <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-sky-500/15 text-sky-300 font-semibold text-xs border border-sky-500/25 max-w-[150px] truncate" title="${item.alias}">
+            <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-[#192b1b] text-[#93dfab] font-semibold text-xs border border-[#2e5233] max-w-[150px] truncate" title="${item.alias}">
               👤 ${item.alias}
             </span>
-          ` : '<span class="text-slate-600 text-xs">-</span>'}
+          ` : '<span class="text-[#556e54] text-xs">-</span>'}
         </td>
 
         <!-- ชื่อเรื่อง & โน้ต -->
         <td class="py-3 px-3.5">
-          <div class="font-bold text-slate-100 text-sm sm:text-base hover:text-sky-300 transition-colors line-clamp-1" title="${item.title}">
+          <div class="font-bold text-[#f4f8f4] text-sm sm:text-base hover:text-[#86efac] transition-colors line-clamp-1" title="${item.title}">
             ${item.title}
           </div>
           ${item.note ? `
-            <div class="text-xs text-slate-400 mt-0.5 line-clamp-1 flex items-center gap-1" title="${item.note}">
-              <span class="text-slate-500">💬</span>
+            <div class="text-xs text-[#9ab598] mt-0.5 line-clamp-1 flex items-center gap-1" title="${item.note}">
+              <span class="text-[#648463]">💬</span>
               <span>${item.note}</span>
             </div>
           ` : ''}
@@ -864,9 +864,9 @@ function renderSingleCategoryTable(config) {
             class="ep-interactive-badge cursor-pointer"
             title="คลิกเพื่อพิมพ์แก้ไขเลขตอนโดยตรง"
           >
-            <span class="text-slate-400 font-normal text-xs">${item.unit || 'ep'}</span>
-            <span class="text-emerald-400 font-extrabold text-base">${item.currentEp || 0}</span>
-            <span class="text-[11px] text-slate-500">✏️</span>
+            <span class="text-[#8ea98c] font-normal text-xs">${item.unit || 'ep'}</span>
+            <span class="text-[#52b788] font-extrabold text-base">${item.currentEp || 0}</span>
+            <span class="text-[11px] text-[#728f70]">✏️</span>
           </button>
         </td>
 
@@ -875,13 +875,13 @@ function renderSingleCategoryTable(config) {
           <div class="inline-flex items-center gap-1.5">
             <button 
               onclick="incrementEp('${item.id}', -1)"
-              class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs border border-slate-700 flex items-center justify-center cursor-pointer active:scale-95 transition"
+              class="w-8 h-8 rounded-xl bg-[#152217] hover:bg-[#1d3020] text-[#cbe0ca] font-bold text-xs border border-[#273d2a] flex items-center justify-center cursor-pointer active:scale-95 transition"
               title="ลด 1 ตอน"
             >-1</button>
 
             <button 
               onclick="incrementEp('${item.id}', 1)"
-              class="px-3.5 h-8 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs shadow-md shadow-emerald-950/40 flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
+              class="px-3.5 h-8 rounded-xl bg-gradient-to-r from-emerald-700 via-teal-700 to-green-600 hover:from-emerald-600 hover:to-green-500 text-white font-bold text-xs shadow-md shadow-emerald-950/40 flex items-center gap-1.5 cursor-pointer active:scale-95 transition"
               title="เพิ่ม 1 ตอน"
             >
               <span>+1 ${item.unit || 'ตอน'}</span>
@@ -889,7 +889,7 @@ function renderSingleCategoryTable(config) {
 
             <button 
               onclick="incrementEp('${item.id}', 5)"
-              class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold text-xs border border-slate-700 flex items-center justify-center cursor-pointer active:scale-95 transition"
+              class="w-8 h-8 rounded-xl bg-[#152217] hover:bg-[#1d3020] text-[#6ee7b7] font-bold text-xs border border-[#273d2a] flex items-center justify-center cursor-pointer active:scale-95 transition"
               title="เพิ่ม 5 ตอน"
             >+5</button>
           </div>
@@ -899,7 +899,7 @@ function renderSingleCategoryTable(config) {
         <td class="py-3 px-3.5 whitespace-nowrap text-center">
           <button 
             onclick="openSearchNext('${item.id}')"
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-sky-400 hover:text-sky-300 text-xs font-semibold border border-slate-700 cursor-pointer hover:border-sky-500/40 transition active:scale-95"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#152217] hover:bg-[#1d3020] text-[#74c69d] hover:text-[#a7e3ae] text-xs font-semibold border border-[#273d2a] cursor-pointer hover:border-emerald-600/40 transition active:scale-95"
             title="เปิด Google ค้นหาตอนถัดไป"
           >
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -910,14 +910,14 @@ function renderSingleCategoryTable(config) {
         </td>
 
         <!-- อัปเดตเมื่อ -->
-        <td class="py-3 px-3.5 whitespace-nowrap text-center text-xs text-slate-400 font-mono">
+        <td class="py-3 px-3.5 whitespace-nowrap text-center text-xs text-[#9ab598] font-mono">
           ${formatRelativeTime(item.updatedAt)}
         </td>
 
         <!-- จัดการ -->
         <td class="py-3 px-3.5 whitespace-nowrap text-right">
           <div class="flex items-center justify-end gap-1">
-            <button onclick="openEditModal('${item.id}')" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-700 transition cursor-pointer" title="แก้ไขข้อมูล">
+            <button onclick="openEditModal('${item.id}')" class="p-2 rounded-xl text-[#9ab598] hover:text-white hover:bg-[#203623] transition cursor-pointer" title="แก้ไขข้อมูล">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
             </button>
           </div>
@@ -931,11 +931,11 @@ function renderSingleCategoryTable(config) {
       <!-- Section Header -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1">
         <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-slate-800 text-slate-200 border border-slate-700 flex items-center justify-center text-base shadow-xs">
+          <div class="w-9 h-9 rounded-xl bg-[#172719] text-[#bde0ba] border border-[#28422b] flex items-center justify-center text-base shadow-xs">
             ${icon}
           </div>
           <div>
-            <h2 class="text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2 flex-wrap">
+            <h2 class="text-base sm:text-lg font-bold text-[#f4f8f4] flex items-center gap-2 flex-wrap">
               <span>${title}</span>
               <span class="text-xs px-2.5 py-0.5 rounded-full ${badgeClass} font-mono font-bold">
                 ${items.length} เรื่อง • รวม ${totalEps} ตอน
@@ -948,7 +948,7 @@ function renderSingleCategoryTable(config) {
         <div class="flex items-center gap-2 self-start sm:self-auto flex-wrap">
           <button 
             onclick="openAddModalWithCategory('${categoryKey}')"
-            class="text-xs text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition cursor-pointer font-bold active:scale-95 shadow-xs"
+            class="text-xs text-[#6ee7b7] hover:text-white flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-900/30 hover:bg-emerald-800/40 border border-emerald-700/40 transition cursor-pointer font-bold active:scale-95 shadow-xs"
             title="เพิ่มเรื่องใหม่ในหมวดนี้"
           >
             <span>➕ เพิ่ม${categoryKey === 'anime' ? 'อนิเมะ' : 'การ์ตูน/มังงะ'}</span>
@@ -956,10 +956,10 @@ function renderSingleCategoryTable(config) {
 
           <button 
             onclick="copySectionText('${categoryKey}')" 
-            class="text-xs text-slate-400 hover:text-cyan-400 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700 transition cursor-pointer active:scale-95"
+            class="text-xs text-[#a2bba1] hover:text-[#86efac] flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#152217] hover:bg-[#1d3020] border border-[#273d2a] transition cursor-pointer active:scale-95"
             title="คัดลอกเฉพาะข้อความในหมวดนี้"
           >
-            <svg class="w-3.5 h-3.5 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg class="w-3.5 h-3.5 text-[#52b788]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
             </svg>
             <span>คัดลอกหมวดนี้</span>
@@ -986,11 +986,11 @@ function renderSingleCategoryTable(config) {
             ${rowsHtml}
           </tbody>
           <tfoot>
-            <tr class="border-t border-slate-800/80 bg-slate-900/40">
+            <tr class="border-t border-[#1b2b1d] bg-[#121c13]/60">
               <td colspan="8" class="py-2.5 px-4 text-center">
                 <button 
                   onclick="openAddModalWithCategory('${categoryKey}')"
-                  class="text-xs text-sky-400 hover:text-sky-300 font-semibold inline-flex items-center gap-1.5 px-3 py-1 rounded-lg hover:bg-slate-800 transition cursor-pointer"
+                  class="text-xs text-[#74c69d] hover:text-[#86efac] font-semibold inline-flex items-center gap-1.5 px-3 py-1 rounded-lg hover:bg-[#1c2e1f] transition cursor-pointer"
                 >
                   <span class="font-bold text-sm">➕</span>
                   <span>คลิกเพื่อเพิ่มเรื่องใหม่ใน ${title}</span>
@@ -1427,11 +1427,11 @@ function setupEventListeners() {
   document.querySelectorAll('.cat-tab-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       document.querySelectorAll('.cat-tab-btn').forEach(b => {
-        b.classList.remove('bg-slate-700', 'text-white', 'shadow-xs');
-        b.classList.add('text-slate-400');
+        b.classList.remove('bg-[#28402c]', 'text-white', 'border-[#446b4b]', 'shadow-xs');
+        b.classList.add('text-[#a2bba1]', 'hover:text-white', 'hover:bg-[#1a2b1e]');
       });
-      btn.classList.add('bg-slate-700', 'text-white', 'shadow-xs');
-      btn.classList.remove('text-slate-400');
+      btn.classList.add('bg-[#28402c]', 'text-white', 'border-[#446b4b]', 'shadow-xs');
+      btn.classList.remove('text-[#a2bba1]', 'hover:text-white', 'hover:bg-[#1a2b1e]');
 
       const cat = btn.dataset.category;
       if (cat === 'favorite') {
@@ -1493,18 +1493,18 @@ function setupEventListeners() {
   if (viewTableBtn && viewGridBtn) {
     viewTableBtn.addEventListener('click', () => {
       appState.viewMode = 'table';
-      viewTableBtn.classList.add('bg-slate-700', 'text-cyan-400');
-      viewTableBtn.classList.remove('text-slate-400');
-      viewGridBtn.classList.remove('bg-slate-700', 'text-cyan-400');
-      viewGridBtn.classList.add('text-slate-400');
+      viewTableBtn.classList.add('bg-[#28402c]', 'text-[#6ee7b7]');
+      viewTableBtn.classList.remove('text-[#8ea98c]');
+      viewGridBtn.classList.remove('bg-[#28402c]', 'text-[#6ee7b7]');
+      viewGridBtn.classList.add('text-[#8ea98c]');
       renderApp();
     });
     viewGridBtn.addEventListener('click', () => {
       appState.viewMode = 'grid';
-      viewGridBtn.classList.add('bg-slate-700', 'text-cyan-400');
-      viewGridBtn.classList.remove('text-slate-400');
-      viewTableBtn.classList.remove('bg-slate-700', 'text-cyan-400');
-      viewTableBtn.classList.add('text-slate-400');
+      viewGridBtn.classList.add('bg-[#28402c]', 'text-[#6ee7b7]');
+      viewGridBtn.classList.remove('text-[#8ea98c]');
+      viewTableBtn.classList.remove('bg-[#28402c]', 'text-[#6ee7b7]');
+      viewTableBtn.classList.add('text-[#8ea98c]');
       renderApp();
     });
   }
