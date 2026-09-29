@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="50%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ecfdf5"/>
+    </linearGradient>
+    <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Background rounded squircle -->
+  <rect width="512" height="512" rx="128" fill="url(#bg)"/>
+
+  <!-- Shield -->
+  <g filter="url(#shadow)">
+    <path d="M256 80 C340 80, 400 110, 400 110 C400 280, 310 380, 256 420 C202 380, 112 280, 112 110 C112 110, 172 80, 256 80 Z" fill="url(#shieldGrad)" />
+  </g>
+
+  <!-- Heart & Coins symbol inside Shield -->
+  <!-- Heart -->
+  <path d="M256 310 C256 310, 180 250, 180 195 C180 160, 210 140, 238 158 C248 165, 256 175, 256 175 C256 175, 264 165, 274 158 C302 140, 332 160, 332 195 C332 250, 256 310, 256 310 Z" fill="url(#heartGrad)"/>
+
+  <!-- Sprout / Money Growth icon overlay -->
+  <circle cx="256" cy="355" r="16" fill="#10b981"/>
+  <path d="M256 355 L256 325 M256 335 C244 330, 236 318, 236 308 C248 308, 256 318, 256 335 Z M256 335 C268 330, 276 318, 276 308 C264 308, 256 318, 256 335 Z" stroke="#10b981" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="#34d399"/>
+</svg>

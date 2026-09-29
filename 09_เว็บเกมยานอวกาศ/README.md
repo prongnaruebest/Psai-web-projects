@@ -120,3 +120,8 @@ Production assets are generated in `dist/` ready for immediate zero-config deplo
 ```bash
 npm run preview
 ```
+
+### ⚡ เปิดเล่นเกมทันที (Standalone Instant Launch)
+- ดับเบิลคลิกไฟล์ **`index.html`** หรือคลิกปุ่ม **"🚀 เปิดเว็บไซต์ทันที"** จากหน้า `00_ศูนย์รวมเว็บแอปพลิเคชัน.html`
+- สามารถเข้าเล่นได้ทันทีบนทุกเบราว์เซอร์ ไม่ต้องติดตั้ง Node.js หรือรันเซิร์ฟเวอร์
+

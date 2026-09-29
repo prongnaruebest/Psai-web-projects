@@ -1,9 +1,9 @@
 @echo off
-chcp 65001 > nul
+chcp 65001 >nul
+title Interactive Muscle Map (แผนที่กล้ามเนื้อ)
 echo ===================================================
-echo   YumYum Toddler: ไอเดียเมนูหนูน้อย 1.8 ขวบ
+echo     💪 แผนที่กล้ามเนื้อ (Interactive Muscle Map)
 echo ===================================================
 echo กำลังเปิดหน้าเว็บในเบราว์เซอร์...
-cd /d "%~dp0"
-start "" "%~dp0index.html"
+start "" "%~dp016_Muscle_Map\index.html"
 exit

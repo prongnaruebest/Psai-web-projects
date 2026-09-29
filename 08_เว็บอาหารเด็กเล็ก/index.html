@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="th" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YumYum Toddler • ไอเดียเมนูหนูน้อย 1.8 ขวบ (20 เดือน)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Kanit', 'sans-serif'],
+            outfit: ['Outfit', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              50: '#fffaf5',
+              100: '#ffedd5',
+              200: '#fed7aa',
+              500: '#f97316',
+              600: '#ea580c',
+              700: '#c2410c'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Kanit', sans-serif; background-color: #FFFDF9; color: #33261D; }
+    .badge-filter { transition: all 0.2s; cursor: pointer; }
+    .badge-filter:hover { transform: translateY(-1px); }
+    .badge-filter.active { background-color: #ea580c !important; color: white !important; border-color: #ea580c !important; }
+    .allergen-tag.excluded { background-color: #fee2e2; border-color: #ef4444; color: #b91c1c; text-decoration: line-through; }
+    .ingredient-btn.selected { background-color: #f97316; color: white; border-color: #ea580c; font-weight: 600; }
+  </style>
+</head>
+<body class="min-h-full flex flex-col antialiased">
+
+  <!-- Top Navbar -->
+  <header class="bg-white/90 backdrop-blur sticky top-0 z-30 border-b border-orange-100 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="resetFilters()">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-2xl shadow-md shadow-orange-500/20">
+          🥣
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-xl font-bold tracking-tight text-orange-950 font-outfit">YumYum Toddler</h1>
+            <span class="text-[11px] bg-orange-100 text-orange-700 font-semibold px-2 py-0.5 rounded-full border border-orange-200">วัย 20 เดือน</span>
+          </div>
+          <p class="text-xs text-stone-500">โภชนาการ & เมนูหนูน้อยวัยเตาะแตะ ปลอดภัย ไม่ติดคอ</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 flex-wrap">
+        <button onclick="switchTab('ideas')" id="tab-btn-ideas" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-orange-500 text-white shadow-sm transition-all">
+          💡 เมนูทั้งหมด (<span id="recipe-count">20</span>)
+        </button>
+        <button onclick="switchTab('planner')" id="tab-btn-planner" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-stone-50 transition-all">
+          📅 แผนมื้ออาหาร 7 วัน
+        </button>
+        <button onclick="openRandomModal()" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-md shadow-orange-500/20 hover:brightness-105 transition-all flex items-center gap-1.5">
+          <span>🎲 สุ่มเมนูมื้อนี้</span>
+        </button>
+        <button onclick="openGuideModal()" class="px-3 py-1.5 rounded-xl text-xs font-medium text-stone-600 border border-stone-200 hover:bg-stone-50 transition-all flex items-center gap-1">
+          <span>🛡️ คู่มือความปลอดภัย</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Safety Banner -->
+  <div class="bg-amber-50 border-b border-amber-200/70 py-2.5 px-4">
+    <div class="max-w-6xl mx-auto flex items-center justify-between text-xs text-amber-900 gap-3">
+      <div class="flex items-center gap-2">
+        <span class="text-base">⚠️</span>
+        <span><strong>ความปลอดภัยสำคัญอันดับ 1 สำหรับวัย 20 เดือน:</strong> หั่นชิ้นอาหารทรงสี่เหลี่ยมลูกเต๋าเล็ก (ไม่เกิน 1 ซม.) หรือแท่งยาวแบน นึ่งจนนิ่มใช้ลิ้นดุนเพดานปากเละ ระวังผลไม้เม็ดกลมแข็งอย่างองุ่น/ไส้กรอก ให้ผ่า 4 ซีกเสมอ</span>
+      </div>
+      <button onclick="this.parentElement.parentElement.style.display='none'" class="text-amber-700 hover:text-amber-950 font-bold px-2">✕</button>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-4 py-6 flex-grow w-full">
+
+    <!-- TAB: IDEAS -->
+    <section id="section-ideas" class="space-y-6">
+      
+      <!-- Ingredient Selector Box -->
+      <div class="bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🥑</span>
+            <h2 class="text-sm font-bold text-stone-800">วัตถุดิบที่มีในตู้เย็นวันนี้ (คลิกเพื่อค้นหาเมนูที่ทำได้)</h2>
+          </div>
+          <button onclick="clearIngredients()" id="btn-clear-ing" class="text-xs text-orange-600 hover:underline hidden">ล้างที่เลือก</button>
+        </div>
+        <div class="flex flex-wrap gap-1.5" id="ingredients-container">
+          <!-- populated by js -->
+        </div>
+      </div>
+
+      <!-- Filters & Search -->
+      <div class="bg-white rounded-2xl p-5 border border-stone-200/80 shadow-sm space-y-4">
+        <div class="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+          <div class="relative flex-grow max-w-lg">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 text-sm">🔍</span>
+            <input type="text" id="search-input" oninput="applyFilters()" placeholder="ค้นหาชื่อเมนู, วัตถุดิบ, หรือประโยชน์..." class="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-stone-200 focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100">
+          </div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="toggleFavoritesFilter()" id="btn-fav-filter" class="px-3 py-2 rounded-xl text-xs font-semibold border border-stone-200 text-stone-600 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 transition-all flex items-center gap-1.5">
+              <span>❤️ เฉพาะเมนูโปรด</span>
+              <span id="fav-count-badge" class="hidden bg-rose-500 text-white text-[10px] px-1.5 py-0.2 rounded-full">0</span>
+            </button>
+            <button onclick="resetFilters()" class="px-3 py-2 rounded-xl text-xs font-medium text-stone-500 hover:text-stone-800 hover:bg-stone-100 transition-all">
+              ↺ รีเซ็ตตัวกรอง
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter rows -->
+        <div class="space-y-3 pt-2 border-t border-stone-100 text-xs">
+          <!-- Meal Types -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="font-bold text-stone-500 w-24 shrink-0">มื้ออาหาร:</span>
+            <button class="badge-filter active px-3 py-1 rounded-lg bg-stone-100 text-stone-700 border border-stone-200 font-medium" onclick="setMealFilter('all', this)">ทั้งหมด</button>
+            <button class="badge-filter px-3 py-1 rounded-lg bg-stone-100 text-stone-700 border border-stone-200 font-medium" onclick="setMealFilter('breakfast', this)">☀️ มื้อเช้า</button>
+            <button class="badge-filter px-3 py-1 rounded-lg bg-stone-100 text-stone-700 border border-stone-200 font-medium" onclick="setMealFilter('lunch', this)">🌤️ มื้อเที่ยง</button>
+            <button class="badge-filter px-3 py-1 rounded-lg bg-stone-100 text-stone-700 border border-stone-200 font-medium" onclick="setMealFilter('dinner', this)">🌙 มื้อเย็น</button>
+            <button class="badge-filter px-3 py-1 rounded-lg bg-stone-100 text-stone-700 border border-stone-200 font-medium" onclick="setMealFilter('snack', this)">🍪 ของว่าง / BLW</button>
+          </div>
+
+          <!-- Situations -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="font-bold text-stone-500 w-24 shrink-0">สถานการณ์:</span>
+            <button class="badge-filter active px-3 py-1 rounded-lg bg-stone-100 text-stone-700 border border-stone-200 font-medium" onclick="setSituationFilter('all', this)">ทั้งหมด</button>
+            <button class="badge-filter px-3 py-1 rounded-lg bg-stone-100 text-stone-700 border border-stone-200 font-medium" onclick="setSituationFilter('picky_eater', this)">🧸 ลูกเบื่ออาหาร/กินยาก</button>
+            <button class="badge-filter px-3 py-1 rounded-lg bg-stone-100 text-stone-700 border border-stone-200 font-medium" onclick="setSituationFilter('quick_15min', this)">⚡ ทำไว 15 นาที</button>
+            <button class="badge-filter px-3 py-1 rounded-lg bg-stone-100 text-stone-700 border border-stone-200 font-medium" onclick="setSituationFilter('finger_food', this)">🥑 หยิบกินเอง (BLW)</button>
+            <button class="badge-filter px-3 py-1 rounded-lg bg-stone-100 text-stone-700 border border-stone-200 font-medium" onclick="setSituationFilter('teething_soft', this)">🥣 คล่องคอย่อยง่าย</button>
+          </div>
+
+          <!-- Exclude Allergens -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="font-bold text-rose-600 w-24 shrink-0">🚫 ไม่เอาสารแพ้:</span>
+            <button class="allergen-tag px-2.5 py-1 rounded-lg border border-stone-200 bg-stone-50 text-stone-600 text-[11px] font-medium transition-all" onclick="toggleAllergen('dairy', this)">🥛 นมวัว</button>
+            <button class="allergen-tag px-2.5 py-1 rounded-lg border border-stone-200 bg-stone-50 text-stone-600 text-[11px] font-medium transition-all" onclick="toggleAllergen('egg', this)">🥚 ไข่</button>
+            <button class="allergen-tag px-2.5 py-1 rounded-lg border border-stone-200 bg-stone-50 text-stone-600 text-[11px] font-medium transition-all" onclick="toggleAllergen('gluten', this)">🌾 แป้งสาลี/กลูเตน</button>
+            <button class="allergen-tag px-2.5 py-1 rounded-lg border border-stone-200 bg-stone-50 text-stone-600 text-[11px] font-medium transition-all" onclick="toggleAllergen('nuts', this)">🥜 ถั่ว</button>
+            <button class="allergen-tag px-2.5 py-1 rounded-lg border border-stone-200 bg-stone-50 text-stone-600 text-[11px] font-medium transition-all" onclick="toggleAllergen('seafood', this)">🦐 อาหารทะเล</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recipes Grid -->
+      <div id="recipes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Populated by JS -->
+      </div>
+      
+      <div id="no-results" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-stone-200 p-8">
+        <span class="text-5xl mb-3 block">🥣</span>
+        <h3 class="text-base font-bold text-stone-700">ไม่พบเมนูที่ตรงกับเงื่อนไขที่เลือก</h3>
+        <p class="text-xs text-stone-400 mt-1">ลองลดตัวกรองวัตถุดิบ หรือล้างการคัดแยกสารก่อภูมิแพ้ดูนะครับ</p>
+        <button onclick="resetFilters()" class="mt-4 px-4 py-2 rounded-xl text-xs font-bold bg-orange-500 text-white shadow-md hover:bg-orange-600 transition-all">
+          ↺ ล้างตัวกรองทั้งหมด
+        </button>
+      </div>
+
+    </section>
+
+    <!-- TAB: PLANNER -->
+    <section id="section-planner" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl p-6 border border-orange-100 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-stone-900 flex items-center gap-2">
+            <span>📅</span> ตารางวางแผนเมนูอาหาร 7 วัน (Weekly Meal Planner)
+          </h2>
+          <p class="text-xs text-stone-500 mt-1">จัดสัดส่วนโภชนาการให้หนูน้อยครบ 5 หมู่ บันทึกลงในเครื่องอัตโนมัติ</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="printPlanner()" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition-all flex items-center gap-1.5">
+            🖨️ พิมพ์ตาราง
+          </button>
+          <button onclick="resetPlannerDefault()" class="px-3.5 py-2 rounded-xl text-xs font-semibold border border-stone-200 text-stone-600 hover:bg-stone-50 transition-all">
+            ↺ รีเซ็ตแผนเริ่มต้น
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-7 gap-3.5" id="planner-grid">
+        <!-- 7 Days Grid populated by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modals -->
+  <!-- 1. Recipe Detail / Cooking Modal -->
+  <div id="recipe-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-stone-200" id="recipe-modal-content">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- 2. Random Modal -->
+  <div id="random-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 text-center shadow-2xl border border-orange-100">
+      <div class="text-5xl mb-2 animate-bounce" id="random-emoji">🎲</div>
+      <h3 class="text-lg font-bold text-stone-900" id="random-title">กำลังสุ่มเมนูแสนอร่อย...</h3>
+      <p class="text-xs text-stone-500 mt-1 mb-5" id="random-desc">ค้นหาเมนูที่เหมาะสมและสารอาหารครบถ้วน</p>
+      
+      <div id="random-card" class="hidden bg-orange-50/70 border border-orange-200 rounded-2xl p-4 text-left mb-5">
+        <!-- info -->
+      </div>
+
+      <div class="flex items-center gap-2 justify-center">
+        <button onclick="triggerRandomize()" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-orange-500 text-white shadow-lg hover:bg-orange-600 transition-all">
+          🎲 สุ่มใหม่อีกครั้ง
+        </button>
+        <button onclick="closeRandomModal()" class="px-4 py-2.5 rounded-xl text-xs font-semibold border border-stone-200 text-stone-600 hover:bg-stone-100 transition-all">
+          ปิด
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Safety & Nutrition Guide Modal -->
+  <div id="guide-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[88vh] overflow-y-auto p-6 shadow-2xl border border-stone-200 space-y-5 text-stone-800 text-xs">
+      <div class="flex items-center justify-between pb-3 border-b border-stone-100">
+        <h3 class="text-base font-bold text-stone-900 flex items-center gap-2">
+          <span>🛡️</span> คู่มือความปลอดภัย & โภชนาการวัย 20 เดือน
+        </h3>
+        <button onclick="closeGuideModal()" class="text-stone-400 hover:text-stone-700 text-lg font-bold">✕</button>
+      </div>
+
+      <div class="space-y-4">
+        <div class="bg-rose-50 border border-rose-200 rounded-2xl p-4">
+          <h4 class="font-bold text-rose-800 text-sm mb-1.5">🚨 อาหารเสี่ยงติดคอสูง (ห้ามให้กินเด็ดขาด)</h4>
+          <ul class="list-disc list-inside space-y-1 text-rose-700 leading-relaxed">
+            <li>ถั่วลิสง เม็ดมะม่วงหิมพานต์ หรือถั่วทั้งเมล็ด (ต้องบดเนียนเป็นเนยถั่วเท่านั้น)</li>
+            <li>องุ่น มะเขือเทศราชินี ไส้กรอกชิ้นกลม (ต้องผ่า 4 ซีกตามยาว ห้ามผ่าตามขวางเด็ดขาด)</li>
+            <li>ผักดิบเนื้อแข็ง เช่น แครอทดิบ แอปเปิ้ลดิบชิ้นหนา (ต้องนึ่งสุกจนนิ่ม ยีง่าย)</li>
+            <li>ขนมเหนียว เช่น เจลลี่ มาร์ชเมลโลว์ ลูกอม ลูกชิ้นเนื้อเด้งกลม</li>
+          </ul>
+        </div>
+
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+          <h4 class="font-bold text-amber-900 text-sm mb-1.5">📐 ขนาดและเนื้อสัมผัสที่ปลอดภัยสำหรับวัย 20 เดือน</h4>
+          <p class="leading-relaxed text-amber-800">เด็กวัยนี้มีฟันกรามเริ่มขึ้น แต่ยังบดเคี้ยวอาหารเหนียวไม่ได้ดี:</p>
+          <ul class="list-disc list-inside space-y-1 text-amber-800 mt-2">
+            <li><strong>Finger Food:</strong> ตัดเป็นแท่งยาวเท่านิ้วก้อย (2x5 ซม.) หรือลูกเต๋าเล็กไม่เกิน 1 ซม.</li>
+            <li><strong>ระดับความนิ่ม (Fork Test):</strong> ใช้ส้อมกดเบาๆ แล้วเนื้ออาหารต้องบุบหรือเละทันที</li>
+            <li><strong>เนื้อสัตว์:</strong> สับละเอียด หรือบดผสมเต้าหู้ให้นุ่มฟู ไม่ฝืดคอ</li>
+          </ul>
+        </div>
+
+        <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4">
+          <h4 class="font-bold text-emerald-900 text-sm mb-1.5">🥦 สารอาหาร 4 เสาหลักที่วัยเตาะแตะต้องการ</h4>
+          <ul class="space-y-2 text-emerald-800">
+            <li><strong>1. ธาตุเหล็ก (Iron):</strong> สำคัญมากสำหรับพัฒนาการสมอง ป้องกันภาวะซีด (ตับไก่, ไข่แดง, หมูสับ, เลือด, ตำลึง)</li>
+            <li><strong>2. แคลเซียม & วิตามินดี:</strong> บำรุงกระดูกและฟันกรามที่กำลังงอก (นม, โยเกิร์ต, ปลาเล็ก, บรอกโคลี)</li>
+            <li><strong>3. โอเมก้า 3 (DHA):</strong> เสริมสร้างเส้นใยประสาทและการมองเห็น (ปลาแซลมอน, ไข่ไก่โอเมก้า, อะโวคาโด)</li>
+            <li><strong>4. ใยอาหาร & วิตามินซี:</strong> ช่วยการขับถ่ายและดูดซึมธาตุเหล็ก (ฟักทอง, มะละกอสุก, กล้วยน้ำว้า, ส้ม)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="text-right pt-2 border-t border-stone-100">
+        <button onclick="closeGuideModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-stone-800 text-white hover:bg-stone-900 transition-all">
+          เข้าใจและปิดหน้าต่าง
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="mt-12 bg-white border-t border-orange-100 py-6 text-center text-xs text-stone-400">
+    <div class="max-w-6xl mx-auto px-4">
+      <p class="font-semibold text-stone-700">YumYum Toddler • โภชนาการและไอเดียอาหารสำหรับเด็กวัย 1.8 ขวบ (20 เดือน)</p>
+      <p class="text-[11px] text-stone-400 mt-1">สูตรอาหารออกแบบตามหลักกุมารแพทย์ ปลอดภัย ไม่ปรุงรสจัด และระวังการสำลักทุกเมนู</p>
+    </div>
+  </footer>
+
+  <!-- Embed Data & Application Script -->
+  <script>
+    const RECIPES = [{"id": "r1", "title": "ไข่ตุ๋นเนียนนุ่มสามสีทรงพลัง", "emoji": "🥚", "description": "ไข่ตุ๋นเนื้อเนียนดั่งพุดดิ้ง ซ่อนแครอทและบรอกโคลีสับละเอียด รสหวานจากน้ำซุปผัก", "prepTimeMinutes": 5, "cookTimeMinutes": 10, "difficulty": "ง่ายมาก", "mealTypes": ["breakfast", "lunch", "dinner"], "situations": ["quick_15min", "teething_soft", "picky_eater"], "allergens": ["egg"], "nutritionBenefits": ["high_protein", "brain_boost", "immune_boost"], "ingredients": [{"name": "ไข่ไก่สด", "amount": "1 ฟอง", "isPrimary": true}, {"name": "น้ำซุปผักหรือน้ำต้มสุกอุณหภูมิห้อง", "amount": "80 มล. (สัดส่วน 1:1.5 กับไข่)", "isPrimary": true}, {"name": "แครอทต้มสุกสับละเอียดจิ๋ว", "amount": "1 ช้อนโต๊ะ", "isPrimary": true}, {"name": "ยอดบรอกโคลีลวกสับละเอียด", "amount": "1 ช้อนโต๊ะ", "isPrimary": true}, {"name": "หมูสับนุ่มละเอียด", "amount": "1 ช้อนโต๊ะ"}], "ingredientTags": ["ไข่", "แครอท", "บรอกโคลี", "หมูสับ"], "textureNote": {"cutting": "ผักและหมูสับต้องสับละเอียดขนาดประมาณ 1-2 มม. เพื่อให้กลืนพร้อมเนื้อไข่ได้ง่าย", "softness": "เนื้อสัมผัสนุ่มเด้งเหมือนพุดดิ้ง ใช้ลิ้นดุนเพดานปากก็ละลาย", "safetyTip": "รอให้อุ่นพอดีก่อนป้อน ไม่ร้อนลวกปาก และระวังอย่าใช้ถ้วยที่ก้นร้อนเกินไป"}, "steps": ["ตอกไข่ไก่ ตีให้เข้ากับน้ำซุปผักอย่างเบามือ แล้วกรองผ่านกระชอนตาถี่ 1-2 ครั้งเพื่อให้เนื้อเนียนกริบ", "ใส่หมูสับ แครอท และบรอกโคลีสับลงในถ้วยทนความร้อน เทไข่ที่กรองแล้วลงไป", "ปิดปากถ้วยด้วยฟอยล์หรือจานรอง นำไปนึ่งด้วยไฟอ่อนปานกลางประมาณ 10-12 นาทีจนสุกฟู", "พักให้อุ่น พร้อมเสิร์ฟคู่กับข้าวสวยบดนุ่ม"], "parentTip": "หากลูกไม่ชอบกินผัก ให้ปั่นแครอทกับน้ำซุปจนเป็นสีส้มทองแล้วค่อยผสมไข่ ไข่ตุ๋นจะกลายเป็นสีส้มละมุนไร้กากผักกวนใจ!"}, {"id": "r2", "title": "แพนเค้กกล้วยหอมข้าวโอ๊ตไร้แป้ง (BLW)", "emoji": "🥞", "description": "แพนเค้กสองส่วนผสม นุ่มหนึบพอดีมือ หวานธรรมชาติจากกล้วยหอมสุก ไร้น้ำตาลและแป้งสาลี", "prepTimeMinutes": 5, "cookTimeMinutes": 8, "difficulty": "ง่ายมาก", "mealTypes": ["breakfast", "snack"], "situations": ["quick_15min", "finger_food", "picky_eater"], "allergens": ["egg"], "nutritionBenefits": ["fiber_digest", "high_protein", "brain_boost"], "ingredients": [{"name": "กล้วยหอมสุกงอม", "amount": "1 ลูก", "isPrimary": true}, {"name": "ไข่ไก่", "amount": "1 ฟอง", "isPrimary": true}, {"name": "ข้าวโอ๊ตบดละเอียด", "amount": "3 ช้อนโต๊ะ", "isPrimary": true}, {"name": "น้ำมันรำข้าวหรือเนยจืด", "amount": "เล็กน้อยสำหรับทากระทะ"}], "ingredientTags": ["กล้วยหอม", "ไข่", "ข้าวโอ๊ต"], "textureNote": {"cutting": "ตัดเป็นชิ้นแท่งยาวประมาณ 2x5 ซม. (Finger strip) เพื่อให้มือน้อยๆ กำได้ถนัด", "softness": "นุ่มฟู ยืดหยุ่น ไม่ร่วนแตกร่วงเป็นผงในคอ", "safetyTip": "ตัดขอบที่อาจจะไหม้หรือกรอบเกินไปออก ให้เหลือเฉพาะเนื้อนุ่มๆ"}, "steps": ["ใช้ส้อมบดกล้วยหอมสุกในชามผสมจนละเอียดเนียน", "ตอกไข่ไก่และใส่ข้าวโอ๊ตบดลงไป คนผสมให้เข้ากันจนเป็นเนื้อครีมข้น", "ตั้งกระทะเทฟลอนไฟอ่อน ทาน้ำมันบางๆ หยอดแป้งเป็นแผ่นกลมเล็กๆ ขนาดพอดีคำ", "กลับด้านเมื่อเริ่มมีฟองอากาศ (ประมาณ 1.5-2 นาทีต่อด้าน) สุกแล้วตักพักให้อุ่น"], "parentTip": "เหมาะมากสำหรับมื้อเช้าที่รีบเร่ง สามารถทำเก็บแช่แข็งไว้ แล้วนำมาอุ่นไมโครเวฟ 15 วินาทีพกไปกินบนรถได้เลย"}, {"id": "r3", "title": "ข้าวต้มปลาแซลมอนน้ำซุปฟักทองหวาน", "emoji": "🥣", "description": "ข้าวต้มเมล็ดบานนุ่มเคี้ยวง่าย ซุปสีเหลืองทองจากเนื้อฟักทองและปลาแซลมอนอุดมด้วยโอเมก้า 3", "prepTimeMinutes": 10, "cookTimeMinutes": 15, "difficulty": "ง่าย", "mealTypes": ["breakfast", "lunch", "dinner"], "situations": ["teething_soft", "picky_eater"], "allergens": ["seafood"], "nutritionBenefits": ["brain_boost", "iron_rich", "immune_boost"], "ingredients": [{"name": "เนื้อปลาแซลมอนสดไร้ก้าง", "amount": "35 กรัม", "isPrimary": true}, {"name": "ฟักทองนึ่งบด", "amount": "2 ช้อนโต๊ะ", "isPrimary": true}, {"name": "ข้าวสวยหุงนุ่ม", "amount": "1/2 ถ้วยเล็ก", "isPrimary": true}, {"name": "น้ำซุปกระดูกหมูหรือซุปผักใส", "amount": "1.5 ถ้วย"}, {"name": "ตำลึงลวกสับละเอียด", "amount": "1 ช้อนโต๊ะ"}], "ingredientTags": ["แซลมอน", "ฟักทอง", "ข้าวสวย", "ตำลึง"], "textureNote": {"cutting": "ปลาแซลมอนต้องใช้มือคลำตรวจก้างซ้ำ 2 รอบ แล้วยีเป็นชิ้นเล็กๆ ขนาด 0.3 ซม.", "softness": "เม็ดข้าวต้มบานนิ่ม เม้มด้วยเหงือกแตกง่าย น้ำซุปมีความข้นละมุนจากฟักทอง", "safetyTip": "ต้องมั่นใจว่าไม่มีก้างปลาหลงเหลือ 100% โดยการใช้นิ้วสัมผัสยีเนื้อปลาก่อนต้ม"}, "steps": ["ต้มน้ำซุปให้เดือด ใส่ข้าวสวยและฟักทองบดลงไป ต้มด้วยไฟกลางค่อนอ่อนจนเม็ดข้าวบานนุ่ม", "ใส่ปลาแซลมอนที่ยีละเอียดลงไป ต้มต่ออีก 3-4 นาทีจนเนื้อปลาสุกเปลี่ยนเป็นสีส้มอ่อน", "ใส่ใบตำลึงสับละเอียดลงไป คนให้เข้ากันอีก 1 นาทีแล้วปิดไฟ", "ตักใส่ชาม รอให้อุ่นพอดีก่อนป้อน"], "parentTip": "ฟักทองจะช่วยกลบกลิ่นคาวปลาตามธรรมชาติ และให้น้ำซุปมีรสหวานถูกปากเด็กๆ โดยไม่ต้องใส่น้ำตาลสักเกล็ด"}, {"id": "r4", "title": "ทอดมันเต้าหู้หมูเด้งนึ่ง (Finger Food)", "emoji": "🍢", "description": "ก้อนกลมนุ่มเด้ง ผสมเต้าหู้ไข่และหมูสับ นึ่งไร้น้ำมัน ลูกหยิบกินเองสนุกไม่ฝืดคอ", "prepTimeMinutes": 10, "cookTimeMinutes": 10, "difficulty": "ง่าย", "mealTypes": ["lunch", "dinner", "snack"], "situations": ["finger_food", "quick_15min"], "allergens": ["egg"], "nutritionBenefits": ["high_protein", "iron_rich", "calcium_teeth"], "ingredients": [{"name": "หมูสับอนามัยไร้มันแข็ง", "amount": "60 กรัม", "isPrimary": true}, {"name": "เต้าหู้ไข่ไก่", "amount": "1/2 หลอด", "isPrimary": true}, {"name": "แครอทขูดฝอยสับสั้นๆ", "amount": "1 ช้อนโต๊ะ"}, {"name": "แป้งข้าวโพด", "amount": "1 ช้อนชา (ช่วยประสานเนื้อให้นุ่มเด้ง)"}, {"name": "ซีอิ๊วขาวลดโซเดียมสำหรับเด็ก", "amount": "2-3 หยด (หากต้องการ)"}], "ingredientTags": ["หมูสับ", "เต้าหู้ไข่", "แครอท"], "textureNote": {"cutting": "ปั้นเป็นแท่งขนาดเท่านิ้วก้อยผู้ใหญ่ (Cylinder shape) หรือแบนพอดีคำ", "softness": "นุ่มชุ่มชื้นจากเต้าหู้ไข่ ไม่เหนียว ไม่แข็งกระด้าง", "safetyTip": "อย่าปั้นเป็นลูกกลมแข็งทรงลูกชิ้น เพราะอาจหลุดลงคอได้ง่าย ให้ปั้นเป็นทรงรีแบนหรือแท่ง"}, "steps": ["ยีเต้าหู้ไข่ให้ละเอียด ผสมกับหมูสับ แครอทขูด และแป้งข้าวโพด", "นวดฟาดส่วนผสมในชามเบาๆ 1-2 นาทีจนเนื้อเริ่มเหนียวเนียนเข้ากัน", "ปั้นเป็นทรงแท่งรีขนาดพอดีมือเด็ก วางเรียงบนจานทนความร้อน", "นำไปนึ่งในลังถึงน้ำเดือดไฟกลาง 8-10 นาทีจนสุกทั่ว"], "parentTip": "เต้าหู้ไข่ทำให้หมูสับนุ่มละมุนมาก ไม่กระด้างเหมือนลูกชิ้นทั่วไป เหมาะฝึกให้ลูกหัดจับช้อนตักเอง"}, {"id": "r5", "title": "มักกะโรนีซอสฟักทองชีสละมุน", "emoji": "🧀", "description": "เส้นมักกะโรนีนุ่มหนึบ คลุกเคล้าซอสสีเหลืองทองจากฟักทองและชีส หอมมัน อุดมด้วยวิตามินเอ", "prepTimeMinutes": 10, "cookTimeMinutes": 12, "difficulty": "ง่าย", "mealTypes": ["lunch", "dinner"], "situations": ["picky_eater", "finger_food"], "allergens": ["dairy", "gluten"], "nutritionBenefits": ["calcium_teeth", "immune_boost", "high_protein"], "ingredients": [{"name": "มักกะโรนีข้องอจิ๋ว (ต้มสุกนิ่มกว่าปกติ)", "amount": "1/3 ถ้วยตวง", "isPrimary": true}, {"name": "ฟักทองนึ่งสุก", "amount": "50 กรัม", "isPrimary": true}, {"name": "นมสดจืดหรือนมพาสเจอร์ไรส์", "amount": "50 มล."}, {"name": "ชีสเชดด้าลดโซเดียมขูด", "amount": "1 ช้อนโต๊ะ", "isPrimary": true}, {"name": "อกไก่ต้มฉีกเส้นสั้นๆ", "amount": "2 ช้อนโต๊ะ"}], "ingredientTags": ["เส้นพาสต้า", "ฟักทอง", "นมสด", "ชีสแผ่น", "อกไก่"], "textureNote": {"cutting": "ต้มเส้นพาสต้านานกว่าปกติ 3-4 นาที ให้กดด้วยนิ้วแล้วบี้เละได้ง่าย ไก่ฉีกเส้นสั้นไม่เกิน 0.5 ซม.", "softness": "ซอสข้นเคลือบเส้น ไม่เหลวหกเลอะเทอะ และเส้นนิ่มมาก", "safetyTip": "หากใช้เส้นยาว ต้องตัดเป็นท่อนสั้นๆ ไม่เกิน 1 ซม."}, "steps": ["ต้มเส้นมักกะโรนีในน้ำเดือดจนนิ่มพิเศษ แล้วสะเด็ดน้ำพักไว้", "ปั่นฟักทองนึ่งสุกกับนมสดจนเนียนเป็นเนื้อซอสครีม", "เทซอสฟักทองลงในกระทะไฟอ่อน ใส่ไก่ฉีกและเส้นมักกะโรนีลงไปคลุกเคล้า", "โรยชีสขูดลงไป คนจนชีสละลายเคลือบเส้น ปิดไฟพร้อมเสิร์ฟ"], "parentTip": "เมนูโปรดพิชิตเด็กกินยาก ซอสฟักทองหน้าตาเหมือนแมคแอนด์ชีส แต่เต็มไปด้วยวิตามินและเบต้าแคโรทีน"}, {"id": "r6", "title": "ตับไก่ผัดผักสามสหายซอสแอปเปิ้ล", "emoji": "🍎", "description": "เมนูเติมธาตุเหล็กขั้นสุด ตับไก่นุ่มไม่แข็งกระด้าง ผัดกับแครอท ข้าวโพดอ่อน และซอสแอปเปิ้ลหวานธรรมชาติ", "prepTimeMinutes": 15, "cookTimeMinutes": 10, "difficulty": "ปานกลาง", "mealTypes": ["lunch", "dinner"], "situations": ["picky_eater"], "allergens": [], "nutritionBenefits": ["iron_rich", "immune_boost", "high_protein"], "ingredients": [{"name": "ตับไก่สดล้างสะอาด", "amount": "40 กรัม", "isPrimary": true}, {"name": "น้ำแอปเปิ้ลคั้นสดหรือแอปเปิ้ลขูดละเอียด", "amount": "2 ช้อนโต๊ะ (ช่วยดับคาวและเพิ่มความหวาน)", "isPrimary": true}, {"name": "แครอทหั่นเต๋าจิ๋วต้มสุก", "amount": "1 ช้อนโต๊ะ"}, {"name": "ข้าวโพดหวานแกะเม็ดต้มสุกสับหยาบ", "amount": "1 ช้อนโต๊ะ"}, {"name": "น้ำมันรำข้าว", "amount": "1 ช้อนชา"}], "ingredientTags": ["ตับไก่", "แอปเปิ้ล", "แครอท", "ข้าวโพดหวาน"], "textureNote": {"cutting": "ตับไก่หั่นเป็นชิ้นบางเล็กๆ ข้าวโพดต้องบุบหรือสับครึ่งเมล็ดป้องกันการกลืนทั้งเมล็ด", "softness": "ตับไก่ผัดสุกพอดีจะนุ่มนิ่ม ละเอียดในปาก ไม่แห้งแข็ง", "safetyTip": "เมล็ดข้าวโพดทั้งเม็ดเป็น Choking hazard สำหรับเด็ก 20 เดือน ต้องบดหรือผ่าครึ่งเสมอ"}, "steps": ["แช่ตับไก่ในนมสด 10 นาทีเพื่อล้างคาว แล้วล้างน้ำสะอาด หั่นชิ้นบางเล็ก", "ตั้งกระทะใส่น้ำมันรำข้าวไฟกลาง ใส่ตับไก่ลงไปผัดพอเริ่มเปลี่ยนสี", "ใส่แครอทต้ม ข้าวโพดสับ และซอสแอปเปิ้ลขูดลงไป ผัดคลุกเคล้าจนตับสุกทั่ว", "ตักราดบนข้าวสวยหุงนุ่มอุ่นๆ"], "parentTip": "เด็กวัย 1-2 ขวบเสี่ยงภาวะขาดธาตุเหล็กสูงมาก ซอสแอปเปิ้ลจะกลบกลิ่นตับได้ 100% ทำให้เด็กอ้าปากรับอย่างง่ายดาย"}, {"id": "r7", "title": "ข้าวปั้นแซลมอนอะโวคาโดคลุกงาขี้ม่อน (Rice Ball)", "emoji": "🍙", "description": "ข้าวปั้นก้อนพอดีคำ สีสันน่ารัก ไขมันดีจากอะโวคาโดและแซลมอน ช่วยบำรุงระบบประสาทและสมอง", "prepTimeMinutes": 10, "cookTimeMinutes": 5, "difficulty": "ง่าย", "mealTypes": ["breakfast", "lunch", "snack"], "situations": ["finger_food", "quick_15min"], "allergens": ["seafood"], "nutritionBenefits": ["brain_boost", "high_protein", "calcium_teeth"], "ingredients": [{"name": "ข้าวสวยนุ่มอุ่นๆ", "amount": "1/2 ถ้วย", "isPrimary": true}, {"name": "เนื้อแซลมอนนึ่งสุกยีละเอียด", "amount": "2 ช้อนโต๊ะ", "isPrimary": true}, {"name": "อะโวคาโดสุกบดหยาบ", "amount": "1 ช้อนโต๊ะ", "isPrimary": true}, {"name": "น้ำมันงาบริสุทธิ์", "amount": "2 หยด (เพิ่มกลิ่นหอม)"}, {"name": "งาขี้ม่อนคั่วบดละเอียด", "amount": "1/2 ช้อนชา"}], "ingredientTags": ["ข้าวสวย", "แซลมอน", "อะโวคาโด"], "textureNote": {"cutting": "ปั้นเป็นทรงแท่งสั้น (俵型 -俵 shape) กว้างประมาณ 2 ซม. ยาว 4 ซม. จับง่ายไม่ติดคอ", "softness": "ข้าวเหนียวนุ่มเกาะตัวกันดี ไม่ร่วนหลุดกระจายในมือ", "safetyTip": "หลีกเลี่ยงการปั้นเป็นก้อนกลมแน่นแข็งทรงลูกปิงปอง เพราะอาจลื่นหลุดเข้าหลอดลม"}, "steps": ["ใส่ข้าวสวยอุ่น แซลมอนยี อะโวคาโด และน้ำมันงาลงในชามผสม", "คลุกเคล้าให้เข้ากันจนข้าวเริ่มเปลี่ยนเป็นสีเขียวอมส้มสวยงาม", "ใช้มือชุบน้ำต้มสุก หรือแรปพลาสติก ปั้นเป็นแท่งมินิพอดีคำ", "โรยงาขี้ม่อนบดละเอียดบางๆ พร้อมให้ลูกหยิบป้อนตัวเอง"], "parentTip": "เหมาะมากสำหรับวันที่พาลูกไปเที่ยวข้างนอก หรือใส่กล่องอาหารว่างไปนั่งกินที่สวนสาธารณะ"}, {"id": "r8", "title": "ซุปมิโสะเต้าหู้ขาวตำลึงหวาน", "emoji": "🍲", "description": "ซุปใสรสกลมกล่อม คล่องคอ ซดง่าย ตำลึงต้มเปื่อยนุ่มและเต้าหู้ขาวนิ่มละมุนลิ้น", "prepTimeMinutes": 5, "cookTimeMinutes": 10, "difficulty": "ง่ายมาก", "mealTypes": ["lunch", "dinner"], "situations": ["teething_soft", "quick_15min"], "allergens": [], "nutritionBenefits": ["calcium_teeth", "fiber_digest", "iron_rich"], "ingredients": [{"name": "เต้าหู้ขาวคินุ (ชนิดนิ่ม)", "amount": "50 กรัม", "isPrimary": true}, {"name": "ยอดตำลึงล้างสะอาด", "amount": "1 กำมือเล็ก", "isPrimary": true}, {"name": "น้ำซุปปลาแห้งดาชิหรือซุปกระดูกหมูไม่ปรุงรส", "amount": "1.5 ถ้วย", "isPrimary": true}, {"name": "หมูสับปั้นก้อนจิ๋ว", "amount": "2 ช้อนโต๊ะ"}], "ingredientTags": ["เต้าหู้ไข่", "ตำลึง", "หมูสับ"], "textureNote": {"cutting": "เต้าหู้หั่นเต๋า 0.5 ซม. ใบตำลึงสับละเอียดหลังต้ม", "softness": "เต้าหู้นิ่มละลายในปาก หมูสับปั้นหลวมๆ ต้มนุ่มไม่กระด้าง", "safetyTip": "ตรวจสอบอุณหภูมิน้ำซุปบนหลังมือก่อนตักให้ลูกเสมอ"}, "steps": ["ตั้งน้ำซุปให้เดือด ใส่หมูสับก้อนจิ๋วลงไปต้มจนสุกและลอยขึ้น", "ใส่ยอดตำลึงลงไปต้มจนเปื่อยนุ่มสีเขียวสวย", "ใส่เต้าหู้ขาวนิ่มลงไป ต้มเบาๆ อีก 1 นาที ปิดไฟ", "ใช้กรรไกรตัดใบตำลึงในหม้อให้สั้นลง ตักเสิร์ฟพร้อมข้าวสวยบด"], "parentTip": "ตำลึงมีแคลเซียมและธาตุเหล็กสูงมาก เมื่อต้มกับน้ำซุปใสจะหวานละมุน ช่วยให้เด็กขับถ่ายง่ายสบายท้อง"}, {"id": "r9", "title": "ไก่บดมันหวานแท่งอบทอง (Chicken Sweet Potato Sticks)", "emoji": "🍠", "description": "เนื้อไก่บดผสมมันหวานสีส้ม นุ่มหนึบ หอมหวาน อบในหม้อทอดไร้น้ำมันหรือกระทะ", "prepTimeMinutes": 10, "cookTimeMinutes": 12, "difficulty": "ง่าย", "mealTypes": ["lunch", "dinner", "snack"], "situations": ["finger_food", "picky_eater"], "allergens": [], "nutritionBenefits": ["high_protein", "immune_boost", "fiber_digest"], "ingredients": [{"name": "อกไก่บดละเอียด", "amount": "70 กรัม", "isPrimary": true}, {"name": "มันหวานญี่ปุ่นหรือมันส้ม นึ่งบด", "amount": "40 กรัม", "isPrimary": true}, {"name": "แป้งมันสำปะหลังหรือแป้งข้าวโพด", "amount": "1 ช้อนชา"}, {"name": "น้ำมันรำข้าว", "amount": "1 ช้อนชา"}], "ingredientTags": ["อกไก่", "มันหวาน"], "textureNote": {"cutting": "ปั้นเป็นแท่งยาวเท่าแท่งชอล์ก (กว้าง 1.5 ซม. ยาว 6 ซม.)", "softness": "ผิวนอกเซ็ตตัวดี ด้านในนุ่มชุ่มฉ่ำ ไม่เหนียว กัดขาดง่ายด้วยฟันหน้า", "safetyTip": "อย่าอบนานจนผิวกรอบแข็งหรือไหม้ เพราะเหงือกเด็กจะระคายเคือง"}, "steps": ["ผสมอกไก่บด มันหวานนึ่งบด และแป้งเข้าด้วยกันในชาม นวดจนเหนียว", "ใส่ถุงแกงแล้วตัดมุม บีบเป็นเส้นยาวลงบนกระดาษไข หรือใช้มือชุบน้ำมันปั้นเป็นแท่ง", "นำไปอบในหม้อทอดไร้น้ำมัน 160°C นาน 8-10 นาที (หรือจี่ในกระทะไฟอ่อนจนสุกทั่ว)", "พักให้หายร้อนจนอุ่น พร้อมเสิร์ฟ"], "parentTip": "ความหวานธรรมชาติจากมันหวานจะช่วยให้เนื้ออกไก่ไม่แห้งฝืดคอ เป็นเมนูยอดฮิตที่เด็กหยิบกินหมดจานแน่นอน"}, {"id": "r10", "title": "โจ๊กข้าวโอ๊ตตุ๋นไข่แดงผักโขม", "emoji": "🥣", "description": "โจ๊กย่อยง่ายทำไวใน 10 นาที ข้าวโอ๊ตเคี่ยวนุ่มกับไข่แดงและผักโขม แคลเซียมและโฟเลตสูง", "prepTimeMinutes": 3, "cookTimeMinutes": 8, "difficulty": "ง่ายมาก", "mealTypes": ["breakfast", "dinner"], "situations": ["quick_15min", "teething_soft"], "allergens": ["egg"], "nutritionBenefits": ["iron_rich", "brain_boost", "calcium_teeth"], "ingredients": [{"name": "ข้าวโอ๊ตละเอียด (Instant หรือ Rolled บด)", "amount": "3 ช้อนโต๊ะ", "isPrimary": true}, {"name": "ไข่ไก่ (ใช้เฉพาะไข่แดง)", "amount": "1 ฟอง", "isPrimary": true}, {"name": "ผักโขมต้มสับละเอียด", "amount": "1 ช้อนโต๊ะ", "isPrimary": true}, {"name": "น้ำซุปกระดูกหรือน้ำเปล่า", "amount": "1 ถ้วยตวง"}], "ingredientTags": ["ข้าวโอ๊ต", "ไข่", "ผักโขม"], "textureNote": {"cutting": "ผักโขมต้องต้มจนเปื่อยนุ่มแล้วสับละเอียดจิ๋ว ไม่เป็นเส้นยาวที่ติดคอได้", "softness": "เนื้อเนียนข้น กึ่งเหลว ไหลรินได้ ไม่เหนียวเหนอะหนะ", "safetyTip": "เป่าให้อุ่นก่อนป้อน ระวังความร้อนแฝงในข้าวโอ๊ตที่มักร้อนนาน"}, "steps": ["ต้มน้ำซุปในหม้อใบเล็กจนเดือด ใส่ข้าวโอ๊ตลงไป คนเร็วๆ ลดเป็นไฟอ่อน", "เคี่ยว 3 นาทีจนข้าวโอ๊ตเริ่มข้นเนียน ใส่ผักโขมสับลงไป", "ตีไข่แดงแล้วค่อยๆ หยอดลงไปในหม้อ คนวนเบาๆ ให้เป็นเส้นไข่เนียนนุ่ม", "ต้มต่ออีก 1 นาทีจนไข่สุกทั่ว ตักใส่ชาม"], "parentTip": "สำหรับเด็กที่เริ่มเบื่อข้าวสวย การเปลี่ยนเป็นข้าวโอ๊ตจะช่วยเปลี่ยนรสสัมผัสและเพิ่มไฟเบอร์ช่วยให้อึนิ่ม"}, {"id": "r11", "title": "สตูว์เนื้อไก่แอปเปิ้ลตุ๋นแครอท", "emoji": "🍲", "description": "อกไก่นุ่มละลายในปากจากเอนไซม์แอปเปิ้ล ต้มเคี่ยวกับแครอทหวานชุ่มฉ่ำ", "prepTimeMinutes": 10, "cookTimeMinutes": 20, "difficulty": "ง่าย", "mealTypes": ["lunch", "dinner"], "situations": ["picky_eater", "teething_soft"], "allergens": [], "nutritionBenefits": ["high_protein", "immune_boost", "fiber_digest"], "ingredients": [{"name": "อกไก่หั่นเต๋าเล็ก", "amount": "50 กรัม", "isPrimary": true}, {"name": "แอปเปิ้ลปอกเปลือกหั่นเต๋าเล็ก", "amount": "1/3 ลูก", "isPrimary": true}, {"name": "แครอทหั่นเต๋าเล็ก", "amount": "2 ช้อนโต๊ะ", "isPrimary": true}, {"name": "น้ำซุปผัก", "amount": "1.5 ถ้วย"}], "ingredientTags": ["อกไก่", "แอปเปิ้ล", "แครอท"], "textureNote": {"cutting": "หั่นเต๋าขนาดประมาณ 0.5 ซม. (เท่าเม็ดข้าวโพด)", "softness": "ตุ๋นจนแครอทและแอปเปิ้ลใช้ช้อนกดแล้วแหลกได้ทันที", "safetyTip": "แอปเปิ้ลสดแข็งเป็นอันตรายต่อเด็ก 20 เดือน แต่เมื่อตุ๋นจนนิ่มจะปลอดภัยและมีประโยชน์มาก"}, "steps": ["หมักอกไก่กับเนื้อแอปเปิ้ลขูดเล็กน้อย 5 นาทีเพื่อให้เนื้อไก่นุ่ม", "ตั้งหม้อ ใส่น้ำซุป ไก่ แครอท และแอปเปิ้ลลงไปพร้อมกัน", "ต้มไฟกลางจนเดือด ช้อนฟองออก แล้วหรี่ไฟอ่อนปิดฝาตุ๋น 15 นาที", "เมื่อทุกอย่างเปื่อยนุ่ม ใช้หลังช้อนบดเบาๆ ให้น้ำซุปข้นหวาน พร้อมเสิร์ฟ"], "parentTip": "รสหวานหอมจากแอปเปิ้ลแทรกซึมเข้าเนื้อไก่ ทำให้ไก่ไม่จืดชืดและไม่มีกลิ่นสาบ"}, {"id": "r12", "title": "อะโวคาโดโยเกิร์ตพาร์เฟต์มินิ", "emoji": "🥑", "description": "ของว่างเย็นชื่นใจ บำรุงเซลล์สมองด้วยกรดไขมันดี ผสานโพรไบโอติกส์เพื่อลำไส้แข็งแรง", "prepTimeMinutes": 5, "cookTimeMinutes": 0, "difficulty": "ง่ายมาก", "mealTypes": ["snack"], "situations": ["quick_15min", "teething_soft"], "allergens": ["dairy"], "nutritionBenefits": ["brain_boost", "calcium_teeth", "fiber_digest"], "ingredients": [{"name": "อะโวคาโดสุกงอม", "amount": "1/4 ลูก", "isPrimary": true}, {"name": "โยเกิร์ตรสธรรมชาติ (ไม่เติมน้ำตาล)", "amount": "3 ช้อนโต๊ะ", "isPrimary": true}, {"name": "กล้วยหอมสุกบด", "amount": "1 ช้อนโต๊ะ (ให้ความหวาน)"}], "ingredientTags": ["อะโวคาโด", "กล้วยหอม", "นมสด"], "textureNote": {"cutting": "บดเนียนหรือหั่นอะโวคาโดเป็นชิ้นสี่เหลี่ยมลูกเต๋านุ่มจิ๋ว 0.3 ซม.", "softness": "เนื้อเนียนนุ่มเย็นละมุน ไม่ต้องเคี้ยว", "safetyTip": "เหมาะมากในวันที่ลูกกำลังฟันน้ำนมโผล่พ้นเหงือก ความเย็นจะช่วยลดอาการปวดเหงือกได้ดี"}, "steps": ["ใช้ส้อมบดอะโวคาโดกับกล้วยหอมจนละเอียดเนียนเป็นเนื้อเดียวกัน", "ตักใส่ถ้วยสลับชั้นกับกรีกโยเกิร์ตรสธรรมชาติ", "ตกแต่งด้านบนด้วยเนื้ออะโวคาโดนุ่มชิ้นเล็กๆ พร้อมให้ลูกตักกิน"], "parentTip": "ของว่างสุดเพอร์เฟกต์สำหรับวันที่อากาศร้อน หรือวันที่ลูกงอแงไม่อยากเคี้ยวข้าว"}, {"id": "r13", "title": "มินิฟริตตาตาไข่อบผักสายรุ้ง", "emoji": "🧁", "description": "ไข่อบถ้วยฟูรูปมัฟฟิน สีสันสวยงามจากผักหลากสี ถือง่าย พกพาสะดวก ไม่เลอะเทอะ", "prepTimeMinutes": 8, "cookTimeMinutes": 12, "difficulty": "ง่าย", "mealTypes": ["breakfast", "snack"], "situations": ["finger_food", "picky_eater"], "allergens": ["egg", "dairy"], "nutritionBenefits": ["high_protein", "immune_boost", "brain_boost"], "ingredients": [{"name": "ไข่ไก่", "amount": "2 ฟอง", "isPrimary": true}, {"name": "แครอทสับละเอียด", "amount": "1 ช้อนโต๊ะ"}, {"name": "บรอกโคลีสับละเอียด", "amount": "1 ช้อนโต๊ะ"}, {"name": "ชีสขูดลดโซเดียม", "amount": "1 ช้อนโต๊ะ"}, {"name": "หมูสับต้มสุก", "amount": "1 ช้อนโต๊ะ"}], "ingredientTags": ["ไข่", "แครอท", "บรอกโคลี", "ชีสแผ่น", "หมูสับ"], "textureNote": {"cutting": "หั่นเป็น 2 หรือ 4 ส่วนตามขวาง เพื่อให้ลูกหยิบเข้าปากทีละคำง่ายขึ้น", "softness": "นุ่มฟูเหมือนเค้กไข่ ไม่แห้งฝืดคอ", "safetyTip": "ระวังไอน้ำร้อนภายในถ้วยตอนแกะ พักให้คลายความร้อน 5 นาทีก่อนเสิร์ฟ"}, "steps": ["ตอกไข่ใส่ชาม ตีให้เข้ากัน ใส่ผักสับ หมูสับ และชีสขูดลงไป", "ทาน้ำมันบางๆ ในพิมพ์มัฟฟินซิลิโคน แล้วเทส่วนผสมไข่ลงไป 3/4 ของพิมพ์", "นำเข้าหม้อทอดไร้น้ำมัน 150°C นาน 10-12 นาที หรือนึ่งในลังถึงจนสุกฟู", "แกะออกจากพิมพ์ พักให้อุ่น"], "parentTip": "รูปทรงมัฟฟินจะช่วยเปลี่ยนทัศนคติของเด็กต่อผัก ทำให้เขารู้สึกเหมือนกำลังกินขนมเค้กแสนอร่อย"}, {"id": "r14", "title": "พาสต้าปลาดอรี่ซอสมะเขือเทศสดตุ๋นหมูสับ", "emoji": "🍝", "description": "ซอสมะเขือเทศสดเคี่ยวจนหวานอมเปรี้ยวตามธรรมชาติ ผสานเนื้อปลาและหมูสับ เสริมวิตามินซีและไลโคปีน", "prepTimeMinutes": 10, "cookTimeMinutes": 15, "difficulty": "ง่าย", "mealTypes": ["lunch", "dinner"], "situations": ["picky_eater"], "allergens": ["gluten", "seafood"], "nutritionBenefits": ["immune_boost", "high_protein", "iron_rich"], "ingredients": [{"name": "เส้นพาสต้ารูปก้นหอยหรือโบว์ต้มสุกนิ่ม", "amount": "1/3 ถ้วย", "isPrimary": true}, {"name": "มะเขือเทศสุกปอกเปลือกสับละเอียด", "amount": "1 ลูกใหญ่", "isPrimary": true}, {"name": "เนื้อปลาดอรี่หรือปลากะพงไร้ก้างสับ", "amount": "30 กรัม"}, {"name": "หมูสับละเอียด", "amount": "20 กรัม"}, {"name": "น้ำมันมะกอก", "amount": "1 ช้อนชา"}], "ingredientTags": ["เส้นพาสต้า", "มะเขือเทศ", "หมูสับ"], "textureNote": {"cutting": "มะเขือเทศต้องลอกเปลือกออกทิ้ง สับละเอียด เส้นต้มสุกนิ่มเคี้ยวง่าย", "softness": "ซอสเคลือบชุ่มฉ่ำช่วยให้กลืนคล่องคอ", "safetyTip": "เปลือกมะเขือเทศเหนียวอาจติดคอเด็กได้ง่าย จำเป็นต้องลอกเปลือกออกเสมอ"}, "steps": ["กรีดกากบาทที่ก้นมะเขือเทศ ลวกน้ำร้อน 30 วินาที ลอกเปลือกออกแล้วสับละเอียด", "ตั้งกระทะใส่น้ำมันมะกอก ผัดหมูสับและเนื้อปลาจนสุก", "ใส่มะเขือเทศสับลงไป เคี่ยวไฟอ่อน 8-10 นาทีจนมะเขือเทศละลายเป็นซอสแดงข้นหวาน", "ใส่เส้นพาสต้าลงไปคลุกเคล้าให้ซอสซึมเข้าเส้น ตักเสิร์ฟ"], "parentTip": "เด็กๆ มักชอบรสหวานอมเปรี้ยวสดชื่น มะเขือเทศสดเคี่ยวสุกจะช่วยกระตุ้นความอยากอาหารในวันที่ลูกเบื่อข้าว"}, {"id": "r15", "title": "ข้าวต้มตุ๋นไข่ตำลึงหมูสับน้ำซุปใส", "emoji": "🍚", "description": "เมนูพื้นฐานคู่ครัวไทยที่เด็กทุกคนรัก ข้าวหอมมะลิต้มแตกบาน ซุปหวานธรรมชาติ ซดหมดชาม", "prepTimeMinutes": 5, "cookTimeMinutes": 12, "difficulty": "ง่ายมาก", "mealTypes": ["breakfast", "dinner"], "situations": ["teething_soft", "quick_15min"], "allergens": ["egg"], "nutritionBenefits": ["iron_rich", "calcium_teeth", "high_protein"], "ingredients": [{"name": "ข้าวสวยหอมมะลิ", "amount": "1/2 ถ้วย", "isPrimary": true}, {"name": "หมูสับละเอียด", "amount": "30 กรัม", "isPrimary": true}, {"name": "ไข่ไก่สด", "amount": "1 ฟอง", "isPrimary": true}, {"name": "ยอดตำลึงอ่อนสับละเอียด", "amount": "2 ช้อนโต๊ะ", "isPrimary": true}, {"name": "น้ำซุปกระดูกหมูไม่ปรุงรส", "amount": "1.5 ถ้วย"}], "ingredientTags": ["ข้าวสวย", "หมูสับ", "ไข่", "ตำลึง"], "textureNote": {"cutting": "ใบตำลึงสับเป็นชิ้นจิ๋วไม่เกิน 3 มม. หมูสับยีไม่ให้เกาะเป็นก้อนแข็ง", "softness": "เม็ดข้าวบานเปื่อยลื่นคอ ไม่ต้องออกแรงบดเคี้ยวมาก", "safetyTip": "รอให้อุณหภูมิลดลงก่อนป้อน ข้าวต้มเก็บกักความร้อนได้นาน"}, "steps": ["ต้มน้ำซุปให้เดือด ใส่หมูสับลงไปยีให้กระจายตัวจนสุก", "ใส่ข้าวสวยลงไปเคี่ยวจนเม็ดข้าวแตกบานนุ่มนวล", "ตอกไข่ไก่ใส่ชาม ตีให้เข้ากัน แล้วค่อยๆ เทวนเป็นสายลงในหม้อ คนเบาๆ", "ใส่ใบตำลึงสับลงไป คนอีก 30 วินาที ปิดไฟ"], "parentTip": "เป็นเมนูเซฟโซนสำหรับวันที่ลูกฟันกรามกำลังแทงเหงือก หรือวันที่ไม่สบาย น้ำซุปอุ่นๆ จะช่วยให้สบายท้อง"}, {"id": "r16", "title": "นักเก็ตบรอกโคลีไก่สับโฮมเมด", "emoji": "🥦", "description": "นักเก็ตเพื่อสุขภาพไร้ผงชูรส ผสมบรอกโคลีและแครอทในเนื้อไก่ อบจนหอมกรุ่น ถือแทะเพลิน", "prepTimeMinutes": 10, "cookTimeMinutes": 12, "difficulty": "ง่าย", "mealTypes": ["lunch", "dinner", "snack"], "situations": ["finger_food", "picky_eater"], "allergens": ["egg"], "nutritionBenefits": ["high_protein", "immune_boost", "fiber_digest"], "ingredients": [{"name": "อกไก่หรือสันในไก่บดละเอียด", "amount": "80 กรัม", "isPrimary": true}, {"name": "บรอกโคลีลวกสับละเอียด", "amount": "2 ช้อนโต๊ะ", "isPrimary": true}, {"name": "ไข่ไก่", "amount": "1 ฟอง (แบ่งใช้ครึ่งฟอง)", "isPrimary": true}, {"name": "ข้าวโอ๊ตบดละเอียด", "amount": "2 ช้อนโต๊ะ"}], "ingredientTags": ["อกไก่", "บรอกโคลี", "ไข่", "ข้าวโอ๊ต"], "textureNote": {"cutting": "ปั้นเป็นแผ่นแบนหนาประมาณ 1 ซม. ทรงรีหรือเหลี่ยมจับถนัดมือ", "softness": "เนื้อนุ่มไม่แข็งกระด้าง บดด้วยเหงือกได้สบาย", "safetyTip": "ไม่ควรทอดจนผิวนอกกรอบแข็งเกินไป อบหรือจี่กระทะไฟอ่อนให้นุ่มกำลังดี"}, "steps": ["ผสมไก่บด บรอกโคลีสับ ไข่ไก่ครึ่งฟอง และข้าวโอ๊ตบดเข้าด้วยกัน นวดให้เหนียว", "ปั้นเป็นทรงนักเก็ตชิ้นพอดีคำ", "นำไปอบในหม้อทอดไร้น้ำมัน 160°C ประมาณ 10-12 นาที (กลับด้านที่นาทีที่ 6)", "จัดวางบนจานคู่กับมะเขือเทศราชินีผ่า 4 ซีก"], "parentTip": "ซ่อนบรอกโคลีได้เนียนสนิท ไก่สีเขียวลายจุดดึงดูดใจเด็ก ชวนเล่นว่าเป็น \"นักเก็ตพลังไดโนเสาร์\""}, {"id": "r17", "title": "ไข่ม้วนญี่ปุ่นไส้ผักสับทรงเครื่อง (Tamagoyaki)", "emoji": "🍱", "description": "ไข่ม้วนชั้นนุ่มๆ ซ่อนแครอทและเห็ดหอมสับ หั่นเป็นแว่นพอดีคำ สีสันตัดกันสวยงาม", "prepTimeMinutes": 5, "cookTimeMinutes": 7, "difficulty": "ง่าย", "mealTypes": ["breakfast", "lunch", "snack"], "situations": ["finger_food", "quick_15min"], "allergens": ["egg"], "nutritionBenefits": ["high_protein", "brain_boost", "calcium_teeth"], "ingredients": [{"name": "ไข่ไก่สด", "amount": "2 ฟอง", "isPrimary": true}, {"name": "นมสดหรือน้ำซุปผัก", "amount": "1 ช้อนโต๊ะ", "isPrimary": true}, {"name": "แครอทต้มสับละเอียด", "amount": "1 ช้อนโต๊ะ"}, {"name": "เห็ดหอมสดต้มสับละเอียด", "amount": "1 ช้อนชา"}, {"name": "น้ำมันรำข้าวทากระทะ", "amount": "เล็กน้อย"}], "ingredientTags": ["ไข่", "แครอท", "นมสด", "เห็ดหอม"], "textureNote": {"cutting": "หั่นเป็นแว่นหนาประมาณ 1 ซม. แล้วตัดแบ่งครึ่งเป็นรูปพัด", "softness": "เนื้อไข่หนานุ่มชุ่มฉ่ำ ไม่แห้งแข็ง", "safetyTip": "ตัดเป็นชิ้นขนาดพอดีคำที่เด็กสามารถเคี้ยวขาดได้ ไม่ป้อนทั้งแท่งยาว"}, "steps": ["ตอกไข่ใส่ชาม ใส่นมสด แครอท และเห็ดหอมสับ ตีให้เข้ากัน", "ตั้งกระทะเทฟลอนไฟอ่อน ทาน้ำมันบางๆ เทไข่ลงไป 1/3 ของกระทะ", "เมื่อไข่เริ่มเซ็ตตัว ค่อยๆ ม้วนเข้ามา แล้วเลื่อนไปมุมกระทะ เทไข่ส่วนที่เหลือลงไปม้วนทับ", "นำขึ้นมาพักให้อุ่น หั่นเป็นชิ้นพอดีคำพร้อมเสิร์ฟ"], "parentTip": "ไข่ม้วนสีเหลืองทอง ตัดกับสีส้มของแครอท ดึงดูดสายตาเด็กวัย 20 เดือนที่เริ่มสนใจสีสันของอาหาร"}, {"id": "r18", "title": "ซุปครีมข้าวโพดหวานไก่สับนุ่มลิ้น", "emoji": "🌽", "description": "ซุปครีมข้าวโพดหวานปั่นละเอียด ผสมเนื้อไก่สับนุ่มๆ หวานธรรมชาติจากข้าวโพดแท้ 100%", "prepTimeMinutes": 10, "cookTimeMinutes": 12, "difficulty": "ง่าย", "mealTypes": ["breakfast", "dinner"], "situations": ["picky_eater", "teething_soft"], "allergens": ["dairy"], "nutritionBenefits": ["energy_boost", "immune_boost", "high_protein"], "ingredients": [{"name": "ข้าวโพดหวานต้มสุกฝานเมล็ด", "amount": "1/2 ถ้วย", "isPrimary": true}, {"name": "อกไก่สับละเอียด", "amount": "30 กรัม", "isPrimary": true}, {"name": "นมสดจืดหรือนมแม่/นมผง", "amount": "1/2 ถ้วย", "isPrimary": true}, {"name": "น้ำซุปผักใส", "amount": "1/2 ถ้วย"}], "ingredientTags": ["ข้าวโพดหวาน", "อกไก่", "นมสด"], "textureNote": {"cutting": "ข้าวโพดปั่นละเอียดแล้วกรองเอากากเปลือกออก ไก่สับนุ่มละเอียด", "softness": "ซุปครีมข้นเนียน ซดลื่นคอ", "safetyTip": "เปลือกข้าวโพดย่อยยากและอาจทำให้ระคายคอ ควรกรองผ่านกระชอน 1 ครั้ง"}, "steps": ["นำข้าวโพดหวานต้มสุกปั่นกับน้ำซุปผักและนมสดจนละเอียดเนียน กรองผ่านกระชอน", "เทซุปข้าวโพดลงในหม้อ ตั้งไฟอ่อน ใส่ไก่สับลงไป", "คนสม่ำเสมอด้วยพายไม้จนซุปเริ่มเดือดปุดๆ และเนื้อไก่สุกทั่ว", "ตักใส่ชาม โรยอกไก่สับนุ่มๆ ตกแต่งเล็กน้อย"], "parentTip": "รสหวานฉ่ำของข้าวโพดช่วยกระตุ้นการหลั่งน้ำลายและช่วยให้เด็กเจริญอาหาร กินง่ายแม้ช่วงมีไข้"}, {"id": "r19", "title": "ปลาแซลมอนย่างซีอิ๊วหวานซอสส้มสด (พร้อมผักนึ่ง)", "emoji": "🍊", "description": "ปลาแซลมอนฉ่ำซอสส้มคั้นสด หวานอมเปรี้ยว ไร้น้ำตาล เสิร์ฟคู่กับแครอทและมันฝรั่งนึ่งนุ่ม", "prepTimeMinutes": 10, "cookTimeMinutes": 8, "difficulty": "ง่าย", "mealTypes": ["lunch", "dinner"], "situations": ["finger_food", "quick_15min"], "allergens": ["seafood"], "nutritionBenefits": ["brain_boost", "immune_boost", "high_protein"], "ingredients": [{"name": "เนื้อปลาแซลมอนสดหั่นชิ้นเต๋า", "amount": "50 กรัม", "isPrimary": true}, {"name": "น้ำส้มคั้นสดแท้ 100%", "amount": "2 ช้อนโต๊ะ", "isPrimary": true}, {"name": "ซีอิ๊วขาวลดโซเดียมสำหรับเด็ก", "amount": "2 หยด"}, {"name": "แครอทแท่งนึ่งสุกนิ่ม", "amount": "3-4 แท่ง"}, {"name": "น้ำมันรำข้าว", "amount": "1/2 ช้อนชา"}], "ingredientTags": ["แซลมอน", "แครอท"], "textureNote": {"cutting": "เนื้อปลาแซลมอนบิเป็นชิ้นพอดีคำ แครอทหั่นเป็นแท่งยาวจับถนัดมือ", "softness": "เนื้อปลานุ่มชุ่มฉ่ำ แครอทนึ่งจนนิ่มกดบุบได้", "safetyTip": "ตรวจเช็คก้างปลาด้วยนิ้วมืออย่างพิถีพิถันก่อนปรุงอาหาร"}, "steps": ["เช็คก้างปลาแซลมอนให้หมด จดชิ้นพอดีคำ หมักกับน้ำส้มคั้นและซีอิ๊ว 5 นาที", "ตั้งกระทะไฟอ่อน ใส่น้ำมันรำข้าว วางแซลมอนลงไปจี่จนสุกสีส้มสวยทั้งสองด้าน", "เทน้ำหมักส้มที่เหลือลงไปในกระทะ เคี่ยวให้ซอสเคลือบชิ้นปลา 1 นาที", "ตักเสิร์ฟพร้อมแครอทแท่งนึ่งนุ่ม"], "parentTip": "กรดผลไม้ธรรมชาติในน้ำส้มช่วยตัดความเลี่ยนของไขมันปลาแซลมอน และให้กลิ่นหอมชวนน้ำลายสอ"}, {"id": "r20", "title": "เต้าหู้นิ่มทรงเครื่องกุ้งสับน้ำแดง", "emoji": "🍤", "description": "เต้าหู้ขาวคินุนึ่งอุ่นๆ ราดหน้ากุ้งสับและเห็ดหอม รสละมุนลิ้น โปรตีนและสังกะสีสูง", "prepTimeMinutes": 10, "cookTimeMinutes": 8, "difficulty": "ง่าย", "mealTypes": ["lunch", "dinner"], "situations": ["teething_soft", "quick_15min"], "allergens": ["seafood"], "nutritionBenefits": ["high_protein", "calcium_teeth", "immune_boost"], "ingredients": [{"name": "เต้าหู้ขาวคินุชนิดนิ่ม", "amount": "1/2 ก้อน", "isPrimary": true}, {"name": "เนื้อกุ้งสดแกะเปลือกผ่าหลังสับละเอียด", "amount": "2 ตัว", "isPrimary": true}, {"name": "แครอทสับละเอียดจิ๋ว", "amount": "1 ช้อนโต๊ะ"}, {"name": "น้ำซุปผักใส", "amount": "1/2 ถ้วย"}, {"name": "แป้งข้าวโพดละลายน้ำ", "amount": "1 ช้อนชา (ช่วยให้น้ำซุปข้นเคลือบเต้าหู้)"}], "ingredientTags": ["เต้าหู้ไข่", "แครอท"], "textureNote": {"cutting": "กุ้งสับละเอียดเหมือนหมูบด ไม่เป็นก้อนเหนียว เต้าหู้ตัดเต๋าคำเล็ก", "softness": "เต้าหู้นุ่มละลาย กุ้งสับเคี้ยวง่ายไม่ฝืดคอ", "safetyTip": "ระวังการแพ้อาหารทะเล หากเพิ่งเริ่มกินกุ้งให้ลองปริมาณน้อยก่อน"}, "steps": ["นำเต้าหู้ขาวไปนึ่งในลังถึง 3-5 นาทีให้อุ่น จัดใส่จานรอไว้", "ตั้งหม้อ ใส่น้ำซุปผัก แครอทสับ และกุ้งสับลงไปต้มจนกุ้งสุกเปลี่ยนเป็นสีส้ม", "ค่อยๆ หยอดแป้งข้าวโพดละลายน้ำลงไป คนจนน้ำซุปข้นเงาสวย", "ตักราดลงบนเต้าหู้นึ่งอุ่นๆ พร้อมเสิร์ฟ"], "parentTip": "กุ้งอุดมด้วยแร่ธาตุสังกะสี (Zinc) ช่วยเสริมสร้างการเจริญเติบโตและภูมิคุ้มกันของเด็กวัยเตาะแตะ"}];
+    const DAYS = [{"id": "mon", "label": "วันจันทร์", "shortLabel": "จ.", "color": "text-amber-600", "bgColor": "bg-amber-100 border-amber-300"}, {"id": "tue", "label": "วันอังคาร", "shortLabel": "อ.", "color": "text-rose-600", "bgColor": "bg-rose-100 border-rose-300"}, {"id": "wed", "label": "วันพุธ", "shortLabel": "พ.", "color": "text-emerald-600", "bgColor": "bg-emerald-100 border-emerald-300"}, {"id": "thu", "label": "วันพฤหัสบดี", "shortLabel": "พฤ.", "color": "text-orange-600", "bgColor": "bg-orange-100 border-orange-300"}, {"id": "fri", "label": "วันศุกร์", "shortLabel": "ศ.", "color": "text-sky-600", "bgColor": "bg-sky-100 border-sky-300"}, {"id": "sat", "label": "วันเสาร์", "shortLabel": "ส.", "color": "text-purple-600", "bgColor": "bg-purple-100 border-purple-300"}, {"id": "sun", "label": "วันอาทิตย์", "shortLabel": "อา.", "color": "text-red-600", "bgColor": "bg-red-100 border-red-300"}];
+    const MEAL_TYPES = [{"id": "breakfast", "label": "มื้อเช้า", "emoji": "☀️"}, {"id": "lunch", "label": "มื้อเที่ยง", "emoji": "🌤️"}, {"id": "dinner", "label": "มื้อเย็น", "emoji": "🌙"}, {"id": "snack", "label": "ของว่าง / Finger Food", "emoji": "🍪"}];
+    const POPULAR_INGREDIENTS = ["ไข่", "เต้าหู้ไข่", "หมูสับ", "อกไก่", "แครอท", "บรอกโคลี", "ฟักทอง", "ข้าวโอ๊ต", "แซลมอน", "ตำลึง", "กล้วยหอม", "ตับไก่", "ข้าวสวย", "อะโวคาโด", "ข้าวโพดหวาน", "มันหวาน", "มะเขือเทศ", "เส้นพาสต้า", "นมสด", "เห็ดหอม", "แอปเปิ้ล", "ผักโขม", "ชีสแผ่น"];
+    const NUTRITION_LABELS = {"iron_rich": {"label": "ธาตุเหล็กสูง", "color": "bg-rose-100 text-rose-700 border-rose-200", "emoji": "🩸"}, "brain_boost": {"label": "บำรุงสมอง & DHA", "color": "bg-amber-100 text-amber-700 border-amber-200", "emoji": "🧠"}, "calcium_teeth": {"label": "แคลเซียม & ฟันแข็งแรง", "color": "bg-sky-100 text-sky-700 border-sky-200", "emoji": "🦷"}, "immune_boost": {"label": "เสริมภูมิคุ้มกัน", "color": "bg-emerald-100 text-emerald-700 border-emerald-200", "emoji": "🛡️"}, "fiber_digest": {"label": "ไฟเบอร์ & ขับถ่ายดี", "color": "bg-lime-100 text-lime-700 border-lime-200", "emoji": "🥬"}, "high_protein": {"label": "โปรตีนสร้างกล้ามเนื้อ", "color": "bg-orange-100 text-orange-700 border-orange-200", "emoji": "💪"}};
+
+    let selectedIngredients = [];
+    let selectedMealType = 'all';
+    let selectedSituation = 'all';
+    let excludedAllergens = [];
+    let showFavoritesOnly = false;
+    let searchQuery = '';
+    let favorites = [];
+    
+    // Load favorites from localStorage
+    try {
+      favorites = JSON.parse(localStorage.getItem('yumyum_favorites') || '[]');
+    } catch(e) { favorites = []; }
+
+    // Weekly Plan
+    const DEFAULT_PLAN = {
+      mon: { breakfast: 'r1', lunch: 'r3', dinner: 'r4', snack: 'r2' },
+      tue: { breakfast: 'r10', lunch: 'r5', dinner: 'r8', snack: 'r12' },
+      wed: { breakfast: 'r17', lunch: 'r6', dinner: 'r15', snack: 'r7' },
+      thu: { breakfast: 'r1', lunch: 'r9', dinner: 'r14', snack: 'r2' },
+      fri: { breakfast: 'r10', lunch: 'r19', dinner: 'r20', snack: 'r13' },
+      sat: { breakfast: 'r17', lunch: 'r16', dinner: 'r11', snack: 'r18' },
+      sun: { breakfast: 'r2', lunch: 'r3', dinner: 'r4', snack: 'r12' }
+    };
+    let weeklyPlan = DEFAULT_PLAN;
+    try {
+      const savedPlan = localStorage.getItem('yumyum_weekly_plan');
+      if (savedPlan) weeklyPlan = JSON.parse(savedPlan);
+    } catch(e) {}
+
+    // Init Ingredients Buttons
+    function initIngredients() {
+      const container = document.getElementById('ingredients-container');
+      container.innerHTML = POPULAR_INGREDIENTS.map(ing => {
+        return `<button onclick="toggleIngredient('${ing}', this)" class="ingredient-btn px-2.5 py-1 rounded-xl text-xs border border-stone-200 bg-stone-50 text-stone-700 transition-all">
+          +${ing}
+        </button>`;
+      }).join('');
+    }
+
+    function toggleIngredient(ing, btn) {
+      if (selectedIngredients.includes(ing)) {
+        selectedIngredients = selectedIngredients.filter(i => i !== ing);
+        btn.classList.remove('selected');
+        btn.textContent = '+' + ing;
+      } else {
+        selectedIngredients.push(ing);
+        btn.classList.add('selected');
+        btn.textContent = '✓ ' + ing;
+      }
+      document.getElementById('btn-clear-ing').style.display = selectedIngredients.length > 0 ? 'inline' : 'none';
+      applyFilters();
+    }
+
+    function clearIngredients() {
+      selectedIngredients = [];
+      document.querySelectorAll('.ingredient-btn').forEach(b => {
+        b.classList.remove('selected');
+        b.textContent = '+' + b.textContent.replace(/[+✓]/g, '').trim();
+      });
+      document.getElementById('btn-clear-ing').style.display = 'none';
+      applyFilters();
+    }
+
+    function setMealFilter(meal, btn) {
+      selectedMealType = meal;
+      btn.parentElement.querySelectorAll('.badge-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+    }
+
+    function setSituationFilter(sit, btn) {
+      selectedSituation = sit;
+      btn.parentElement.querySelectorAll('.badge-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+    }
+
+    function toggleAllergen(alg, btn) {
+      if (excludedAllergens.includes(alg)) {
+        excludedAllergens = excludedAllergens.filter(a => a !== alg);
+        btn.classList.remove('excluded');
+      } else {
+        excludedAllergens.push(alg);
+        btn.classList.add('excluded');
+      }
+      applyFilters();
+    }
+
+    function toggleFavoritesFilter() {
+      showFavoritesOnly = !showFavoritesOnly;
+      const btn = document.getElementById('btn-fav-filter');
+      if (showFavoritesOnly) {
+        btn.classList.add('bg-rose-50', 'text-rose-600', 'border-rose-300', 'font-bold');
+      } else {
+        btn.classList.remove('bg-rose-50', 'text-rose-600', 'border-rose-300', 'font-bold');
+      }
+      applyFilters();
+    }
+
+    function toggleFavorite(id, e) {
+      if (e) e.stopPropagation();
+      if (favorites.includes(id)) {
+        favorites = favorites.filter(f => f !== id);
+      } else {
+        favorites.push(id);
+      }
+      localStorage.setItem('yumyum_favorites', JSON.stringify(favorites));
+      updateFavBadge();
+      applyFilters();
+    }
+
+    function updateFavBadge() {
+      const badge = document.getElementById('fav-count-badge');
+      if (favorites.length > 0) {
+        badge.textContent = favorites.length;
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+    }
+
+    function resetFilters() {
+      selectedIngredients = [];
+      selectedMealType = 'all';
+      selectedSituation = 'all';
+      excludedAllergens = [];
+      showFavoritesOnly = false;
+      document.getElementById('search-input').value = '';
+      clearIngredients();
+      document.querySelectorAll('.badge-filter').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.badge-filter:first-of-type').forEach(b => b.classList.add('active'));
+      document.querySelectorAll('.allergen-tag').forEach(b => b.classList.remove('excluded'));
+      const favBtn = document.getElementById('btn-fav-filter');
+      favBtn.classList.remove('bg-rose-50', 'text-rose-600', 'border-rose-300', 'font-bold');
+      applyFilters();
+    }
+
+    function applyFilters() {
+      searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
+
+      const filtered = RECIPES.filter(recipe => {
+        if (searchQuery) {
+          const matchTitle = recipe.title.toLowerCase().includes(searchQuery);
+          const matchDesc = recipe.description.toLowerCase().includes(searchQuery);
+          const matchIng = recipe.ingredientTags.some(t => t.toLowerCase().includes(searchQuery));
+          if (!matchTitle && !matchDesc && !matchIng) return false;
+        }
+
+        if (selectedMealType !== 'all' && !recipe.mealTypes.includes(selectedMealType)) {
+          return false;
+        }
+
+        if (selectedSituation !== 'all' && !recipe.situations.includes(selectedSituation)) {
+          return false;
+        }
+
+        if (excludedAllergens.length > 0) {
+          const hasExcluded = recipe.allergens.some(a => excludedAllergens.includes(a));
+          if (hasExcluded) return false;
+        }
+
+        if (showFavoritesOnly && !favorites.includes(recipe.id)) {
+          return false;
+        }
+
+        if (selectedIngredients.length > 0) {
+          const matchAnyIng = selectedIngredients.some(ing => recipe.ingredientTags.includes(ing));
+          if (!matchAnyIng) return false;
+        }
+
+        return true;
+      });
+
+      renderRecipes(filtered);
+    }
+
+    function renderRecipes(list) {
+      document.getElementById('recipe-count').textContent = list.length;
+      const grid = document.getElementById('recipes-grid');
+      const noResults = document.getElementById('no-results');
+
+      if (list.length === 0) {
+        grid.innerHTML = '';
+        noResults.classList.remove('hidden');
+        return;
+      }
+
+      noResults.classList.add('hidden');
+      grid.innerHTML = list.map(r => {
+        const isFav = favorites.includes(r.id);
+        const benefitsBadges = r.nutritionBenefits.map(b => {
+          const info = NUTRITION_LABELS[b] || { label: b, color: 'bg-stone-100 text-stone-600', emoji: '✨' };
+          return `<span class="text-[10px] px-2 py-0.5 rounded-full border ${info.color}">${info.emoji} ${info.label}</span>`;
+        }).join('');
+
+        return `
+        <div class="bg-white rounded-3xl border border-stone-200/80 p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between cursor-pointer group hover:border-orange-300" onclick="openRecipeDetail('${r.id}')">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-2.5">
+              <div class="flex items-center gap-2.5">
+                <div class="w-12 h-12 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center text-2xl group-hover:scale-105 transition-transform">
+                  ${r.emoji}
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-stone-900 group-hover:text-orange-600 transition-colors leading-tight">${r.title}</h3>
+                  <div class="flex items-center gap-2 text-[11px] text-stone-400 mt-1">
+                    <span>⏱️ ${r.prepTimeMinutes + r.cookTimeMinutes} นาที</span>
+                    <span>•</span>
+                    <span>${r.difficulty}</span>
+                  </div>
+                </div>
+              </div>
+              <button onclick="toggleFavorite('${r.id}', event)" class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-stone-100 transition-all text-base">
+                ${isFav ? '❤️' : '🤍'}
+              </button>
+            </div>
+
+            <p class="text-xs text-stone-500 line-clamp-2 mb-3 leading-relaxed">${r.description}</p>
+
+            <div class="flex flex-wrap gap-1.5 mb-3">
+              ${benefitsBadges}
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap pt-3 border-t border-stone-100 text-[11px] text-stone-500">
+              <span class="font-medium text-stone-400">วัตถุดิบ:</span>
+              ${r.ingredientTags.map(t => `<span class="bg-stone-100 text-stone-700 px-1.5 py-0.5 rounded-md">${t}</span>`).join('')}
+            </div>
+            
+            <button class="mt-3 w-full py-2 bg-orange-50 hover:bg-orange-100 text-orange-700 rounded-xl font-semibold text-xs transition-colors flex items-center justify-center gap-1">
+              <span>ดูวิธีทำ & เคล็ดลับความปลอดภัย</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+        `;
+      }).join('');
+    }
+
+    function openRecipeDetail(id) {
+      const r = RECIPES.find(item => item.id === id);
+      if (!r) return;
+      const modal = document.getElementById('recipe-modal');
+      const content = document.getElementById('recipe-modal-content');
+
+      const isFav = favorites.includes(r.id);
+
+      content.innerHTML = `
+        <div class="sticky top-0 bg-white/95 backdrop-blur z-10 px-6 py-4 border-b border-stone-100 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="text-3xl">${r.emoji}</div>
+            <div>
+              <h2 class="text-base font-bold text-stone-900">${r.title}</h2>
+              <p class="text-xs text-stone-400">เตรียม ${r.prepTimeMinutes} นาที • ปรุง ${r.cookTimeMinutes} นาที • ${r.difficulty}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="toggleFavorite('${r.id}'); openRecipeDetail('${r.id}')" class="px-3 py-1.5 rounded-xl border border-stone-200 text-xs font-semibold hover:bg-stone-50">
+              ${isFav ? '❤️ เลิกชอบ' : '🤍 ชื่นชอบ'}
+            </button>
+            <button onclick="closeRecipeModal()" class="text-stone-400 hover:text-stone-700 font-bold text-lg p-1">✕</button>
+          </div>
+        </div>
+
+        <div class="p-6 space-y-5 text-xs text-stone-700">
+          <p class="text-sm text-stone-600 bg-orange-50/50 p-3.5 rounded-2xl border border-orange-100 leading-relaxed">${r.description}</p>
+
+          <div class="bg-rose-50 border border-rose-200 rounded-2xl p-4 space-y-1.5 text-rose-900">
+            <div class="font-bold flex items-center gap-1.5 text-rose-800 text-sm">
+              <span>🛡️</span> ข้อแนะนำความปลอดภัยในการกิน (ป้องกันการติดคอ):
+            </div>
+            <p><strong>การหั่น/เตรียม:</strong> ${r.textureNote.cutting}</p>
+            <p><strong>ระดับความนิ่ม:</strong> ${r.textureNote.softness}</p>
+            <p><strong>ข้อควรระวัง:</strong> ${r.textureNote.safetyTip}</p>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-stone-900 text-sm mb-2 flex items-center gap-1.5">
+              <span>🥗</span> ส่วนผสมและวัตถุดิบ:
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-stone-50 p-3.5 rounded-2xl border border-stone-200/80">
+              ${r.ingredients.map(ing => `
+                <div class="flex items-center justify-between py-1 border-b border-stone-200/60 last:border-none">
+                  <span class="font-medium text-stone-800">${ing.name}</span>
+                  <span class="text-stone-500 font-semibold">${ing.amount}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-stone-900 text-sm mb-2 flex items-center gap-1.5">
+              <span>🍳</span> ขั้นตอนการทำอย่างละเอียด:
+            </h4>
+            <ol class="space-y-2.5 pl-2">
+              ${r.steps.map((st, idx) => `
+                <li class="flex items-start gap-3 bg-white p-3 rounded-xl border border-stone-100 shadow-sm">
+                  <span class="w-6 h-6 rounded-full bg-orange-500 text-white font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">${idx + 1}</span>
+                  <span class="leading-relaxed text-stone-700 text-xs">${st}</span>
+                </li>
+              `).join('')}
+            </ol>
+          </div>
+
+          <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-amber-900">
+            <div class="font-bold flex items-center gap-1.5 mb-1">
+              <span>💡</span> เคล็ดลับคุณแม่มือโปร:
+            </div>
+            <p class="leading-relaxed">${r.parentTip}</p>
+          </div>
+        </div>
+      `;
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeRecipeModal() {
+      document.getElementById('recipe-modal').classList.add('hidden');
+    }
+
+    function switchTab(tab) {
+      if (tab === 'ideas') {
+        document.getElementById('section-ideas').classList.remove('hidden');
+        document.getElementById('section-planner').classList.add('hidden');
+        document.getElementById('tab-btn-ideas').className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-orange-500 text-white shadow-sm transition-all';
+        document.getElementById('tab-btn-planner').className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-stone-50 transition-all';
+      } else {
+        document.getElementById('section-ideas').classList.add('hidden');
+        document.getElementById('section-planner').classList.remove('hidden');
+        document.getElementById('tab-btn-planner').className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-orange-500 text-white shadow-sm transition-all';
+        document.getElementById('tab-btn-ideas').className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-stone-50 transition-all';
+        renderPlanner();
+      }
+    }
+
+    function renderPlanner() {
+      const grid = document.getElementById('planner-grid');
+      grid.innerHTML = DAYS.map(day => {
+        const dayPlan = weeklyPlan[day.id] || { breakfast: 'r1', lunch: 'r3', dinner: 'r4', snack: 'r2' };
+        
+        const mealsHtml = ['breakfast', 'lunch', 'dinner', 'snack'].map(type => {
+          const recId = dayPlan[type];
+          const rec = RECIPES.find(r => r.id === recId) || RECIPES[0];
+          const typeName = type === 'breakfast' ? 'เช้า' : type === 'lunch' ? 'เที่ยง' : type === 'dinner' ? 'เย็น' : 'ของว่าง';
+
+          return `
+            <div class="bg-white rounded-xl p-2.5 border border-stone-200 shadow-sm cursor-pointer hover:border-orange-300 transition-colors" onclick="openRecipeDetail('${rec.id}')">
+              <div class="flex items-center justify-between text-[10px] text-stone-400 font-semibold mb-1">
+                <span>${typeName}</span>
+                <span>${rec.prepTimeMinutes + rec.cookTimeMinutes}m</span>
+              </div>
+              <div class="text-xs font-bold text-stone-800 line-clamp-1">${rec.emoji} ${rec.title}</div>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="bg-stone-50/80 rounded-2xl p-3 border border-stone-200/80 space-y-2.5">
+            <div class="pb-1 border-b border-stone-200 text-center">
+              <span class="text-xs font-bold ${day.color}">${day.label}</span>
+            </div>
+            ${mealsHtml}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function resetPlannerDefault() {
+      weeklyPlan = DEFAULT_PLAN;
+      localStorage.setItem('yumyum_weekly_plan', JSON.stringify(DEFAULT_PLAN));
+      renderPlanner();
+    }
+
+    function printPlanner() {
+      window.print();
+    }
+
+    function openRandomModal() {
+      document.getElementById('random-modal').classList.remove('hidden');
+      triggerRandomize();
+    }
+
+    function closeRandomModal() {
+      document.getElementById('random-modal').classList.add('hidden');
+    }
+
+    function triggerRandomize() {
+      const card = document.getElementById('random-card');
+      card.classList.add('hidden');
+      const emojis = ['🍳', '🥞', '🥣', '🍢', '🥑', '🥦', '🥕', '🍲', '🍝'];
+      let count = 0;
+      const interval = setInterval(() => {
+        document.getElementById('random-emoji').textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        count++;
+        if (count > 8) {
+          clearInterval(interval);
+          const picked = RECIPES[Math.floor(Math.random() * RECIPES.length)];
+          document.getElementById('random-emoji').textContent = picked.emoji;
+          document.getElementById('random-title').textContent = picked.title;
+          document.getElementById('random-desc').textContent = picked.description;
+          card.innerHTML = `
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span class="font-bold text-orange-950">${picked.difficulty}</span>
+              <span class="text-stone-500 font-semibold">⏱️ ${picked.prepTimeMinutes + picked.cookTimeMinutes} นาที</span>
+            </div>
+            <div class="text-[11px] text-stone-600 mb-2">
+              <strong>วัตถุดิบ:</strong> ${picked.ingredientTags.join(', ')}
+            </div>
+            <button onclick="closeRandomModal(); openRecipeDetail('${picked.id}')" class="w-full py-1.5 bg-orange-500 text-white rounded-lg font-bold text-xs hover:bg-orange-600">
+              ดูวิธีทำเมนูนี้ →
+            </button>
+          `;
+          card.classList.remove('hidden');
+          if (window.confetti) {
+            confetti({ particleCount: 35, spread: 60, origin: { y: 0.6 } });
+          }
+        }
+      }, 80);
+    }
+
+    function openGuideModal() {
+      document.getElementById('guide-modal').classList.remove('hidden');
+    }
+    function closeGuideModal() {
+      document.getElementById('guide-modal').classList.add('hidden');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeRecipeModal();
+        closeRandomModal();
+        closeGuideModal();
+      }
+    });
+
+    initIngredients();
+    updateFavBadge();
+    applyFilters();
+  </script>
+</body>
+</html>

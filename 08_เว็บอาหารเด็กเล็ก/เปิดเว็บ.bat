@@ -1,7 +1,10 @@
-﻿@echo off
+@echo off
 chcp 65001 > nul
-title YumYum Toddler
+title YumYum Toddler - โภชนาการและเมนูอาหารเด็กเล็ก
 cd /d "%~dp0"
-start "" http://localhost:3000
-npm run dev
-pause
+echo ========================================================
+echo   YumYum Toddler: เมนูอาหารเด็ก 1-3 ขวบ
+echo ========================================================
+echo กำลังเปิดหน้าเว็บ YumYum Toddler...
+start "" "%~dp0index.html"
+exit

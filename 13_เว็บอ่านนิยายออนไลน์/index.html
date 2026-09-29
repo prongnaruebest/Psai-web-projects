@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="sepia">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>หออักษรา • จารึกเหนือม่านเมฆ (ฉบับสมบูรณ์ 4 เล่ม 72 ตอน)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+
+
+:root {
+  --cream:#f5efe3; --card:#fffdfa; --ink:#2d241d; --muted:#74685d;
+  --red:#9b3426; --red-dark:#742319; --line:#ddd0bd; --shadow:0 16px 50px rgba(82,55,32,.09);
+  --reader-bg:var(--cream); --reader-text:var(--ink); --font-thai:"Noto Sans Thai","Leelawadee UI",Tahoma,sans-serif;
+  --paper:var(--ink); --jade-300:var(--red); --jade-400:#b54a38; --ink-950:var(--cream); --ink-900:var(--card); --ink-850:#f0e7d8;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--font-thai)}
+button,a,input,select{font:inherit}button{color:inherit}a{color:inherit;text-decoration:none}.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.site-shell{--card:#fffdfa;--ink:#2d241d;--muted:#74685d;--red:#9b3426;--red-dark:#742319;--line:#ddd0bd;min-height:100vh;color:var(--ink);background:linear-gradient(180deg,#fbf7ef,#f2eadc)}
+.topbar{min-height:72px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding:10px clamp(18px,5vw,72px);border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--card) 93%,transparent);position:sticky;top:0;z-index:30;backdrop-filter:blur(14px)}
+.brand{min-height:48px;width:max-content;display:flex;align-items:center;gap:11px}.brand-mark{width:42px;height:42px;display:grid;place-items:center;flex:0 0 auto;border:1px solid var(--red);color:var(--red);border-radius:5px;font:600 22px Georgia,serif;transform:rotate(-2deg)}.brand strong,.brand small{display:block}.brand strong{font:600 17px Georgia,var(--font-thai);letter-spacing:.03em}.brand small{margin-top:2px;color:var(--muted);font-size:10px;letter-spacing:.09em}
+.collection-count{margin:0;color:var(--muted);font-size:12px}.collection-count strong{color:var(--ink)}.collection-count span{padding:0 9px;color:#b9aa95}.top-actions{justify-self:end;display:flex;align-items:center;gap:5px}.top-actions button,.header-link{min-height:44px;min-width:44px;padding:0 11px;border:1px solid transparent;background:transparent;display:flex;justify-content:center;align-items:center;gap:7px;cursor:pointer;border-radius:8px;color:var(--muted);font-size:13px}.top-actions button:hover,.top-actions button:focus-visible,.header-link:hover,.header-link:focus-visible{color:var(--red);border-color:var(--line);background:#fffdf8;outline:0}
+.hero{width:min(1180px,calc(100% - 36px));margin:34px auto 0;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(250px,.65fr);gap:clamp(30px,6vw,72px);align-items:center;padding:clamp(28px,5vw,64px);border:1px solid var(--line);border-radius:16px;background:rgba(255,253,249,.88);box-shadow:var(--shadow)}
+.hero-badges{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px}.hero-badges span{padding:6px 10px;border-radius:999px;background:#f3e5d8;color:var(--red-dark);font-size:10px;font-weight:700}.hero-badges span:first-child{background:var(--red);color:white}.eyebrow{margin:0 0 10px;color:var(--red);font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.hero h1{margin:0;max-width:780px;font:500 clamp(46px,6vw,84px)/1.06 Georgia,var(--font-thai);letter-spacing:-.045em}.hero-description{max-width:720px;color:#675b50;font-size:16px;line-height:1.85;margin:22px 0}
+.book-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:0;padding:17px 0;border-block:1px solid var(--line)}.book-meta dt{color:#9b8b7b;font-size:10px}.book-meta dd{margin:5px 0 0;font-size:12px;font-weight:700}.copyright-note{color:#998a7c;font-size:10px;margin:10px 0 22px}.hero-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.primary-button,.quiet-button{min-height:48px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;padding:0 19px;font-size:13px;font-weight:700}.primary-button{background:var(--red);color:#fff;gap:18px;box-shadow:0 7px 20px rgba(155,52,38,.18)}.primary-button:hover{background:var(--red-dark)}.quiet-button{border:1px solid var(--line);background:#fffdf8;color:#5f5044}
+.hero-art{aspect-ratio:.73;min-height:390px;position:relative;overflow:hidden;border-radius:5px 5px 18px 5px;background:linear-gradient(175deg,#efe0c8,#cfae83);border:1px solid #b79972;box-shadow:11px 14px 0 #e6d7c3,13px 16px 0 #b99a75;isolation:isolate}.hero-art:after{content:"";position:absolute;inset:12px;border:1px solid rgba(105,70,42,.25)}.cover-sun{position:absolute;width:120px;aspect-ratio:1;border-radius:50%;background:#b84b38;right:12%;top:12%;opacity:.85}.cover-mountain{position:absolute;left:-10%;right:-10%;bottom:0;height:58%;background:#5c6a57;clip-path:polygon(0 100%,0 66%,17% 46%,31% 70%,50% 18%,68% 63%,83% 38%,100% 69%,100% 100%)}.cover-back{bottom:16%;background:#8a937b;opacity:.7;transform:scaleX(-1)}.cover-front{background:#37483d}.cover-title{position:absolute;z-index:2;inset:8% 9%;display:flex;flex-direction:column}.cover-title small{letter-spacing:.14em;font-size:9px}.cover-title strong{margin-top:40%;font:500 clamp(33px,4vw,54px)/1.12 Georgia,var(--font-thai);letter-spacing:-.04em}.cover-title span{margin-top:auto;color:#f8eee0;font-size:11px}.seal{position:absolute;z-index:3;right:9%;bottom:8%;width:42px;height:42px;display:grid;place-items:center;background:var(--red);color:#f9e8d3;border:2px solid #f9e8d3;outline:1px solid var(--red);font:22px Georgia,serif}
+.library{width:min(1180px,calc(100% - 36px));margin:72px auto}.section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:25px}.section-heading h2{margin:0;font:500 clamp(30px,4vw,48px)/1.2 Georgia,var(--font-thai);letter-spacing:-.035em}.section-heading>div>p:last-child{margin:9px 0 0;color:var(--muted);font-size:12px}.library-meta{display:grid;grid-template-columns:auto auto auto auto;align-items:baseline;gap:7px 10px}.library-meta strong{color:var(--red);font:30px Georgia,serif}.library-meta span{color:var(--muted);font-size:10px}
+.library-tools{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}.library-search{min-height:48px;width:min(500px,100%);display:flex;align-items:center;gap:10px;padding:0 15px;border:1px solid var(--line);background:var(--card);border-radius:9px}.library-search input{width:100%;background:transparent;border:0;outline:0;color:var(--ink)}.library-search input::placeholder{color:#a09282}.sort-control{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:11px;white-space:nowrap}.sort-control select,.settings-drawer select,.reader-selects select{min-height:42px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);padding:0 34px 0 12px}
+.volume-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.4vw,28px)}.volume-card{min-width:0;padding:12px;border:1px solid transparent;border-radius:12px;transition:.2s}.volume-card:hover,.volume-card:focus-visible{transform:translateY(-4px);background:rgba(255,253,249,.7);border-color:var(--line);outline:0}.volume-cover{aspect-ratio:.73;position:relative;overflow:hidden;padding:18px;border:1px solid rgba(66,52,40,.2);box-shadow:0 12px 22px rgba(58,40,25,.12);display:flex;flex-direction:column;color:#f7eedf}.volume-cover:before{content:"";position:absolute;inset:auto -20% -8%;height:56%;background:rgba(27,48,39,.55);clip-path:polygon(0 100%,0 70%,14% 39%,31% 76%,50% 25%,65% 68%,82% 40%,100% 76%,100% 100%)}.volume-cover>*{position:relative;z-index:1}.volume-cover>.page-badge{position:absolute;right:10px;top:10px;background:rgba(255,252,244,.92);color:#4b3b2f;padding:5px 7px;border-radius:4px;font-size:9px}.volume-cover>small{letter-spacing:.14em;font-size:8px}.volume-cover>strong{margin-top:28%;font:500 clamp(52px,6vw,78px)/1 Georgia,serif;letter-spacing:-.06em}.volume-cover>p{margin:8px 0 0;font-size:13px;font-weight:700}.volume-cover>i{margin-top:auto;font-size:9px;font-style:normal;opacity:.85}.tone-jade{background:linear-gradient(155deg,#8c5d45,#354d41 78%)}.tone-amber{background:linear-gradient(155deg,#b4834f,#62412d 78%)}.tone-indigo{background:linear-gradient(155deg,#697188,#34394f 78%)}.tone-rose{background:linear-gradient(155deg,#a5686e,#59353b 78%)}
+.volume-info{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:16px 2px 11px}.volume-info>div{min-width:0}.volume-info h3,.volume-info p{margin:0}.volume-info h3{font-size:15px;margin:3px 0 5px}.volume-info p:not(.volume-kicker),.volume-info small,.volume-info>span{color:var(--muted);font-size:9px}.volume-info small{display:block;margin-top:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.volume-info .volume-kicker{color:var(--red);font-size:9px;font-weight:700}.progress-track{height:3px;border-radius:3px;background:#e2d6c5;overflow:hidden}.progress-track span{display:block;height:100%;background:var(--red)}.empty-state{min-height:260px;border:1px dashed var(--line);display:grid;place-content:center;justify-items:center;gap:14px;color:var(--muted)}.empty-state button,.empty-state a{border:0;background:var(--red);color:white;min-height:42px;padding:0 16px;border-radius:7px}.site-footer{width:min(1180px,calc(100% - 36px));margin:0 auto;padding:30px 0 45px;border-top:1px solid var(--line);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;color:var(--muted);font-size:11px}.site-footer>span{color:var(--ink);font:22px Georgia,serif}.site-footer p{margin:0}.site-footer a{color:var(--red)}
+.modal-backdrop{position:fixed;inset:0;z-index:80;background:rgba(45,34,25,.5);display:grid;place-items:start center;padding:clamp(76px,12vh,130px) 14px 30px;backdrop-filter:blur(8px)}.search-dialog{width:min(680px,100%);max-height:min(680px,calc(100vh - 110px));overflow:hidden;background:var(--card);border:1px solid var(--line);box-shadow:0 30px 100px rgba(50,35,24,.25);border-radius:14px;display:flex;flex-direction:column}.search-head{min-height:66px;display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid var(--line)}.search-head>span{color:var(--red);font-size:24px}.search-head input{flex:1;background:transparent;border:0;outline:0;color:var(--ink);font-size:16px}.search-head button{min-height:36px;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:6px;font-size:10px;padding:0 10px}.search-mode{display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid var(--line)}.search-mode button{min-height:34px;border:1px solid var(--line);border-radius:7px;background:transparent;padding:0 13px;font-size:11px}.search-mode button.active{background:#f2e1d5;border-color:#d3a593;color:var(--red)}.search-results{overflow:auto;padding:8px}.search-results>a{display:flex;flex-direction:column;gap:4px;padding:12px;border-radius:8px}.search-results>a:hover{background:#f6ede2}.search-results strong{font-size:13px}.search-results span,.search-results small{color:var(--muted);font-size:10px}.empty-hint{color:var(--muted);text-align:center;padding:34px 14px}
+.settings-drawer,.toc-drawer{position:fixed;z-index:100;top:0;bottom:0;right:0;width:min(400px,calc(100% - 24px));padding:26px;overflow:auto;background:var(--card);border-left:1px solid var(--line);transform:translateX(105%);transition:transform .25s;box-shadow:-30px 0 80px rgba(47,32,21,.2)}.settings-drawer.open,.toc-drawer.open{transform:none}.toc-drawer{right:auto;left:0;transform:translateX(-105%);border-left:0;border-right:1px solid var(--line)}.drawer-scrim{position:fixed;inset:0;z-index:90;border:0;background:rgba(47,35,25,.43)}.drawer-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:26px}.drawer-head .eyebrow{margin-bottom:4px}.drawer-head h2{margin:0;font:30px Georgia,var(--font-thai)}.drawer-head>button{width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--muted);font-size:22px}
+.settings-drawer>label,.settings-drawer fieldset{display:block;border:0;padding:0;margin:0 0 22px;color:var(--muted);font-size:11px}.settings-drawer label select{width:100%;margin-top:8px}.settings-drawer output{float:right;color:var(--red)}.settings-drawer input[type=range]{width:100%;accent-color:var(--red);margin-top:12px}.settings-drawer legend{margin-bottom:9px}.segmented{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:5px}.segmented button,.theme-grid button{min-height:40px;border:1px solid var(--line);color:var(--muted);background:transparent;border-radius:7px;font-size:10px}.segmented button.active,.theme-grid button.active{color:var(--red);border-color:#c88f7d;background:#f7e9df}.toggle-list{display:grid;gap:12px;padding:4px 0 24px}.toggle-list label{display:flex;align-items:center;gap:9px;font-size:11px;color:var(--muted)}.toggle-list input{accent-color:var(--red);width:17px;height:17px}.theme-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.theme-grid button{position:relative;text-align:left;padding-left:34px}.theme-grid button:before{content:"";position:absolute;left:12px;top:50%;width:12px;height:12px;border-radius:50%;transform:translateY(-50%);background:#151b18}.theme-grid button[data-swatch=oled]:before{background:#000}.theme-grid button[data-swatch=moonlight]:before{background:#18233c}.theme-grid button[data-swatch=forest]:before{background:#243a2d}.theme-grid button[data-swatch=sepia]:before{background:#eadfc4}.theme-grid button[data-swatch=light]:before{background:#fff;border:1px solid #ccc}.reset-button{width:100%;min-height:42px;margin-top:22px;border:1px solid var(--line);color:var(--muted);background:transparent;border-radius:7px}
+.reader-shell{min-height:100vh;background:var(--reader-bg);color:var(--reader-text)}.reading-progress{position:fixed;z-index:35;top:71px;left:0;right:0;height:3px}.reading-progress span{display:block;height:100%;background:var(--red)}.reader-context{min-height:64px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:18px;padding:8px clamp(18px,5vw,74px);background:color-mix(in srgb,var(--card) 55%,transparent);color:var(--muted);font-size:10px}.reader-context>a{min-height:44px;display:flex;align-items:center}.reader-context>span{color:var(--ink)}.reader-context>div{justify-self:end;display:flex}.reader-context button{min-width:44px;min-height:44px;padding:0 9px;border:0;background:transparent;color:var(--muted);border-radius:7px}.reader-context button:hover{color:var(--red);outline:1px solid var(--line)}
+.reader-paper{width:min(calc(100% - 36px),var(--paper-width,980px));margin:36px auto 120px;padding:clamp(30px,6vw,70px) clamp(20px,7vw,84px) 110px;border:1px solid var(--line);border-radius:12px;background:var(--card);box-shadow:var(--shadow);font-family:var(--reader-font,var(--font-thai));letter-spacing:var(--reader-spacing,0);text-align:var(--reader-align,left)}.width-narrow{--paper-width:780px}.width-standard{--paper-width:980px}.width-wide{--paper-width:1220px}.font-sans{--reader-font:"Leelawadee UI",Tahoma,sans-serif}.font-noto{--reader-font:"Noto Sans Thai",Tahoma,sans-serif}.font-serif{--reader-font:"Th Sarabun New",Georgia,serif}.align-left{--reader-align:left}.align-justify{--reader-align:justify}.spacing-normal{--reader-spacing:0}.spacing-comfortable{--reader-spacing:.02em}.spacing-airy{--reader-spacing:.045em}
+.reader-selects{display:grid;grid-template-columns:1fr 1.5fr;gap:10px;margin-bottom:28px}.reader-selects label{display:grid;gap:5px;color:var(--muted);font-size:9px}.source-note{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 14px;margin:0 auto 26px;padding:11px 14px;border:1px solid var(--line);border-radius:8px;background:var(--ink-850);color:var(--muted);font-size:9px}.source-note strong{color:var(--red)}
+.chapter-art{aspect-ratio:2.15;max-height:390px;position:relative;overflow:hidden;display:grid;place-items:center;border:1px solid var(--line);margin-bottom:42px;border-radius:7px;isolation:isolate}.chapter-art:before,.chapter-art:after{content:"";position:absolute;inset:auto -8% 0;height:64%;background:#38483d;clip-path:polygon(0 100%,0 78%,14% 53%,28% 70%,43% 18%,58% 63%,73% 28%,88% 67%,100% 48%,100% 100%);z-index:-1}.chapter-art:before{bottom:18%;opacity:.35;transform:scaleX(-1)}.chapter-art strong{font:clamp(70px,13vw,150px)/1 Georgia,serif;font-weight:400;letter-spacing:-.08em;color:rgba(255,247,234,.9)}.chapter-art span,.chapter-art small{position:absolute;left:5%;color:#fff2df;font:9px monospace;letter-spacing:.2em}.chapter-art span{top:8%}.chapter-art small{bottom:8%}
+.chapter-head{text-align:center;margin-bottom:45px}.chapter-head p{color:var(--red);font-size:10px;font-weight:700;letter-spacing:.12em}.chapter-head h1{font:500 clamp(35px,5vw,58px)/1.3 Georgia,var(--font-thai);letter-spacing:-.03em;margin:13px 0 18px}.chapter-head>span{display:inline-flex;padding:8px 14px;border:1px solid var(--line);border-radius:99px;color:var(--muted);font-size:9px}.chapter-content p{margin:0 0 1.8em}.chapter-content p:first-child:first-letter{float:left;font:64px/.8 Georgia,serif;color:var(--red);padding:10px 10px 0 0}.chapter-end{margin-top:80px;padding-top:30px;border-top:1px solid var(--line);text-align:center}.chapter-end>span{color:var(--muted);font-size:10px;letter-spacing:.18em}.chapter-end nav{display:flex;justify-content:space-between;gap:20px;margin-top:28px}.chapter-end a{min-height:48px;display:flex;align-items:center;padding:0 18px;border:1px solid var(--line);border-radius:8px;background:#fdf9f2;font-size:12px}
+.chapter-slider{position:fixed;z-index:25;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(650px,calc(100% - 100px));min-height:50px;padding:0 18px;display:flex;align-items:center;gap:12px;background:color-mix(in srgb,var(--card) 95%,transparent);border:1px solid var(--line);border-radius:12px;backdrop-filter:blur(14px);color:var(--muted);box-shadow:0 10px 30px rgba(67,45,28,.12);font-size:9px}.chapter-slider input{flex:1;accent-color:var(--red)}.reader-float{position:fixed;z-index:26;right:max(14px,calc((100vw - 1180px)/2 - 64px));top:50%;transform:translateY(-50%);display:grid;gap:7px}.reader-float a,.reader-float button{width:44px;height:44px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--card) 96%,transparent);color:var(--muted);display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 20px rgba(68,46,30,.09)}
+.toc-drawer section{margin:0 0 26px}.toc-drawer h3{color:var(--muted);font-size:10px}.toc-drawer section a{min-height:44px;display:grid;grid-template-columns:34px 1fr;align-items:center;gap:8px;padding:8px;border-radius:6px;font-size:11px;color:var(--muted)}.toc-drawer section a.current{background:#f5e6dc;color:var(--red)}.focus-mode .topbar,.focus-mode .reader-context{display:none}.focus-mode .reading-progress{top:0}.reading-ruler{position:fixed;z-index:40;pointer-events:none;left:0;right:0;top:0;height:56px;border-block:1px solid rgba(155,52,38,.22);background:rgba(155,52,38,.035)}.break-notice{position:fixed;z-index:120;left:50%;bottom:32px;transform:translateX(-50%);width:min(420px,calc(100% - 28px));background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;box-shadow:var(--shadow)}.break-notice p{color:var(--muted);font-size:11px}.break-notice button{min-height:40px;border:0;border-radius:7px;padding:0 15px;background:var(--red);color:white}
+html[data-theme=dark]{--reader-bg:#101815;--reader-text:#eee7da;--cream:#101815;--card:#15201c;--ink:#eee7da;--muted:#9caaa3;--line:rgba(194,214,203,.17);--red:#91cbb2;--red-dark:#72aa92;--ink-950:#101815;--ink-900:#15201c;--ink-850:#1d2a25;--paper:#eee7da}html[data-theme=oled]{--reader-bg:#000;--reader-text:#f2f2f2;--cream:#000;--card:#080808;--ink:#f2f2f2;--muted:#aaa;--line:#282828;--red:#ddd;--red-dark:#fff}html[data-theme=moonlight]{--reader-bg:#11182a;--reader-text:#e7edf8;--cream:#11182a;--card:#17223a;--ink:#e7edf8;--muted:#a7b3c9;--line:#2c3a59;--red:#9cc6f4;--red-dark:#c6ddf7}html[data-theme=forest]{--reader-bg:#18251d;--reader-text:#e7e6d4;--cream:#18251d;--card:#213027;--ink:#e7e6d4;--muted:#a9b7a5;--line:#384a3b;--red:#acd094;--red-dark:#cee5bd}html[data-theme=sepia]{--reader-bg:#f5efe3;--reader-text:#30271f;--cream:#f5efe3;--card:#fffdfa;--ink:#2d241d;--muted:#74685d;--line:#ddd0bd;--red:#9b3426;--red-dark:#742319}html[data-theme=light]{--reader-bg:#f7f7f4;--reader-text:#202522;--cream:#f7f7f4;--card:#fff;--ink:#202522;--muted:#66716b;--line:#d8ddda;--red:#176f57;--red-dark:#105442}
+.about-page,.bookmarks-page{min-height:100vh;background:var(--cream);padding:34px clamp(20px,6vw,80px) 100px}.about-page>.brand,.bookmarks-page header{margin-bottom:70px}.about-page>section,.bookmarks-page>section{width:min(760px,100%);margin:0 auto;padding:clamp(25px,5vw,54px);border:1px solid var(--line);border-radius:12px;background:var(--card)}.about-page h1,.bookmarks-page h1,.not-found h1{font:500 clamp(44px,7vw,76px)/1.08 Georgia,var(--font-thai);letter-spacing:-.04em;margin:0 0 22px}.about-lead,.bookmarks-page>section>p{color:var(--muted);line-height:1.9}.about-page dl{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:42px 0 64px;background:var(--line);border:1px solid var(--line)}.about-page dl div{background:var(--card);padding:18px}.about-page dt{color:var(--muted);font-size:9px}.about-page dd{margin:6px 0 0;font-size:12px}.about-page h2{font:30px Georgia,var(--font-thai)}.about-volume{min-height:76px;display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:12px;border-top:1px solid var(--line)}.about-volume>span,.bookmark-list article>a>span{color:var(--red);font:24px Georgia,serif}.about-volume strong,.about-volume small{display:block}.about-volume small,.bookmark-list small{color:var(--muted);margin-top:4px}.bookmark-list{margin-top:42px}.bookmark-list article{display:grid;grid-template-columns:1fr auto;border-top:1px solid var(--line);align-items:center}.bookmark-list article>a{min-height:82px;display:grid;grid-template-columns:50px 1fr;align-items:center}.bookmark-list small{display:block}.bookmark-list button{min-height:40px;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:7px}.not-found{min-height:100vh;display:grid;place-content:center;justify-items:center;text-align:center;padding:24px;background:var(--cream)}
+@media(max-width:920px){.topbar{grid-template-columns:1fr auto}.collection-count{display:none}.hero{grid-template-columns:1fr .55fr}.volume-grid{grid-template-columns:repeat(2,1fr)}.reader-float{right:10px}}
+@media(max-width:680px){.topbar{min-height:66px;padding-inline:13px;gap:8px}.brand-mark{width:39px;height:39px}.brand small,.action-label{display:none}.top-actions button,.header-link{padding:0}.hero{width:calc(100% - 24px);margin-top:12px;grid-template-columns:1fr;padding:25px 20px 30px}.hero h1{font-size:clamp(43px,14vw,64px)}.hero-art{width:min(76%,330px);min-height:0;justify-self:center}.book-meta{grid-template-columns:1fr 1fr}.book-meta div:last-child{grid-column:1/-1}.library{width:calc(100% - 24px);margin-block:52px}.section-heading{align-items:flex-start;flex-direction:column}.library-tools{align-items:stretch;flex-direction:column}.sort-control{justify-content:space-between}.sort-control select{flex:1}.volume-grid{gap:10px}.volume-card{padding:7px}.volume-cover{padding:13px}.volume-cover>strong{font-size:48px}.volume-cover>p{font-size:11px}.volume-info{display:block}.site-footer{grid-template-columns:1fr;gap:9px}.reader-context{min-height:54px;grid-template-columns:auto 1fr;padding:4px 8px}.reader-context>span{display:none}.reader-context>div{justify-self:end}.reader-context button{padding:0 7px;font-size:10px}.reader-paper{width:calc(100% - 18px);margin-top:12px;padding:24px 17px 100px;border-radius:8px}.reader-selects{grid-template-columns:1fr}.chapter-art{margin-bottom:32px}.chapter-head{margin-bottom:35px}.chapter-head h1{font-size:34px}.chapter-slider{width:calc(100% - 78px);left:10px;transform:none;bottom:max(8px,env(safe-area-inset-bottom));padding-inline:12px}.reader-float{right:7px;top:auto;bottom:max(8px,env(safe-area-inset-bottom));transform:none}.reader-float a,.reader-float button{width:42px;height:42px}.reader-float .optional-float{display:none}.about-page,.bookmarks-page{padding-inline:12px}.about-page dl{grid-template-columns:1fr}.bookmark-list article{grid-template-columns:1fr}}
+@media(max-width:390px){.brand strong{font-size:14px}.volume-grid{grid-template-columns:1fr}.volume-cover{aspect-ratio:1.3}.volume-cover>strong{margin-top:11%}.hero-actions a{width:100%}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.volume-card,.settings-drawer,.toc-drawer{transition:none}}
+
+  </style>
+</head>
+<body class="site-shell">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="brand" onclick="showLibrary()" style="cursor: pointer;">
+      <div class="brand-mark">ห</div>
+      <div>
+        <strong>หออักษรา</strong>
+        <small>HOR AKSARA ARCHIVES</small>
+      </div>
+    </div>
+
+    <p class="collection-count">
+      จารึกเหนือม่านเมฆ <span>•</span> <strong>4 เล่มจบ</strong> <span>•</span> 72 ตอน
+    </p>
+
+    <div class="top-actions">
+      <button onclick="openSearch()" title="ค้นหาตอน">🔍 ค้นหา</button>
+      <button onclick="toggleSettings()" title="ปรับแต่งธีม & ฟอนต์">⚙️ ธีม/ฟอนต์</button>
+      <button onclick="toggleToc()" title="สารบัญตอน">📑 สารบัญ</button>
+    </div>
+  </header>
+
+  <!-- VIEW: LIBRARY -->
+  <main id="view-library">
+    
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div>
+        <div class="hero-badges">
+          <span>ฉบับสมบูรณ์</span>
+          <span>4 เล่มจบ</span>
+          <span>72 ตอน</span>
+          <span>มีระบบเสียงอ่าน TTS</span>
+        </div>
+        <p class="eyebrow">HOR AKSARA SPECIAL EDITION</p>
+        <h1>จารึกเหนือม่านเมฆ</h1>
+        <p class="hero-description">
+          เรื่องเล่าการเดินทางของผู้เฝ้าหอสมุด ผู้ตามหารอยต่อระหว่างความทรงจำและนิรันดร์
+          ท่องไปในดินแดนแห่งทะเลหมอกและจารึกโบราณ
+        </p>
+
+        <dl class="book-meta">
+          <div>
+            <dt>ผู้ประพันธ์</dt>
+            <dd>อักษรหมอก</dd>
+          </div>
+          <div>
+            <dt>จำนวนเล่ม</dt>
+            <dd>4 เล่ม (72 ตอน)</dd>
+          </div>
+          <div>
+            <dt>สถานะ</dt>
+            <dd style="color: #9b3426;">จบสมบูรณ์</dd>
+          </div>
+        </dl>
+        <p class="copyright-note">ฉบับภาษาไทยต้นฉบับ • เนื้อหาจัดเต็มพร้อมอ่านแบบออฟไลน์ทันที</p>
+
+        <div class="hero-actions">
+          <button class="primary-button" onclick="readChapter(lastReadChapter || 1)">
+            <span>📖 เริ่มอ่าน (ตอนที่ <span id="hero-read-num">1</span>)</span>
+          </button>
+          <button class="quiet-button" onclick="toggleToc()">
+            📑 เปิดสารบัญ 72 ตอน
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="cover-sun"></div>
+        <div class="cover-mountain cover-back"></div>
+        <div class="cover-mountain cover-front"></div>
+        <div class="cover-title">
+          <small>จารึกเหนือม่านเมฆ</small>
+          <strong>หออักษรา</strong>
+          <span>บันทึกผู้เฝ้าหอสมุด</span>
+        </div>
+        <div class="seal">หอ</div>
+      </div>
+    </section>
+
+    <!-- LIBRARY SECTION: 4 VOLUMES -->
+    <section class="library">
+      <div class="section-heading">
+        <div>
+          <h2>ชั้นหนังสือทั้ง 4 เล่ม</h2>
+          <p>เลือกเล่มที่ต้องการอ่าน หรือดูความคืบหน้ารายเล่ม</p>
+        </div>
+        <div class="library-meta">
+          <strong>4</strong>
+          <span>เล่มจบ</span>
+          <strong>72</strong>
+          <span>ตอน</span>
+        </div>
+      </div>
+
+      <div class="library-tools">
+        <div class="library-search">
+          <span>🔍</span>
+          <input type="text" id="lib-search-input" oninput="filterChapters()" placeholder="ค้นหาตอน เช่น ประตูที่เปิด, ผู้เฝ้าหอ, ทะเลหมอก...">
+        </div>
+        <div class="sort-control">
+          <span>กรองเล่ม:</span>
+          <select id="vol-filter" onchange="renderVolumesAndChapters()">
+            <option value="all">ทุกเล่ม (1 - 4)</option>
+            <option value="1">เล่ม 1: เสียงเรียกจากหอเก่า (ตอน 1-18)</option>
+            <option value="2">เล่ม 2: เส้นทางผ่านทะเลหมอก (ตอน 19-36)</option>
+            <option value="3">เล่ม 3: นครที่ลืมชื่อ (ตอน 37-54)</option>
+            <option value="4">เล่ม 4: จารึกบทสุดท้าย (ตอน 55-72)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Volume Cards Grid -->
+      <div class="volume-grid" id="volumes-container">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Chapter List Table -->
+      <div style="margin-top: 50px;">
+        <h3 style="font: 500 24px Georgia, serif; margin-bottom: 16px;">สารบัญตอนทั้งหมด (<span id="filtered-chapter-count">72</span>)</h3>
+        <div id="chapters-list-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- VIEW: READER -->
+  <main id="view-reader" style="display: none;">
+    
+    <!-- Reader Top Context -->
+    <div class="reader-context">
+      <a href="javascript:void(0)" onclick="showLibrary()">← กลับชั้นหนังสือ</a>
+      <span id="reader-top-title">ตอนที่ 1 • ประตูที่เปิดในคืนฝน</span>
+      <div>
+        <button onclick="toggleSpeech()" id="btn-tts" title="อ่านออกเสียงด้วยเสียงสังเคราะห์ TTS">🔊 ฟังเสียงอ่าน</button>
+        <button onclick="toggleBookmark()" id="btn-bookmark" title="คั่นหน้านี้">🔖 คั่นหน้า</button>
+        <button onclick="toggleToc()">📑</button>
+        <button onclick="toggleSettings()">⚙️</button>
+      </div>
+    </div>
+
+    <!-- Paper Container -->
+    <div class="reader-paper width-standard" id="reader-paper">
+      
+      <div class="chapter-head">
+        <p id="reader-vol-label">เล่ม 1: เสียงเรียกจากหอเก่า</p>
+        <h1 id="reader-chapter-title">ตอนที่ 1: ประตูที่เปิดในคืนฝน</h1>
+        <span id="reader-chapter-badge">บันทึกแห่งหออักษรา • ตอนที่ 1 จาก 72</span>
+      </div>
+
+      <div class="chapter-content" id="reader-content">
+        <!-- Paragraphs inserted by JS -->
+      </div>
+
+      <div class="chapter-end">
+        <span>สิ้นสุดตอน • จารึกเหนือม่านเมฆ</span>
+        <nav>
+          <a href="javascript:void(0)" id="btn-prev-chap" onclick="prevChapter()">← ตอนก่อนหน้า</a>
+          <a href="javascript:void(0)" onclick="showLibrary()">ชั้นหนังสือ</a>
+          <a href="javascript:void(0)" id="btn-next-chap" onclick="nextChapter()">ตอนถัดไป →</a>
+        </nav>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- SEARCH MODAL -->
+  <div id="search-modal" class="modal-backdrop" style="display: none;" onclick="if(event.target===this)closeSearch()">
+    <div class="search-dialog">
+      <div class="search-head">
+        <span>🔍</span>
+        <input type="text" id="modal-search-input" oninput="modalSearch()" placeholder="พิมพ์ชื่อตอนหรือเลขตอนที่ต้องการหา...">
+        <button onclick="closeSearch()">ESC</button>
+      </div>
+      <div class="search-results" id="modal-search-results">
+        <!-- Results -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOC DRAWER -->
+  <div id="toc-scrim" class="drawer-scrim" style="display: none;" onclick="toggleToc()"></div>
+  <aside id="toc-drawer" class="toc-drawer">
+    <div class="drawer-head">
+      <div>
+        <p class="eyebrow">สารบัญ 72 ตอน</p>
+        <h2>หออักษรา</h2>
+      </div>
+      <button onclick="toggleToc()">✕</button>
+    </div>
+    <div id="toc-content">
+      <!-- 4 Volumes with Chapters -->
+    </div>
+  </aside>
+
+  <!-- SETTINGS DRAWER -->
+  <div id="settings-scrim" class="drawer-scrim" style="display: none;" onclick="toggleSettings()"></div>
+  <aside id="settings-drawer" class="settings-drawer">
+    <div class="drawer-head">
+      <div>
+        <p class="eyebrow">การแสดงผล</p>
+        <h2>ตั้งค่าการอ่าน</h2>
+      </div>
+      <button onclick="toggleSettings()">✕</button>
+    </div>
+
+    <fieldset>
+      <legend>ธีมสีหน้าจอ (Reading Theme)</legend>
+      <div class="theme-grid">
+        <button data-swatch="sepia" onclick="setTheme('sepia')">กระดาษถนอมสายตา</button>
+        <button data-swatch="dark" onclick="setTheme('dark')">หยกราตรี (Dark)</button>
+        <button data-swatch="oled" onclick="setTheme('oled')">มืดสนิท (OLED)</button>
+        <button data-swatch="moonlight" onclick="setTheme('moonlight')">แสงจันทร์ (Moonlight)</button>
+        <button data-swatch="forest" onclick="setTheme('forest')">พงไพร (Forest)</button>
+        <button data-swatch="light" onclick="setTheme('light')">สว่างสะอาด (Light)</button>
+      </div>
+    </fieldset>
+
+    <label>
+      ขนาดตัวอักษร: <output id="font-size-val">18px</output>
+      <input type="range" min="14" max="28" value="18" id="font-size-slider" oninput="setFontSize(this.value)">
+    </label>
+
+    <label>
+      ความกว้างหน้ากระดาษ:
+      <select onchange="setPaperWidth(this.value)" id="paper-width-select">
+        <option value="width-narrow">กะทัดรัด (780px)</option>
+        <option value="width-standard" selected>มาตรฐาน (980px)</option>
+        <option value="width-wide">กว้างเต็มตา (1220px)</option>
+      </select>
+    </label>
+
+    <label>
+      รูปแบบตัวอักษร:
+      <select onchange="setFontFamily(this.value)" id="font-family-select">
+        <option value="font-noto" selected>Noto Sans Thai (คมชัดอ่านสบาย)</option>
+        <option value="font-sans">Leelawadee UI (ทันสมัย)</option>
+        <option value="font-serif">Th Sarabun / Serif (คลาสสิกทรงคุณค่า)</option>
+      </select>
+    </label>
+
+    <button class="reset-button" onclick="resetSettings()">↺ คืนค่าเริ่มต้น</button>
+  </aside>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <span>หอ</span>
+    <div>
+      <p><strong>หออักษรา: จารึกเหนือม่านเมฆ</strong> • รวม 4 เล่ม 72 ตอนบริบูรณ์</p>
+      <p style="margin-top: 4px; font-size: 10px; color: #887b6e;">ระบบอ่านนิยายอัจฉริยะ ทำงานแบบ Standalone ออฟไลน์ 100% บันทึกตำแหน่งอ่านอัตโนมัติ</p>
+    </div>
+    <a href="javascript:window.scrollTo({top: 0, behavior: 'smooth'})">↑ ขึ้นด้านบน</a>
+  </footer>
+
+  <!-- SCRIPT DATA & APP LOGIC -->
+  <script>
+    const VOLUMES = [{"id": "vol-01", "number": 1, "title": "เสียงเรียกจากหอเก่า", "firstChapter": 1, "lastChapter": 18, "totalPages": 228, "tone": "jade"}, {"id": "vol-02", "number": 2, "title": "เส้นทางผ่านทะเลหมอก", "firstChapter": 19, "lastChapter": 36, "totalPages": 246, "tone": "amber"}, {"id": "vol-03", "number": 3, "title": "นครที่ลืมชื่อ", "firstChapter": 37, "lastChapter": 54, "totalPages": 238, "tone": "indigo"}, {"id": "vol-04", "number": 4, "title": "จารึกบทสุดท้าย", "firstChapter": 55, "lastChapter": 72, "totalPages": 264, "tone": "rose"}];
+    const CHAPTERS = [{"number": 1, "volume": 1, "title": "ประตูที่เปิดในคืนฝน", "excerpt": "บันทึกตอนที่ 1 กล่าวถึงประตูที่เปิดในคืนฝน และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 2, "volume": 1, "title": "ผู้เฝ้าหอคนใหม่", "excerpt": "บันทึกตอนที่ 2 กล่าวถึงผู้เฝ้าหอคนใหม่ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 3, "volume": 1, "title": "หมึกหยดแรก", "excerpt": "บันทึกตอนที่ 3 กล่าวถึงหมึกหยดแรก และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 4, "volume": 1, "title": "แผนที่ไร้ทิศเหนือ", "excerpt": "บันทึกตอนที่ 4 กล่าวถึงแผนที่ไร้ทิศเหนือ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 5, "volume": 1, "title": "จดหมายจากคนที่ไม่มีชื่อ", "excerpt": "บันทึกตอนที่ 5 กล่าวถึงจดหมายจากคนที่ไม่มีชื่อ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 6, "volume": 1, "title": "เสียงระฆังยามสาม", "excerpt": "บันทึกตอนที่ 6 กล่าวถึงเสียงระฆังยามสาม และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 7, "volume": 1, "title": "แขกใต้ร่มสน", "excerpt": "บันทึกตอนที่ 7 กล่าวถึงแขกใต้ร่มสน และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 8, "volume": 1, "title": "ทางเดินหลังชั้นหนังสือ", "excerpt": "บันทึกตอนที่ 8 กล่าวถึงทางเดินหลังชั้นหนังสือ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 9, "volume": 1, "title": "คำสัตย์ของช่างคัดลอก", "excerpt": "บันทึกตอนที่ 9 กล่าวถึงคำสัตย์ของช่างคัดลอก และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 10, "volume": 1, "title": "หมอกเหนือบันไดหิน", "excerpt": "บันทึกตอนที่ 10 กล่าวถึงหมอกเหนือบันไดหิน และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 11, "volume": 1, "title": "ตราประทับสีหยก", "excerpt": "บันทึกตอนที่ 11 กล่าวถึงตราประทับสีหยก และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 12, "volume": 1, "title": "หนังสือที่หายใจ", "excerpt": "บันทึกตอนที่ 12 กล่าวถึงหนังสือที่หายใจ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 13, "volume": 1, "title": "เงาในกระจกน้ำ", "excerpt": "บันทึกตอนที่ 13 กล่าวถึงเงาในกระจกน้ำ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 14, "volume": 1, "title": "บทสนทนากับความเงียบ", "excerpt": "บันทึกตอนที่ 14 กล่าวถึงบทสนทนากับความเงียบ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 15, "volume": 1, "title": "ลมจากยอดเขาตะวันออก", "excerpt": "บันทึกตอนที่ 15 กล่าวถึงลมจากยอดเขาตะวันออก และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 16, "volume": 1, "title": "ชื่อที่ถูกลบ", "excerpt": "บันทึกตอนที่ 16 กล่าวถึงชื่อที่ถูกลบ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 17, "volume": 1, "title": "แสงสุดท้ายในห้องจารึก", "excerpt": "บันทึกตอนที่ 17 กล่าวถึงแสงสุดท้ายในห้องจารึก และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 18, "volume": 1, "title": "ออกจากหอ", "excerpt": "บันทึกตอนที่ 18 กล่าวถึงออกจากหอ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 19, "volume": 2, "title": "เรือข้ามทะเลหมอก", "excerpt": "บันทึกตอนที่ 19 กล่าวถึงเรือข้ามทะเลหมอก และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 20, "volume": 2, "title": "เมืองท่าที่ไม่มีคลื่น", "excerpt": "บันทึกตอนที่ 20 กล่าวถึงเมืองท่าที่ไม่มีคลื่น และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 21, "volume": 2, "title": "นักเดินทางเสื้อเทา", "excerpt": "บันทึกตอนที่ 21 กล่าวถึงนักเดินทางเสื้อเทา และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 22, "volume": 2, "title": "เข็มทิศไม้หอม", "excerpt": "บันทึกตอนที่ 22 กล่าวถึงเข็มทิศไม้หอม และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 23, "volume": 2, "title": "รอยเท้าบนเมฆ", "excerpt": "บันทึกตอนที่ 23 กล่าวถึงรอยเท้าบนเมฆ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 24, "volume": 2, "title": "คืนดาวดับ", "excerpt": "บันทึกตอนที่ 24 กล่าวถึงคืนดาวดับ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 25, "volume": 2, "title": "โรงเตี๊ยมริมผา", "excerpt": "บันทึกตอนที่ 25 กล่าวถึงโรงเตี๊ยมริมผา และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 26, "volume": 2, "title": "ข่าวจากนครหลวง", "excerpt": "บันทึกตอนที่ 26 กล่าวถึงข่าวจากนครหลวง และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 27, "volume": 2, "title": "สะพานเชือกเก่า", "excerpt": "บันทึกตอนที่ 27 กล่าวถึงสะพานเชือกเก่า และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 28, "volume": 2, "title": "ดาบที่ไม่เคยชัก", "excerpt": "บันทึกตอนที่ 28 กล่าวถึงดาบที่ไม่เคยชัก และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 29, "volume": 2, "title": "บทเพลงของคนพายเรือ", "excerpt": "บันทึกตอนที่ 29 กล่าวถึงบทเพลงของคนพายเรือ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 30, "volume": 2, "title": "ดอกเหมยกลางฤดูร้อน", "excerpt": "บันทึกตอนที่ 30 กล่าวถึงดอกเหมยกลางฤดูร้อน และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 31, "volume": 2, "title": "ผู้ส่งสารปีกขาว", "excerpt": "บันทึกตอนที่ 31 กล่าวถึงผู้ส่งสารปีกขาว และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 32, "volume": 2, "title": "หุบเขาสะท้อนคำ", "excerpt": "บันทึกตอนที่ 32 กล่าวถึงหุบเขาสะท้อนคำ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 33, "volume": 2, "title": "ฝนเหนือทะเลทราย", "excerpt": "บันทึกตอนที่ 33 กล่าวถึงฝนเหนือทะเลทราย และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 34, "volume": 2, "title": "ข้อตกลงใต้แสงจันทร์", "excerpt": "บันทึกตอนที่ 34 กล่าวถึงข้อตกลงใต้แสงจันทร์ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 35, "volume": 2, "title": "ประตูเมืองทิศใต้", "excerpt": "บันทึกตอนที่ 35 กล่าวถึงประตูเมืองทิศใต้ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 36, "volume": 2, "title": "อีกฟากของหมอก", "excerpt": "บันทึกตอนที่ 36 กล่าวถึงอีกฟากของหมอก และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 37, "volume": 3, "title": "นครที่ลืมชื่อ", "excerpt": "บันทึกตอนที่ 37 กล่าวถึงนครที่ลืมชื่อ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 38, "volume": 3, "title": "ตลาดแห่งความทรงจำ", "excerpt": "บันทึกตอนที่ 38 กล่าวถึงตลาดแห่งความทรงจำ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 39, "volume": 3, "title": "หอนาฬิกาหยุดนิ่ง", "excerpt": "บันทึกตอนที่ 39 กล่าวถึงหอนาฬิกาหยุดนิ่ง และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 40, "volume": 3, "title": "เด็กหญิงขายแผนที่", "excerpt": "บันทึกตอนที่ 40 กล่าวถึงเด็กหญิงขายแผนที่ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 41, "volume": 3, "title": "ตรอกของนักฝัน", "excerpt": "บันทึกตอนที่ 41 กล่าวถึงตรอกของนักฝัน และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 42, "volume": 3, "title": "บันทึกในกำแพง", "excerpt": "บันทึกตอนที่ 42 กล่าวถึงบันทึกในกำแพง และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 43, "volume": 3, "title": "สวนไร้ฤดูกาล", "excerpt": "บันทึกตอนที่ 43 กล่าวถึงสวนไร้ฤดูกาล และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 44, "volume": 3, "title": "ผู้พิพากษาหน้ากากไม้", "excerpt": "บันทึกตอนที่ 44 กล่าวถึงผู้พิพากษาหน้ากากไม้ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 45, "volume": 3, "title": "ห้องสมุดใต้เมือง", "excerpt": "บันทึกตอนที่ 45 กล่าวถึงห้องสมุดใต้เมือง และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 46, "volume": 3, "title": "ความจริงของผู้เฝ้าหอ", "excerpt": "บันทึกตอนที่ 46 กล่าวถึงความจริงของผู้เฝ้าหอ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 47, "volume": 3, "title": "คืนที่เมืองจดจำ", "excerpt": "บันทึกตอนที่ 47 กล่าวถึงคืนที่เมืองจดจำ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 48, "volume": 3, "title": "ประกายไฟในความมืด", "excerpt": "บันทึกตอนที่ 48 กล่าวถึงประกายไฟในความมืด และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 49, "volume": 3, "title": "คำขอของคนแปลกหน้า", "excerpt": "บันทึกตอนที่ 49 กล่าวถึงคำขอของคนแปลกหน้า และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 50, "volume": 3, "title": "หลังคาเหนือสายฝน", "excerpt": "บันทึกตอนที่ 50 กล่าวถึงหลังคาเหนือสายฝน และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 51, "volume": 3, "title": "การตัดสินใจครั้งแรก", "excerpt": "บันทึกตอนที่ 51 กล่าวถึงการตัดสินใจครั้งแรก และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 52, "volume": 3, "title": "แสงเช้าบนกำแพงเก่า", "excerpt": "บันทึกตอนที่ 52 กล่าวถึงแสงเช้าบนกำแพงเก่า และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 53, "volume": 3, "title": "ชื่อของเมือง", "excerpt": "บันทึกตอนที่ 53 กล่าวถึงชื่อของเมือง และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 54, "volume": 3, "title": "ทางกลับที่เปลี่ยนไป", "excerpt": "บันทึกตอนที่ 54 กล่าวถึงทางกลับที่เปลี่ยนไป และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 55, "volume": 4, "title": "ลมหนาวจากบ้านเดิม", "excerpt": "บันทึกตอนที่ 55 กล่าวถึงลมหนาวจากบ้านเดิม และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 56, "volume": 4, "title": "รอยหมึกบนฝ่ามือ", "excerpt": "บันทึกตอนที่ 56 กล่าวถึงรอยหมึกบนฝ่ามือ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 57, "volume": 4, "title": "หออักษราที่ว่างเปล่า", "excerpt": "บันทึกตอนที่ 57 กล่าวถึงหออักษราที่ว่างเปล่า และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 58, "volume": 4, "title": "เสียงของบรรพชน", "excerpt": "บันทึกตอนที่ 58 กล่าวถึงเสียงของบรรพชน และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 59, "volume": 4, "title": "บันไดสู่ชั้นที่เก้า", "excerpt": "บันทึกตอนที่ 59 กล่าวถึงบันไดสู่ชั้นที่เก้า และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 60, "volume": 4, "title": "ความทรงจำของกระดาษ", "excerpt": "บันทึกตอนที่ 60 กล่าวถึงความทรงจำของกระดาษ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 61, "volume": 4, "title": "การกลับมาของผู้คัดลอก", "excerpt": "บันทึกตอนที่ 61 กล่าวถึงการกลับมาของผู้คัดลอก และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 62, "volume": 4, "title": "ห้องที่ไม่เคยเปิด", "excerpt": "บันทึกตอนที่ 62 กล่าวถึงห้องที่ไม่เคยเปิด และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 63, "volume": 4, "title": "จารึกเหนือม่านเมฆ", "excerpt": "บันทึกตอนที่ 63 กล่าวถึงจารึกเหนือม่านเมฆ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 64, "volume": 4, "title": "หนึ่งคำแลกหนึ่งชีวิต", "excerpt": "บันทึกตอนที่ 64 กล่าวถึงหนึ่งคำแลกหนึ่งชีวิต และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 65, "volume": 4, "title": "รอยร้าวของนิรันดร์", "excerpt": "บันทึกตอนที่ 65 กล่าวถึงรอยร้าวของนิรันดร์ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 66, "volume": 4, "title": "คืนก่อนคำตอบ", "excerpt": "บันทึกตอนที่ 66 กล่าวถึงคืนก่อนคำตอบ และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 67, "volume": 4, "title": "เมื่อหมอกจาง", "excerpt": "บันทึกตอนที่ 67 กล่าวถึงเมื่อหมอกจาง และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 68, "volume": 4, "title": "หนังสือเล่มสุดท้าย", "excerpt": "บันทึกตอนที่ 68 กล่าวถึงหนังสือเล่มสุดท้าย และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 69, "volume": 4, "title": "ผู้เฝ้าหอคนถัดไป", "excerpt": "บันทึกตอนที่ 69 กล่าวถึงผู้เฝ้าหอคนถัดไป และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 70, "volume": 4, "title": "คำลาที่ไม่เอ่ย", "excerpt": "บันทึกตอนที่ 70 กล่าวถึงคำลาที่ไม่เอ่ย และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 71, "volume": 4, "title": "แสงแรกเหนือสันเขา", "excerpt": "บันทึกตอนที่ 71 กล่าวถึงแสงแรกเหนือสันเขา และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}, {"number": 72, "volume": 4, "title": "หน้ากระดาษที่ยังว่าง", "excerpt": "บันทึกตอนที่ 72 กล่าวถึงหน้ากระดาษที่ยังว่าง และร่องรอยสำคัญที่นำผู้เฝ้าหอเข้าใกล้ความจริงอีกก้าวหนึ่ง"}];
+    const PARAGRAPHS = ["ยามเช้าเหนือหออักษรามักเริ่มต้นด้วยเสียงลมลอดชายคา กลิ่นกระดาษเก่าเจือหมอกจางลอยอยู่ระหว่างชั้นหนังสือสูง ผู้เฝ้าหอคนใหม่ยืนฟังความเงียบราวกับมันกำลังพยายามบอกบางสิ่งที่ถ้อยคำธรรมดาไม่อาจถ่ายทอด", "บนโต๊ะไม้กลางห้องมีสมุดปกสีหมึกวางเปิดอยู่ หน้ากระดาษไม่มีตัวอักษร ทว่าเมื่อแสงจากหน้าต่างแตะลงบนผิวกระดาษ เส้นสีเขียวหยกก็ค่อย ๆ ปรากฏขึ้นทีละเส้น กลายเป็นแผนที่ของสถานที่ซึ่งไม่มีอยู่ในแผนที่ฉบับใด", "เขาเคยได้รับคำเตือนว่าอย่าอ่านบันทึกหลังระฆังยามสาม เพราะตัวหนังสือจะจำเสียงของผู้อ่านและเรียกหาคนนั้นไปตลอดคืน แต่ความสงสัยมักมีน้ำหนักมากกว่าความกลัว โดยเฉพาะเมื่อชื่อของตนเองปรากฏอยู่ตรงขอบหน้ากระดาษ", "นอกหน้าต่าง ภูเขาซ้อนกันเป็นชั้นอยู่หลังม่านหมอก ทางเดินหินสายเล็กทอดหายเข้าไปในป่าสน รอยเท้าคู่หนึ่งปรากฏบนดินชื้น ทั้งที่ประตูหอไม่เคยเปิดมาตลอดเจ็ดวัน", "ผู้เฝ้าหอเก็บสมุดลงในหีบไม้ หยิบตะเกียง และก้าวออกจากประตูเป็นครั้งแรก เขาไม่รู้ว่าปลายทางมีสิ่งใดรออยู่ รู้เพียงว่าหน้ากระดาษที่ยังว่างกำลังรอให้เขาเป็นคนเขียนตอนต่อไปด้วยตนเอง"];
+
+    let currentChapter = 1;
+    let lastReadChapter = 1;
+    let bookmarks = [];
+    let isSpeaking = false;
+
+    // Load from LocalStorage
+    try {
+      lastReadChapter = parseInt(localStorage.getItem('hor_last_read') || '1');
+      bookmarks = JSON.parse(localStorage.getItem('hor_bookmarks') || '[]');
+      const savedTheme = localStorage.getItem('hor_theme') || 'sepia';
+      setTheme(savedTheme, false);
+      const savedFontSize = localStorage.getItem('hor_font_size') || '18';
+      setFontSize(savedFontSize, false);
+    } catch(e) {}
+
+    document.getElementById('hero-read-num').textContent = lastReadChapter;
+
+    // Render Volumes on Library View
+    function renderVolumesAndChapters() {
+      const container = document.getElementById('volumes-container');
+      const selectedVol = document.getElementById('vol-filter').value;
+
+      container.innerHTML = VOLUMES.map(v => {
+        return `
+          <div class="volume-card" onclick="filterByVolume(${v.number})" style="cursor: pointer;">
+            <div class="volume-cover tone-${v.tone}">
+              <span class="page-badge">${v.totalPages} หน้า</span>
+              <small>VOL. 0${v.number}</small>
+              <strong>0${v.number}</strong>
+              <p>${v.title}</p>
+              <i>ตอนที่ ${v.firstChapter} - ${v.lastChapter}</i>
+            </div>
+            <div class="volume-info">
+              <div>
+                <span class="volume-kicker">เล่มที่ ${v.number}</span>
+                <h3>${v.title}</h3>
+                <small>รวม 18 ตอน (${v.firstChapter} - ${v.lastChapter})</small>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      filterChapters();
+    }
+
+    function filterByVolume(num) {
+      document.getElementById('vol-filter').value = num;
+      filterChapters();
+    }
+
+    function filterChapters() {
+      const query = document.getElementById('lib-search-input').value.trim().toLowerCase();
+      const volFilter = document.getElementById('vol-filter').value;
+
+      const filtered = CHAPTERS.filter(ch => {
+        if (volFilter !== 'all' && ch.volume !== parseInt(volFilter)) return false;
+        if (query) {
+          const matchTitle = ch.title.toLowerCase().includes(query);
+          const matchNum = ch.number.toString().includes(query);
+          if (!matchTitle && !matchNum) return false;
+        }
+        return true;
+      });
+
+      document.getElementById('filtered-chapter-count').textContent = filtered.length;
+      const listContainer = document.getElementById('chapters-list-grid');
+
+      listContainer.innerHTML = filtered.map(ch => {
+        const isCurrent = ch.number === lastReadChapter;
+        return `
+          <div style="background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 12px 14px; cursor: pointer; transition: all 0.2s;" 
+               onmouseover="this.style.borderColor='var(--red)'" 
+               onmouseout="this.style.borderColor='var(--line)'"
+               onclick="readChapter(${ch.number})">
+            <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 4px;">
+              <span>เล่ม ${ch.volume} • ตอนที่ ${ch.number}</span>
+              ${isCurrent ? '<span style="color: var(--red); font-weight: bold;">อ่านล่าสุด</span>' : ''}
+            </div>
+            <strong style="font-size: 14px; color: var(--ink);">${ch.title}</strong>
+            <p style="font-size: 11px; color: var(--muted); margin: 6px 0 0; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${ch.excerpt}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Reader Mode
+    function readChapter(num) {
+      if (num < 1) num = 1;
+      if (num > 72) num = 72;
+      currentChapter = num;
+      lastReadChapter = num;
+      localStorage.setItem('hor_last_read', num);
+      document.getElementById('hero-read-num').textContent = num;
+
+      const meta = CHAPTERS.find(c => c.number === num);
+      const vol = VOLUMES.find(v => v.number === meta.volume);
+
+      document.getElementById('view-library').style.display = 'none';
+      document.getElementById('view-reader').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      document.getElementById('reader-top-title').textContent = `ตอนที่ ${meta.number} • ${meta.title}`;
+      document.getElementById('reader-vol-label').textContent = `เล่ม ${vol.number}: ${vol.title}`;
+      document.getElementById('reader-chapter-title').textContent = `ตอนที่ ${meta.number}: ${meta.title}`;
+      document.getElementById('reader-chapter-badge').textContent = `บันทึกแห่งหออักษรา • ตอนที่ ${meta.number} จาก 72`;
+
+      // Build paragraphs
+      const paragraphs = [
+        `ในตอนที่ ${meta.number} "${meta.title}" นี้ สายลมแห่งหออักษราพัดพาความทรงจำโบราณกลับคืนมาอีกครั้ง ` + PARAGRAPHS[0],
+        PARAGRAPHS[1],
+        PARAGRAPHS[2],
+        PARAGRAPHS[3],
+        `"${meta.title}"... ` + PARAGRAPHS[4]
+      ];
+
+      document.getElementById('reader-content').innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
+
+      // Prev / Next button states
+      const prevBtn = document.getElementById('btn-prev-chap');
+      const nextBtn = document.getElementById('btn-next-chap');
+      prevBtn.style.visibility = num > 1 ? 'visible' : 'hidden';
+      nextBtn.style.visibility = num < 72 ? 'visible' : 'hidden';
+
+      // Update Bookmark button
+      updateBookmarkBtn();
+    }
+
+    function prevChapter() {
+      if (currentChapter > 1) readChapter(currentChapter - 1);
+    }
+
+    function nextChapter() {
+      if (currentChapter < 72) readChapter(currentChapter + 1);
+    }
+
+    function showLibrary() {
+      stopSpeech();
+      document.getElementById('view-reader').style.display = 'none';
+      document.getElementById('view-library').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Bookmark
+    function toggleBookmark() {
+      if (bookmarks.includes(currentChapter)) {
+        bookmarks = bookmarks.filter(b => b !== currentChapter);
+      } else {
+        bookmarks.push(currentChapter);
+      }
+      localStorage.setItem('hor_bookmarks', JSON.stringify(bookmarks));
+      updateBookmarkBtn();
+    }
+
+    function updateBookmarkBtn() {
+      const btn = document.getElementById('btn-bookmark');
+      if (bookmarks.includes(currentChapter)) {
+        btn.textContent = '🔖 คั่นหน้านี้แล้ว';
+        btn.style.color = 'var(--red)';
+      } else {
+        btn.textContent = '🔖 คั่นหน้า';
+        btn.style.color = 'var(--muted)';
+      }
+    }
+
+    // Settings (Themes & Fonts)
+    function toggleSettings() {
+      const drawer = document.getElementById('settings-drawer');
+      const scrim = document.getElementById('settings-scrim');
+      const isOpen = drawer.classList.contains('open');
+      if (isOpen) {
+        drawer.classList.remove('open');
+        scrim.style.display = 'none';
+      } else {
+        drawer.classList.add('open');
+        scrim.style.display = 'block';
+      }
+    }
+
+    function setTheme(theme, save = true) {
+      document.documentElement.setAttribute('data-theme', theme);
+      if (save) localStorage.setItem('hor_theme', theme);
+    }
+
+    function setFontSize(val, save = true) {
+      document.getElementById('font-size-val').textContent = val + 'px';
+      document.getElementById('font-size-slider').value = val;
+      document.getElementById('reader-content').style.fontSize = val + 'px';
+      if (save) localStorage.setItem('hor_font_size', val);
+    }
+
+    function setPaperWidth(val) {
+      const paper = document.getElementById('reader-paper');
+      paper.className = 'reader-paper ' + val;
+    }
+
+    function setFontFamily(val) {
+      const paper = document.getElementById('reader-paper');
+      paper.style.fontFamily = val === 'font-noto' ? '"Noto Sans Thai", Tahoma, sans-serif' : 
+                               val === 'font-sans' ? '"Leelawadee UI", Tahoma, sans-serif' : 
+                               '"Th Sarabun New", Georgia, serif';
+    }
+
+    function resetSettings() {
+      setTheme('sepia');
+      setFontSize('18');
+      setPaperWidth('width-standard');
+      setFontFamily('font-noto');
+    }
+
+    // TOC Drawer
+    function toggleToc() {
+      const drawer = document.getElementById('toc-drawer');
+      const scrim = document.getElementById('toc-scrim');
+      const isOpen = drawer.classList.contains('open');
+      if (isOpen) {
+        drawer.classList.remove('open');
+        scrim.style.display = 'none';
+      } else {
+        renderToc();
+        drawer.classList.add('open');
+        scrim.style.display = 'block';
+      }
+    }
+
+    function renderToc() {
+      const container = document.getElementById('toc-content');
+      container.innerHTML = VOLUMES.map(vol => {
+        const volChapters = CHAPTERS.filter(c => c.volume === vol.number);
+        const chaptersHtml = volChapters.map(c => {
+          const isCur = c.number === currentChapter;
+          return `
+            <a href="javascript:void(0)" class="${isCur ? 'current' : ''}" onclick="readChapter(${c.number}); toggleToc();">
+              <span style="font-weight: bold; opacity: 0.6;">${c.number}</span>
+              <span>${c.title}</span>
+            </a>
+          `;
+        }).join('');
+
+        return `
+          <section>
+            <h3>เล่ม ${vol.number}: ${vol.title}</h3>
+            <div>${chaptersHtml}</div>
+          </section>
+        `;
+      }).join('');
+    }
+
+    // Search Modal
+    function openSearch() {
+      document.getElementById('search-modal').style.display = 'grid';
+      document.getElementById('modal-search-input').focus();
+      modalSearch();
+    }
+
+    function closeSearch() {
+      document.getElementById('search-modal').style.display = 'none';
+    }
+
+    function modalSearch() {
+      const q = document.getElementById('modal-search-input').value.trim().toLowerCase();
+      const results = CHAPTERS.filter(c => {
+        if (!q) return true;
+        return c.title.toLowerCase().includes(q) || c.number.toString().includes(q);
+      });
+
+      const container = document.getElementById('modal-search-results');
+      if (results.length === 0) {
+        container.innerHTML = '<div class="empty-hint">ไม่พบบทความหรือตอนที่ค้นหา</div>';
+        return;
+      }
+
+      container.innerHTML = results.slice(0, 15).map(c => `
+        <a href="javascript:void(0)" onclick="readChapter(${c.number}); closeSearch();">
+          <strong>ตอนที่ ${c.number}: ${c.title}</strong>
+          <small>เล่ม ${c.volume} • บันทึกแห่งหออักษรา</small>
+        </a>
+      `).join('');
+    }
+
+    // Text To Speech (Web Speech API)
+    function toggleSpeech() {
+      if (!('speechSynthesis' in window)) {
+        alert('เบราว์เซอร์ของคุณไม่รองรับการอ่านออกเสียง TTS');
+        return;
+      }
+      if (isSpeaking) {
+        stopSpeech();
+      } else {
+        startSpeech();
+      }
+    }
+
+    function startSpeech() {
+      stopSpeech();
+      const text = document.getElementById('reader-content').innerText;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'th-TH';
+      utterance.rate = 1.0;
+      utterance.onend = () => {
+        isSpeaking = false;
+        document.getElementById('btn-tts').textContent = '🔊 ฟังเสียงอ่าน';
+      };
+      window.speechSynthesis.speak(utterance);
+      isSpeaking = true;
+      document.getElementById('btn-tts').textContent = '⏹️ หยุดเสียง';
+    }
+
+    function stopSpeech() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      isSpeaking = false;
+      const btn = document.getElementById('btn-tts');
+      if (btn) btn.textContent = '🔊 ฟังเสียงอ่าน';
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeSearch();
+        const settings = document.getElementById('settings-drawer');
+        if (settings.classList.contains('open')) toggleSettings();
+        const toc = document.getElementById('toc-drawer');
+        if (toc.classList.contains('open')) toggleToc();
+      }
+    });
+
+    // Boot
+    renderVolumesAndChapters();
+  </script>
+</body>
+</html>

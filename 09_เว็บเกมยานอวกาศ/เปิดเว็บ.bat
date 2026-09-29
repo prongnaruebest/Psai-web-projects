@@ -1,7 +1,10 @@
-﻿@echo off
+@echo off
 chcp 65001 > nul
-title Orbital Survivor
+title Orbital Survivor - เกมยานอวกาศเอาชีวิตรอด
 cd /d "%~dp0"
-start "" http://localhost:5173
-npm run dev
-pause
+echo ========================================================
+echo   Orbital Survivor: Space Roguelite Action Web Game
+echo ========================================================
+echo กำลังเปิดหน้าเว็บ Orbital Survivor...
+start "" "%~dp0index.html"
+exit

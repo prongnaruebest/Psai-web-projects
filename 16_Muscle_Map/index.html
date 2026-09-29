@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>แผนที่กล้ามเนื้อ (Interactive Muscle Map & Workout Tier List)</title>
+
+  <!-- Google Fonts: Sarabun & Prompt -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Import Three.js for 3D Mode -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <!-- Load Embedded Anatomy & Exercise Data -->
+  <script src="data.js"></script>
+
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text-title: #0f172a;
+      --text-body: #334155;
+      --text-muted: #64748b;
+      --primary-amber: #f59e0b;
+      --primary-amber-dark: #d97706;
+      --primary-amber-light: #fef3c7;
+      --primary-amber-border: #fde68a;
+      --accent-blue: #3b82f6;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.08);
+      
+      /* SVG & Anatomy Palette */
+      --muscle-fill: #eef2f6;
+      --muscle-stroke: #475569;
+      --muscle-hover: #fef08a;
+      --muscle-active: #f59e0b;
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #0b0f17;
+      --card-bg: #131b2a;
+      --card-border: #1e293b;
+      --text-title: #f1f5f9;
+      --text-body: #cbd5e1;
+      --text-muted: #94a3b8;
+      --primary-amber: #f59e0b;
+      --primary-amber-dark: #b45309;
+      --primary-amber-light: rgba(245, 158, 11, 0.15);
+      --primary-amber-border: rgba(245, 158, 11, 0.3);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+      --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.5);
+      --muscle-fill: #1e293b;
+      --muscle-stroke: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-body);
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      padding: 2.2rem 3.5rem 6rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Top Navigation / Header */
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--primary-amber-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .page-title {
+      font-family: 'Prompt', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--text-title);
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-sub {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 720px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    .btn-icon-toggle {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text-title);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.25rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-icon-toggle:hover {
+      background: var(--primary-amber-light);
+      border-color: var(--primary-amber-border);
+    }
+
+    /* Main Dual-Column Grid */
+    .app-layout {
+      display: grid;
+      grid-template-columns: 1.05fr 1.25fr;
+      gap: 2.2rem;
+      align-items: start;
+    }
+
+    /* Left Stage Card (Interactive Body Viewer) */
+    .stage-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-md);
+      padding: 1.8rem;
+      position: sticky;
+      top: 1.5rem;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-segment {
+      display: inline-flex;
+      background: rgba(148, 163, 184, 0.12);
+      padding: 3px;
+      border-radius: 12px;
+      gap: 2px;
+    }
+
+    .seg-item {
+      border: none;
+      background: transparent;
+      padding: 0.42rem 0.95rem;
+      border-radius: 9px;
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .seg-item.is-on {
+      background: var(--card-bg);
+      color: var(--text-title);
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .seg-item:hover:not(.is-on) {
+      color: var(--text-title);
+    }
+
+    /* Switch */
+    .switch-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--text-body);
+      cursor: pointer;
+    }
+
+    .switch-ui {
+      position: relative;
+      display: inline-block;
+      width: 42px;
+      height: 22px;
+    }
+
+    .switch-ui input { opacity: 0; width: 0; height: 0; }
+
+    .switch-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #cbd5e1;
+      transition: .3s;
+      border-radius: 22px;
+    }
+
+    .switch-slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .switch-slider {
+      background-color: var(--primary-amber);
+    }
+
+    input:checked + .switch-slider:before {
+      transform: translateX(20px);
+    }
+
+    /* Interactive Body Stage */
+    .body-stage-container {
+      position: relative;
+      min-height: 640px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at 50% 45%, rgba(245, 158, 11, 0.08), transparent 70%);
+      border-radius: 20px;
+      padding: 1rem 0;
+      overflow: hidden;
+    }
+
+    .maps-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .maps-wrapper svg {
+      width: 100%;
+      max-height: 640px;
+      height: auto;
+      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.06));
+    }
+
+    /* SVG Muscle Styles */
+    .m {
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      outline: none;
+    }
+
+    .m path, .m polygon, .m rect {
+      transition: fill 0.2s ease, filter 0.2s ease, stroke 0.2s ease;
+    }
+
+    .m:hover path, .m:hover polygon, .m:hover rect {
+      fill: #fef08a !important;
+      filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.7));
+    }
+
+    .m.is-active path, .m.is-active polygon, .m.is-active rect {
+      fill: url(#bmActive) !important;
+      stroke: #b45309 !important;
+      stroke-width: 1.5 !important;
+      filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.95)) !important;
+    }
+
+    /* Interactive Tooltip */
+    .muscle-tooltip {
+      position: absolute;
+      pointer-events: none;
+      background: rgba(15, 23, 42, 0.92);
+      color: #ffffff;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+      z-index: 50;
+      transform: translate(-50%, -120%);
+      white-space: nowrap;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .muscle-tooltip::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 6px 6px 0;
+      border-style: solid;
+      border-color: rgba(15, 23, 42, 0.92) transparent transparent;
+    }
+
+    .muscle-tooltip.show {
+      display: flex;
+    }
+
+    /* 3D WebGL Canvas Layer */
+    .viewer-3d-stage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      border-radius: 20px;
+    }
+
+    .viewer-3d-stage.active {
+      display: block;
+    }
+
+    .viewer-3d-hint {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.75);
+      color: #fff;
+      font-size: 0.78rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      pointer-events: none;
+      font-family: 'Prompt', sans-serif;
+    }
+
+    /* Right Panel (Content & Exercise Hub) */
+    .panel-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-md);
+      padding: 2.2rem;
+    }
+
+    /* Empty Prompt State */
+    .prompt-box {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.4rem 1.6rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 2rem;
+    }
+
+    .prompt-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: var(--primary-amber);
+      color: #ffffff;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 18px rgba(245, 158, 11, 0.35);
+      flex-shrink: 0;
+    }
+
+    .prompt-title {
+      font-family: 'Prompt', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-title);
+      margin-bottom: 0.2rem;
+    }
+
+    .prompt-sub {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+    }
+
+    /* Muscle Groups Grid in Empty State */
+    .groups-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Prompt', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-title);
+      margin-bottom: 1.4rem;
+    }
+
+    .region-block {
+      margin-bottom: 1.8rem;
+    }
+
+    .region-name {
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .pill-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 0.8rem 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .pill-item:hover {
+      border-color: var(--primary-amber);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(245, 158, 11, 0.15);
+    }
+
+    .pill-item.is-on {
+      border-color: var(--primary-amber);
+      background: var(--primary-amber-light);
+    }
+
+    .pill-header {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .pill-circle {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--primary-amber);
+    }
+
+    .pill-label {
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.94rem;
+      font-weight: 600;
+      color: var(--text-title);
+    }
+
+    .pill-badge {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding-left: 1rem;
+    }
+
+    /* Selected Muscle View Detail */
+    .detail-card-view {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .detail-card-view.show {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .anat-header {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      margin-bottom: 1.2rem;
+    }
+
+    .anat-icon-badge {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      background: var(--primary-amber);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #ffffff;
+      box-shadow: 0 8px 22px rgba(245, 158, 11, 0.38);
+      flex-shrink: 0;
+    }
+
+    .anat-title-info {
+      flex: 1;
+    }
+
+    .anat-name-th {
+      font-family: 'Prompt', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--text-title);
+      line-height: 1.2;
+    }
+
+    .anat-name-lat {
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .anat-tags-row {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.28rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .badge-soft {
+      background: var(--primary-amber-light);
+      color: var(--primary-amber-dark);
+      border: 1px solid var(--primary-amber-border);
+    }
+
+    .badge-gray {
+      background: rgba(148, 163, 184, 0.14);
+      color: var(--text-body);
+    }
+
+    .anat-overview-text {
+      font-size: 0.98rem;
+      line-height: 1.72;
+      color: var(--text-body);
+      margin-bottom: 1.8rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    /* 4-Box Grid Facts */
+    .facts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .fact-card {
+      background: rgba(148, 163, 184, 0.06);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.4rem;
+    }
+
+    .fact-card-title {
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--text-title);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .fact-card-desc {
+      font-size: 0.88rem;
+      color: var(--text-body);
+      line-height: 1.58;
+    }
+
+    /* Tips & Checklist */
+    .tips-block {
+      background: rgba(148, 163, 184, 0.06);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 1.3rem 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .tips-block-title {
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-title);
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .tips-bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .tips-bullet-list li {
+      display: flex;
+      gap: 0.65rem;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--text-body);
+    }
+
+    .icon-green-check {
+      color: #16a34a;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    /* Fun Fact Callout */
+    .fun-fact-callout {
+      background: var(--primary-amber-light);
+      border: 1px solid var(--primary-amber-border);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.4rem;
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+
+    .fun-fact-text {
+      font-size: 0.89rem;
+      line-height: 1.6;
+      color: #78350f;
+    }
+
+    [data-theme="dark"] .fun-fact-text {
+      color: #fef3c7;
+    }
+
+    /* ========================================================
+       EXERCISE HUB (TIER LIST & LADDER TABS)
+       ======================================================== */
+    .exercise-hub-section {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .hub-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .hub-title {
+      font-family: 'Prompt', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-title);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Filter Chips */
+    .equip-filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .equip-chip {
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .equip-chip.active, .equip-chip:hover {
+      background: var(--primary-amber);
+      color: #ffffff;
+      border-color: var(--primary-amber);
+      font-weight: 600;
+    }
+
+    /* Tier List Visual Display */
+    .tier-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .tier-row {
+      display: flex;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tier-badge-col {
+      width: 68px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Prompt', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .tier-badge-col small {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .tier-s .tier-badge-col { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .tier-a .tier-badge-col { background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .tier-b .tier-badge-col { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+    .tier-c .tier-badge-col { background: linear-gradient(135deg, #10b981, #059669); }
+    .tier-d .tier-badge-col { background: linear-gradient(135deg, #64748b, #475569); }
+
+    .tier-items-grid {
+      flex: 1;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.8rem;
+    }
+
+    /* Exercise Item Card */
+    .exercise-item {
+      background: rgba(148, 163, 184, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .exercise-item:hover {
+      border-color: var(--primary-amber);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .exercise-item.is-picked {
+      background: var(--primary-amber-light);
+      border-color: var(--primary-amber);
+    }
+
+    .exercise-info {
+      flex: 1;
+      padding-right: 0.8rem;
+    }
+
+    .ex-name-th {
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-title);
+      line-height: 1.3;
+    }
+
+    .ex-name-en {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .ex-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .ex-equip-badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      background: rgba(148, 163, 184, 0.15);
+      font-weight: 600;
+    }
+
+    .btn-pick {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text-title);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-pick:hover {
+      background: var(--primary-amber);
+      color: #fff;
+      border-color: var(--primary-amber);
+    }
+
+    .exercise-item.is-picked .btn-pick {
+      background: var(--primary-amber);
+      color: #fff;
+      border-color: var(--primary-amber);
+    }
+
+    /* Floating Routine Tray (Add to Workout) */
+    .floating-tray {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(120%);
+      background: rgba(15, 23, 42, 0.95);
+      color: #ffffff;
+      padding: 0.85rem 1.8rem;
+      border-radius: 999px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .floating-tray.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .tray-count-bubble {
+      background: var(--primary-amber);
+      color: #0f172a;
+      font-family: 'Prompt', sans-serif;
+      font-weight: 800;
+      font-size: 0.88rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .tray-text {
+      font-family: 'Prompt', sans-serif;
+      font-size: 0.94rem;
+      font-weight: 600;
+    }
+
+    .btn-tray-action {
+      background: var(--primary-amber);
+      color: #0f172a;
+      border: none;
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      font-family: 'Prompt', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-tray-action:hover {
+      transform: scale(1.04);
+    }
+
+    .btn-tray-clear {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .btn-tray-clear:hover {
+      color: #fff;
+    }
+
+    /* Modal Workout Routine Summary */
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--card-border);
+      max-width: 580px;
+      width: 100%;
+      padding: 2.2rem;
+      box-shadow: var(--shadow-lg);
+      animation: modalPop 0.25s ease;
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.4rem;
+    }
+
+    .modal-title {
+      font-family: 'Prompt', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-title);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .modal-routine-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      max-height: 380px;
+      overflow-y: auto;
+      margin-bottom: 1.6rem;
+      padding-right: 0.5rem;
+    }
+
+    .modal-routine-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      background: rgba(148, 163, 184, 0.08);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1100px) {
+      body { padding: 1.5rem 1.2rem; }
+      .app-layout { grid-template-columns: 1fr; }
+      .stage-card { position: static; }
+      .facts-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hidden SVG Gradients & Filters -->
+  <svg width="0" height="0" style="position:absolute;width:0;height:0" aria-hidden="true">
+    <defs>
+      <radialGradient id="bmActive" cx=".36" cy=".28" r=".9">
+        <stop offset="0" stop-color="#fff1a8"/>
+        <stop offset=".45" stop-color="#ffcc1a"/>
+        <stop offset="1" stop-color="#e29a00"/>
+      </radialGradient>
+      <filter id="bmGlow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="3.2" result="b"/>
+        <feColorMatrix in="b" type="matrix" values="1 0 0 0 1  0 .85 0 0 .75  0 0 0 0 0  0 0 0 .8 0" result="g"/>
+        <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Top Header -->
+  <header class="top-header">
+    <div>
+      <div class="eyebrow">
+        <span>⚡ FastFit Anatomy</span>
+      </div>
+      <h1 class="page-title">แผนที่กล้ามเนื้อ</h1>
+      <p class="page-sub">แตะกล้ามเนื้อบนร่างกายเพื่อดูว่าคืออะไร ทำงานอย่างไร พร้อม Tier List ท่าฝึกเรียงจากดีที่สุด (S–D) และเรียงจากง่ายไปยาก</p>
+    </div>
+
+    <div class="header-actions">
+      <!-- Dark / Light Theme Toggle -->
+      <button class="btn-icon-toggle" id="themeToggle" title="สลับธีม สว่าง/มืด">🌓</button>
+      <!-- Sound FX Toggle -->
+      <button class="btn-icon-toggle" id="soundToggle" title="เปิด/ปิดเสียงเอฟเฟกต์">🔊</button>
+    </div>
+  </header>
+
+  <!-- Main Dual-Column Layout -->
+  <div class="app-layout">
+
+    <!-- LEFT COLUMN: Body Anatomy Stage -->
+    <div class="stage-card">
+      <div class="toolbar">
+        <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+          <!-- 2D vs 3D -->
+          <div class="btn-segment">
+            <button class="seg-item is-on" id="mode-2d">🗂️ แผนที่ 2D</button>
+            <button class="seg-item" id="mode-3d">🎲 หุ่น 3D</button>
+          </div>
+          <!-- Gender -->
+          <div class="btn-segment">
+            <button class="seg-item is-on" id="gender-male">ผู้ชาย</button>
+            <button class="seg-item" id="gender-female">ผู้หญิง</button>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap;">
+          <!-- Views -->
+          <div class="btn-segment">
+            <button class="seg-item is-on" id="view-both">หน้า-หลัง</button>
+            <button class="seg-item" id="view-front">ด้านหน้า</button>
+            <button class="seg-item" id="view-back">ด้านหลัง</button>
+          </div>
+
+          <!-- Multi-select toggle -->
+          <label class="switch-wrap">
+            <span>เลือกหลายส่วน</span>
+            <span class="switch-ui">
+              <input type="checkbox" id="multiToggle">
+              <span class="switch-slider"></span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Stage Container -->
+      <div class="body-stage-container" id="stageContainer">
+        <!-- Muscle Tooltip -->
+        <div class="muscle-tooltip" id="muscleTooltip">
+          <span style="color:var(--primary-amber)">●</span> <span id="tooltipName">กล้ามเนื้อ</span>
+        </div>
+
+        <!-- 2D Vector Body Maps -->
+        <div class="maps-wrapper" id="mapsWrapper">
+          <!-- Injected SVG via JavaScript -->
+        </div>
+
+        <!-- 3D Three.js WebGL Stage -->
+        <div class="viewer-3d-stage" id="stage3D">
+          <div class="viewer-3d-hint">🖱️ คลิกและลากเพื่อหมุนหุ่น 3D ได้ 360 องศา</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: Anatomy Detail & Exercise Hub -->
+    <div class="panel-card">
+
+      <!-- STATE A: Empty Prompt & Muscle Categories -->
+      <div id="emptyPanel">
+        <div class="prompt-box">
+          <div class="prompt-icon">✋</div>
+          <div>
+            <div class="prompt-title">เลือกกล้ามเนื้อที่อยากฝึก</div>
+            <div class="prompt-sub">แตะกล้ามเนื้อบนแผนที่ด้านซ้าย หรือคลิกเลือกจากกลุ่มกล้ามเนื้อด้านล่าง</div>
+          </div>
+        </div>
+
+        <div class="groups-heading">
+          <span>㗊</span> กลุ่มกล้ามเนื้อทั้งหมด (30 มัด)
+        </div>
+
+        <!-- Upper Body -->
+        <div class="region-block">
+          <div class="region-name">ร่างกายส่วนบน</div>
+          <div class="pills-grid" id="gridUpper"></div>
+        </div>
+
+        <!-- Arms -->
+        <div class="region-block">
+          <div class="region-name">แขนและข้อศอก</div>
+          <div class="pills-grid" id="gridArms"></div>
+        </div>
+
+        <!-- Core -->
+        <div class="region-block">
+          <div class="region-name">แกนกลางลำตัว</div>
+          <div class="pills-grid" id="gridCore"></div>
+        </div>
+
+        <!-- Lower Body -->
+        <div class="region-block">
+          <div class="region-name">ร่างกายส่วนล่าง</div>
+          <div class="pills-grid" id="gridLower"></div>
+        </div>
+      </div>
+
+      <!-- STATE B: Active Muscle Details & Tier List -->
+      <div class="detail-card-view" id="detailPanel">
+        
+        <!-- Muscle Heading -->
+        <div class="anat-header">
+          <div class="anat-icon-badge" id="mIcon">🎯</div>
+          <div class="anat-title-info">
+            <div class="anat-name-th" id="mNameTh">หน้าท้อง (ซิกซ์แพ็ก)</div>
+            <div class="anat-name-lat" id="mNameLat">Rectus abdominis</div>
+            <div class="anat-tags-row">
+              <span class="badge badge-soft" id="mGroupBadge">อยู่ในกลุ่ม: หน้าท้อง</span>
+              <span class="badge badge-gray" id="mCountBadge">159 ท่า</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scientific Overview Description -->
+        <p class="anat-overview-text" id="mDescText"></p>
+
+        <!-- 4 Grid Fact Boxes -->
+        <div class="facts-grid">
+          <div class="fact-card">
+            <div class="fact-card-title">⚡ หน้าที่ (Function)</div>
+            <div class="fact-card-desc" id="mFuncText"></div>
+          </div>
+          <div class="fact-card">
+            <div class="fact-card-title">🏆 ทำไมต้องฝึก (Benefits)</div>
+            <div class="fact-card-desc" id="mWhyText"></div>
+          </div>
+          <div class="fact-card">
+            <div class="fact-card-title">🏠 ในชีวิตประจำวัน (Daily Life)</div>
+            <div class="fact-card-desc" id="mDailyText"></div>
+          </div>
+          <div class="fact-card">
+            <div class="fact-card-title">🧘 วิธียืดเหยียด (Stretching)</div>
+            <div class="fact-card-desc" id="mStretchText"></div>
+          </div>
+        </div>
+
+        <!-- Training Tips Checklist -->
+        <div class="tips-block">
+          <div class="tips-block-title">💡 เคล็ดลับการฝึกจากผู้เชี่ยวชาญ</div>
+          <ul class="tips-bullet-list" id="mTipsList"></ul>
+        </div>
+
+        <!-- Fun Fact Callout -->
+        <div class="fun-fact-callout">
+          <span style="font-size:1.3rem">✨</span>
+          <div class="fun-fact-text" id="mFactText"></div>
+        </div>
+
+        <!-- ================= EXERCISE HUB ================= -->
+        <div class="exercise-hub-section">
+          <div class="hub-header">
+            <div class="hub-title">
+              <span>🏋️</span> ท่าฝึกสำหรับ <span id="mExTargetName" style="color:var(--primary-amber-dark)">หน้าท้อง</span>
+            </div>
+
+            <!-- List Mode: Tier List vs Ladder -->
+            <div class="btn-segment">
+              <button class="seg-item is-on" id="tabTierList">🏆 จัดอันดับ S–D</button>
+              <button class="seg-item" id="tabLadder">🪜 เรียงจากง่ายไปยาก</button>
+            </div>
+          </div>
+
+          <!-- Equipment Filters -->
+          <div class="equip-filter-bar">
+            <button class="equip-chip active" data-equip="all">ทุกอุปกรณ์</button>
+            <button class="equip-chip" data-equip="bodyweight">🤸 บอดี้เวท</button>
+            <button class="equip-chip" data-equip="dumbbell">🏋️ ดัมเบล</button>
+            <button class="equip-chip" data-equip="barbell">🏋️ บาร์เบล</button>
+            <button class="equip-chip" data-equip="cable">🪢 เคเบิล</button>
+            <button class="equip-chip" data-equip="machine">⚙️ เครื่องแมชชีน</button>
+          </div>
+
+          <!-- Container for Tier List or Ladder Cards -->
+          <div id="exerciseListContainer"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FLOATING WORKOUT TRAY -->
+  <div class="floating-tray" id="routineTray">
+    <span class="tray-count-bubble" id="trayCount">0</span>
+    <span class="tray-text">เลือกท่าฝึกแล้ว</span>
+    <button type="button" class="btn-tray-clear" id="trayClear">ล้างทั้งหมด</button>
+    <button type="button" class="btn-tray-action" id="trayCreate">
+      <span>➕</span> สร้างชุดฝึก (Workout Routine)
+    </button>
+  </div>
+
+  <!-- MODAL: WORKOUT ROUTINE SUMMARY -->
+  <div class="modal-backdrop" id="routineModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">📋 ตารางชุดฝึกของคุณ (Custom Routine)</div>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div class="modal-routine-list" id="modalRoutineList"></div>
+      <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--card-border); padding-top:1.2rem;">
+        <span style="font-size:0.9rem; color:var(--text-muted)">ประเมินเวลาฝึก: <strong id="modalTimeEst">15-20 นาที</strong></span>
+        <button class="btn-tray-action" id="btnCopyRoutine">คัดลอกตารางฝึก</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN SCRIPT (ANATOMY LOGIC, 3D ENGINE, EXERCISES TIER LIST) -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    // State Variables
+    let currentGender = 'male';
+    let currentView = 'both';
+    let currentMode = '2d'; // '2d' or '3d'
+    let isMulti = false;
+    let selectedMuscles = new Set(['abs']);
+    let soundEnabled = true;
+    let exerciseListMode = 'tier'; // 'tier' or 'ladder'
+    let currentEquipFilter = 'all';
+    const pickedExercises = new Map(); // id -> exercise
+
+    // Audio Synthesizer via Web Audio API (Zero external audio dependency)
+    let audioCtx = null;
+    function playSfx(type = 'pop') {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        if (type === 'pop') {
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'pick') {
+          osc.frequency.setValueAtTime(587.33, now);
+          osc.frequency.exponentialRampToValueAtTime(1174.66, now + 0.12);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.12);
+          osc.start(now);
+          osc.stop(now + 0.12);
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+    // --- 1. RENDER 2D SVG MAP ---
+    const mapsWrapper = document.getElementById('mapsWrapper');
+    const tooltip = document.getElementById('muscleTooltip');
+    const tooltipName = document.getElementById('tooltipName');
+
+    const VIEWBOXES = {
+      front: '0 0 400 880',
+      back: '420 0 400 880',
+      both: '0 0 820 880'
+    };
+
+    function render2dSvg() {
+      const svgRaw = window.FL_DATA.svgs[currentGender];
+      mapsWrapper.innerHTML = svgRaw;
+
+      const svg = mapsWrapper.querySelector('svg');
+      if (!svg) return;
+
+      svg.setAttribute('viewBox', VIEWBOXES[currentView]);
+
+      // Adjust views
+      const frontGroup = svg.querySelector('#view-front');
+      const backGroup = svg.querySelector('#view-back');
+      if (currentView === 'front') {
+        if (backGroup) backGroup.style.display = 'none';
+        if (frontGroup) frontGroup.style.display = 'inline';
+      } else if (currentView === 'back') {
+        if (frontGroup) frontGroup.style.display = 'none';
+        if (backGroup) backGroup.style.display = 'inline';
+      } else {
+        if (frontGroup) frontGroup.style.display = 'inline';
+        if (backGroup) backGroup.style.display = 'inline';
+      }
+
+      // Bind all muscle parts
+      const parts = svg.querySelectorAll('.m');
+      parts.forEach(g => {
+        const slug = g.getAttribute('data-m');
+        const anat = window.FL_DATA.anatomy[slug];
+        const label = anat ? anat.name : slug;
+
+        g.addEventListener('pointerenter', (e) => {
+          tooltipName.textContent = label;
+          tooltip.classList.add('show');
+          positionTooltip(e);
+        });
+
+        g.addEventListener('pointermove', (e) => {
+          positionTooltip(e);
+        });
+
+        g.addEventListener('pointerleave', () => {
+          tooltip.classList.remove('show');
+        });
+
+        g.addEventListener('click', (e) => {
+          e.stopPropagation();
+          playSfx('pop');
+          handleMuscleSelection(slug);
+        });
+      });
+
+      updateSvgHighlights();
+    }
+
+    function positionTooltip(e) {
+      const stageRect = document.getElementById('stageContainer').getBoundingClientRect();
+      const x = e.clientX - stageRect.left;
+      const y = e.clientY - stageRect.top;
+      tooltip.style.left = `${x}px`;
+      tooltip.style.top = `${y}px`;
+    }
+
+    function updateSvgHighlights() {
+      const svg = mapsWrapper.querySelector('svg');
+      if (!svg) return;
+      svg.querySelectorAll('.m').forEach(g => {
+        const slug = g.getAttribute('data-m');
+        g.classList.toggle('is-active', selectedMuscles.has(slug));
+      });
+    }
+
+    // --- 2. 3D THREE.JS MANNEQUIN ENGINE ---
+    let threeRenderer = null;
+    let threeScene = null;
+    let threeCamera = null;
+    let threeControls = null;
+    let mannequinGroup = null;
+
+    function init3D() {
+      const container = document.getElementById('stage3D');
+      if (threeRenderer) return;
+
+      const width = container.clientWidth || 400;
+      const height = container.clientHeight || 640;
+
+      threeScene = new THREE.Scene();
+      threeCamera = new THREE.PerspectiveCamera(35, width / height, 0.1, 50);
+      threeCamera.position.set(0, 1.2, 4.2);
+
+      threeRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      threeRenderer.setSize(width, height);
+      threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      threeRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+      container.appendChild(threeRenderer.domElement);
+
+      threeControls = new OrbitControls(threeCamera, threeRenderer.domElement);
+      threeControls.enableDamping = true;
+      threeControls.dampingFactor = 0.08;
+      threeControls.minDistance = 2.0;
+      threeControls.maxDistance = 6.0;
+      threeControls.target.set(0, 0.9, 0);
+
+      // Studio Lighting
+      const ambLight = new THREE.AmbientLight(0xffffff, 0.85);
+      threeScene.add(ambLight);
+
+      const keyLight = new THREE.DirectionalLight(0xfff5e6, 2.0);
+      keyLight.position.set(3, 5, 4);
+      threeScene.add(keyLight);
+
+      const fillLight = new THREE.DirectionalLight(0x90cdf4, 1.2);
+      fillLight.position.set(-3, 3, -2);
+      threeScene.add(fillLight);
+
+      // Pedestal Base
+      const pedestalGeo = new THREE.CylinderGeometry(1.2, 1.3, 0.1, 32);
+      const pedestalMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.3 });
+      const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
+      pedestal.position.y = -0.05;
+      threeScene.add(pedestal);
+
+      // Procedural Stylized 3D Anatomical Mannequin
+      mannequinGroup = createProceduralMannequin();
+      threeScene.add(mannequinGroup);
+
+      function animate() {
+        requestAnimationFrame(animate);
+        threeControls.update();
+        threeRenderer.render(threeScene, threeCamera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        if (!container) return;
+        const w = container.clientWidth;
+        const h = container.clientHeight;
+        threeCamera.aspect = w / h;
+        threeCamera.updateProjectionMatrix();
+        threeRenderer.setSize(w, h);
+      });
+    }
+
+    function createProceduralMannequin() {
+      const group = new THREE.Group();
+      const bodyMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.4 });
+      const highlightMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, emissive: 0xb45309, roughness: 0.2 });
+
+      // Head
+      const headGeo = new THREE.SphereGeometry(0.2, 24, 24);
+      const head = new THREE.Mesh(headGeo, bodyMat);
+      head.position.y = 1.95;
+      group.add(head);
+
+      // Torso Upper (Chest)
+      const chestGeo = new THREE.BoxGeometry(0.55, 0.35, 0.28);
+      const chest = new THREE.Mesh(chestGeo, bodyMat);
+      chest.position.y = 1.55;
+      chest.name = 'chest';
+      group.add(chest);
+
+      // Abs
+      const absGeo = new THREE.BoxGeometry(0.42, 0.4, 0.24);
+      const abs = new THREE.Mesh(absGeo, bodyMat);
+      abs.position.y = 1.2;
+      abs.name = 'abs';
+      group.add(abs);
+
+      // Shoulders
+      const shoulderGeo = new THREE.SphereGeometry(0.14, 16, 16);
+      const lShoulder = new THREE.Mesh(shoulderGeo, bodyMat);
+      lShoulder.position.set(-0.38, 1.62, 0);
+      const rShoulder = new THREE.Mesh(shoulderGeo, bodyMat);
+      rShoulder.position.set(0.38, 1.62, 0);
+      group.add(lShoulder, rShoulder);
+
+      // Arms
+      const armGeo = new THREE.CylinderGeometry(0.08, 0.07, 0.42, 16);
+      const lArm = new THREE.Mesh(armGeo, bodyMat);
+      lArm.position.set(-0.42, 1.32, 0);
+      const rArm = new THREE.Mesh(armGeo, bodyMat);
+      rArm.position.set(0.42, 1.32, 0);
+      group.add(lArm, rArm);
+
+      // Pelvis / Glutes
+      const pelvisGeo = new THREE.BoxGeometry(0.48, 0.25, 0.28);
+      const pelvis = new THREE.Mesh(pelvisGeo, bodyMat);
+      pelvis.position.y = 0.9;
+      group.add(pelvis);
+
+      // Thighs (Quads / Hamstrings)
+      const thighGeo = new THREE.CylinderGeometry(0.12, 0.09, 0.55, 16);
+      const lThigh = new THREE.Mesh(thighGeo, bodyMat);
+      lThigh.position.set(-0.16, 0.52, 0);
+      lThigh.name = 'quads';
+      const rThigh = new THREE.Mesh(thighGeo, bodyMat);
+      rThigh.position.set(0.16, 0.52, 0);
+      rThigh.name = 'quads';
+      group.add(lThigh, rThigh);
+
+      // Calves
+      const calfGeo = new THREE.CylinderGeometry(0.08, 0.06, 0.48, 16);
+      const lCalf = new THREE.Mesh(calfGeo, bodyMat);
+      lCalf.position.set(-0.16, 0.15, 0);
+      const rCalf = new THREE.Mesh(calfGeo, bodyMat);
+      rCalf.position.set(0.16, 0.15, 0);
+      group.add(lCalf, rCalf);
+
+      return group;
+    }
+
+    function update3dHighlights() {
+      if (!mannequinGroup) return;
+      mannequinGroup.traverse(child => {
+        if (child.isMesh && child.name) {
+          const isSelected = selectedMuscles.has(child.name);
+          child.material.color.setHex(isSelected ? 0xf59e0b : 0xe2e8f0);
+          child.material.emissive?.setHex(isSelected ? 0x92400e : 0x000000);
+        }
+      });
+    }
+
+    // --- 3. SELECTION & DETAIL VIEW LOGIC ---
+    function handleMuscleSelection(slug) {
+      if (isMulti) {
+        if (selectedMuscles.has(slug)) selectedMuscles.delete(slug);
+        else selectedMuscles.add(slug);
+      } else {
+        selectedMuscles.clear();
+        selectedMuscles.add(slug);
+      }
+
+      updateSvgHighlights();
+      update3dHighlights();
+      renderDetailsPanel();
+    }
+
+    function renderDetailsPanel() {
+      const emptyPanel = document.getElementById('emptyPanel');
+      const detailPanel = document.getElementById('detailPanel');
+
+      if (selectedMuscles.size === 0) {
+        emptyPanel.style.display = 'block';
+        detailPanel.classList.remove('show');
+        return;
+      }
+
+      emptyPanel.style.display = 'none';
+      detailPanel.classList.add('show');
+
+      // Take first selected muscle
+      const slug = [...selectedMuscles][0];
+      const data = window.FL_DATA.anatomy[slug];
+      if (!data) return;
+
+      document.getElementById('mNameTh').textContent = data.name;
+      document.getElementById('mNameLat').textContent = data.latin || '';
+      document.getElementById('mGroupBadge').textContent = `อยู่ในกลุ่ม: ${window.FL_DATA.groups[data.group]?.name || data.group}`;
+      document.getElementById('mCountBadge').textContent = `${data.count} ท่า`;
+      document.getElementById('mDescText').textContent = data.desc;
+      document.getElementById('mFuncText').textContent = data.function;
+      document.getElementById('mWhyText').textContent = data.benefits;
+      document.getElementById('mDailyText').textContent = data.daily;
+      document.getElementById('mStretchText').textContent = data.stretch;
+
+      // Tips
+      const tipsList = document.getElementById('mTipsList');
+      tipsList.innerHTML = (data.tips || []).map(tip => `<li><span class="icon-green-check">✓</span><span>${tip}</span></li>`).join('');
+
+      // Fact
+      document.getElementById('mFactText').innerHTML = `<strong>รู้หรือไม่?</strong> ${data.fact}`;
+
+      // Target Name in Exercise Hub
+      document.getElementById('mExTargetName').textContent = data.name;
+
+      renderExercises();
+    }
+
+    // --- 4. EXERCISE HUB (TIER LIST & LADDER) ---
+    function renderExercises() {
+      const container = document.getElementById('exerciseListContainer');
+      const slug = [...selectedMuscles][0];
+      const exData = window.FL_DATA.exercises[slug] || window.FL_DATA.exercises.abs;
+
+      if (!exData) {
+        container.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--text-muted)">ยังไม่มีรายการท่าสำหรับส่วนนี้</div>`;
+        return;
+      }
+
+      if (exerciseListMode === 'tier') {
+        const tiers = ['S', 'A', 'B', 'C', 'D'];
+        let html = '<div class="tier-container">';
+
+        tiers.forEach(tier => {
+          let list = exData[tier] || [];
+          if (currentEquipFilter !== 'all') {
+            list = list.filter(item => item.e === currentEquipFilter);
+          }
+
+          if (list.length > 0) {
+            html += `
+              <div class="tier-row tier-${tier.toLowerCase()}">
+                <div class="tier-badge-col">
+                  ${tier}
+                  <small>${tier === 'S' ? 'ท็อป' : tier === 'A' ? 'ยอดเยี่ยม' : tier === 'B' ? 'ดีเยี่ยม' : 'พื้นฐาน'}</small>
+                </div>
+                <div class="tier-items-grid">
+                  ${list.map(ex => renderExerciseItem(ex)).join('')}
+                </div>
+              </div>
+            `;
+          }
+        });
+
+        html += '</div>';
+        container.innerHTML = html;
+      } else {
+        // Ladder View (Lv 1 to Lv 5)
+        let allItems = [];
+        ['S', 'A', 'B', 'C', 'D'].forEach(k => {
+          if (exData[k]) allItems.push(...exData[k]);
+        });
+        if (currentEquipFilter !== 'all') {
+          allItems = allItems.filter(item => item.e === currentEquipFilter);
+        }
+        allItems.sort((a, b) => (a.lv || 1) - (b.lv || 1));
+
+        const byLevel = {};
+        allItems.forEach(ex => {
+          const lv = ex.lv || 1;
+          if (!byLevel[lv]) byLevel[lv] = [];
+          byLevel[lv].push(ex);
+        });
+
+        let html = '<div class="tier-container">';
+        Object.keys(byLevel).sort().forEach(lv => {
+          const lvNames = { 1: 'ระดับ 1: ผู้เริ่มต้น', 2: 'ระดับ 2: ปานกลาง', 3: 'ระดับ 3: ขั้นสูง', 4: 'ระดับ 4: เชี่ยวชาญ', 5: 'ระดับ 5: ยอดมนุษย์' };
+          html += `
+            <div style="margin-bottom:1rem">
+              <div style="font-family:'Prompt'; font-weight:700; color:var(--text-title); margin-bottom:0.6rem;">${lvNames[lv] || `ระดับ ${lv}`}</div>
+              <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:0.8rem;">
+                ${byLevel[lv].map(ex => renderExerciseItem(ex)).join('')}
+              </div>
+            </div>
+          `;
+        });
+        html += '</div>';
+        container.innerHTML = html;
+      }
+
+      // Bind Pick buttons
+      container.querySelectorAll('[data-pick-id]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const id = Number(btn.getAttribute('data-pick-id'));
+          const item = findExerciseById(id);
+          if (pickedExercises.has(id)) {
+            pickedExercises.delete(id);
+          } else {
+            pickedExercises.set(id, item);
+            playSfx('pick');
+          }
+          renderExercises();
+          updateRoutineTray();
+        });
+      });
+    }
+
+    function findExerciseById(id) {
+      const slug = [...selectedMuscles][0];
+      const exData = window.FL_DATA.exercises[slug] || window.FL_DATA.exercises.abs;
+      for (const k of ['S', 'A', 'B', 'C', 'D']) {
+        const found = (exData[k] || []).find(x => x.id === id);
+        if (found) return found;
+      }
+      return null;
+    }
+
+    function renderExerciseItem(ex) {
+      const isPicked = pickedExercises.has(ex.id);
+      const equipNames = {
+        bodyweight: 'บอดี้เวท',
+        cable: 'เคเบิล',
+        machine: 'แมชชีน',
+        dumbbell: 'ดัมเบล',
+        barbell: 'บาร์เบล',
+        ab_wheel: 'ล้อบริหาร',
+        stability_ball: 'บอลโยคะ'
+      };
+
+      return `
+        <div class="exercise-item ${isPicked ? 'is-picked' : ''}">
+          <div class="exercise-info">
+            <div class="ex-name-th">${ex.name}</div>
+            <div class="ex-name-en">${ex.en}</div>
+            <div class="ex-meta">
+              <span class="ex-equip-badge">${equipNames[ex.e] || ex.e}</span>
+              <span>${ex.sets ? `${ex.sets} เซต × ${ex.reps || `${ex.time} วินาที`}` : 'ตามโปรแกรม'}</span>
+            </div>
+          </div>
+          <button type="button" class="btn-pick" data-pick-id="${ex.id}">
+            ${isPicked ? '✓' : '➕'}
+          </button>
+        </div>
+      `;
+    }
+
+    // --- 5. WORKOUT TRAY & MODAL ---
+    const tray = document.getElementById('routineTray');
+    const trayCount = document.getElementById('trayCount');
+    const routineModal = document.getElementById('routineModal');
+    const modalRoutineList = document.getElementById('modalRoutineList');
+
+    function updateRoutineTray() {
+      const count = pickedExercises.size;
+      trayCount.textContent = count;
+      if (count > 0) {
+        tray.classList.add('show');
+      } else {
+        tray.classList.remove('show');
+      }
+    }
+
+    document.getElementById('trayClear').addEventListener('click', () => {
+      pickedExercises.clear();
+      renderExercises();
+      updateRoutineTray();
+    });
+
+    document.getElementById('trayCreate').addEventListener('click', () => {
+      if (pickedExercises.size === 0) return;
+      modalRoutineList.innerHTML = [...pickedExercises.values()].map((ex, i) => `
+        <div class="modal-routine-item">
+          <div>
+            <strong>${i + 1}. ${ex.name} (${ex.en})</strong>
+            <div style="font-size:0.8rem; color:var(--text-muted)">เป้าหมาย: ${ex.sets || 3} เซต × ${ex.reps || `${ex.time} วินาที`} (พัก ${ex.rest || 60} วิ)</div>
+          </div>
+          <span class="ex-equip-badge">${ex.e}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('modalTimeEst').textContent = `${pickedExercises.size * 5}-${pickedExercises.size * 7} นาที`;
+      routineModal.classList.add('open');
+    });
+
+    document.getElementById('modalClose').addEventListener('click', () => {
+      routineModal.classList.remove('open');
+    });
+
+    document.getElementById('btnCopyRoutine').addEventListener('click', () => {
+      const text = [...pickedExercises.values()].map((ex, i) => `${i + 1}. ${ex.name} - ${ex.sets || 3} เซต x ${ex.reps || `${ex.time}s`}`).join('\n');
+      navigator.clipboard.writeText(text).then(() => {
+        alert('คัดลอกตารางฝึกเรียบร้อยแล้ว!');
+      });
+    });
+
+    // --- 6. POPULATE EMPTY STATE GROUPS ---
+    function initMuscleGroups() {
+      const regions = {
+        upper: ['shoulders', 'chest', 'traps', 'lats'],
+        arms: ['biceps', 'triceps', 'forearms'],
+        core: ['abs', 'obliques', 'lower_back'],
+        lower: ['glutes', 'quads', 'hamstrings', 'calves']
+      };
+
+      const groupMap = {
+        shoulders: { name: 'ไหล่', count: '138 ท่า', slug: 'front_deltoid' },
+        chest: { name: 'หน้าอก', count: '106 ท่า', slug: 'chest' },
+        traps: { name: 'บ่า', count: '34 ท่า', slug: 'traps' },
+        lats: { name: 'ปีกหลัง', count: '62 ท่า', slug: 'lats' },
+        biceps: { name: 'ต้นแขนด้านหน้า', count: '67 ท่า', slug: 'biceps' },
+        triceps: { name: 'ต้นแขนด้านหลัง', count: '82 ท่า', slug: 'triceps' },
+        forearms: { name: 'แขนท่อนล่าง', count: '43 ท่า', slug: 'forearm_flexors' },
+        abs: { name: 'หน้าท้อง', count: '159 ท่า', slug: 'abs' },
+        obliques: { name: 'ท้องด้านข้าง', count: '71 ท่า', slug: 'obliques' },
+        lower_back: { name: 'หลังส่วนล่าง', count: '45 ท่า', slug: 'lower_back' },
+        glutes: { name: 'ก้นและสะโพก', count: '88 ท่า', slug: 'glutes' },
+        quads: { name: 'ต้นขาด้านหน้า', count: '129 ท่า', slug: 'quads' },
+        hamstrings: { name: 'ต้นขาด้านหลัง', count: '72 ท่า', slug: 'hamstrings' },
+        calves: { name: 'น่อง', count: '44 ท่า', slug: 'calves' }
+      };
+
+      function renderGrid(regKey, elId) {
+        const el = document.getElementById(elId);
+        el.innerHTML = regions[regKey].map(key => {
+          const g = groupMap[key];
+          return `
+            <div class="pill-item" data-pill-slug="${g.slug}">
+              <div class="pill-header"><span class="pill-circle"></span><span class="pill-label">${g.name}</span></div>
+              <div class="pill-badge">${g.count}</div>
+            </div>
+          `;
+        }).join('');
+
+        el.querySelectorAll('[data-pill-slug]').forEach(item => {
+          item.addEventListener('click', () => {
+            const slug = item.getAttribute('data-pill-slug');
+            playSfx('pop');
+            handleMuscleSelection(slug);
+          });
+        });
+      }
+
+      renderGrid('upper', 'gridUpper');
+      renderGrid('arms', 'gridArms');
+      renderGrid('core', 'gridCore');
+      renderGrid('lower', 'gridLower');
+    }
+
+    // --- 7. TOOLBAR EVENT LISTENERS ---
+    // 2D vs 3D
+    const btn2D = document.getElementById('mode-2d');
+    const btn3D = document.getElementById('mode-3d');
+    const mapsWrap = document.getElementById('mapsWrapper');
+    const stage3D = document.getElementById('stage3D');
+
+    btn2D.addEventListener('click', () => {
+      btn2D.classList.add('is-on');
+      btn3D.classList.remove('is-on');
+      mapsWrap.style.display = 'flex';
+      stage3D.classList.remove('active');
+      currentMode = '2d';
+    });
+
+    btn3D.addEventListener('click', () => {
+      btn3D.classList.add('is-on');
+      btn2D.classList.remove('is-on');
+      mapsWrap.style.display = 'none';
+      stage3D.classList.add('active');
+      currentMode = '3d';
+      init3D();
+      update3dHighlights();
+    });
+
+    // Gender
+    const btnMale = document.getElementById('gender-male');
+    const btnFemale = document.getElementById('gender-female');
+    btnMale.addEventListener('click', () => {
+      btnMale.classList.add('is-on');
+      btnFemale.classList.remove('is-on');
+      currentGender = 'male';
+      render2dSvg();
+    });
+    btnFemale.addEventListener('click', () => {
+      btnFemale.classList.add('is-on');
+      btnMale.classList.remove('is-on');
+      currentGender = 'female';
+      render2dSvg();
+    });
+
+    // View Angle
+    const vBoth = document.getElementById('view-both');
+    const vFront = document.getElementById('view-front');
+    const vBack = document.getElementById('view-back');
+
+    function setActiveViewBtn(b) {
+      [vBoth, vFront, vBack].forEach(x => x.classList.remove('is-on'));
+      b.classList.add('is-on');
+    }
+
+    vBoth.addEventListener('click', () => { setActiveViewBtn(vBoth); currentView = 'both'; render2dSvg(); });
+    vFront.addEventListener('click', () => { setActiveViewBtn(vFront); currentView = 'front'; render2dSvg(); });
+    vBack.addEventListener('click', () => { setActiveViewBtn(vBack); currentView = 'back'; render2dSvg(); });
+
+    // Multi-Select Toggle
+    document.getElementById('multiToggle').addEventListener('change', (e) => {
+      isMulti = e.target.checked;
+      if (!isMulti && selectedMuscles.size > 1) {
+        const first = [...selectedMuscles][0];
+        selectedMuscles.clear();
+        selectedMuscles.add(first);
+        updateSvgHighlights();
+        update3dHighlights();
+        renderDetailsPanel();
+      }
+    });
+
+    // Exercise Tabs
+    const tabTier = document.getElementById('tabTierList');
+    const tabLadder = document.getElementById('tabLadder');
+    tabTier.addEventListener('click', () => {
+      tabTier.classList.add('is-on');
+      tabLadder.classList.remove('is-on');
+      exerciseListMode = 'tier';
+      renderExercises();
+    });
+    tabLadder.addEventListener('click', () => {
+      tabLadder.classList.add('is-on');
+      tabTier.classList.remove('is-on');
+      exerciseListMode = 'ladder';
+      renderExercises();
+    });
+
+    // Equipment Filter Chips
+    document.querySelectorAll('.equip-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.equip-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentEquipFilter = chip.getAttribute('data-equip');
+        renderExercises();
+      });
+    });
+
+    // Theme Toggle
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+    });
+
+    // Sound Toggle
+    const soundBtn = document.getElementById('soundToggle');
+    soundBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundBtn.textContent = soundEnabled ? '🔊' : '🔇';
+    });
+
+    // --- INITIALIZATION ---
+    initMuscleGroups();
+    render2dSvg();
+    renderDetailsPanel();
+  </script>
+</body>
+</html>

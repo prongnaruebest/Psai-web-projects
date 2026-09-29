@@ -21,3 +21,9 @@ dist/
 .netlify/
 *.rar
 *.tar.gz
+
+# Local scratch & shortcuts
+fastfit_*
+abs_exercises.json
+*.lnk
+*.dev.html

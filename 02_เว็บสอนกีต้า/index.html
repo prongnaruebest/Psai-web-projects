@@ -1,21 +1,1442 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GuitarQuest: From Zero to Hero • เว็บสอนเล่นกีตาร์แบบเกมอนิเมะ</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Kanit', system-ui, -apple-system, sans-serif;
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GuitarQuest: From Zero to Hero • เว็บสอนเล่นกีตาร์แบบเกมอนิเมะ</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS & Confetti CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Kanit', 'sans-serif'],
+            outfit: ['Outfit', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            guitar: {
+              gold: '#f59e0b',
+              glow: '#fbbf24',
+              dark: '#090d16',
+              card: '#111827',
+              border: '#1f2937'
+            }
+          }
+        }
       }
-    </style>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #05070d;
+      color: #f1f5f9;
+      font-family: 'Kanit', sans-serif;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(1deg); }
+    }
+    @keyframes headbang {
+      0%, 100% { transform: rotate(0deg) translateY(0px); }
+      25% { transform: rotate(-6deg) translateY(-5px); }
+      75% { transform: rotate(6deg) translateY(3px); }
+    }
+    @keyframes strumArm {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(18deg); }
+    }
+    @keyframes glowPulse {
+      0%, 100% { filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.4)); }
+      50% { filter: drop-shadow(0 0 35px rgba(245, 158, 11, 0.85)); }
+    }
+
+    .anim-float { animation: float 3.5s ease-in-out infinite; }
+    .anim-headbang { animation: headbang 0.6s ease-in-out infinite; }
+    .anim-strum { animation: strumArm 0.3s ease-in-out infinite; }
+    .anim-glow { animation: glowPulse 2.5s ease-in-out infinite; }
+
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #090d16; }
+    ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #374151; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black">
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed top-5 right-5 z-50 bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 px-5 py-3 rounded-xl font-bold text-sm shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-[-150%] opacity-0 pointer-events-none">
+    <span>✨</span>
+    <span id="toast-msg">แจ้งเตือน</span>
+  </div>
+
+  <!-- Top Navbar -->
+  <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-slate-950 text-xl font-bold shadow-[0_0_15px_rgba(245,158,11,0.5)]">
+          🎸
+        </div>
+        <div>
+          <h1 class="text-lg font-black tracking-tight text-white flex items-center gap-1.5 font-outfit">
+            GuitarQuest
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 font-sans">
+              Zero to Hero
+            </span>
+          </h1>
+          <p class="text-[11px] text-slate-400 hidden sm:block">เส้นทางฝึกกีตาร์และพัฒนาตัวละครอนิเมะ</p>
+        </div>
+      </div>
+
+      <!-- Gamification Stats: Level, EXP Bar, Streak -->
+      <div class="flex items-center gap-3 sm:gap-6">
+        
+        <!-- Streak -->
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-bold shadow-sm" title="สถิติการฝึกติดต่อกันรายวัน">
+          <span class="animate-pulse">🔥</span>
+          <span id="stat-streak">3 วันซ้อน!</span>
+        </div>
+
+        <!-- Level & EXP Progress -->
+        <div class="flex flex-col items-end min-w-[130px] sm:min-w-[170px]">
+          <div class="flex items-center justify-between w-full text-xs font-bold mb-1">
+            <span id="stat-level" class="text-amber-400 font-mono">Lv. 1</span>
+            <span id="stat-exp-text" class="text-slate-400 text-[10px] font-mono">150 / 350 EXP</span>
+          </div>
+          <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden border border-slate-700/50">
+            <div id="stat-exp-bar" class="h-full bg-gradient-to-r from-amber-500 to-amber-300 transition-all duration-500 shadow-[0_0_8px_rgba(245,158,11,0.8)]" style="width: 42%;"></div>
+          </div>
+        </div>
+
+        <!-- Audio Toggle -->
+        <button id="btn-sound-toggle" onclick="toggleMute()" class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition cursor-pointer" title="เปิด/ปิดเสียง">
+          <span id="sound-icon">🔊</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto w-full px-4 lg:px-8 py-6 space-y-6 flex-1">
+    
+    <!-- HERO SECTION: Anime Avatar Companion & Evolution Showcase -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+      
+      <!-- Anime Avatar Visualizer (Left 5 Cols) -->
+      <div class="lg:col-span-5 flex flex-col">
+        <div id="avatar-container" onclick="interactAvatar()" class="relative group cursor-pointer select-none rounded-2xl bg-gradient-to-b from-amber-700/30 to-amber-950/40 border border-amber-700/50 p-6 flex flex-col items-center justify-center transition-all duration-500 hover:scale-[1.01] shadow-xl">
+          
+          <!-- Background Glow -->
+          <div id="avatar-aura-glow" class="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl animate-pulse"></div>
+          </div>
+
+          <!-- Stage Badge Header -->
+          <div class="z-10 flex items-center justify-between w-full mb-2">
+            <span id="avatar-badge" class="text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-700/60 text-amber-400 backdrop-blur-sm">
+              🌱 Rookie Novice
+            </span>
+            <span id="avatar-stage-num" class="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-800/80 text-slate-300">
+              ร่างพัฒนาที่ 1/6
+            </span>
+          </div>
+
+          <!-- Dynamic Anime SVG Graphic -->
+          <div id="avatar-svg-wrapper" class="relative w-56 h-64 flex items-center justify-center anim-float">
+            <!-- Dynamic SVG injected via JavaScript -->
+            <div id="avatar-svg-target" class="w-full h-full"></div>
+          </div>
+
+          <!-- Avatar Description & Guitar Info -->
+          <div class="z-10 w-full mt-3 pt-3 border-t border-slate-700/50 text-center">
+            <h3 id="avatar-title" class="text-base font-bold text-white tracking-wide">Beginner Kid (หนูน้อยเริ่มต้น)</h3>
+            <p id="avatar-sub" class="text-xs text-slate-300 mt-1 line-clamp-1">นิ้วยังนิ่ม พลาสเตอร์ยาเต็มมือ กีตาร์ไม้ตัวเก่า</p>
+            <div class="mt-2.5 px-3 py-1.5 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] text-amber-300/90 flex items-center justify-center gap-2">
+              <span id="avatar-guitar-info">🎸 กีตาร์ไม้ผุพัง (Old Acoustic)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Player Evolution Hub (Right 7 Cols) -->
+      <div class="lg:col-span-7 bg-slate-900/80 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between shadow-xl">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">🏆</span>
+              <h2 class="text-xl font-black text-white">บันทึกพัฒนาการตัวละคร (Avatar Status)</h2>
+            </div>
+            <span id="stat-total-exp" class="text-xs px-3 py-1 rounded-full bg-slate-800 text-slate-300 font-mono">
+              EXP รวม: 150
+            </span>
+          </div>
+
+          <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+            ตัวละครอนิเมะของคุณจะเจริญเติบโตและเปลี่ยนรูปลักษณ์ไปตามเลเวลการฝึกจริง ยิ่งฝึกตารางประจำวันมากเท่าไร กีตาร์ อุปกรณ์ และเวทีการแสดงจะยิ่งอัปเกรดสู่ระดับตำนาน!
+          </p>
+
+          <!-- Current Passive Bonus Card -->
+          <div class="rounded-xl bg-slate-950 border border-slate-800/80 p-3.5 mb-4 text-xs space-y-1">
+            <div class="flex items-center gap-2 text-amber-400 font-bold">
+              <span>✨</span>
+              <span>บัฟพิเศษประจำร่าง (Passive Perk):</span>
+            </div>
+            <p id="avatar-perk-text" class="text-slate-300 pl-6">+10% EXP จากการจูนสายและสไปเดอร์วอล์ก</p>
+          </div>
+
+          <!-- Quick Evolution Test Switcher -->
+          <div class="space-y-1.5">
+            <span class="text-xs font-bold text-slate-400 block">เส้นทางการเติบโต 6 ระดับ (คลิกทดสอบเปลี่ยนร่างได้):</span>
+            <div id="stage-buttons-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 mt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <span class="text-slate-400">💡 คลิกที่ตัวละครด้านซ้ายเพื่อสั่งให้ดีดกีตาร์และโยกหัว</span>
+          <button onclick="addExp(50, 'กดซ้อมอิสระ')" class="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold transition active:scale-95 cursor-pointer">
+            +50 EXP (ทดสอบดีดเล่น)
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="flex items-center gap-2 overflow-x-auto pb-1 border-b border-slate-800">
+      <button onclick="switchTab('routine')" id="tab-btn-routine" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer bg-amber-500 text-slate-950 shadow-md">
+        <span>📅</span>
+        <span>ตารางการฝึก (Practice Routine)</span>
+      </button>
+
+      <button onclick="switchTab('roadmap')" id="tab-btn-roadmap" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800">
+        <span>🗺️</span>
+        <span>เส้นทางการฝึก 12 บทเรียน (Roadmap)</span>
+      </button>
+
+      <button onclick="switchTab('songs')" id="tab-btn-songs" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800">
+        <span>🎵</span>
+        <span>คลังเพลงฝึกง่าย (Song Player)</span>
+      </button>
+
+      <button onclick="switchTab('chords')" id="tab-btn-chords" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800">
+        <span>🎸</span>
+        <span>คลังคอร์ด & เสียงดีด (Chord Library)</span>
+      </button>
+
+      <button onclick="switchTab('tuner')" id="tab-btn-tuner" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800">
+        <span>📻</span>
+        <span>เครื่องตั้งสาย (Guitar Tuner)</span>
+      </button>
+    </nav>
+
+    <!-- TAB 1: PRACTICE ROUTINE -->
+    <div id="tab-routine" class="tab-pane space-y-6">
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
+        
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
+          <div>
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              <span>⏱️</span>
+              ตารางการฝึกซ้อมกีตาร์ (Practice Routine)
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">ฝึกสม่ำเสมอทุกวันเพื่อเก็บ EXP และอัปเกรดร่างตัวละครอนิเมะของคุณ</p>
+          </div>
+
+          <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
+            <button onclick="selectRoutinePlan(0)" id="plan-btn-0" class="routine-plan-btn px-3 py-1.5 rounded-lg font-semibold transition text-slate-400 hover:text-white">15 นาที</button>
+            <button onclick="selectRoutinePlan(1)" id="plan-btn-1" class="routine-plan-btn px-3 py-1.5 rounded-lg font-semibold transition bg-amber-500 text-slate-950 shadow-md">30 นาที ★</button>
+            <button onclick="selectRoutinePlan(2)" id="plan-btn-2" class="routine-plan-btn px-3 py-1.5 rounded-lg font-semibold transition text-slate-400 hover:text-white">60 นาที</button>
+          </div>
+        </div>
+
+        <!-- Routine Steps Indicators -->
+        <div id="routine-steps-grid" class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-2">
+          <!-- Rendered via JS -->
+        </div>
+
+        <!-- Timer Card -->
+        <div id="routine-timer-card" class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 border border-slate-700/60 p-6 text-center shadow-inner">
+          <div class="absolute top-0 left-0 right-0 h-1.5 bg-slate-800">
+            <div id="routine-step-progress" class="h-full bg-gradient-to-r from-amber-500 to-amber-300 transition-all duration-300" style="width: 0%;"></div>
+          </div>
+
+          <div id="routine-current-badge" class="inline-block px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold mb-2">
+            ช่วงที่ 1 / 4: Warm-up & Finger Stretching
+          </div>
+          
+          <div id="routine-timer-display" class="text-6xl sm:text-7xl font-mono font-black tracking-tight text-white my-2 drop-shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+            05:00
+          </div>
+
+          <p id="routine-current-desc" class="text-sm text-slate-300 max-w-md mx-auto mb-6">
+            ยืดข้อนิ้ว + Spider Walk สลับคู่สาย 1-2-3-4
+          </p>
+
+          <div class="flex items-center justify-center gap-3">
+            <button id="btn-routine-toggle" onclick="toggleRoutineTimer()" class="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm shadow-lg transition active:scale-95 cursor-pointer bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950">
+              <span id="routine-play-icon">▶</span>
+              <span id="routine-play-text">เริ่มฝึกตามเวลา</span>
+            </button>
+
+            <button onclick="resetRoutineStep()" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition cursor-pointer" title="รีเซ็ตเวลานี้">
+              🔄
+            </button>
+
+            <button onclick="skipRoutineStep()" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition cursor-pointer" title="ข้ามไปช่วงถัดไป">
+              ⏭️
+            </button>
+          </div>
+        </div>
+
+        <!-- Built-in Metronome -->
+        <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-4 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <button id="btn-metronome-toggle" onclick="toggleMetronome()" class="p-3 rounded-xl border font-bold transition flex items-center gap-2 cursor-pointer bg-slate-900 border-slate-700 text-slate-300 hover:bg-slate-800">
+              <span id="metronome-icon">🔇</span>
+              <span id="metronome-text" class="text-xs">เปิดเมโทรนอม</span>
+            </button>
+
+            <div>
+              <div class="text-sm font-bold text-white flex items-center gap-2">
+                <span>จังหวะ (Metronome):</span>
+                <span id="metronome-bpm-display" class="text-amber-400 font-mono text-base">80 BPM</span>
+              </div>
+              <div class="text-xs text-slate-400">จังหวะ 4/4 (เสียงเคาะสูงที่จังหวะที่ 1)</div>
+            </div>
+          </div>
+
+          <!-- Beat Dots -->
+          <div class="flex items-center gap-2">
+            <div id="beat-dot-0" class="w-3.5 h-3.5 rounded-full bg-slate-800 transition-all duration-100"></div>
+            <div id="beat-dot-1" class="w-3.5 h-3.5 rounded-full bg-slate-800 transition-all duration-100"></div>
+            <div id="beat-dot-2" class="w-3.5 h-3.5 rounded-full bg-slate-800 transition-all duration-100"></div>
+            <div id="beat-dot-3" class="w-3.5 h-3.5 rounded-full bg-slate-800 transition-all duration-100"></div>
+          </div>
+
+          <!-- BPM Slider -->
+          <div class="flex items-center gap-3 w-full md:w-56">
+            <input type="range" id="bpm-slider" min="40" max="180" step="2" value="80" oninput="changeBpm(this.value)" class="w-full accent-amber-400 cursor-pointer">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: ROADMAP 12 LESSONS -->
+    <div id="tab-roadmap" class="tab-pane hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div id="roadmap-phases-container" class="lg:col-span-2 space-y-6">
+          <!-- Rendered via JS -->
+        </div>
+
+        <!-- Selected Lesson Drawer -->
+        <div id="lesson-detail-drawer" class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5 h-fit sticky top-20">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: SONGS REPERTOIRE -->
+    <div id="tab-songs" class="tab-pane hidden space-y-6">
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              <span>🎵</span>
+              คลังเพลงฝึกซ้อม (Easy Songs Repertoire)
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">รวมเพลงง่ายๆ สำหรับฝึกตีคอร์ด ร้องเพลง และสร้างความสนุก</p>
+          </div>
+
+          <div id="song-select-chips" class="flex flex-wrap gap-2">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- Selected Song Card -->
+        <div id="song-display-area" class="space-y-6">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: CHORD LIBRARY -->
+    <div id="tab-chords" class="tab-pane hidden space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/90 border border-slate-800 p-4 rounded-2xl">
+        <div>
+          <h3 class="font-bold text-white text-base">คลังคอร์ดกีตาร์มาตรฐาน (Guitar Chord Library)</h3>
+          <p class="text-xs text-slate-400">คลิกที่สายเพื่อฟังโน้ตทีละสาย หรือกดดีดทั้งคอร์ด</p>
+        </div>
+
+        <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
+          <button onclick="filterChords('all')" id="chord-filter-all" class="chord-filter-btn px-3 py-1.5 rounded-lg transition bg-amber-500 text-slate-950 font-bold">ทั้งหมด (10)</button>
+          <button onclick="filterChords('beginner')" id="chord-filter-beginner" class="chord-filter-btn px-3 py-1.5 rounded-lg transition text-slate-400 hover:text-white">มือใหม่ (Open)</button>
+          <button onclick="filterChords('intermediate')" id="chord-filter-intermediate" class="chord-filter-btn px-3 py-1.5 rounded-lg transition text-slate-400 hover:text-white">ระดับกลาง (Barre)</button>
+          <button onclick="filterChords('advanced')" id="chord-filter-advanced" class="chord-filter-btn px-3 py-1.5 rounded-lg transition text-slate-400 hover:text-white">ระดับสูง (Jazz)</button>
+        </div>
+      </div>
+
+      <div id="chords-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- TAB 5: GUITAR TUNER -->
+    <div id="tab-tuner" class="tab-pane hidden space-y-6">
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-2">
+            <span class="text-teal-400 text-xl">📻</span>
+            <h3 class="font-bold text-white text-base">เครื่องตั้งสายมาตรฐาน (Standard Tuner E-A-D-G-B-E)</h3>
+          </div>
+          <span class="text-xs text-slate-400 font-mono">440 Hz Standard Pitch</span>
+        </div>
+
+        <p class="text-xs text-slate-300 mb-6">
+          คลิกที่สายแต่ละเส้นเพื่อฟังเสียงอ้างอิง แล้วบิดลูกบิดกีตาร์ของคุณให้เสียงตรงกัน
+        </p>
+
+        <div id="tuner-pegs-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-auto border-t border-slate-800/80 py-6 px-4 text-center text-xs text-slate-500">
+    <p>🎸 GuitarQuest: From Zero to Hero • Gamified Guitar Learning System</p>
+    <p class="mt-1">ฝึกซ้อมสม่ำเสมอวันละ 15-30 นาที แล้วพัฒนาตัวละครของคุณสู่ Guitar God!</p>
+  </footer>
+
+  <!-- SCRIPT ENGINE -->
+  <script>
+    // --- 1. WEB AUDIO SYNTHESIZER ---
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.isMuted = false;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+      playPluck(freq, duration = 1.2, type = 'acoustic') {
+        if (this.isMuted) return;
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const overtone = this.ctx.createOscillator();
+        const overtoneGain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(type === 'electric' ? 3200 : 2400, now);
+        filter.frequency.exponentialRampToValueAtTime(300, now + duration * 0.8);
+
+        osc.type = type === 'electric' ? 'sawtooth' : 'triangle';
+        osc.frequency.setValueAtTime(freq, now);
+
+        overtone.type = 'sine';
+        overtone.frequency.setValueAtTime(freq * 2, now);
+
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.35, now + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+        overtoneGain.gain.setValueAtTime(0.15, now);
+        overtoneGain.gain.exponentialRampToValueAtTime(0.0001, now + (duration * 0.4));
+
+        osc.connect(filter);
+        overtone.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(now);
+        overtone.start(now);
+        osc.stop(now + duration);
+        overtone.stop(now + duration);
+      }
+      playChord(freqs, direction = 'down', speed = 0.04) {
+        if (this.isMuted || !freqs) return;
+        this.init();
+        const notes = direction === 'down' ? [...freqs] : [...freqs].reverse();
+        notes.forEach((freq, idx) => {
+          if (freq > 0) {
+            setTimeout(() => {
+              this.playPluck(freq, 1.8, 'acoustic');
+            }, idx * speed * 1000);
+          }
+        });
+      }
+      playMetronomeClick(isHigh = false) {
+        if (this.isMuted) return;
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(isHigh ? 1200 : 800, now);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.05);
+      }
+      playLevelUpFanfare() {
+        if (this.isMuted) return;
+        this.init();
+        const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, i) => {
+          setTimeout(() => {
+            this.playPluck(freq, 0.8, 'electric');
+          }, i * 110);
+        });
+      }
+      playExpSound() {
+        if (this.isMuted) return;
+        this.init();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, now);
+        osc.frequency.exponentialRampToValueAtTime(880, now + 0.15);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.2);
+      }
+    }
+
+    const sound = new SoundEngine();
+
+    function toggleMute() {
+      sound.isMuted = !sound.isMuted;
+      document.getElementById('sound-icon').innerText = sound.isMuted ? '🔇' : '🔊';
+    }
+
+    // --- 2. DATASETS ---
+    const EXP_PER_LEVEL = 350;
+
+    const EVOLUTION_STAGES = [
+      {
+        stage: 1, minLevel: 1, maxLevel: 5,
+        title: 'Beginner Kid (หนูน้อยเริ่มต้น)',
+        subtitle: 'นิ้วยังนิ่ม พลาสเตอร์ยาเต็มมือ กีตาร์ไม้ตัวเก่า',
+        themeColor: 'from-amber-700/30 to-amber-950/40',
+        borderColor: 'border-amber-700/50',
+        badge: '🌱 Rookie Novice',
+        guitarType: 'กีตาร์ไม้ผุพัง (Old Acoustic)',
+        passiveBonus: '+10% EXP จากการจูนสายและสไปเดอร์วอล์ก'
+      },
+      {
+        stage: 2, minLevel: 6, maxLevel: 15,
+        title: 'Bedroom Strummer (นักดีดในห้องนอน)',
+        subtitle: 'เริ่มดีดคล่อง นิ้วเริ่มด้าน กีตาร์โปร่งติดคาโป้สุดเท่',
+        themeColor: 'from-emerald-700/30 to-teal-950/40',
+        borderColor: 'border-emerald-500/50',
+        badge: '🎵 Bedroom Hero',
+        guitarType: 'กีตาร์โปร่ง Folk ไม้สปรูซพร้อมคาโป้',
+        passiveBonus: '+15% EXP จากการเปลี่ยนคอร์ด 4 คอร์ดมหัศจรรย์'
+      },
+      {
+        stage: 3, minLevel: 16, maxLevel: 30,
+        title: 'Campfire Troubadour (นักดนตรีรอบกองไฟ)',
+        subtitle: 'ข้ามพ้นคอร์ด F ไปแล้ว สะกดใจเพื่อนๆ ใต้แสงดาว',
+        themeColor: 'from-amber-600/30 to-orange-950/40',
+        borderColor: 'border-orange-500/50',
+        badge: '🔥 Campfire Star',
+        guitarType: 'Dreadnought Acoustic เกรดพรีเมียม',
+        passiveBonus: '+20% EXP จากการฝึก Fingerstyle & คอร์ดทาบ'
+      },
+      {
+        stage: 4, minLevel: 31, maxLevel: 50,
+        title: 'Indie Rocker (ร็อกเกอร์สุดคูล)',
+        subtitle: 'จับกีตาร์ไฟฟ้า เสื้อแจ็กเก็ตยีนส์ โยกหัวตามจังหวะกรูฟ',
+        themeColor: 'from-indigo-600/30 to-purple-950/40',
+        borderColor: 'border-indigo-500/50',
+        badge: '⚡ Indie Rocker',
+        guitarType: 'Stratocaster สี Sonic Blue + แอมป์ Marshall จิ๋ว',
+        passiveBonus: '+25% EXP จากการฝึก Pentatonic Solo'
+      },
+      {
+        stage: 5, minLevel: 51, maxLevel: 75,
+        title: 'Stage Virtuoso (เทพกีตาร์สายโชว์)',
+        subtitle: 'สปอร์ตไลต์ส่องประกาย กวาดสวีปและแท็ปปิ้งสะกดคนดู',
+        themeColor: 'from-rose-600/30 to-pink-950/40',
+        borderColor: 'border-rose-500/50',
+        badge: '🎸 Stage Virtuoso',
+        guitarType: 'Les Paul Flame Top สี Cherry Sunburst',
+        passiveBonus: '+30% EXP จากการฝึกเทคนิคขั้นสูง & แจ๊ส'
+      },
+      {
+        stage: 6, minLevel: 76, maxLevel: 100,
+        title: 'Legendary Guitar God (เทพเจ้าแห่งสายกีตาร์)',
+        subtitle: 'ออร่าสีทองเปล่งประกาย สั่นสะเทือนเวทีระดับตำนานโลก',
+        themeColor: 'from-yellow-500/40 to-amber-950/60',
+        borderColor: 'border-yellow-400',
+        badge: '👑 Guitar God',
+        guitarType: 'Double-Neck Custom Golden Axe แห่งโชคชะตา',
+        passiveBonus: '+50% EXP โบนัสความเร็วและการอิมโพรไวส์ไร้ขีดจำกัด'
+      }
+    ];
+
+    const CHORDS_DATA = {
+      Em: { name: 'Em', fullName: 'E Minor', frets: [0, 2, 2, 0, 0, 0], fingers: [0, 2, 3, 0, 0, 0], freqs: [82.41, 123.47, 164.81, 196.00, 246.94, 329.63], category: 'beginner', tips: 'วางนิ้วชี้ที่สาย 5 เฟรต 2 และนิ้วกลางที่สาย 4 เฟรต 2 ดีดได้ครบทุกสาย' },
+      C: { name: 'C', fullName: 'C Major', frets: [-1, 3, 2, 0, 1, 0], fingers: [0, 3, 2, 0, 1, 0], freqs: [0, 130.81, 164.81, 196.00, 261.63, 329.63], category: 'beginner', tips: 'อย่าให้นิ้วชี้โดนสาย 1 ด้านล่าง ดีดตั้งแต่สาย 5 ลงไป (ไม่ดีดสาย 6)' },
+      G: { name: 'G', fullName: 'G Major', frets: [3, 2, 0, 0, 0, 3], fingers: [2, 1, 0, 0, 0, 3], freqs: [98.00, 123.47, 146.83, 196.00, 246.94, 392.00], category: 'beginner', tips: 'โก่งนิ้วก้อยหรือนิ้วนางที่สาย 1 ให้ตั้งฉาก เพื่อไม่ให้บล็อกสาย 2' },
+      D: { name: 'D', fullName: 'D Major', frets: [-1, -1, 0, 2, 3, 2], fingers: [0, 0, 0, 1, 3, 2], freqs: [0, 0, 146.83, 220.00, 293.66, 369.99], category: 'beginner', tips: 'จำรูปทรงสามเหลี่ยม ใช้นิ้วโป้งช่วยประคองด้านหลังคอกีตาร์ ดีดสาย 4 ลงไป' },
+      Am: { name: 'Am', fullName: 'A Minor', frets: [-1, 0, 2, 2, 1, 0], fingers: [0, 0, 2, 3, 1, 0], freqs: [0, 110.00, 164.81, 220.00, 261.63, 329.63], category: 'beginner', tips: 'ดีดตั้งแต่สาย 5 ลงไป เสียงเบสหลักคือสาย 5 เปิด' },
+      F: { name: 'F', fullName: 'F Major (Barre)', frets: [1, 3, 3, 2, 1, 1], fingers: [1, 3, 4, 2, 1, 1], freqs: [87.31, 130.81, 174.61, 220.00, 261.63, 349.23], category: 'intermediate', tips: 'เอียงขอบนิ้วชี้ด้านข้างแนบกับเฟรต 1 ไม่ใช่ด้านเนื้อนุ่ม และดันข้อศอกเข้าหาตัว' },
+      Bm: { name: 'Bm', fullName: 'B Minor (Barre)', frets: [-1, 2, 4, 4, 3, 2], fingers: [0, 1, 3, 4, 2, 1], freqs: [0, 123.47, 185.00, 246.94, 293.66, 369.99], category: 'intermediate', tips: 'ทาบนิ้วชี้ตั้งแต่สาย 5 ลงไปถึงสาย 1' },
+      Cmaj7: { name: 'Cmaj7', fullName: 'C Major 7th', frets: [-1, 3, 2, 0, 0, 0], fingers: [0, 3, 2, 0, 0, 0], freqs: [0, 130.81, 164.81, 196.00, 246.94, 329.63], category: 'advanced', tips: 'เพียงแค่ยกนิ้วชี้ออกจากคอร์ด C ปกติ ก็จะได้เสียง Cmaj7 แสนหวาน' },
+      Dm7: { name: 'Dm7', fullName: 'D Minor 7th', frets: [-1, -1, 0, 2, 1, 1], fingers: [0, 0, 0, 2, 1, 1], freqs: [0, 0, 146.83, 220.00, 261.63, 349.23], category: 'advanced', tips: 'ใช้นิ้วชี้นาบสาย 1 และสาย 2 ที่เฟรต 1 พร้อมกัน' },
+      G7: { name: 'G7', fullName: 'G Dominant 7th', frets: [3, 2, 0, 0, 0, 1], fingers: [3, 2, 0, 0, 0, 1], freqs: [98.00, 123.47, 146.83, 196.00, 246.94, 349.23], category: 'advanced', tips: 'นิ้วชี้อยู่ที่สาย 1 เฟรต 1 ตัวโน้ต F จะสร้างความตึงเครียดที่รอการคลี่คลาย' }
+    };
+
+    const TUNER_NOTES = [
+      { string: 6, note: 'E2', freq: 82.41, name: 'สาย 6 (E ต่ำ)' },
+      { string: 5, note: 'A2', freq: 110.00, name: 'สาย 5 (A)' },
+      { string: 4, note: 'D3', freq: 146.83, name: 'สาย 4 (D)' },
+      { string: 3, note: 'G3', freq: 196.00, name: 'สาย 3 (G)' },
+      { string: 2, note: 'B3', freq: 246.94, name: 'สาย 2 (B)' },
+      { string: 1, note: 'E4', freq: 329.63, name: 'สาย 1 (E สูง)' }
+    ];
+
+    const CURRICULUM_DATA = [
+      { id: 'lesson-1', phase: 'beginner', phaseTitle: 'Phase 1: เริ่มต้นจากศูนย์ (Beginner)', levelRequired: 1, title: 'บทที่ 1: รู้จักกีตาร์ ท่าจับ และการตั้งสาย', shortDesc: 'กายวิภาคของกีตาร์ วิธีจับปิ๊ก ท่าทางที่ถูกต้อง และการจูนสายมาตรฐาน E A D G B E', expReward: 100, takeaways: ['ชื่อสาย 6->1: E, A, D, G, B, E', 'จับปิ๊กแบบผ่อนคลาย ไม่เกร็งข้อมือ', 'นั่งหลังตรง กีตาร์แนบลำตัว'], exercise: { desc: 'ดีดสายเปิดทีละสาย 6 -> 1 อย่างช้าๆ ให้เสียงก้องกังวาน ไม่บั้งสาย', targetBpm: 60 } },
+      { id: 'lesson-2', phase: 'beginner', phaseTitle: 'Phase 1: เริ่มต้นจากศูนย์ (Beginner)', levelRequired: 2, title: 'บทที่ 2: Spider Walk & กำลังนิ้วพิฆาต', shortDesc: 'แบบฝึกหัดแมงมุมไต่สาย สร้างแรงกดนิ้ว ป้องกันอาการนิ้วด้านเจ็บ และแยกประสาท 4 นิ้ว', expReward: 150, takeaways: ['ใช้นิ้ว 1-2-3-4 กดเฟรต 1-2-3-4', 'กดชิดเส้นเฟรตเพื่อเสียงคมชัด', 'ห้ามยกนิ้วอื่นลอยสูงเกินไป'], exercise: { desc: 'ฝึกนิ้ว 1-2-3-4 บนสาย 6 แล้วเลื่อนไปสาย 5 จนถึงสาย 1', targetBpm: 70 } },
+      { id: 'lesson-3', phase: 'beginner', phaseTitle: 'Phase 1: เริ่มต้นจากศูนย์ (Beginner)', levelRequired: 4, title: 'บทที่ 3: 4 คอร์ดมหัศจรรย์ (Em - C - G - D)', shortDesc: 'เซ็ตคอร์ดเล่นได้เป็นพันเพลง! เรียนรู้รูปทรงคอร์ดเปิด และเทคนิคการเปลี่ยนคอร์ดแบบมี Anchor Finger', expReward: 250, chords: ['Em', 'C', 'G', 'D'], takeaways: ['Em: คอร์ด 2 นิ้วที่เล่นง่ายที่สุด', 'C: โก่งข้อนิ้วเพื่อไม่ให้บล็อกสายล่าง', 'G->D: ใช้นิ้วนางเป็นนิ้วแกนหลัก'], exercise: { desc: 'เปลี่ยนวน Em -> C -> G -> D จังหวะละ 4 ครั้งต่อเนื่องโดยไม่หยุดชะงัก', targetBpm: 65 } },
+      { id: 'lesson-4', phase: 'beginner', phaseTitle: 'Phase 1: เริ่มต้นจากศูนย์ (Beginner)', levelRequired: 7, title: 'บทที่ 4: แพทเทิร์นตีคอร์ดสากล (Strumming 101)', shortDesc: 'จังหวะ ดีดลง-ดีดขึ้น ให้เป็นธรรมชาติ จังหวะ "ลง-ลง-ขึ้น-ขึ้น-ลง" (D-DU-UD) ที่ใช้ใน 80% ของเพลงป๊อป', expReward: 300, chords: ['G', 'Em', 'C', 'D'], takeaways: ['แกว่งข้อมือผ่อนคลายเหมือนสะบัดน้ำ', 'จังหวะ: ลง . ลง ขึ้น . ขึ้น ลง ขึ้น', 'ข้อมือแกว่งสม่ำเสมอเป็นจังหวะคลื่น'], exercise: { desc: 'ตีแพทเทิร์น D DU UD วนกับคอร์ด G - Em - C - D', targetBpm: 80 } },
+      { id: 'lesson-5', phase: 'intermediate', phaseTitle: 'Phase 2: ระดับกลาง (Intermediate)', levelRequired: 15, title: 'บทที่ 5: ทลายกำแพงคอร์ดทาบ (F & Bm Barre Chords)', shortDesc: 'เทคนิคการใช้ข้างนิ้วชี้ทาบสาย และการส่งแรงจากแผ่นหลังและข้อศอก ไม่บีบด้วยนิ้วโป้งจนหมดแรง', expReward: 450, chords: ['F', 'Bm'], takeaways: ['ใช้ด้านข้างกระดูกนิ้วชี้ทาบสาย', 'ดึงศอกซ้ายเข้าหาตัวเบาๆ', 'ถ้าเจ็บมาก ให้เริ่มจาก Small F ก่อน'], exercise: { desc: 'ฝึกสลับ C -> F -> Am -> G ให้เสียงบาร์ทุกสายดังใส ชัดเจน', targetBpm: 75 } },
+      { id: 'lesson-6', phase: 'intermediate', phaseTitle: 'Phase 2: ระดับกลาง (Intermediate)', levelRequired: 22, title: 'บทที่ 6: ศาสตร์การเกากีตาร์ (Fingerstyle & Arpeggio)', shortDesc: 'การใช้ นิ้วโป้ง(P), ชี้(I), กลาง(M), นาง(A) แยกคุมสายเบสและสายเมโลดี้ เพื่อเล่นเพลงอะคูสติกสุดซึ้ง', expReward: 500, chords: ['C', 'Am', 'F', 'G'], takeaways: ['นิ้วโป้ง (P) คุมสาย 6, 5, 4', 'นิ้วชี้ กลาง นาง คุมสาย 3, 2, 1', 'แพทเทิร์น: เบส - 3 - 2 - 3 - 1 - 3 - 2 - 3'], exercise: { desc: 'เกาคอร์ดวน C - Am - F - G สไตล์เพลงรักบัลลาด', targetBpm: 85 } },
+      { id: 'lesson-7', phase: 'intermediate', phaseTitle: 'Phase 2: ระดับกลาง (Intermediate)', levelRequired: 30, title: 'บทที่ 7: บันไดเสียง Pentatonic & สำเนียงบลูส์', shortDesc: 'กล่องสเกล A Minor Pentatonic Box 1 คัมภีร์โซโล่กีตาร์ร็อกและบลูส์ พร้อม Hammer-on และ Pull-off', expReward: 600, takeaways: ['5 โน้ตมหัศจรรย์: A, C, D, E, G', 'Hammer-on เคาะนิ้ว / Pull-off สะกิดนิ้ว', 'การดันสาย (Bending) ครึ่งเสียงและเต็มเสียง'], exercise: { desc: 'ไล่สเกล A Minor Pentatonic ขึ้น-ลง พร้อมดีดสลับ Alternate Picking', targetBpm: 90 } },
+      { id: 'lesson-8', phase: 'intermediate', phaseTitle: 'Phase 2: ระดับกลาง (Intermediate)', levelRequired: 40, title: 'บทที่ 8: Percussive Strumming & Slap Guitar', shortDesc: 'เปลี่ยนกีตาร์โปร่งให้กลายเป็นชุดกลอง! เทคนิคเคาะสาย (Mute Slap) และ Palm Muting สร้างกรูฟสะกดคนดู', expReward: 700, chords: ['Em', 'G', 'C', 'D'], takeaways: ['ใช้ส้นมือตบสายเลียนเสียงสแนร์จังหวะ 2 และ 4', 'Palm Mute วางสันมือชิดหย่อง', 'กรูฟดีดตบแบบ Ed Sheeran'], exercise: { desc: 'เล่นคอร์ดพร้อมตบสายในจังหวะ 2 และ 4 ให้กรูฟหนึบแน่น', targetBpm: 95 } },
+      { id: 'lesson-9', phase: 'advanced', phaseTitle: 'Phase 3: จอมยุทธ์กีตาร์ขั้นสูง (Advanced / Pro)', levelRequired: 55, title: 'บทที่ 9: คอร์ดแจ๊ส สีสันเสียงใหม่ (maj7, m7, 9th)', shortDesc: 'ก้าวข้ามคอร์ดธรรมดา สู่โลกฮาร์โมนีขั้นสูง Voicing สไตล์ City Pop, Neo-Soul และ Jazz Fusion', expReward: 850, chords: ['Cmaj7', 'Dm7', 'G7'], takeaways: ['โครงสร้าง 2-5-1 (ii - V - I): Dm7 -> G7 -> Cmaj7', 'Drop 2 Voicings และการละเว้นโน้ต 5', 'Chord Substitutions แทนที่คอร์ด'], exercise: { desc: 'เล่นคอร์ดพร็อกเกรสชัน Dm7 -> G7 -> Cmaj7 ด้วยสวิงกรูฟ', targetBpm: 100 } },
+      { id: 'lesson-10', phase: 'advanced', phaseTitle: 'Phase 3: จอมยุทธ์กีตาร์ขั้นสูง (Advanced / Pro)', levelRequired: 70, title: 'บทที่ 10: เทคนิค Solo ขั้นเทพ (Sweep & Tapping)', shortDesc: 'การกวาดปิ๊ก Sweep Picking ข้าม 5 สาย และ Two-Hand Tapping สไตล์ Eddie Van Halen', expReward: 1000, takeaways: ['Sweep: ปิ๊กไหลผ่านสายเหมือนกวาดน้ำ', 'Tapping: ใช้นิ้วขวาเคาะสะกิดบนเฟรตสูง', 'String Muting ควบคุมเสียงรบกวน'], exercise: { desc: 'ฝึก Minor Arpeggio Sweep 3 สาย และ 5 สาย ตามเมโทรนอม', targetBpm: 110 } },
+      { id: 'lesson-11', phase: 'advanced', phaseTitle: 'Phase 3: จอมยุทธ์กีตาร์ขั้นสูง (Advanced / Pro)', levelRequired: 85, title: 'บทที่ 11: ทฤษฎี Modes & กลิ่นอายเสียงดนตรี', shortDesc: 'Dorian, Mixolydian, Lydian เข้าใจอารมณ์ของแต่ละโหมดและการอิมโพรไวส์ไร้ขีดจำกัด', expReward: 1200, takeaways: ['Dorian: กลิ่นฟังก์และแจ๊สร็อก (โน้ต 6th)', 'Mixolydian: กลิ่นร็อกคลาสสิก (โน้ต b7)', 'Modal Interchange เปลี่ยนอารมณ์เพลง'], exercise: { desc: 'อิมโพรไวส์ Dorian เหนือคอร์ดแจมมิ่ง Dm7 - G', targetBpm: 115 } },
+      { id: 'lesson-12', phase: 'advanced', phaseTitle: 'Phase 3: จอมยุทธ์กีตาร์ขั้นสูง (Advanced / Pro)', levelRequired: 95, title: 'บทที่ 12: ก้าวสู่ Guitar God - เอกลักษณ์ & จิตวิญญาณ', shortDesc: 'การพัฒนา Dynamic, Touch, Phrasing และสร้างเสียงที่เป็นลายเซ็นของตัวเองบนเวทีระดับโลก', expReward: 1500, takeaways: ['Phrasing สำคัญกว่าความเร็ว: เว้นวรรคหายใจ', 'Micro-bending และสำเนียง Vibrato เฉพาะตัว', 'ส่งพลังอารมณ์สะกดผู้ฟัง'], exercise: { desc: 'บรรเลงโซโล่สดความยาว 3 นาทีโดยผสมผสานทุกเทคนิคที่ได้เรียนรู้มา', targetBpm: 120 } }
+    ];
+
+    const SONGS_DATA = [
+      {
+        id: 'song-zombie', title: 'Zombie', artist: 'The Cranberries', difficulty: 'ง่ายมาก', level: 3, bpm: 84, capo: 'No Capo', chords: ['Em', 'C', 'G', 'D'], strumming: '↓ . ↓ ↑ . ↑ ↓ ↑  (D DU UD)', exp: 200,
+        desc: 'เพลง 4 คอร์ดในตำนานที่มือใหม่ทุกคนต้องเล่นเป็น วน 4 คอร์ดเดิมทั้งเพลง!',
+        lyrics: [
+          { sec: 'Verse 1', lines: [{ c: 'Em', t: 'Another head hangs lowly' }, { c: 'C', t: 'Child is slowly taken' }, { c: 'G', t: 'And the violence, caused such silence' }, { c: 'D', t: 'Who are we mistaken?' }] },
+          { sec: 'Chorus', lines: [{ c: 'Em', t: 'In your head, in your head' }, { c: 'C', t: 'Zombie, zombie, zombie-ie-ie' }, { c: 'G', t: "What's in your head, in your head" }, { c: 'D', t: 'Zombie, zombie, zombie-ie-ie, oh' }] }
+        ]
+      },
+      {
+        id: 'song-stand-by-me', title: 'Stand By Me', artist: 'Ben E. King', difficulty: 'ง่าย', level: 4, bpm: 118, capo: 'Capo 2 (หรือคีย์ G ปกติ)', chords: ['G', 'Em', 'C', 'D'], strumming: '↓ . X ↑ . ↑ X ↑  (มีตบสายเบาๆ)', exp: 220,
+        desc: 'คลาสสิกตลอดกาล มีกรูฟอบอุ่น เหมาะสำหรับฝึกสลับคอร์ด G -> Em -> C -> D',
+        lyrics: [
+          { sec: 'Verse 1', lines: [{ c: 'G', t: 'When the night has come' }, { c: 'Em', t: 'And the land is dark' }, { c: 'C', t: 'And the moon is the only' }, { c: 'D', t: "Light we'll see" }] },
+          { sec: 'Chorus', lines: [{ c: 'G', t: 'No I won’t be afraid, no I won’t be afraid' }, { c: 'Em', t: 'Just as long as you stand, stand by me' }, { c: 'C', t: 'So darlin’, darlin’, stand by me' }, { c: 'D', t: 'Oh, stand by me' }] }
+        ]
+      },
+      {
+        id: 'song-som-san', title: 'ซมซาน', artist: 'Loso (พี่เสก โลโซ)', difficulty: 'ง่าย-ปานกลาง', level: 5, bpm: 120, capo: 'No Capo', chords: ['G', 'Em', 'C', 'D'], strumming: '↓ . ↓ ↑ . ↑ ↓ ↑  (ดีดกระแทกจังหวะแน่นๆ)', exp: 250,
+        desc: 'เพลงชาติมือกีตาร์โปร่งไทย วัยรุ่นทุกคนต้องผ่านเพลงนี้!',
+        lyrics: [
+          { sec: 'Verse 1', lines: [{ c: 'G', t: 'เกิดมาไม่เคยเจอใครเหมือนเธอ' }, { c: 'Em', t: 'หลับตาก็ละเมอ เห็นหน้าเธอละออ' }, { c: 'C', t: 'เธอคงไม่รู้ว่ามีใครเขารอ' }, { c: 'D', t: 'ได้โปรดเถอะหนอ ขอใจเธอคืน' }] },
+          { sec: 'Chorus', lines: [{ c: 'G', t: 'ฮู้.. ซมซานมานานเท่าใด' }, { c: 'Em', t: 'เธอรู้ไหม ใจมันเหงา' }, { c: 'C', t: 'อยากมีเธอเป็นคู่ใจข้างกาย' }, { c: 'D', t: 'ตลอดไป.. โอ้เธอ' }] }
+        ]
+      },
+      {
+        id: 'song-tears', title: 'Tears In Heaven', artist: 'Eric Clapton', difficulty: 'ระดับกลาง (Fingerstyle)', level: 18, bpm: 78, capo: 'No Capo', chords: ['C', 'G', 'Am', 'F'], strumming: 'P - I - M - A  (เกา 4 นิ้วหวานละมุน)', exp: 400,
+        desc: 'เพลง Fingerstyle คลาสสิก ฝึกแยกประสาทนิ้วโป้งกับนิ้วเกา',
+        lyrics: [
+          { sec: 'Intro / Verse', lines: [{ c: 'C', t: 'Would you know my name' }, { c: 'G', t: 'If I saw you in heaven?' }, { c: 'Am', t: 'Would it be the same' }, { c: 'F', t: 'If I saw you in heaven?' }] }
+        ]
+      },
+      {
+        id: 'song-fly-me', title: 'Fly Me To The Moon', artist: 'Frank Sinatra', difficulty: 'ระดับสูง (Jazz Voicings)', level: 55, bpm: 120, capo: 'No Capo', chords: ['Am', 'Dm7', 'G7', 'Cmaj7', 'F'], strumming: 'Swing 4-beat per bar (ชัฟเฟิลแจ๊ส)', exp: 650,
+        desc: 'เรียนรู้การเคลื่อนของฮาร์โมนีสไตล์แจ๊ส และการใช้คอร์ด 7th',
+        lyrics: [
+          { sec: 'Verse 1', lines: [{ c: 'Am', t: 'Fly me to the moon' }, { c: 'Dm7', t: 'And let me play among the stars' }, { c: 'G7', t: 'Let me see what spring is like on' }, { c: 'Cmaj7', t: 'A-Jupiter and Mars' }] }
+        ]
+      }
+    ];
+
+    const ROUTINE_PLANS = [
+      {
+        id: 'quick-15', title: 'โหมดเร่งด่วน', mins: 15, exp: 120,
+        steps: [
+          { name: 'Warm-up & Spider Walk', sec: 180, desc: 'วอร์มนิ้ว 1-2-3-4 บนสาย 6 ถึงสาย 1 ผ่อนคลายข้อมือ' },
+          { name: 'Chord Switching (คู่คอร์ดปราบเซียน)', sec: 360, desc: 'ฝึกเปลี่ยน Em -> C และ G -> D อย่างต่อเนื่อง' },
+          { name: 'Strumming Rhythm (ตีคอร์ดตามจังหวะ)', sec: 360, desc: 'แพทเทิร์น ลง-ลง-ขึ้น-ขึ้น-ลง กับเมโทรนอม' }
+        ]
+      },
+      {
+        id: 'standard-30', title: 'โหมดมาตรฐาน (แนะนำ)', mins: 30, exp: 300,
+        steps: [
+          { name: 'Warm-up & Finger Stretching', sec: 300, desc: 'ยืดข้อนิ้ว + Spider Walk สลับคู่สาย 1-2-3-4' },
+          { name: 'Chord Switching & Clean Tone', sec: 600, desc: 'สลับคอร์ดเปิด & คอร์ดทาบ ให้เสียงใสกริ๊บทุกสาย' },
+          { name: 'Technique & Metronome Groove', sec: 420, desc: 'เกากีตาร์ Fingerpicking หรือไล่ Minor Pentatonic Scale' },
+          { name: 'Song Application (เล่นเพลงจริง)', sec: 480, desc: 'นำเทคนิคมาเล่นกับเพลง เช่น Zombie หรือ Stand by Me' }
+        ]
+      },
+      {
+        id: 'pro-60', title: 'โหมดจริงจัง (Pro)', mins: 60, exp: 750,
+        steps: [
+          { name: 'Advanced Warmup & Chromatic', sec: 600, desc: 'ไล่นิ้ว 4 ช่องทั่วนิ้วบอร์ด Alternate Picking' },
+          { name: 'Barre Chords & Harmonic Voicing', sec: 900, desc: 'คอร์ดทาบ F, Bm และคอร์ดแจ๊ส 7th ทั่วคอกีตาร์' },
+          { name: 'Speed Picking & Bending/Vibrato', sec: 900, desc: 'ดันสายเต็มเสียง ควบคุมสำเนียง Vibrato ให้ก้องกังวาน' },
+          { name: 'Song Mastery & Improvisation', sec: 1200, desc: 'บรรเลงเพลงเต็มท่อน + โซโล่สดตาม Backing Track' }
+        ]
+      }
+    ];
+
+    // --- 3. STATE & PERSISTENCE ---
+    let userExp = parseInt(localStorage.getItem('gq_exp') || '150', 10);
+    let userStreak = parseInt(localStorage.getItem('gq_streak') || '3', 10);
+    let completedLessons = JSON.parse(localStorage.getItem('gq_lessons') || '{"lesson-1":true}');
+    let completedSongs = {};
+
+    let selectedPlanIndex = 1; // 30 min
+    let currentStepIdx = 0;
+    let timeLeft = ROUTINE_PLANS[1].steps[0].sec;
+    let isRoutineRunning = false;
+    let routineInterval = null;
+
+    let isMetronomeRunning = false;
+    let metronomeBpm = 80;
+    let currentBeat = 0;
+    let metronomeInterval = null;
+
+    let selectedSong = SONGS_DATA[0];
+    let isSongAutoPlaying = false;
+    let songAutoInterval = null;
+    let activeChordIdx = null;
+
+    function getLevel(exp) {
+      return Math.max(1, Math.min(100, Math.floor(exp / EXP_PER_LEVEL) + 1));
+    }
+
+    function getEvolutionStage(lvl) {
+      return EVOLUTION_STAGES.find(s => lvl >= s.minLevel && lvl <= s.maxLevel) || EVOLUTION_STAGES[EVOLUTION_STAGES.length - 1];
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').innerText = msg;
+      toast.classList.remove('translate-y-[-150%]', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-[-150%]', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3000);
+    }
+
+    function addExp(amount, reason = '') {
+      const prevLvl = getLevel(userExp);
+      userExp += amount;
+      localStorage.setItem('gq_exp', userExp.toString());
+      const newLvl = getLevel(userExp);
+
+      sound.playExpSound();
+
+      if (newLvl > prevLvl) {
+        sound.playLevelUpFanfare();
+        confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 } });
+        showToast(`🎉 LEVEL UP! ก้าวสู่เลเวล ${newLvl} แล้ว!`);
+      } else if (reason) {
+        showToast(`+${amount} EXP: ${reason}`);
+      }
+      renderUserStats();
+      renderAvatar();
+    }
+
+    function renderUserStats() {
+      const lvl = getLevel(userExp);
+      const curExpInLvl = userExp % EXP_PER_LEVEL;
+      const pct = Math.min(100, (curExpInLvl / EXP_PER_LEVEL) * 100);
+
+      document.getElementById('stat-level').innerText = `Lv. ${lvl}`;
+      document.getElementById('stat-exp-text').innerText = `${curExpInLvl} / ${EXP_PER_LEVEL} EXP`;
+      document.getElementById('stat-exp-bar').style.width = `${pct}%`;
+      document.getElementById('stat-total-exp').innerText = `EXP รวม: ${userExp.toLocaleString()}`;
+      document.getElementById('stat-streak').innerText = `${userStreak} วันซ้อน!`;
+    }
+
+    // --- 4. AVATAR SVG RENDERER ---
+    function renderAvatar(isPlaying = false) {
+      const lvl = getLevel(userExp);
+      const stage = getEvolutionStage(lvl);
+      const sNum = stage.stage;
+
+      document.getElementById('avatar-badge').innerText = stage.badge;
+      document.getElementById('avatar-stage-num').innerText = `ร่างพัฒนาที่ ${sNum}/6`;
+      document.getElementById('avatar-title').innerText = stage.title;
+      document.getElementById('avatar-sub').innerText = stage.subtitle;
+      document.getElementById('avatar-guitar-info').innerText = `🎸 ${stage.guitarType}`;
+      document.getElementById('avatar-perk-text').innerText = stage.passiveBonus;
+
+      const wrapper = document.getElementById('avatar-svg-wrapper');
+      wrapper.className = `relative w-56 h-64 flex items-center justify-center ${isPlaying ? 'anim-headbang' : 'anim-float'}`;
+
+      // Dynamic SVG Layers
+      const hairColor = sNum >= 5 ? '#e11d48' : sNum >= 4 ? '#312e81' : '#451a03';
+      const clothesColor = sNum === 1 ? '#64748b' : sNum === 2 ? '#0284c7' : sNum === 3 ? '#d97706' : sNum === 4 ? '#1e293b' : sNum === 5 ? '#dc2626' : '#eab308';
+
+      let guitarSvg = '';
+      if (sNum <= 3) {
+        guitarSvg = `
+          <g>
+            <path d="M 100,130 C 130,120 160,135 160,150 C 160,165 140,175 160,185 C 160,195 125,200 100,180 C 90,170 90,140 100,130 Z" fill="${sNum === 1 ? '#a16207' : '#92400e'}" stroke="#451a03" stroke-width="2" />
+            <circle cx="125" cy="155" r="10" fill="#1e1b4b" stroke="#fef08a" stroke-width="1.5" />
+            ${sNum === 1 ? '<path d="M 135,170 L 150,180" stroke="#451a03" stroke-width="2" stroke-dasharray="2,2" />' : ''}
+          </g>
+        `;
+      } else if (sNum <= 5) {
+        guitarSvg = `
+          <g>
+            <path d="M 95,130 C 115,115 155,130 155,150 C 155,170 145,175 160,185 C 160,200 115,205 95,185 C 80,170 80,140 95,130 Z" fill="${sNum === 5 ? '#ef4444' : '#06b6d4'}" stroke="#0f172a" stroke-width="2.5" />
+            <rect x="110" y="147" width="8" height="16" rx="2" fill="#000000" />
+            <rect x="125" y="147" width="8" height="16" rx="2" fill="#000000" />
+          </g>
+        `;
+      } else {
+        guitarSvg = `
+          <g>
+            <rect x="20" y="130" width="85" height="8" rx="2" fill="#eab308" />
+            <path d="M 95,120 C 125,100 170,120 170,150 C 170,180 150,180 170,200 C 170,215 105,220 90,190 Z" fill="#eab308" stroke="#713f12" stroke-width="3" />
+            <circle cx="130" cy="155" r="14" fill="#451a03" stroke="#fef08a" stroke-width="2" />
+          </g>
+        `;
+      }
+
+      document.getElementById('avatar-svg-target').innerHTML = `
+        <svg viewBox="0 0 200 240" class="w-full h-full drop-shadow-2xl overflow-visible">
+          ${sNum === 6 ? '<circle cx="100" cy="35" r="28" fill="none" stroke="#fde047" stroke-width="3" opacity="0.8" class="animate-pulse" />' : ''}
+          <rect x="75" y="110" width="50" height="70" rx="10" fill="${clothesColor}" />
+          ${sNum === 1 ? '<rect x="85" y="130" width="14" height="6" rx="2" fill="#fed7aa" transform="rotate(20 85 130)" />' : ''}
+          ${sNum === 3 ? '<path d="M 70,110 Q 100,125 130,110 Q 135,130 115,132 Q 95,130 70,110" fill="#b45309" />' : ''}
+          ${sNum >= 4 ? '<path d="M 75,110 L 95,140 L 105,140 L 125,110 Z" fill="#0f172a" />' : ''}
+          <rect x="92" y="90" width="16" height="25" fill="#f3be9b" rx="4" />
+          <circle cx="100" cy="75" r="32" fill="#ffdfcb" />
+          <ellipse cx="80" cy="85" rx="5" ry="3" fill="#fb7185" opacity="0.6" />
+          <ellipse cx="120" cy="85" rx="5" ry="3" fill="#fb7185" opacity="0.6" />
+          ${isPlaying ? `
+            <g stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round">
+              <path d="M 75,76 Q 83,70 90,76" />
+              <path d="M 110,76 Q 117,70 125,76" />
+            </g>
+            <path d="M 94,88 Q 100,98 106,88 Z" fill="#e11d48" />
+          ` : `
+            <ellipse cx="83" cy="74" rx="6" ry="8" fill="#1e293b" />
+            <ellipse cx="117" cy="74" rx="6" ry="8" fill="#1e293b" />
+            <circle cx="81" cy="71" r="2.5" fill="#ffffff" />
+            <circle cx="115" cy="71" r="2.5" fill="#ffffff" />
+            <path d="M 96,87 Q 100,92 104,87" stroke="#475569" stroke-width="2" fill="none" stroke-linecap="round" />
+          `}
+          ${sNum === 1 ? '<rect x="75" y="86" width="10" height="4" rx="1" fill="#fed7aa" stroke="#d97706" stroke-width="0.5" />' : ''}
+          ${sNum === 4 ? '<rect x="74" y="68" width="22" height="12" rx="3" fill="#020617" /><rect x="104" y="68" width="22" height="12" rx="3" fill="#020617" /><line x1="96" y1="74" x2="104" y2="74" stroke="#020617" stroke-width="3" />' : ''}
+          <path d="M 65,70 Q 75,35 100,35 Q 125,35 135,70 Q 125,60 115,62 Q 100,52 85,62 Q 75,60 65,70" fill="${hairColor}" />
+          ${sNum >= 4 ? `<polygon points="68,50 55,30 75,40" fill="${hairColor}" /><polygon points="132,50 145,30 125,40" fill="${hairColor}" />` : ''}
+          <g transform="rotate(${isPlaying ? -15 : -25} 100 160)">
+            <rect x="20" y="145" width="90" height="10" rx="3" fill="#78350f" stroke="#451a03" stroke-width="1" />
+            <line x1="40" y1="145" x2="40" y2="155" stroke="#cbd5e1" stroke-width="1" />
+            <line x1="60" y1="145" x2="60" y2="155" stroke="#cbd5e1" stroke-width="1" />
+            <line x1="80" y1="145" x2="80" y2="155" stroke="#cbd5e1" stroke-width="1" />
+            ${sNum >= 2 ? '<rect x="50" y="143" width="4" height="14" rx="1" fill="#000000" stroke="#f59e0b" stroke-width="0.8" />' : ''}
+            ${guitarSvg}
+          </g>
+          <circle cx="55" cy="160" r="8" fill="#ffdfcb" />
+          <g class="${isPlaying ? 'anim-strum' : ''}">
+            <ellipse cx="140" cy="155" rx="8" ry="12" fill="#ffdfcb" transform="rotate(30 140 155)" />
+            <polygon points="144,162 148,168 140,166" fill="#f59e0b" />
+          </g>
+          ${isPlaying ? `
+            <text x="30" y="50" fill="#f59e0b" font-size="20" font-weight="bold">♪</text>
+            <text x="160" y="60" fill="#38bdf8" font-size="24" font-weight="bold">♫</text>
+            <text x="175" y="110" fill="#ec4899" font-size="18" font-weight="bold">♬</text>
+          ` : ''}
+        </svg>
+      `;
+
+      // Render Stage Buttons
+      const grid = document.getElementById('stage-buttons-grid');
+      grid.innerHTML = EVOLUTION_STAGES.map(st => {
+        const isCurrent = sNum === st.stage;
+        const isUnlocked = lvl >= st.minLevel;
+        return `
+          <button onclick="quickSetLevel(${st.minLevel})" class="p-2 rounded-xl text-left border text-xs transition cursor-pointer active:scale-95 ${
+            isCurrent ? 'bg-amber-500/20 border-amber-400 text-amber-300 font-bold shadow-md' :
+            isUnlocked ? 'bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700' :
+            'bg-slate-950/40 border-slate-900 text-slate-600 hover:border-slate-800'
+          }">
+            <div class="text-[10px] text-slate-400">ขั้นที่ ${st.stage} (Lv.${st.minLevel})</div>
+            <div class="truncate font-semibold">${st.badge.split(' ')[1]}</div>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function interactAvatar() {
+      sound.playExpSound();
+      renderAvatar(true);
+      setTimeout(() => renderAvatar(false), 2000);
+    }
+
+    function quickSetLevel(targetLvl) {
+      userExp = (targetLvl - 1) * EXP_PER_LEVEL + 50;
+      localStorage.setItem('gq_exp', userExp.toString());
+      sound.playLevelUpFanfare();
+      confetti({ particleCount: 100, spread: 70 });
+      showToast(`แปลงร่างสู่เลเวล ${targetLvl}!`);
+      renderUserStats();
+      renderAvatar();
+    }
+
+    // --- 5. TABS NAVIGATION ---
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.className = 'tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800';
+      });
+      document.getElementById(`tab-btn-${tabId}`).className = 'tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer bg-amber-500 text-slate-950 shadow-md';
+    }
+
+    // --- 6. PRACTICE ROUTINE LOGIC ---
+    function selectRoutinePlan(idx) {
+      selectedPlanIndex = idx;
+      currentStepIdx = 0;
+      const plan = ROUTINE_PLANS[idx];
+      timeLeft = plan.steps[0].sec;
+      isRoutineRunning = false;
+      clearInterval(routineInterval);
+      updateRoutinePlayButton();
+
+      document.querySelectorAll('.routine-plan-btn').forEach((btn, i) => {
+        btn.className = i === idx
+          ? 'routine-plan-btn px-3 py-1.5 rounded-lg font-semibold transition bg-amber-500 text-slate-950 shadow-md'
+          : 'routine-plan-btn px-3 py-1.5 rounded-lg font-semibold transition text-slate-400 hover:text-white';
+      });
+
+      renderRoutineSteps();
+      updateRoutineTimerDisplay();
+    }
+
+    function renderRoutineSteps() {
+      const plan = ROUTINE_PLANS[selectedPlanIndex];
+      const grid = document.getElementById('routine-steps-grid');
+      grid.innerHTML = plan.steps.map((st, i) => {
+        const isDone = i < currentStepIdx;
+        const isCurrent = i === currentStepIdx;
+        return `
+          <div class="p-2.5 rounded-xl border transition-all ${
+            isCurrent ? 'bg-amber-500/15 border-amber-500/50 text-amber-300' :
+            isDone ? 'bg-emerald-950/20 border-emerald-500/30 text-emerald-400' :
+            'bg-slate-950/40 border-slate-800 text-slate-500'
+          }">
+            <div class="flex items-center justify-between text-xs font-bold mb-1">
+              <span>ด่าน ${i + 1}</span>
+              <span>${isDone ? '✓' : Math.round(st.sec / 60) + ' น.'}</span>
+            </div>
+            <p class="text-xs font-medium truncate">${st.name}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateRoutineTimerDisplay() {
+      const plan = ROUTINE_PLANS[selectedPlanIndex];
+      const curStep = plan.steps[currentStepIdx];
+      const mins = Math.floor(timeLeft / 60);
+      const s = timeLeft % 60;
+      document.getElementById('routine-timer-display').innerText = `${mins.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+      document.getElementById('routine-current-badge').innerText = `ช่วงที่ ${currentStepIdx + 1} / ${plan.steps.length}: ${curStep.name}`;
+      document.getElementById('routine-current-desc').innerText = curStep.desc;
+
+      const progress = ((curStep.sec - timeLeft) / curStep.sec) * 100;
+      document.getElementById('routine-step-progress').style.width = `${progress}%`;
+    }
+
+    function toggleRoutineTimer() {
+      sound.init();
+      isRoutineRunning = !isRoutineRunning;
+      updateRoutinePlayButton();
+      renderAvatar(isRoutineRunning);
+
+      if (isRoutineRunning) {
+        routineInterval = setInterval(() => {
+          if (timeLeft > 0) {
+            timeLeft--;
+            updateRoutineTimerDisplay();
+          } else {
+            sound.playExpSound();
+            const plan = ROUTINE_PLANS[selectedPlanIndex];
+            if (currentStepIdx < plan.steps.length - 1) {
+              currentStepIdx++;
+              timeLeft = plan.steps[currentStepIdx].sec;
+              renderRoutineSteps();
+              updateRoutineTimerDisplay();
+            } else {
+              // Completed all!
+              clearInterval(routineInterval);
+              isRoutineRunning = false;
+              updateRoutinePlayButton();
+              renderAvatar(false);
+              sound.playLevelUpFanfare();
+              confetti({ particleCount: 130, spread: 80, origin: { y: 0.6 } });
+              addExp(plan.exp, `สำเร็จตารางฝึก ${plan.title}!`);
+            }
+          }
+        }, 1000);
+      } else {
+        clearInterval(routineInterval);
+      }
+    }
+
+    function updateRoutinePlayButton() {
+      const icon = document.getElementById('routine-play-icon');
+      const text = document.getElementById('routine-play-text');
+      const btn = document.getElementById('btn-routine-toggle');
+      if (isRoutineRunning) {
+        icon.innerText = '⏸';
+        text.innerText = 'หยุดพักชั่วคราว';
+        btn.className = 'flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm shadow-lg transition active:scale-95 cursor-pointer bg-rose-500 hover:bg-rose-600 text-white';
+      } else {
+        icon.innerText = '▶';
+        text.innerText = 'เริ่มฝึกตามเวลา';
+        btn.className = 'flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm shadow-lg transition active:scale-95 cursor-pointer bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950';
+      }
+    }
+
+    function resetRoutineStep() {
+      clearInterval(routineInterval);
+      isRoutineRunning = false;
+      updateRoutinePlayButton();
+      renderAvatar(false);
+      timeLeft = ROUTINE_PLANS[selectedPlanIndex].steps[currentStepIdx].sec;
+      updateRoutineTimerDisplay();
+    }
+
+    function skipRoutineStep() {
+      const plan = ROUTINE_PLANS[selectedPlanIndex];
+      if (currentStepIdx < plan.steps.length - 1) {
+        currentStepIdx++;
+        timeLeft = plan.steps[currentStepIdx].sec;
+        renderRoutineSteps();
+        updateRoutineTimerDisplay();
+      }
+    }
+
+    // --- 7. METRONOME ---
+    function toggleMetronome() {
+      sound.init();
+      isMetronomeRunning = !isMetronomeRunning;
+      const btn = document.getElementById('btn-metronome-toggle');
+      const icon = document.getElementById('metronome-icon');
+      const text = document.getElementById('metronome-text');
+
+      if (isMetronomeRunning) {
+        icon.innerText = '🔊';
+        text.innerText = 'ปิดเมโทรนอม';
+        btn.className = 'p-3 rounded-xl border font-bold transition flex items-center gap-2 cursor-pointer bg-amber-500 border-amber-400 text-slate-950 animate-pulse';
+
+        const intervalMs = (60 / metronomeBpm) * 1000;
+        metronomeInterval = setInterval(() => {
+          currentBeat = (currentBeat + 1) % 4;
+          sound.playMetronomeClick(currentBeat === 0);
+          updateBeatDots(currentBeat);
+        }, intervalMs);
+      } else {
+        clearInterval(metronomeInterval);
+        icon.innerText = '🔇';
+        text.innerText = 'เปิดเมโทรนอม';
+        btn.className = 'p-3 rounded-xl border font-bold transition flex items-center gap-2 cursor-pointer bg-slate-900 border-slate-700 text-slate-300 hover:bg-slate-800';
+        updateBeatDots(-1);
+      }
+    }
+
+    function changeBpm(newBpm) {
+      metronomeBpm = Number(newBpm);
+      document.getElementById('metronome-bpm-display').innerText = `${metronomeBpm} BPM`;
+      if (isMetronomeRunning) {
+        clearInterval(metronomeInterval);
+        const intervalMs = (60 / metronomeBpm) * 1000;
+        metronomeInterval = setInterval(() => {
+          currentBeat = (currentBeat + 1) % 4;
+          sound.playMetronomeClick(currentBeat === 0);
+          updateBeatDots(currentBeat);
+        }, intervalMs);
+      }
+    }
+
+    function updateBeatDots(beat) {
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById(`beat-dot-${i}`);
+        if (i === beat) {
+          dot.className = i === 0
+            ? 'w-3.5 h-3.5 rounded-full bg-amber-400 scale-125 shadow-[0_0_10px_#f59e0b]'
+            : 'w-3.5 h-3.5 rounded-full bg-teal-400 scale-110 shadow-[0_0_8px_#2dd4bf]';
+        } else {
+          dot.className = 'w-3.5 h-3.5 rounded-full bg-slate-800 transition-all duration-100';
+        }
+      }
+    }
+
+    // --- 8. CHORD DIAGRAM HELPER ---
+    function renderChordCard(chord) {
+      const frets = [1, 2, 3, 4];
+      return `
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4 flex flex-col items-center shadow-lg">
+          <div class="flex items-center justify-between w-full mb-2">
+            <div>
+              <span class="text-2xl font-black text-amber-400 font-mono">${chord.name}</span>
+              <span class="text-xs text-slate-400 block">${chord.fullName}</span>
+            </div>
+            <button onclick="playChordDirect('${chord.name}')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-semibold transition active:scale-95 cursor-pointer">
+              <span>🔊 ดีดฟังเสียง</span>
+            </button>
+          </div>
+
+          <div class="relative py-2 px-4 select-none">
+            <div class="grid grid-cols-6 gap-5 mb-1.5 text-center font-mono text-xs font-bold">
+              ${chord.frets.map(f => `<div class="${f === -1 ? 'text-red-400' : f === 0 ? 'text-emerald-400' : 'text-slate-600'}">${f === -1 ? '✕' : f === 0 ? '○' : ''}</div>`).join('')}
+            </div>
+            <div class="w-full h-2 bg-amber-200/80 rounded-t-sm mb-0.5 shadow-sm"></div>
+            <div class="relative border-b-2 border-slate-600 bg-slate-950/60 rounded-b-sm">
+              ${frets.map(fNum => `
+                <div class="relative h-10 border-b border-slate-600/70 grid grid-cols-6 gap-5 items-center px-1">
+                  <span class="absolute -left-5 text-[10px] text-slate-500 font-mono">${fNum}</span>
+                  ${chord.frets.map((fVal, strIdx) => {
+                    const isPressed = fVal === fNum;
+                    const finger = chord.fingers[strIdx];
+                    const thicknesses = ['w-[3px]', 'w-[2.5px]', 'w-[2px]', 'w-[1.5px]', 'w-[1.2px]', 'w-[1px]'];
+                    return `
+                      <div onclick="sound.playPluck(${chord.freqs[strIdx]}, 1.5, 'acoustic')" class="relative flex items-center justify-center h-full group cursor-pointer" title="สาย ${6 - strIdx}">
+                        <div class="absolute top-0 bottom-0 bg-slate-400 group-hover:bg-amber-400 transition-colors ${thicknesses[strIdx]}"></div>
+                        ${isPressed ? `<div class="z-10 w-6 h-6 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 font-bold text-xs flex items-center justify-center shadow-[0_0_12px_rgba(245,158,11,0.6)]">${finger > 0 ? finger : '•'}</div>` : ''}
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              `).join('')}
+            </div>
+            <div class="grid grid-cols-6 gap-5 mt-2 text-center font-mono text-[11px] text-slate-400">
+              <span>6E</span><span>5A</span><span>4D</span><span>3G</span><span>2B</span><span>1e</span>
+            </div>
+          </div>
+
+          <div class="w-full mt-3 pt-2.5 border-t border-slate-800 text-[11px] text-slate-300 flex items-start gap-1.5">
+            <span class="text-amber-400">✨</span>
+            <p class="line-clamp-2">${chord.tips}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function playChordDirect(name) {
+      const c = CHORDS_DATA[name];
+      if (c) sound.playChord(c.freqs, 'down');
+    }
+
+    function filterChords(cat) {
+      document.querySelectorAll('.chord-filter-btn').forEach(btn => {
+        btn.className = 'chord-filter-btn px-3 py-1.5 rounded-lg transition text-slate-400 hover:text-white';
+      });
+      document.getElementById(`chord-filter-${cat}`).className = 'chord-filter-btn px-3 py-1.5 rounded-lg transition bg-amber-500 text-slate-950 font-bold';
+
+      const list = Object.values(CHORDS_DATA).filter(c => cat === 'all' || c.category === cat);
+      document.getElementById('chords-grid').innerHTML = list.map(c => renderChordCard(c)).join('');
+    }
+
+    // --- 9. ROADMAP & LESSONS ---
+    let activeLessonId = 'lesson-1';
+
+    function renderRoadmap() {
+      const lvl = getLevel(userExp);
+      const phases = [
+        { key: 'beginner', title: 'Phase 1: มือใหม่เริ่มต้น (Beginner)', badge: '🌱 พื้นฐานแน่นปึ้ก' },
+        { key: 'intermediate', title: 'Phase 2: ระดับกลาง (Intermediate)', badge: '⚡ คอร์ดทาบ & เกากีตาร์' },
+        { key: 'advanced', title: 'Phase 3: ระดับสูง (Advanced / Pro)', badge: '👑 จอมยุทธ์กีตาร์' }
+      ];
+
+      const container = document.getElementById('roadmap-phases-container');
+      container.innerHTML = phases.map(phase => {
+        const lessons = CURRICULUM_DATA.filter(l => l.phase === phase.key);
+        return `
+          <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl">
+            <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-800">
+              <h3 class="font-bold text-white text-base flex items-center gap-2">
+                <span>📖</span>
+                ${phase.title}
+              </h3>
+              <span class="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-amber-300">
+                ${phase.badge}
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              ${lessons.map(l => {
+                const isLocked = lvl < l.levelRequired;
+                const isDone = !!completedLessons[l.id];
+                const isSelected = activeLessonId === l.id;
+                return `
+                  <div onclick="${isLocked ? '' : `selectLesson('${l.id}')`}" class="relative p-4 rounded-xl border transition-all cursor-pointer ${
+                    isSelected ? 'border-amber-400 bg-amber-500/10 shadow-[0_0_15px_rgba(245,158,11,0.2)]' :
+                    isDone ? 'border-emerald-500/40 bg-emerald-950/20' :
+                    isLocked ? 'border-slate-800 bg-slate-950/50 opacity-60 cursor-not-allowed' :
+                    'border-slate-800 bg-slate-950 hover:border-slate-700'
+                  }">
+                    <div class="flex items-start justify-between gap-2 mb-2">
+                      <span class="text-xs font-bold text-amber-400">${l.phaseTitle.split(':')[0]}</span>
+                      ${isDone ? '<span class="text-[11px] text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-500/30">✓ ผ่านแล้ว</span>' :
+                        isLocked ? `<span class="text-[11px] text-slate-500 bg-slate-900 px-2 py-0.5 rounded-full border border-slate-800">🔒 ต้องมี Lv.${l.levelRequired}</span>` :
+                        `<span class="text-[11px] text-amber-300 font-semibold bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/30">+${l.expReward} EXP</span>`}
+                    </div>
+                    <h4 class="text-sm font-bold text-white mb-1 line-clamp-1">${l.title}</h4>
+                    <p class="text-xs text-slate-400 line-clamp-2">${l.shortDesc}</p>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      renderLessonDetail();
+    }
+
+    function selectLesson(id) {
+      activeLessonId = id;
+      renderRoadmap();
+    }
+
+    function renderLessonDetail() {
+      const lesson = CURRICULUM_DATA.find(l => l.id === activeLessonId) || CURRICULUM_DATA[0];
+      const isDone = !!completedLessons[lesson.id];
+      const drawer = document.getElementById('lesson-detail-drawer');
+
+      let chordBox = '';
+      if (lesson.chords && lesson.chords.length > 0) {
+        const firstChord = CHORDS_DATA[lesson.chords[0]];
+        chordBox = `
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-slate-300 block">🎸 คอร์ดประจำบทเรียน:</span>
+            ${renderChordCard(firstChord)}
+          </div>
+        `;
+      }
+
+      drawer.innerHTML = `
+        <div>
+          <div class="flex items-center justify-between text-xs text-amber-400 font-bold mb-1">
+            <span>รายละเอียดบทเรียน</span>
+            <span>+${lesson.expReward} EXP</span>
+          </div>
+          <h3 class="text-xl font-black text-white">${lesson.title}</h3>
+          <p class="text-xs text-slate-300 mt-2">${lesson.shortDesc}</p>
+        </div>
+
+        <div class="rounded-xl bg-slate-950 border border-slate-800 p-4 space-y-2">
+          <span class="text-xs font-bold text-slate-300 block mb-1">💡 หัวใจสำคัญที่ต้องฝึก:</span>
+          <ul class="space-y-1.5 text-xs text-slate-300">
+            ${lesson.takeaways.map(t => `<li class="flex items-start gap-2"><span class="text-amber-400">•</span><span>${t}</span></li>`).join('')}
+          </ul>
+        </div>
+
+        ${chordBox}
+
+        <div class="rounded-xl bg-amber-500/10 border border-amber-500/30 p-3.5 text-xs">
+          <span class="font-bold text-amber-300 block mb-1">🎯 ภารกิจผ่านด่าน:</span>
+          <p class="text-slate-300">${lesson.exercise.desc}</p>
+          <div class="mt-2 text-slate-400 font-mono text-[11px]">
+            เป้าหมายความเร็ว: <span class="text-amber-400 font-bold">${lesson.exercise.targetBpm} BPM</span>
+          </div>
+        </div>
+
+        <button onclick="claimLesson('${lesson.id}', ${lesson.expReward})" class="w-full py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition active:scale-95 cursor-pointer ${
+          isDone ? 'bg-emerald-950 border border-emerald-500/40 text-emerald-400 cursor-default' :
+          'bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 shadow-lg'
+        }">
+          <span>${isDone ? '✓ บทเรียนนี้ผ่านแล้ว' : `✨ ฝึกผ่านแล้ว! กดรับ +${lesson.expReward} EXP`}</span>
+        </button>
+      `;
+    }
+
+    function claimLesson(id, expReward) {
+      if (completedLessons[id]) return;
+      completedLessons[id] = true;
+      localStorage.setItem('gq_lessons', JSON.stringify(completedLessons));
+      sound.playLevelUpFanfare();
+      confetti({ particleCount: 110, spread: 75, origin: { y: 0.6 } });
+      addExp(expReward, 'สำเร็จบทเรียน!');
+      renderRoadmap();
+    }
+
+    // --- 10. SONGS PLAYER ---
+    function renderSongSelector() {
+      const container = document.getElementById('song-select-chips');
+      container.innerHTML = SONGS_DATA.map(s => `
+        <button onclick="selectSong('${s.id}')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition active:scale-95 cursor-pointer ${
+          selectedSong.id === s.id ? 'bg-amber-500 text-slate-950 shadow-md font-bold' : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+        }">
+          ${s.title}
+        </button>
+      `).join('');
+      renderSongDisplay();
+    }
+
+    function selectSong(id) {
+      selectedSong = SONGS_DATA.find(s => s.id === id) || SONGS_DATA[0];
+      if (isSongAutoPlaying) toggleSongAutoPlay();
+      renderSongSelector();
+    }
+
+    function renderSongDisplay() {
+      const area = document.getElementById('song-display-area');
+      const isDone = !!completedSongs[selectedSong.id];
+
+      area.innerHTML = `
+        <div class="rounded-xl bg-slate-950 border border-slate-800 p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="text-2xl font-black text-white">${selectedSong.title}</h3>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">${selectedSong.artist}</span>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">${selectedSong.difficulty}</span>
+            </div>
+            <p class="text-xs text-slate-300">${selectedSong.desc}</p>
+          </div>
+          <div class="flex items-center gap-3 text-xs">
+            <div class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800"><span class="text-slate-500 block text-[10px]">CAPO</span><span class="font-bold text-slate-200">${selectedSong.capo}</span></div>
+            <div class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800"><span class="text-slate-500 block text-[10px]">TEMPO</span><span class="font-bold text-amber-400">${selectedSong.bpm} BPM</span></div>
+            <div class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800"><span class="text-slate-500 block text-[10px]">REWARD</span><span class="font-bold text-emerald-400">+${selectedSong.exp} EXP</span></div>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-gradient-to-r from-amber-500/10 via-slate-900 to-amber-500/10 border border-amber-500/30 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span class="text-[11px] font-bold text-amber-400 tracking-wider uppercase block">แพทเทิร์นการดีดคอร์ด (Strumming Pattern)</span>
+            <span class="text-lg font-mono font-bold text-white tracking-widest">${selectedSong.strumming}</span>
+          </div>
+          <button onclick="toggleSongAutoPlay()" class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition active:scale-95 cursor-pointer ${
+            isSongAutoPlaying ? 'bg-rose-500 hover:bg-rose-600 text-white' : 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-md'
+          }">
+            <span>${isSongAutoPlaying ? '⏸ หยุดดีดอัตโนมัติ' : '▶ ดีดตามจังหวะอัตโนมัติ'}</span>
+          </button>
+        </div>
+
+        <div>
+          <span class="text-xs font-semibold text-slate-400 mb-2 block">คอร์ดที่ใช้ในเพลงนี้ (คลิกเพื่อฟังเสียง):</span>
+          <div class="flex flex-wrap gap-3">
+            ${selectedSong.chords.map((cName, i) => `
+              <button onclick="playChordDirect('${cName}')" class="px-5 py-3 rounded-xl font-mono text-lg font-black transition cursor-pointer flex items-center gap-2 border bg-slate-950 text-slate-200 border-slate-800 hover:border-slate-700 hover:bg-slate-900 active:scale-95">
+                <span>${cName}</span>
+                <span class="text-xs text-slate-500">🔊</span>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          ${selectedSong.lyrics.map(sec => `
+            <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-4">
+              <span class="text-xs font-bold text-amber-400/90 uppercase tracking-wider block mb-3">[${sec.sec}]</span>
+              <div class="space-y-3 font-mono">
+                ${sec.lines.map(line => `
+                  <div>
+                    <div class="text-amber-400 font-bold text-sm h-5">${line.c}</div>
+                    <div class="text-slate-200 text-base">${line.t}</div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="flex items-center justify-end pt-2">
+          <button onclick="claimSong('${selectedSong.id}', ${selectedSong.exp})" class="flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs transition cursor-pointer ${
+            isDone ? 'bg-emerald-950 border border-emerald-500/40 text-emerald-400 cursor-default' : 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 active:scale-95'
+          }">
+            <span>${isDone ? `✓ สำเร็จเพลงนี้แล้ว (+${selectedSong.exp} EXP)` : `✨ ฝึกเพลงนี้คล่องแล้ว (รับ +${selectedSong.exp} EXP)`}</span>
+          </button>
+        </div>
+      `;
+    }
+
+    function toggleSongAutoPlay() {
+      sound.init();
+      isSongAutoPlaying = !isSongAutoPlaying;
+      renderAvatar(isSongAutoPlaying);
+
+      if (isSongAutoPlaying) {
+        let idx = 0;
+        playChordDirect(selectedSong.chords[0]);
+        const intervalMs = (60 / selectedSong.bpm) * 4 * 1000;
+        songAutoInterval = setInterval(() => {
+          idx = (idx + 1) % selectedSong.chords.length;
+          playChordDirect(selectedSong.chords[idx]);
+        }, intervalMs);
+      } else {
+        clearInterval(songAutoInterval);
+      }
+      renderSongDisplay();
+    }
+
+    function claimSong(id, expReward) {
+      if (completedSongs[id]) return;
+      completedSongs[id] = true;
+      sound.playLevelUpFanfare();
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      addExp(expReward, `เล่นจบเพลง ${selectedSong.title}!`);
+      renderSongDisplay();
+    }
+
+    // --- 11. GUITAR TUNER PEGS ---
+    function renderTuner() {
+      const container = document.getElementById('tuner-pegs-grid');
+      container.innerHTML = TUNER_NOTES.map(n => `
+        <button onclick="sound.playPluck(${n.freq}, 2.5, 'acoustic')" class="flex flex-col items-center p-3 rounded-xl border bg-slate-950 border-slate-800 text-slate-300 hover:border-teal-400 hover:bg-slate-900 transition-all active:scale-95 cursor-pointer">
+          <span class="text-xs font-medium text-slate-400">สาย ${n.string}</span>
+          <span class="text-2xl font-black font-mono my-1 text-teal-400">${n.note}</span>
+          <span class="text-[11px] text-slate-400 font-mono">🔊 ${n.freq.toFixed(1)} Hz</span>
+        </button>
+      `).join('');
+    }
+
+    // --- INIT ---
+    window.addEventListener('DOMContentLoaded', () => {
+      renderUserStats();
+      renderAvatar();
+      selectRoutinePlan(1);
+      filterChords('all');
+      renderRoadmap();
+      renderSongSelector();
+      renderTuner();
+    });
+  </script>
+</body>
 </html>
