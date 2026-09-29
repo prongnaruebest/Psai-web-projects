@@ -1,77 +1,76 @@
 @charset "UTF-8";
 
 /* ==========================================================================
-   TrackToon - 🍵 ธีมมัจฉะถนอมสายตา (Matcha Zen Dark)
-   ออกแบบพิเศษในโทนชาเขียวมัจฉะธรรมชาติ ตัวหนังสือคมชัด สบายตา ไม่แสบตา และผ่อนคลาย
+   TrackToon - ✨ Clear Theme (Minimal Crystal Light)
+   สะอาด สว่าง โปร่งใส คมชัด อ่านง่ายสูงสุด สบายตา สไตล์ Modern Clean
    ========================================================================== */
 
-/* Custom Smooth Scrollbars in Matcha Tones */
+/* Custom Smooth Scrollbars */
 ::-webkit-scrollbar {
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0d150f;
+  background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #253828;
+  background: #cbd5e1;
   border-radius: 9999px;
-  border: 2px solid #0d150f;
+  border: 2px solid #f1f5f9;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b573f;
+  background: #94a3b8;
 }
 
-/* Base Body - Deep Matcha Charcoal */
+/* Base Body - Crisp Slate-50 / Clean Light Canvas */
 body {
-  background-color: #0c140e;
-  color: #d8e5d7;
-  font-family: 'Prompt', sans-serif;
-  letter-spacing: 0.015em;
+  background-color: #f8fafc;
+  color: #1e293b;
+  font-family: 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* Header */
 header {
-  background: rgba(12, 20, 14, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid #1e3022;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid #e2e8f0;
 }
 
-/* Glass Panels & Cards in Matcha */
+/* Crystal Glass Panels & Cards */
 .glass-panel {
-  background: rgba(18, 29, 20, 0.78);
-  backdrop-filter: blur(10px);
-  border: 1px solid #283e2c;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
 }
 
 .glass-card {
-  background: rgba(19, 31, 22, 0.8);
-  backdrop-filter: blur(8px);
-  border: 1px solid #283e2c;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
-  background: rgba(25, 41, 29, 0.95);
-  border-color: #52b788;
+  background: #ffffff;
+  border-color: #93c5fd;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), 0 0 16px -2px rgba(82, 183, 136, 0.2);
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.08), 0 8px 10px -6px rgba(37, 99, 235, 0.04);
 }
 
 /* ==========================================================================
-   Horizontal Table Styles (ธีมมัจฉะ คมชัด อ่านง่ายสูงสุด)
+   Horizontal Table Styles (Clear Theme - Crystal Crisp)
    ========================================================================== */
 .tracker-table-container {
   overflow-x: auto;
   border-radius: 1rem;
-  border: 1px solid #263d2a;
-  background: #121d15;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
 }
 
 .tracker-table {
@@ -84,29 +83,29 @@ header {
 
 /* Table Header */
 .tracker-table th {
-  background: #0f1911;
-  color: #a4c2a3;
+  background: #f8fafc;
+  color: #475569;
   font-weight: 600;
   font-size: 0.8125rem;
-  padding: 0.95rem 1.15rem;
-  border-bottom: 2px solid #273e2b;
+  padding: 0.875rem 1.15rem;
+  border-bottom: 1px solid #e2e8f0;
   white-space: nowrap;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.02em;
 }
 
 /* Table Body Cells */
 .tracker-table td {
-  padding: 0.95rem 1.15rem;
-  border-bottom: 1px solid #1a291d;
+  padding: 0.875rem 1.15rem;
+  border-bottom: 1px solid #f1f5f9;
   vertical-align: middle;
 }
 
-/* Zebra Striping */
+/* Subtle Row Striping */
 .tracker-table tbody tr:nth-child(even) {
-  background-color: rgba(16, 26, 18, 0.65);
+  background-color: #fbfcfe;
 }
 .tracker-table tbody tr:nth-child(odd) {
-  background-color: rgba(20, 32, 23, 0.45);
+  background-color: #ffffff;
 }
 
 /* Row Hover */
@@ -114,45 +113,44 @@ header {
   transition: background-color 0.15s ease;
 }
 .tracker-table tbody tr:hover {
-  background-color: #213525 !important;
+  background-color: #eff6ff !important;
 }
 
-/* Pinned Favorite Rows - Warm Golden Tea / Hojicha */
+/* Pinned Favorite Rows - Warm Clean Amber */
 .tracker-table tbody tr.is-fav {
-  background-color: rgba(217, 155, 38, 0.09) !important;
-  border-left: 4px solid #e0a944;
+  background-color: #fffbeb !important;
+  border-left: 4px solid #f59e0b;
 }
 .tracker-table tbody tr.is-fav:hover {
-  background-color: rgba(217, 155, 38, 0.16) !important;
+  background-color: #fef3c7 !important;
 }
 
-/* Episode Badge (Matcha Leaf Highlight) */
+/* Episode Badge (Crystal Interactive Highlight) */
 .ep-interactive-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.4rem 0.85rem;
-  border-radius: 0.75rem;
-  background: #0f1811;
-  border: 1px solid #2d4531;
-  color: #f3f8f3;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.65rem;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   font-size: 0.9375rem;
   transition: all 0.15s ease;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35);
 }
 .ep-interactive-badge:hover {
-  background: #17261b;
-  border-color: #52b788;
-  color: #ffffff;
+  background: #e0f2fe;
+  border-color: #38bdf8;
+  color: #0284c7;
   transform: scale(1.03);
 }
 
 /* Micro animation for episode update */
 @keyframes bumpPulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.15); color: #52b788; }
+  50% { transform: scale(1.15); color: #2563eb; }
   100% { transform: scale(1); }
 }
 
@@ -177,10 +175,10 @@ header {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   transform: translateY(20px);
   opacity: 0;
-  background: #17261b !important;
-  border: 1px solid #36543b !important;
-  color: #f3f8f3 !important;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 10px rgba(82, 183, 136, 0.2);
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
 }
 
 .toast.show {
@@ -188,13 +186,13 @@ header {
   opacity: 1;
 }
 
-/* Inputs & Form Controls in Matcha */
+/* Inputs & Form Controls in Clear Theme */
 input, select, textarea {
-  background-color: #101a12 !important;
-  color: #f4f8f4 !important;
-  border-color: #29402e !important;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
 }
 input:focus, select:focus, textarea:focus {
-  border-color: #52b788 !important;
-  box-shadow: 0 0 0 2px rgba(82, 183, 136, 0.25) !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
 }
