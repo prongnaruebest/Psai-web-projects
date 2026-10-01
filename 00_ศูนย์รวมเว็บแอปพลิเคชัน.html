@@ -25,13 +25,10 @@
       --brand-dark-blue: #0369a1;
       --accent-cyan: #06b6d4;
       --accent-green: #10b981;
-      --accent-purple: #8b5cf6;
-      --accent-amber: #f59e0b;
-      --accent-rose: #f43f5e;
       
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
-      --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.03);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.03);
+      --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.03);
     }
 
     * {
@@ -75,8 +72,8 @@
     }
 
     .brand-logo {
-      width: 52px;
-      height: 52px;
+      width: 50px;
+      height: 50px;
       background: linear-gradient(135deg, #0284c7, #0369a1);
       border-radius: 14px;
       display: flex;
@@ -84,9 +81,8 @@
       justify-content: center;
       color: white;
       font-size: 26px;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.22);
       flex-shrink: 0;
-      position: relative;
     }
 
     .brand-info h1 {
@@ -101,9 +97,7 @@
     }
 
     .brand-info h1 span.by-psai {
-      background: linear-gradient(135deg, #0284c7, #06b6d4);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #0284c7;
       font-weight: 800;
     }
 
@@ -132,9 +126,9 @@
     }
 
     .badge-green {
-      background: #ecfdf5;
-      color: #059669;
-      border: 1px solid #a7f3d0;
+      background: #f0fdf4;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
     }
 
     .badge-blue {
@@ -207,7 +201,7 @@
 
     .search-badge {
       font-size: 12px;
-      background: #f1f5f9;
+      background: #f8fafc;
       color: #64748b;
       padding: 4px 10px;
       border-radius: 6px;
@@ -333,8 +327,9 @@
       font-weight: 700;
       padding: 2px 7px;
       border-radius: 5px;
-      background: #e2e8f0;
-      color: #334155;
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
     }
 
     .branch-title {
@@ -365,7 +360,7 @@
     }
 
     .filter-chip {
-      background: #f1f5f9;
+      background: #f8fafc;
       border: 1px solid #e2e8f0;
       color: #475569;
       font-size: 12.5px;
@@ -472,13 +467,13 @@
     }
 
     .tag-online {
-      background: #dcfce7;
+      background: #f0fdf4;
       color: #15803d;
-      border: 1px solid #86efac;
+      border: 1px solid #bbf7d0;
     }
 
     .tag-local {
-      background: #f1f5f9;
+      background: #f8fafc;
       color: #475569;
       border: 1px solid #e2e8f0;
     }
@@ -540,17 +535,17 @@
       background: #0284c7;
       color: white;
       text-decoration: none;
-      padding: 8px 16px;
+      padding: 7px 15px;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.2s;
+      transition: all 0.15s;
       border: none;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+      box-shadow: 0 1px 3px rgba(2, 132, 199, 0.2);
     }
 
     .btn-action-primary:hover {
@@ -559,47 +554,49 @@
     }
 
     .btn-action-secondary {
-      background: #f8fafc;
+      background: #ffffff;
       color: #334155;
       text-decoration: none;
-      padding: 8px 14px;
+      padding: 6px 13px;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       border: 1px solid #cbd5e1;
-      transition: all 0.2s;
+      transition: all 0.15s;
       cursor: pointer;
     }
 
     .btn-action-secondary:hover {
-      background: #e2e8f0;
+      background: #f1f5f9;
       color: #0f172a;
+      border-color: #94a3b8;
     }
 
     .btn-copy {
-      background: #f0f9ff;
-      color: #0284c7;
-      border: 1px solid #bae6fd;
-      padding: 8px 14px;
+      background: #f8fafc;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      padding: 6px 12px;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.2s;
+      transition: all 0.15s;
     }
 
     .btn-copy:hover {
       background: #0284c7;
       color: white;
+      border-color: #0284c7;
     }
 
-    /* HORIZONTAL 4-COLUMN TABLE */
+    /* HORIZONTAL 4-COLUMN SPEC TABLE */
     .horizontal-table-wrapper {
       overflow-x: auto;
       border: 1px solid #cbd5e1;
@@ -615,7 +612,7 @@
     }
 
     .h-table th {
-      background: #f1f5f9;
+      background: #f8fafc;
       color: #334155;
       font-size: 13px;
       font-weight: 700;
@@ -636,131 +633,233 @@
       border-right: none;
     }
 
-    /* CATEGORY SHOWCASE CARDS (EXPANDED LIST) */
-    .category-section {
+    /* ============================================================== */
+    /* NEW CLEAN ENGINEERING DIRECTORY TABLE (REPLACING OLD ROWS) */
+    /* ============================================================== */
+    .directory-section {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
       margin-bottom: 24px;
     }
 
-    .category-banner {
-      background: #ffffff;
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 14px 20px;
-      box-shadow: var(--shadow-sm);
+    .directory-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
-    }
-
-    .category-banner-left {
-      display: flex;
       align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
       gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #f1f5f9;
     }
 
-    .category-banner-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-
-    .category-banner-title h2 {
-      font-size: 16px;
+    .directory-title-group h2 {
+      font-size: 17px;
       font-weight: 700;
       color: #0f172a;
-    }
-
-    .category-banner-title p {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 1px;
-    }
-
-    .projects-table-card {
-      background: #ffffff;
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .project-row {
-      padding: 16px 20px;
-      border-bottom: 1px solid #f1f5f9;
-      display: grid;
-      grid-template-columns: 50px 1.4fr 1.6fr auto;
-      align-items: center;
-      gap: 16px;
-      transition: all 0.15s ease;
-    }
-
-    .project-row:last-child {
-      border-bottom: none;
-    }
-
-    .project-row:hover {
-      background: #f8fafc;
-    }
-
-    .project-icon-box {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 800;
-      font-size: 18px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      gap: 8px;
+    }
+
+    .directory-title-group p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .directory-stats-badge {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+      color: #0284c7;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    /* UNIFIED CLEAN TABLE */
+    .clean-table-container {
+      overflow-x: auto;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    .eng-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      min-width: 980px;
+    }
+
+    .eng-table th {
+      background: #f8fafc;
+      color: #475569;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1.5px solid #e2e8f0;
+      border-right: 1px solid #f1f5f9;
+    }
+    .eng-table th:last-child {
+      border-right: none;
+    }
+
+    .eng-row {
+      border-bottom: 1px solid #f1f5f9;
+      transition: background 0.15s ease;
+      cursor: pointer;
+    }
+    .eng-row:last-child {
+      border-bottom: none;
+    }
+    .eng-row:hover {
+      background: #f8fafc;
+    }
+    .eng-row.active {
+      background: #f0f9ff !important;
+      border-left: 3px solid #0284c7;
+    }
+
+    .eng-row td {
+      padding: 14px 16px;
+      vertical-align: middle;
+      font-size: 13px;
+      border-right: 1px solid #f8fafc;
+      color: #1e293b;
+    }
+    .eng-row td:last-child {
+      border-right: none;
+    }
+
+    /* CODE & ICON IN ROW */
+    .row-id-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .code-badge {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #0284c7;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      padding: 2px 7px;
+      border-radius: 5px;
       flex-shrink: 0;
     }
 
-    .project-main-info h3 {
-      font-size: 14.5px;
+    .clean-icon-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      color: #334155;
+      flex-shrink: 0;
+    }
+
+    .row-title-text {
       font-weight: 700;
       color: #0f172a;
+      font-size: 13.5px;
       display: flex;
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
     }
 
-    .project-tags {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 5px;
+    .row-desc-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
-    .tag-chip {
-      font-size: 11px;
-      padding: 2px 8px;
+    .row-category-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #475569;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 3px 9px;
       border-radius: 6px;
-      background: #f1f5f9;
+      white-space: nowrap;
+    }
+
+    .row-tags-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .clean-tag-chip {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: #ffffff;
       color: #475569;
       border: 1px solid #e2e8f0;
       font-weight: 500;
+      white-space: nowrap;
     }
 
-    .project-desc-text {
-      font-size: 12.5px;
-      color: #64748b;
-      line-height: 1.5;
-    }
-
-    .project-btn-group {
+    .row-actions-group {
       display: flex;
       align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
+      gap: 6px;
       justify-content: flex-end;
+    }
+
+    .tag-status-online {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: #f0fdf4;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .tag-status-local {
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: #f8fafc;
+      color: #64748b;
+      border: 1px solid #e2e8f0;
+    }
+
+    .tag-special-badge {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: #fffbeb;
+      color: #b45309;
+      border: 1px solid #fde68a;
     }
 
     /* TOAST NOTIFICATION */
@@ -806,12 +905,8 @@
     }
 
     @media (max-width: 900px) {
-      .project-row {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-      .project-btn-group {
-        justify-content: flex-start;
+      .eng-table {
+        min-width: 760px;
       }
     }
   </style>
@@ -824,7 +919,7 @@
     <header class="top-header">
       <div class="brand-left">
         <div class="brand-logo" title="Psai Web Projects">
-          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M16 4V28" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
             <path d="M6 10C6 17.5 10.5 22 16 22C21.5 22 26 17.5 26 10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
             <circle cx="6" cy="10" r="2.5" fill="#bae6fd"/>
@@ -838,7 +933,7 @@
             <span>ศูนย์รวมเว็บแอปพลิเคชัน</span>
             <span class="by-psai">by Psai</span>
           </h1>
-          <p>คลังรวมโปรเจกต์เว็บแอปพลิเคชันทั้งหมดของ Psai • สถาปัตยกรรมแยกหมวดหมู่ พร้อมเปิดใช้งานทั้งแบบออนไลน์และในเครื่อง</p>
+          <p>คลังรวมโปรเจกต์เว็บแอปพลิเคชันทั้งหมดของ Psai • สถาปัตยกรรมจัดระเบียบสารบบ รองรับการใช้งานออนไลน์และในเครื่อง</p>
         </div>
       </div>
       <div class="top-badges">
@@ -851,7 +946,7 @@
     <!-- VIEW SWITCHER BAR -->
     <div class="view-switch-bar">
       <button class="view-btn active" id="btn-view-map" onclick="switchView('map', this)">
-        🌿 1. ผังภาพรวม Mind Map & ศูนย์รวมเว็บ
+        🌿 1. ผังภาพรวม Mind Map & สารบบเว็บ
       </button>
       <button class="view-btn" id="btn-view-online" onclick="switchView('online', this)">
         🌐 2. เว็บไซต์ออนไลน์ (7 Online Live Apps)
@@ -859,8 +954,8 @@
       <button class="view-btn" id="btn-view-local" onclick="switchView('local', this)">
         💻 3. แอปพลิเคชันในเครื่อง (All 18 Local Apps)
       </button>
-      <button class="view-btn" id="btn-view-categories" onclick="switchView('categories', this)">
-        📑 4. แสดงแยกตามหมวดหมู่ (Category View)
+      <button class="view-btn" id="btn-view-table-only" onclick="switchView('table-only', this)">
+        📊 4. สารบบตารางเต็มจอ (Directory Table)
       </button>
     </div>
 
@@ -894,8 +989,8 @@
         
         <div class="branch-card" id="branch-family" onclick="selectCategoryBranch('family', this)">
           <div class="branch-top">
-            <span class="branch-code" style="background:#ecfdf5; color:#059669;">01</span>
-            <span style="font-size: 11px; color:#0284c7; font-weight:bold;">5 เว็บไซต์</span>
+            <span class="branch-code">01</span>
+            <span style="font-size: 11.5px; color:#0284c7; font-weight:700;">5 เว็บไซต์</span>
           </div>
           <div class="branch-title">
             <span>👨‍👩‍👧</span>
@@ -906,8 +1001,8 @@
         
         <div class="branch-card" id="branch-tech" onclick="selectCategoryBranch('tech', this)">
           <div class="branch-top">
-            <span class="branch-code" style="background:#bae6fd; color:#0369a1;">02</span>
-            <span style="font-size: 11px; color:#0284c7; font-weight:bold;">4 เว็บไซต์</span>
+            <span class="branch-code">02</span>
+            <span style="font-size: 11.5px; color:#0284c7; font-weight:700;">4 เว็บไซต์</span>
           </div>
           <div class="branch-title">
             <span>🛠️</span>
@@ -918,8 +1013,8 @@
         
         <div class="branch-card" id="branch-entertainment" onclick="selectCategoryBranch('entertainment', this)">
           <div class="branch-top">
-            <span class="branch-code" style="background:#ede9fe; color:#6d28d9;">03</span>
-            <span style="font-size: 11px; color:#0284c7; font-weight:bold;">5 เว็บไซต์</span>
+            <span class="branch-code">03</span>
+            <span style="font-size: 11.5px; color:#0284c7; font-weight:700;">5 เว็บไซต์</span>
           </div>
           <div class="branch-title">
             <span>🎮</span>
@@ -930,8 +1025,8 @@
         
         <div class="branch-card" id="branch-fitness" onclick="selectCategoryBranch('fitness', this)">
           <div class="branch-top">
-            <span class="branch-code" style="background:#ffe4e6; color:#be123c;">04</span>
-            <span style="font-size: 11px; color:#0284c7; font-weight:bold;">3 เว็บไซต์</span>
+            <span class="branch-code">04</span>
+            <span style="font-size: 11.5px; color:#0284c7; font-weight:700;">3 เว็บไซต์</span>
           </div>
           <div class="branch-title">
             <span>🏃</span>
@@ -942,8 +1037,8 @@
         
         <div class="branch-card" id="branch-finance" onclick="selectCategoryBranch('finance', this)">
           <div class="branch-top">
-            <span class="branch-code" style="background:#dcfce7; color:#15803d;">05</span>
-            <span style="font-size: 11px; color:#0284c7; font-weight:bold;">1 เว็บไซต์</span>
+            <span class="branch-code">05</span>
+            <span style="font-size: 11.5px; color:#0284c7; font-weight:700;">1 เว็บไซต์</span>
           </div>
           <div class="branch-title">
             <span>💰</span>
@@ -1182,17 +1277,17 @@
           <thead>
             <tr>
               <th style="width: 28%; color:#0284c7; border-top: 3px solid #0284c7;">🎯 จุดเด่น & ฟังก์ชันหลัก</th>
-              <th style="width: 26%; color:#7c3aed; border-top: 3px solid #8b5cf6;">💻 เทคโนโลยีที่ใช้</th>
+              <th style="width: 26%; color:#475569; border-top: 3px solid #64748b;">💻 เทคโนโลยีที่ใช้</th>
               <th style="width: 26%; color:#059669; border-top: 3px solid #10b981;">📂 หมวดหมู่ & แท็ก</th>
-              <th style="width: 20%; color:#d97706; border-top: 3px solid #f59e0b;">🚀 ช่องทางเข้าใช้งาน</th>
+              <th style="width: 20%; color:#0f172a; border-top: 3px solid #0284c7;">🚀 ช่องทางเข้าใช้งาน</th>
             </tr>
           </thead>
           <tbody id="drawerTableBody">
             <tr>
               <td id="drawerColFeatures">คิดเมนูตามวัตถุดิบในบ้าน • เด็กตามวัย 6-24 ด.+ • บันทึกของที่ขาด • รายการเมนูโปรด</td>
-              <td id="drawerColTech">HTML5, Tailwind CSS, LocalStorage, PWA Ready</td>
+              <td id="drawerColTech">HTML5 • Tailwind • LocalStorage • PWA</td>
               <td id="drawerColTags">
-                <span class="tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">วัตถุดิบในบ้าน</span><span class="tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">เด็กตามวัย 6-24 ด.+</span><span class="tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">รายการซื้อของ</span><span class="tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">เมนูโปรด</span>
+                <span class="clean-tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">วัตถุดิบในบ้าน</span><span class="clean-tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">เด็ก 6-24 ด.+</span><span class="clean-tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">รายการซื้อของ</span><span class="clean-tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">เมนูโปรด</span>
               </td>
               <td id="drawerColLaunch">
                 <div style="display:flex; flex-direction:column; gap:6px;">
@@ -1206,666 +1301,906 @@
       </div>
     </section>
 
-    <!-- FULL CATEGORIES SHOWCASE LIST -->
-    <div id="categoriesShowcaseContainer">
-      
-      <section class="category-section" data-cat-section="family">
-        <div class="category-banner">
-          <div class="category-banner-left">
-            <div class="category-banner-icon" style="background:#ecfdf5; color:#059669;">
-              👨‍👩‍👧
-            </div>
-            <div class="category-banner-title">
-              <h2>หมวดหมู่: ครอบครัว & เด็ก</h2>
-              <p>เมนูอาหารเด็ก พัฒนาการลูกน้อย และไอเดียกิจกรรมเล่นสร้างสรรค์</p>
-            </div>
-          </div>
-          <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#94a3b8;">Family & Kids</span>
+    <!-- NEW CLEAN ENGINEERING DIRECTORY SECTION (REPLACED OLD RAINBOW ROWS) -->
+    <section class="directory-section" id="masterDirectorySection">
+      <div class="directory-header">
+        <div class="directory-title-group">
+          <h2>
+            <span>📑</span>
+            <span>ตารางสารบรรณเว็บแอปพลิเคชันทั้งหมด (Master Web Projects Directory)</span>
+          </h2>
+          <p>แสดงรายการเว็บแอปพลิเคชันอย่างละเอียด คลีน สบายตา พร้อมรายละเอียดสเปกและช่องทางเปิดใช้งาน</p>
         </div>
-
-        <div class="projects-table-card">
-          
-          <div class="project-row" id="proj-row-01" data-category="family" data-online="true" data-search="เมนูของปรายใส (praysai kids meals) เมนูของปรายใส เลือกวัตถุดิบที่มีในบ้าน ระบบจะช่วยคิดเมนูสำหรับปรายใสตามช่วงวัย เวลา และเนื้อสัมผัส พร้อมบอกของที่ขาดและบันทึกรายการซื้อของ วัตถุดิบในบ้าน เด็กตามวัย 6-24 ด.+ รายการซื้อของ เมนูโปรด">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-rose-500 to-pink-600" style="background: linear-gradient(135deg, #f43f5e, #e11d48);">
-                ป
-              </div>
-            </div>
-
-            <div class="project-main-info">
-              <h3>
-                <span>เมนูของปรายใส (Praysai Kids Meals)</span>
-                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#fef3c7; color:#b45309; border:1px solid #fde68a;">🌟 ของปรายใส</span>
-                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#dcfce7; color:#15803d; border:1px solid #86efac;">🌐 ออนไลน์</span>
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">วัตถุดิบในบ้าน</span><span class="tag-chip">เด็กตามวัย 6-24 ด.+</span><span class="tag-chip">รายการซื้อของ</span><span class="tag-chip">เมนูโปรด</span>
-              </div>
-            </div>
-
-            <div class="project-desc-text">
-              เลือกวัตถุดิบที่มีในบ้าน ระบบจะช่วยคิดเมนูสำหรับปรายใสตามช่วงวัย เวลา และเนื้อสัมผัส พร้อมบอกของที่ขาดและบันทึกรายการซื้อของ
-            </div>
-
-            <div class="project-btn-group">
-              
-              <a href="https://prongnaruebest.github.io/-praysai-kids-meals/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="padding:6px 14px; font-size:12px;">
-                🌐 เปิดออนไลน์
-              </a>
-              <a href="19_เว็บเมนูของปรายใส/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-          <div class="project-row" id="proj-row-02" data-category="family" data-online="true" data-search="เว็บอาหารเด็กเล็ก (yumyum toddler) เว็บอาหารเด็กเล็ก สูตรอาหารและแนวทางโภชนาการสำหรับเด็กวัยหัดเดิน 1-3 ปี ครบถ้วนสารอาหารสำคัญเพื่อการเจริญเติบโต พร้อมเวอร์ชันออนไลน์บนคลาวด์ เด็กเล็ก 1-3 ขวบ ตารางโภชนาการ เมนูลดแพ้ cloud app">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-lime-500 to-emerald-600" style="background: linear-gradient(135deg, #84cc16, #059669);">
-                🥣
-              </div>
-            </div>
-
-            <div class="project-main-info">
-              <h3>
-                <span>เว็บอาหารเด็กเล็ก (YumYum Toddler)</span>
-                
-                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#dcfce7; color:#15803d; border:1px solid #86efac;">🌐 ออนไลน์</span>
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">เด็กเล็ก 1-3 ขวบ</span><span class="tag-chip">ตารางโภชนาการ</span><span class="tag-chip">เมนูลดแพ้</span><span class="tag-chip">Cloud App</span>
-              </div>
-            </div>
-
-            <div class="project-desc-text">
-              สูตรอาหารและแนวทางโภชนาการสำหรับเด็กวัยหัดเดิน 1-3 ปี ครบถ้วนสารอาหารสำคัญเพื่อการเจริญเติบโต พร้อมเวอร์ชันออนไลน์บนคลาวด์
-            </div>
-
-            <div class="project-btn-group">
-              
-              <a href="https://yumyum-toddler-online.prong-naruebest.chatgpt.site/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="padding:6px 14px; font-size:12px;">
-                🌐 เปิดออนไลน์
-              </a>
-              <a href="08_เว็บอาหารเด็กเล็ก/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-          <div class="project-row" id="proj-row-03" data-category="family" data-online="true" data-search="เว็บไอเดียกิจกรรมเด็ก (playpal) ไอเดียกิจกรรมเด็ก คลัง 32+ ไอเดียกิจกรรมการเล่นสร้างสรรค์กับลูก เสริมทักษะประสาทสัมผัสและกล้ามเนื้อ พร้อมอุปกรณ์ที่หาได้ง่ายในบ้าน รองรับ pwa เล่นสร้างสรรค์ 32+ กิจกรรม เสริมพัฒนาการ pwa">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-amber-400 to-orange-500" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                🎨
-              </div>
-            </div>
-
-            <div class="project-main-info">
-              <h3>
-                <span>เว็บไอเดียกิจกรรมเด็ก (PlayPal)</span>
-                
-                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#dcfce7; color:#15803d; border:1px solid #86efac;">🌐 ออนไลน์</span>
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">เล่นสร้างสรรค์</span><span class="tag-chip">32+ กิจกรรม</span><span class="tag-chip">เสริมพัฒนาการ</span><span class="tag-chip">PWA</span>
-              </div>
-            </div>
-
-            <div class="project-desc-text">
-              คลัง 32+ ไอเดียกิจกรรมการเล่นสร้างสรรค์กับลูก เสริมทักษะประสาทสัมผัสและกล้ามเนื้อ พร้อมอุปกรณ์ที่หาได้ง่ายในบ้าน รองรับ PWA
-            </div>
-
-            <div class="project-btn-group">
-              
-              <a href="https://prongnaruebest.github.io/playpal-web/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="padding:6px 14px; font-size:12px;">
-                🌐 เปิดออนไลน์
-              </a>
-              <a href="07_เว็บไอเดียกิจกรรมเด็ก/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-          <div class="project-row" id="proj-row-04" data-category="family" data-online="false" data-search="เว็บคู่มือพัฒนาการลูกน้อย (kiddev hub) คู่มือพัฒนาการลูก คู่มือพัฒนาการเด็กตามช่วงอายุ การส่งเสริมทักษะทางอารมณ์ สังคม และสมอง พร้อมแนวทางการเลี้ยงดูเชิงบวก 0-5 ขวบ เช็กลิสต์พัฒนาการ eq & ef คู่มือคุณแม่">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-pink-400 to-rose-500" style="background: linear-gradient(135deg, #f43f5e, #e11d48);">
-                👶
-              </div>
-            </div>
-
-            <div class="project-main-info">
-              <h3>
-                <span>เว็บคู่มือพัฒนาการลูกน้อย (KidDev Hub)</span>
-                
-                
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">0-5 ขวบ</span><span class="tag-chip">เช็กลิสต์พัฒนาการ</span><span class="tag-chip">EQ & EF</span><span class="tag-chip">คู่มือคุณแม่</span>
-              </div>
-            </div>
-
-            <div class="project-desc-text">
-              คู่มือพัฒนาการเด็กตามช่วงอายุ การส่งเสริมทักษะทางอารมณ์ สังคม และสมอง พร้อมแนวทางการเลี้ยงดูเชิงบวก
-            </div>
-
-            <div class="project-btn-group">
-              
-              <a href="06_เว็บคู่มือพัฒนาการลูกน้อย/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-          <div class="project-row" id="proj-row-05" data-category="family" data-online="false" data-search="เว็บสุ่มทำอาหาร (วันนี้กินอะไรดี) วันนี้กินอะไรดี (300 เมนู) ระบบสุ่มเมนูอาหารประจำวันจากฐานข้อมูล 300 รายการ ช่วยแก้ปัญหาคิดไม่ออกว่าจะกินอะไร พร้อมข้อมูลสารอาหารและวิธีทำ 300+ เมนู สุ่มอาหาร ข้อมูลโภชนาการ คำนวณแคลอรี">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-orange-500 to-amber-600" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                🍳
-              </div>
-            </div>
-
-            <div class="project-main-info">
-              <h3>
-                <span>เว็บสุ่มทำอาหาร (วันนี้กินอะไรดี)</span>
-                
-                
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">300+ เมนู</span><span class="tag-chip">สุ่มอาหาร</span><span class="tag-chip">ข้อมูลโภชนาการ</span><span class="tag-chip">คำนวณแคลอรี</span>
-              </div>
-            </div>
-
-            <div class="project-desc-text">
-              ระบบสุ่มเมนูอาหารประจำวันจากฐานข้อมูล 300 รายการ ช่วยแก้ปัญหาคิดไม่ออกว่าจะกินอะไร พร้อมข้อมูลสารอาหารและวิธีทำ
-            </div>
-
-            <div class="project-btn-group">
-              
-              <a href="01_เว็บสุ่มทำอาหาร/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
+        <div class="directory-stats-badge" id="directoryStatsBadge">
+          18 รายการ • 7 เว็บออนไลน์
         </div>
-      </section>
-        
-      <section class="category-section" data-cat-section="tech">
-        <div class="category-banner">
-          <div class="category-banner-left">
-            <div class="category-banner-icon" style="background:#bae6fd; color:#0369a1;">
-              🛠️
-            </div>
-            <div class="category-banner-title">
-              <h2>หมวดหมู่: เครื่องมือ & วิศวกรรม</h2>
-              <p>SmartZone PDF Studio, พอร์ตโฟลิโอวิศวกร, Codex และคลัง Prompt AI</p>
-            </div>
-          </div>
-          <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#94a3b8;">Engineering & Tools</span>
-        </div>
+      </div>
 
-        <div class="projects-table-card">
-          
-          <div class="project-row" id="proj-row-06" data-category="tech" data-online="true" data-search="smart zone ai (pdf studio & flipbook) smartzone pdf studio โคลนและพัฒนาจาก szai.net ระบบจัดการ pdf ครบวงจร ทำฟลิปบุ๊ก 3d เสมือนจริง แก้ไข เซ็นเซอร์ข้อความ ใส่ลายเซ็น รวม แยกหน้า และแปลงเป็นรูปภาพ ทำงานในเบราว์เซอร์ 100% 3d flipbook pdf editor & sign merge/split/organize 100% client-side">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-emerald-500 to-teal-700" style="background: linear-gradient(135deg, #10b981, #047857);">
-                📄
-              </div>
-            </div>
+      <!-- UNIFIED CLEAN TABLE -->
+      <div class="clean-table-container">
+        <table class="eng-table">
+          <thead>
+            <tr>
+              <th style="width: 8%;">รหัส</th>
+              <th style="width: 36%;">ชื่อเว็บแอปพลิเคชัน & รายละเอียด</th>
+              <th style="width: 17%;">หมวดหมู่</th>
+              <th style="width: 21%;">คุณสมบัติ & เทคโนโลยี</th>
+              <th style="width: 18%; text-align: right;">เปิดใช้งาน</th>
+            </tr>
+          </thead>
+          <tbody id="engTableBody">
+            
+            <tr class="eng-row" id="engrow-01" data-category="family" data-online="true" data-search="เมนูของปรายใส (praysai kids meals) เมนูของปรายใส เลือกวัตถุดิบที่มีในบ้าน ระบบจะช่วยคิดเมนูสำหรับปรายใสตามช่วงวัย เวลา และเนื้อสัมผัส พร้อมบอกของที่ขาดและบันทึกรายการซื้อของ วัตถุดิบในบ้าน เด็ก 6-24 ด.+ รายการซื้อของ เมนูโปรด" onclick="onRowClick('01', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#01</span>
+                  <div class="clean-icon-box" title="เมนูของปรายใส">
+                    🍽️
+                  </div>
+                </div>
+              </td>
 
-            <div class="project-main-info">
-              <h3>
-                <span>Smart Zone AI (PDF Studio & Flipbook)</span>
-                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#fef3c7; color:#b45309; border:1px solid #fde68a;">ใหม่</span>
-                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#dcfce7; color:#15803d; border:1px solid #86efac;">🌐 ออนไลน์</span>
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">3D Flipbook</span><span class="tag-chip">PDF Editor & Sign</span><span class="tag-chip">Merge/Split/Organize</span><span class="tag-chip">100% Client-Side</span>
-              </div>
-            </div>
+              <td>
+                <div class="row-title-text">
+                  <span>เมนูของปรายใส (Praysai Kids Meals)</span>
+                  <span class="tag-special-badge">🌟 ของปรายใส</span>
+                  <span class="tag-status-online">🌐 ออนไลน์</span>
+                </div>
+                <div class="row-desc-text">
+                  เลือกวัตถุดิบที่มีในบ้าน ระบบจะช่วยคิดเมนูสำหรับปรายใสตามช่วงวัย เวลา และเนื้อสัมผัส พร้อมบอกของที่ขาดและบันทึกรายการซื้อของ
+                </div>
+              </td>
 
-            <div class="project-desc-text">
-              โคลนและพัฒนาจาก szai.net ระบบจัดการ PDF ครบวงจร ทำฟลิปบุ๊ก 3D เสมือนจริง แก้ไข เซ็นเซอร์ข้อความ ใส่ลายเซ็น รวม แยกหน้า และแปลงเป็นรูปภาพ ทำงานในเบราว์เซอร์ 100%
-            </div>
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>ครอบครัว & เด็ก</span>
+                </span>
+              </td>
 
-            <div class="project-btn-group">
-              
-              <a href="https://prongnaruebest.github.io/Psai-web-projects/smartzone-pdf/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="padding:6px 14px; font-size:12px;">
-                🌐 เปิดออนไลน์
-              </a>
-              <a href="17_SmartZone_PDF_Studio/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-          <div class="project-row" id="proj-row-07" data-category="tech" data-online="true" data-search="เว็บพอร์ตโฟลิโอวิศวกร (psai naruebest) พอร์ตโฟลิโอวิศวกร psai เว็บไซต์แสดงประวัติและผลงานวิศวกรรมอิเล็กทรอนิกส์ ระบบควบคุมหอดูดาว กล้องโทรทรรศน์อัตโนมัติ และสถาปัตยกรรมระบบ electronics engineer narit observatory robotic telescope">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-sky-500 to-indigo-600" style="background: linear-gradient(135deg, #0284c7, #1d4ed8);">
-                🔭
-              </div>
-            </div>
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">วัตถุดิบในบ้าน</span><span class="clean-tag-chip">เด็ก 6-24 ด.+</span><span class="clean-tag-chip">รายการซื้อของ</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  HTML5
+                </div>
+              </td>
 
-            <div class="project-main-info">
-              <h3>
-                <span>เว็บพอร์ตโฟลิโอวิศวกร (Psai Naruebest)</span>
-                
-                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#dcfce7; color:#15803d; border:1px solid #86efac;">🌐 ออนไลน์</span>
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">Electronics Engineer</span><span class="tag-chip">NARIT Observatory</span><span class="tag-chip">Robotic Telescope</span>
-              </div>
-            </div>
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="https://prongnaruebest.github.io/-praysai-kids-meals/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" onclick="event.stopPropagation()">
+                    🌐 ออนไลน์
+                  </a>
+                  <a href="19_เว็บเมนูของปรายใส/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-02" data-category="family" data-online="true" data-search="เว็บอาหารเด็กเล็ก (yumyum toddler) เว็บอาหารเด็กเล็ก สูตรอาหารและแนวทางโภชนาการสำหรับเด็กวัยหัดเดิน 1-3 ปี ครบถ้วนสารอาหารสำคัญเพื่อการเจริญเติบโต พร้อมเวอร์ชันออนไลน์บนคลาวด์ เด็กเล็ก 1-3 ขวบ ตารางโภชนาการ เมนูลดแพ้ cloud app" onclick="onRowClick('02', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#02</span>
+                  <div class="clean-icon-box" title="เว็บอาหารเด็กเล็ก">
+                    🥣
+                  </div>
+                </div>
+              </td>
 
-            <div class="project-desc-text">
-              เว็บไซต์แสดงประวัติและผลงานวิศวกรรมอิเล็กทรอนิกส์ ระบบควบคุมหอดูดาว กล้องโทรทรรศน์อัตโนมัติ และสถาปัตยกรรมระบบ
-            </div>
+              <td>
+                <div class="row-title-text">
+                  <span>เว็บอาหารเด็กเล็ก (YumYum Toddler)</span>
+                  
+                  <span class="tag-status-online">🌐 ออนไลน์</span>
+                </div>
+                <div class="row-desc-text">
+                  สูตรอาหารและแนวทางโภชนาการสำหรับเด็กวัยหัดเดิน 1-3 ปี ครบถ้วนสารอาหารสำคัญเพื่อการเจริญเติบโต พร้อมเวอร์ชันออนไลน์บนคลาวด์
+                </div>
+              </td>
 
-            <div class="project-btn-group">
-              
-              <a href="https://prongnaruebest.github.io/psai-play/#about" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="padding:6px 14px; font-size:12px;">
-                🌐 เปิดออนไลน์
-              </a>
-              <a href="11_เว็บพอร์ตโฟลิโอ/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-          <div class="project-row" id="proj-row-08" data-category="tech" data-online="false" data-search="คอร์สวิศวกรรมระบบ (personal codex) คอร์สวิศวกรรมระบบ หลักสูตรและเครื่องมือทดลองเชิงปฏิบัติการด้านวิศวกรรมสถาปัตยกรรมระบบขั้นสูง พร้อม workbench แบบโต้ตอบ system architecture interactive course engineering lab">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-indigo-500 to-purple-600" style="background: linear-gradient(135deg, #0284c7, #0369a1);">
-                ⚙️
-              </div>
-            </div>
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>ครอบครัว & เด็ก</span>
+                </span>
+              </td>
 
-            <div class="project-main-info">
-              <h3>
-                <span>คอร์สวิศวกรรมระบบ (Personal Codex)</span>
-                
-                
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">System Architecture</span><span class="tag-chip">Interactive Course</span><span class="tag-chip">Engineering Lab</span>
-              </div>
-            </div>
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">เด็กเล็ก 1-3 ขวบ</span><span class="clean-tag-chip">ตารางโภชนาการ</span><span class="clean-tag-chip">เมนูลดแพ้</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  Next.js
+                </div>
+              </td>
 
-            <div class="project-desc-text">
-              หลักสูตรและเครื่องมือทดลองเชิงปฏิบัติการด้านวิศวกรรมสถาปัตยกรรมระบบขั้นสูง พร้อม Workbench แบบโต้ตอบ
-            </div>
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="https://yumyum-toddler-online.prong-naruebest.chatgpt.site/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" onclick="event.stopPropagation()">
+                    🌐 ออนไลน์
+                  </a>
+                  <a href="08_เว็บอาหารเด็กเล็ก/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-03" data-category="family" data-online="true" data-search="เว็บไอเดียกิจกรรมเด็ก (playpal) ไอเดียกิจกรรมเด็ก คลัง 32+ ไอเดียกิจกรรมการเล่นสร้างสรรค์กับลูก เสริมทักษะประสาทสัมผัสและกล้ามเนื้อ พร้อมอุปกรณ์ที่หาได้ง่ายในบ้าน รองรับ pwa เล่นสร้างสรรค์ 32+ กิจกรรม เสริมพัฒนาการ pwa" onclick="onRowClick('03', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#03</span>
+                  <div class="clean-icon-box" title="ไอเดียกิจกรรมเด็ก">
+                    🎨
+                  </div>
+                </div>
+              </td>
 
-            <div class="project-btn-group">
-              
-              <a href="12_เว็บคอร์สวิศวกรรมระบบ/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-          <div class="project-row" id="proj-row-09" data-category="tech" data-online="false" data-search="เว็บคลัง prompt ai (nexus prompt hub) คลัง prompt ai hub คลังคำสั่งสำหรับสั่งงานปัญญาประดิษฐ์ (ai prompts) หมวดงานเขียน วิเคราะห์ข้อมูล วางแผน และเขียนโค้ด prompt engineering ai assistant one-click copy">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-violet-600 to-purple-700" style="background: linear-gradient(135deg, #7c3aed, #4c1d95);">
-                🧠
-              </div>
-            </div>
+              <td>
+                <div class="row-title-text">
+                  <span>เว็บไอเดียกิจกรรมเด็ก (PlayPal)</span>
+                  
+                  <span class="tag-status-online">🌐 ออนไลน์</span>
+                </div>
+                <div class="row-desc-text">
+                  คลัง 32+ ไอเดียกิจกรรมการเล่นสร้างสรรค์กับลูก เสริมทักษะประสาทสัมผัสและกล้ามเนื้อ พร้อมอุปกรณ์ที่หาได้ง่ายในบ้าน รองรับ PWA
+                </div>
+              </td>
 
-            <div class="project-main-info">
-              <h3>
-                <span>เว็บคลัง Prompt AI (Nexus Prompt Hub)</span>
-                
-                
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">Prompt Engineering</span><span class="tag-chip">AI Assistant</span><span class="tag-chip">One-Click Copy</span>
-              </div>
-            </div>
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>ครอบครัว & เด็ก</span>
+                </span>
+              </td>
 
-            <div class="project-desc-text">
-              คลังคำสั่งสำหรับสั่งงานปัญญาประดิษฐ์ (AI Prompts) หมวดงานเขียน วิเคราะห์ข้อมูล วางแผน และเขียนโค้ด
-            </div>
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">เล่นสร้างสรรค์</span><span class="clean-tag-chip">32+ กิจกรรม</span><span class="clean-tag-chip">เสริมพัฒนาการ</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  HTML5
+                </div>
+              </td>
 
-            <div class="project-btn-group">
-              
-              <a href="10_เว็บคลังPromptAI/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-        </div>
-      </section>
-        
-      <section class="category-section" data-cat-section="entertainment">
-        <div class="category-banner">
-          <div class="category-banner-left">
-            <div class="category-banner-icon" style="background:#ede9fe; color:#6d28d9;">
-              🎮
-            </div>
-            <div class="category-banner-title">
-              <h2>หมวดหมู่: บันเทิง & ดนตรี</h2>
-              <p>TrackToon อนิเมะ/มังงะ, GuitarQuest, นิยายเซียนหนี่, หออักษรา และเกมยานอวกาศ</p>
-            </div>
-          </div>
-          <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#94a3b8;">Entertainment & Media</span>
-        </div>
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="https://prongnaruebest.github.io/playpal-web/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" onclick="event.stopPropagation()">
+                    🌐 ออนไลน์
+                  </a>
+                  <a href="07_เว็บไอเดียกิจกรรมเด็ก/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-04" data-category="family" data-online="false" data-search="เว็บคู่มือพัฒนาการลูกน้อย (kiddev hub) คู่มือพัฒนาการลูก คู่มือพัฒนาการเด็กตามช่วงอายุ การส่งเสริมทักษะทางอารมณ์ สังคม และสมอง พร้อมแนวทางการเลี้ยงดูเชิงบวก 0-5 ขวบ เช็กลิสต์พัฒนาการ eq & ef คู่มือคุณแม่" onclick="onRowClick('04', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#04</span>
+                  <div class="clean-icon-box" title="คู่มือพัฒนาการลูก">
+                    👶
+                  </div>
+                </div>
+              </td>
 
-        <div class="projects-table-card">
-          
-          <div class="project-row" id="proj-row-10" data-category="entertainment" data-online="true" data-search="บันทึกตอนล่าสุด อนิเมะ & มังงะ (tracktoon) tracktoon (อนิเมะ & มังงะ) เครื่องมือบันทึกความคืบหน้าการดูอนิเมะจีนและอ่านมังงะ/มันฮวาประจำวัน มีปุ่มกด +1 ตอนทันใจ ค้นหาตอนต่อไปใน 1 คลิก พร้อมฟังก์ชันคัดลอกและนำเข้ารายการข้อความดิบ (clear theme) clear theme anime tracker manga progress ปุ่มกด +1 ตอน">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-sky-500 to-blue-700" style="background: linear-gradient(135deg, #0284c7, #1d4ed8);">
-                📺
-              </div>
-            </div>
+              <td>
+                <div class="row-title-text">
+                  <span>เว็บคู่มือพัฒนาการลูกน้อย (KidDev Hub)</span>
+                  
+                  <span class="tag-status-local">💻 ในเครื่อง</span>
+                </div>
+                <div class="row-desc-text">
+                  คู่มือพัฒนาการเด็กตามช่วงอายุ การส่งเสริมทักษะทางอารมณ์ สังคม และสมอง พร้อมแนวทางการเลี้ยงดูเชิงบวก
+                </div>
+              </td>
 
-            <div class="project-main-info">
-              <h3>
-                <span>บันทึกตอนล่าสุด อนิเมะ & มังงะ (TrackToon)</span>
-                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#fef3c7; color:#b45309; border:1px solid #fde68a;">ใหม่</span>
-                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#dcfce7; color:#15803d; border:1px solid #86efac;">🌐 ออนไลน์</span>
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">Clear Theme</span><span class="tag-chip">Anime Tracker</span><span class="tag-chip">Manga Progress</span><span class="tag-chip">ปุ่มกด +1 ตอน</span>
-              </div>
-            </div>
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>ครอบครัว & เด็ก</span>
+                </span>
+              </td>
 
-            <div class="project-desc-text">
-              เครื่องมือบันทึกความคืบหน้าการดูอนิเมะจีนและอ่านมังงะ/มันฮวาประจำวัน มีปุ่มกด +1 ตอนทันใจ ค้นหาตอนต่อไปใน 1 คลิก พร้อมฟังก์ชันคัดลอกและนำเข้ารายการข้อความดิบ (Clear Theme)
-            </div>
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">0-5 ขวบ</span><span class="clean-tag-chip">เช็กลิสต์พัฒนาการ</span><span class="clean-tag-chip">EQ & EF</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  HTML5
+                </div>
+              </td>
 
-            <div class="project-btn-group">
-              
-              <a href="https://prongnaruebest.github.io/Psai-web-projects/tracktoon/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="padding:6px 14px; font-size:12px;">
-                🌐 เปิดออนไลน์
-              </a>
-              <a href="18_เว็บติดตามอนิเมะและมังงะ/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-          <div class="project-row" id="proj-row-11" data-category="entertainment" data-online="true" data-search="นิยายเซียนหนี่ 44 เล่มจบ (xian ni) นิยายเซียนหนี่ 44 เล่ม คลังนิยายกำลังภายในฉบับสมบูรณ์ 44 เล่ม พร้อมระบบอ่านออกเสียงจำลอง (text-to-speech) สำหรับฟังต่อเนื่องผ่านเน็ตหรือในเครื่อง นิยาย 44 เล่มจบ ระบบเสียง tts จำตอนอ่านล่าสุด cloud reader">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-blue-600 to-indigo-700" style="background: linear-gradient(135deg, #0284c7, #0369a1);">
-                📖
-              </div>
-            </div>
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="06_เว็บคู่มือพัฒนาการลูกน้อย/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-05" data-category="family" data-online="false" data-search="เว็บสุ่มทำอาหาร (วันนี้กินอะไรดี) วันนี้กินอะไรดี (300 เมนู) ระบบสุ่มเมนูอาหารประจำวันจากฐานข้อมูล 300 รายการ ช่วยแก้ปัญหาคิดไม่ออกว่าจะกินอะไร พร้อมข้อมูลสารอาหารและวิธีทำ 300+ เมนู สุ่มอาหาร ข้อมูลโภชนาการ คำนวณแคลอรี" onclick="onRowClick('05', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#05</span>
+                  <div class="clean-icon-box" title="วันนี้กินอะไรดี (300 เมนู)">
+                    🍳
+                  </div>
+                </div>
+              </td>
 
-            <div class="project-main-info">
-              <h3>
-                <span>นิยายเซียนหนี่ 44 เล่มจบ (Xian Ni)</span>
-                
-                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#dcfce7; color:#15803d; border:1px solid #86efac;">🌐 ออนไลน์</span>
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">นิยาย 44 เล่มจบ</span><span class="tag-chip">ระบบเสียง TTS</span><span class="tag-chip">จำตอนอ่านล่าสุด</span><span class="tag-chip">Cloud Reader</span>
-              </div>
-            </div>
+              <td>
+                <div class="row-title-text">
+                  <span>เว็บสุ่มทำอาหาร (วันนี้กินอะไรดี)</span>
+                  
+                  <span class="tag-status-local">💻 ในเครื่อง</span>
+                </div>
+                <div class="row-desc-text">
+                  ระบบสุ่มเมนูอาหารประจำวันจากฐานข้อมูล 300 รายการ ช่วยแก้ปัญหาคิดไม่ออกว่าจะกินอะไร พร้อมข้อมูลสารอาหารและวิธีทำ
+                </div>
+              </td>
 
-            <div class="project-desc-text">
-              คลังนิยายกำลังภายในฉบับสมบูรณ์ 44 เล่ม พร้อมระบบอ่านออกเสียงจำลอง (Text-to-Speech) สำหรับฟังต่อเนื่องผ่านเน็ตหรือในเครื่อง
-            </div>
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>ครอบครัว & เด็ก</span>
+                </span>
+              </td>
 
-            <div class="project-btn-group">
-              
-              <a href="https://xianni-reader-psai.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="padding:6px 14px; font-size:12px;">
-                🌐 เปิดออนไลน์
-              </a>
-              <a href="14_เว็บอ่านนิยายเซียนหนี่44เล่ม/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-          <div class="project-row" id="proj-row-12" data-category="entertainment" data-online="false" data-search="เว็บสอนกีต้า (guitarquest) guitarquest (สอนกีตาร์) เว็บเรียนเล่นกีตาร์ตั้งแต่เริ่มต้นจนชำนาญ ผ่านระบบจำลองเควสต์ผจญภัยแบบเกม พร้อมฟิงเกอร์บอร์ดจำลองเสียงคอร์ด เครื่องตั้งสาย และเครื่องเล่นตามคอร์ด guitar quest web audio คอร์ด tuner ตั้งสาย เพลงพร้อมคอร์ด">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-amber-500 to-orange-600" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                🎸
-              </div>
-            </div>
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">300+ เมนู</span><span class="clean-tag-chip">สุ่มอาหาร</span><span class="clean-tag-chip">ข้อมูลโภชนาการ</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  HTML5
+                </div>
+              </td>
 
-            <div class="project-main-info">
-              <h3>
-                <span>เว็บสอนกีต้า (GuitarQuest)</span>
-                
-                
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">Guitar Quest</span><span class="tag-chip">Web Audio คอร์ด</span><span class="tag-chip">Tuner ตั้งสาย</span><span class="tag-chip">เพลงพร้อมคอร์ด</span>
-              </div>
-            </div>
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="01_เว็บสุ่มทำอาหาร/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-06" data-category="tech" data-online="true" data-search="smart zone ai (pdf studio & flipbook) smartzone pdf studio โคลนและพัฒนาจาก szai.net ระบบจัดการ pdf ครบวงจร ทำฟลิปบุ๊ก 3d เสมือนจริง แก้ไข เซ็นเซอร์ข้อความ ใส่ลายเซ็น รวม แยกหน้า และแปลงเป็นรูปภาพ ทำงานในเบราว์เซอร์ 100% 3d flipbook pdf editor & sign merge/split/organize 100% client-side" onclick="onRowClick('06', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#06</span>
+                  <div class="clean-icon-box" title="SmartZone PDF Studio">
+                    📄
+                  </div>
+                </div>
+              </td>
 
-            <div class="project-desc-text">
-              เว็บเรียนเล่นกีตาร์ตั้งแต่เริ่มต้นจนชำนาญ ผ่านระบบจำลองเควสต์ผจญภัยแบบเกม พร้อมฟิงเกอร์บอร์ดจำลองเสียงคอร์ด เครื่องตั้งสาย และเครื่องเล่นตามคอร์ด
-            </div>
+              <td>
+                <div class="row-title-text">
+                  <span>Smart Zone AI (PDF Studio & Flipbook)</span>
+                  <span class="tag-special-badge">ใหม่</span>
+                  <span class="tag-status-online">🌐 ออนไลน์</span>
+                </div>
+                <div class="row-desc-text">
+                  โคลนและพัฒนาจาก szai.net ระบบจัดการ PDF ครบวงจร ทำฟลิปบุ๊ก 3D เสมือนจริง แก้ไข เซ็นเซอร์ข้อความ ใส่ลายเซ็น รวม แยกหน้า และแปลงเป็นรูปภาพ ทำงานในเบราว์เซอร์ 100%
+                </div>
+              </td>
 
-            <div class="project-btn-group">
-              
-              <a href="02_เว็บสอนกีต้า/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-          <div class="project-row" id="proj-row-13" data-category="entertainment" data-online="false" data-search="เว็บอ่านนิยายออนไลน์ (หออักษรา) หออักษรา (e-book reader) ระบบอ่าน e-book และนิยายออนไลน์ พร้อมฟังก์ชันปรับแต่งธีม ขนาดตัวอักษร คั่นหน้า และถนอมสายตา 4 เล่ม 72 ตอน e-book reader ปรับขนาดอักษร sepia theme">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-amber-600 to-stone-800" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                📚
-              </div>
-            </div>
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>เครื่องมือ & วิศวกรรม</span>
+                </span>
+              </td>
 
-            <div class="project-main-info">
-              <h3>
-                <span>เว็บอ่านนิยายออนไลน์ (หออักษรา)</span>
-                
-                
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">4 เล่ม 72 ตอน</span><span class="tag-chip">E-Book Reader</span><span class="tag-chip">ปรับขนาดอักษร</span><span class="tag-chip">Sepia Theme</span>
-              </div>
-            </div>
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">3D Flipbook</span><span class="clean-tag-chip">PDF Editor & Sign</span><span class="clean-tag-chip">Merge/Split/Organize</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  PDF-lib.js
+                </div>
+              </td>
 
-            <div class="project-desc-text">
-              ระบบอ่าน E-Book และนิยายออนไลน์ พร้อมฟังก์ชันปรับแต่งธีม ขนาดตัวอักษร คั่นหน้า และถนอมสายตา
-            </div>
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="https://prongnaruebest.github.io/Psai-web-projects/smartzone-pdf/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" onclick="event.stopPropagation()">
+                    🌐 ออนไลน์
+                  </a>
+                  <a href="17_SmartZone_PDF_Studio/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-07" data-category="tech" data-online="true" data-search="เว็บพอร์ตโฟลิโอวิศวกร (psai naruebest) พอร์ตโฟลิโอวิศวกร psai เว็บไซต์แสดงประวัติและผลงานวิศวกรรมอิเล็กทรอนิกส์ ระบบควบคุมหอดูดาว กล้องโทรทรรศน์อัตโนมัติ และสถาปัตยกรรมระบบ electronics engineer narit observatory robotic telescope" onclick="onRowClick('07', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#07</span>
+                  <div class="clean-icon-box" title="พอร์ตโฟลิโอวิศวกร Psai">
+                    🔭
+                  </div>
+                </div>
+              </td>
 
-            <div class="project-btn-group">
-              
-              <a href="13_เว็บอ่านนิยายออนไลน์/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-          <div class="project-row" id="proj-row-14" data-category="entertainment" data-online="false" data-search="เว็บเกมยานอวกาศ (tactical survivor) เกมยานอวกาศ orbital เกมยานรบอวกาศแนว roguelite อัปเกรดยานรบ อาวุธ และฝ่าฝูงศัตรู เล่นได้ทันทีผ่านเว็บเบราว์เซอร์ พร้อมระบบเสียงและกราฟิกสุดล้ำ sci-fi roguelite canvas 2d ระบบอัปเกรดยาน mobile touch">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-purple-600 to-indigo-800" style="background: linear-gradient(135deg, #0284c7, #0369a1);">
-                🚀
-              </div>
-            </div>
+              <td>
+                <div class="row-title-text">
+                  <span>เว็บพอร์ตโฟลิโอวิศวกร (Psai Naruebest)</span>
+                  
+                  <span class="tag-status-online">🌐 ออนไลน์</span>
+                </div>
+                <div class="row-desc-text">
+                  เว็บไซต์แสดงประวัติและผลงานวิศวกรรมอิเล็กทรอนิกส์ ระบบควบคุมหอดูดาว กล้องโทรทรรศน์อัตโนมัติ และสถาปัตยกรรมระบบ
+                </div>
+              </td>
 
-            <div class="project-main-info">
-              <h3>
-                <span>เว็บเกมยานอวกาศ (Tactical Survivor)</span>
-                
-                
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">Sci-Fi Roguelite</span><span class="tag-chip">Canvas 2D</span><span class="tag-chip">ระบบอัปเกรดยาน</span><span class="tag-chip">Mobile Touch</span>
-              </div>
-            </div>
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>เครื่องมือ & วิศวกรรม</span>
+                </span>
+              </td>
 
-            <div class="project-desc-text">
-              เกมยานรบอวกาศแนว Roguelite อัปเกรดยานรบ อาวุธ และฝ่าฝูงศัตรู เล่นได้ทันทีผ่านเว็บเบราว์เซอร์ พร้อมระบบเสียงและกราฟิกสุดล้ำ
-            </div>
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">Electronics Engineer</span><span class="clean-tag-chip">NARIT Observatory</span><span class="clean-tag-chip">Robotic Telescope</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  HTML5
+                </div>
+              </td>
 
-            <div class="project-btn-group">
-              
-              <a href="09_เว็บเกมยานอวกาศ/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-        </div>
-      </section>
-        
-      <section class="category-section" data-cat-section="fitness">
-        <div class="category-banner">
-          <div class="category-banner-left">
-            <div class="category-banner-icon" style="background:#ffe4e6; color:#be123c;">
-              🏃
-            </div>
-            <div class="category-banner-title">
-              <h2>หมวดหมู่: สุขภาพ & ฟิตเนส</h2>
-              <p>Muscle Map กายวิภาค, RunEvolution วิ่งมาราธอน และ Titan Forge บอดี้เวท RPG</p>
-            </div>
-          </div>
-          <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#94a3b8;">Health & Fitness</span>
-        </div>
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="https://prongnaruebest.github.io/psai-play/#about" target="_blank" rel="noopener noreferrer" class="btn-action-primary" onclick="event.stopPropagation()">
+                    🌐 ออนไลน์
+                  </a>
+                  <a href="11_เว็บพอร์ตโฟลิโอ/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-08" data-category="tech" data-online="false" data-search="คอร์สวิศวกรรมระบบ (personal codex) คอร์สวิศวกรรมระบบ หลักสูตรและเครื่องมือทดลองเชิงปฏิบัติการด้านวิศวกรรมสถาปัตยกรรมระบบขั้นสูง พร้อม workbench แบบโต้ตอบ system architecture interactive course engineering lab" onclick="onRowClick('08', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#08</span>
+                  <div class="clean-icon-box" title="คอร์สวิศวกรรมระบบ">
+                    ⚙️
+                  </div>
+                </div>
+              </td>
 
-        <div class="projects-table-card">
-          
-          <div class="project-row" id="proj-row-15" data-category="fitness" data-online="false" data-search="แผนที่กล้ามเนื้อ (fastfit muscle map) แผนที่กล้ามเนื้อ muscle map แผนที่กายวิภาคกล้ามเนื้อร่างกาย ทั้งมุมมอง 2d interactive svg และ 3d model คลิกเลือกกล้ามเนื้อเพื่อแสดงรายชื่อท่าออกกำลังกายและกลไกการเคลื่อนไหวที่ตรงจุด 3d body map ระบบกายวิภาค ท่าออกกำลังกาย tier list">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-red-600 to-rose-700" style="background: linear-gradient(135deg, #f43f5e, #e11d48);">
-                🧬
-              </div>
-            </div>
+              <td>
+                <div class="row-title-text">
+                  <span>คอร์สวิศวกรรมระบบ (Personal Codex)</span>
+                  
+                  <span class="tag-status-local">💻 ในเครื่อง</span>
+                </div>
+                <div class="row-desc-text">
+                  หลักสูตรและเครื่องมือทดลองเชิงปฏิบัติการด้านวิศวกรรมสถาปัตยกรรมระบบขั้นสูง พร้อม Workbench แบบโต้ตอบ
+                </div>
+              </td>
 
-            <div class="project-main-info">
-              <h3>
-                <span>แผนที่กล้ามเนื้อ (FastFit Muscle Map)</span>
-                
-                
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">3D Body Map</span><span class="tag-chip">ระบบกายวิภาค</span><span class="tag-chip">ท่าออกกำลังกาย</span><span class="tag-chip">Tier List</span>
-              </div>
-            </div>
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>เครื่องมือ & วิศวกรรม</span>
+                </span>
+              </td>
 
-            <div class="project-desc-text">
-              แผนที่กายวิภาคกล้ามเนื้อร่างกาย ทั้งมุมมอง 2D Interactive SVG และ 3D Model คลิกเลือกกล้ามเนื้อเพื่อแสดงรายชื่อท่าออกกำลังกายและกลไกการเคลื่อนไหวที่ตรงจุด
-            </div>
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">System Architecture</span><span class="clean-tag-chip">Interactive Course</span><span class="clean-tag-chip">Engineering Lab</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  HTML5
+                </div>
+              </td>
 
-            <div class="project-btn-group">
-              
-              <a href="16_Muscle_Map/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-          <div class="project-row" id="proj-row-16" data-category="fitness" data-online="false" data-search="เว็บฝึกวิ่ง (runevolution) runevolution ฝึกซ้อมวิ่ง ตารางฝึกซ้อมวิ่งตั้งแต่ระดับเริ่มต้นจนถึงฟูลมาราธอน คำนวณความเร็ว pace พร้อมแผนฟื้นฟูกล้ามเนื้อและอวาตาร์จำลองการวิ่งแอนิเมชัน 5k / 10k / มาราธอน pace calculator dynamic avatar level rpg">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-cyan-500 to-blue-600" style="background: linear-gradient(135deg, #0284c7, #0369a1);">
-                🏃
-              </div>
-            </div>
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="12_เว็บคอร์สวิศวกรรมระบบ/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-09" data-category="tech" data-online="false" data-search="เว็บคลัง prompt ai (nexus prompt hub) คลัง prompt ai hub คลังคำสั่งสำหรับสั่งงานปัญญาประดิษฐ์ (ai prompts) หมวดงานเขียน วิเคราะห์ข้อมูล วางแผน และเขียนโค้ด prompt engineering ai assistant one-click copy" onclick="onRowClick('09', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#09</span>
+                  <div class="clean-icon-box" title="คลัง Prompt AI Hub">
+                    🧠
+                  </div>
+                </div>
+              </td>
 
-            <div class="project-main-info">
-              <h3>
-                <span>เว็บฝึกวิ่ง (RunEvolution)</span>
-                
-                
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">5K / 10K / มาราธอน</span><span class="tag-chip">Pace Calculator</span><span class="tag-chip">Dynamic Avatar</span><span class="tag-chip">Level RPG</span>
-              </div>
-            </div>
+              <td>
+                <div class="row-title-text">
+                  <span>เว็บคลัง Prompt AI (Nexus Prompt Hub)</span>
+                  
+                  <span class="tag-status-local">💻 ในเครื่อง</span>
+                </div>
+                <div class="row-desc-text">
+                  คลังคำสั่งสำหรับสั่งงานปัญญาประดิษฐ์ (AI Prompts) หมวดงานเขียน วิเคราะห์ข้อมูล วางแผน และเขียนโค้ด
+                </div>
+              </td>
 
-            <div class="project-desc-text">
-              ตารางฝึกซ้อมวิ่งตั้งแต่ระดับเริ่มต้นจนถึงฟูลมาราธอน คำนวณความเร็ว Pace พร้อมแผนฟื้นฟูกล้ามเนื้อและอวาตาร์จำลองการวิ่งแอนิเมชัน
-            </div>
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>เครื่องมือ & วิศวกรรม</span>
+                </span>
+              </td>
 
-            <div class="project-btn-group">
-              
-              <a href="05_เว็บฝึกวิ่งRunEvolution/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-          <div class="project-row" id="proj-row-17" data-category="fitness" data-online="false" data-search="เว็บออกกำลังกายอนิเมะ (titan forge) titan forge (คาลิสเทนิกส์) โปรแกรมฝึกบอดี้เวทและคาลิสเทนิกส์ในรูปแบบเกม rpg สะสมค่าประสบการณ์ เลเวลอัพร่างกาย และเควสต์ท่าฝึกกายภาพ calisthenics rpg เควสต์ออกกำลังกาย บอดี้เวท level up">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-rose-500 to-red-600" style="background: linear-gradient(135deg, #f43f5e, #e11d48);">
-                ⚔️
-              </div>
-            </div>
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">Prompt Engineering</span><span class="clean-tag-chip">AI Assistant</span><span class="clean-tag-chip">One-Click Copy</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  HTML5
+                </div>
+              </td>
 
-            <div class="project-main-info">
-              <h3>
-                <span>เว็บออกกำลังกายอนิเมะ (TITAN FORGE)</span>
-                
-                
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">Calisthenics RPG</span><span class="tag-chip">เควสต์ออกกำลังกาย</span><span class="tag-chip">บอดี้เวท</span><span class="tag-chip">Level Up</span>
-              </div>
-            </div>
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="10_เว็บคลังPromptAI/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-10" data-category="entertainment" data-online="true" data-search="บันทึกตอนล่าสุด อนิเมะ & มังงะ (tracktoon) tracktoon (อนิเมะ & มังงะ) เครื่องมือบันทึกความคืบหน้าการดูอนิเมะจีนและอ่านมังงะ/มันฮวาประจำวัน มีปุ่มกด +1 ตอนทันใจ ค้นหาตอนต่อไปใน 1 คลิก พร้อมฟังก์ชันคัดลอกและนำเข้ารายการข้อความดิบ (clear theme) clear theme anime tracker manga progress ปุ่มกด +1 ตอน" onclick="onRowClick('10', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#10</span>
+                  <div class="clean-icon-box" title="TrackToon (อนิเมะ & มังงะ)">
+                    📺
+                  </div>
+                </div>
+              </td>
 
-            <div class="project-desc-text">
-              โปรแกรมฝึกบอดี้เวทและคาลิสเทนิกส์ในรูปแบบเกม RPG สะสมค่าประสบการณ์ เลเวลอัพร่างกาย และเควสต์ท่าฝึกกายภาพ
-            </div>
+              <td>
+                <div class="row-title-text">
+                  <span>บันทึกตอนล่าสุด อนิเมะ & มังงะ (TrackToon)</span>
+                  <span class="tag-special-badge">ใหม่</span>
+                  <span class="tag-status-online">🌐 ออนไลน์</span>
+                </div>
+                <div class="row-desc-text">
+                  เครื่องมือบันทึกความคืบหน้าการดูอนิเมะจีนและอ่านมังงะ/มันฮวาประจำวัน มีปุ่มกด +1 ตอนทันใจ ค้นหาตอนต่อไปใน 1 คลิก พร้อมฟังก์ชันคัดลอกและนำเข้ารายการข้อความดิบ (Clear Theme)
+                </div>
+              </td>
 
-            <div class="project-btn-group">
-              
-              <a href="04_เว็บออกกำลังกายอนิเมะ/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-        </div>
-      </section>
-        
-      <section class="category-section" data-cat-section="finance">
-        <div class="category-banner">
-          <div class="category-banner-left">
-            <div class="category-banner-icon" style="background:#dcfce7; color:#15803d;">
-              💰
-            </div>
-            <div class="category-banner-title">
-              <h2>หมวดหมู่: การเงิน & ธุรกิจ</h2>
-              <p>เงินเดือนนี้ต้องรอด จัดสรรงบประมาณ คุมงบกินอยู่ และเงินเก็บลูก</p>
-            </div>
-          </div>
-          <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#94a3b8;">Finance & Budget</span>
-        </div>
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>บันเทิง & ดนตรี</span>
+                </span>
+              </td>
 
-        <div class="projects-table-card">
-          
-          <div class="project-row" id="proj-row-18" data-category="finance" data-online="false" data-search="เงินเดือนนี้ต้องรอด เงินเดือนนี้ต้องรอด ระบบบันทึกและวางแผนรายรับ-รายจ่ายรายเดือน จัดสรรก้อนหนี้สิน คุมงบกินอยู่ 10,000 บ. ค่านมลูก พร้อมคำแนะนำจากนักวางแผนการเงิน คุมงบ 10,000 บ. วางแผนหนี้สิน เงินเก็บลูก chart.js">
-            <div>
-              <div class="project-icon-box bg-gradient-to-br from-emerald-500 to-teal-600" style="background: linear-gradient(135deg, #10b981, #047857);">
-                💰
-              </div>
-            </div>
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">Clear Theme</span><span class="clean-tag-chip">Anime Tracker</span><span class="clean-tag-chip">Manga Progress</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  HTML5
+                </div>
+              </td>
 
-            <div class="project-main-info">
-              <h3>
-                <span>เงินเดือนนี้ต้องรอด</span>
-                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#fef3c7; color:#b45309; border:1px solid #fde68a;">อัปเดต</span>
-                
-              </h3>
-              <div class="project-tags">
-                <span class="tag-chip">คุมงบ 10,000 บ.</span><span class="tag-chip">วางแผนหนี้สิน</span><span class="tag-chip">เงินเก็บลูก</span><span class="tag-chip">Chart.js</span>
-              </div>
-            </div>
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="https://prongnaruebest.github.io/Psai-web-projects/tracktoon/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" onclick="event.stopPropagation()">
+                    🌐 ออนไลน์
+                  </a>
+                  <a href="18_เว็บติดตามอนิเมะและมังงะ/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-11" data-category="entertainment" data-online="true" data-search="นิยายเซียนหนี่ 44 เล่มจบ (xian ni) นิยายเซียนหนี่ 44 เล่ม คลังนิยายกำลังภายในฉบับสมบูรณ์ 44 เล่ม พร้อมระบบอ่านออกเสียงจำลอง (text-to-speech) สำหรับฟังต่อเนื่องผ่านเน็ตหรือในเครื่อง นิยาย 44 เล่มจบ ระบบเสียง tts จำตอนอ่านล่าสุด cloud reader" onclick="onRowClick('11', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#11</span>
+                  <div class="clean-icon-box" title="นิยายเซียนหนี่ 44 เล่ม">
+                    📖
+                  </div>
+                </div>
+              </td>
 
-            <div class="project-desc-text">
-              ระบบบันทึกและวางแผนรายรับ-รายจ่ายรายเดือน จัดสรรก้อนหนี้สิน คุมงบกินอยู่ 10,000 บ. ค่านมลูก พร้อมคำแนะนำจากนักวางแผนการเงิน
-            </div>
+              <td>
+                <div class="row-title-text">
+                  <span>นิยายเซียนหนี่ 44 เล่มจบ (Xian Ni)</span>
+                  
+                  <span class="tag-status-online">🌐 ออนไลน์</span>
+                </div>
+                <div class="row-desc-text">
+                  คลังนิยายกำลังภายในฉบับสมบูรณ์ 44 เล่ม พร้อมระบบอ่านออกเสียงจำลอง (Text-to-Speech) สำหรับฟังต่อเนื่องผ่านเน็ตหรือในเครื่อง
+                </div>
+              </td>
 
-            <div class="project-btn-group">
-              
-              <a href="03_เงินเดือนนี้ต้องรอด/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
-                💻 ในเครื่อง
-              </a>
-            </div>
-          </div>
-          
-        </div>
-      </section>
-        
-    </div>
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>บันเทิง & ดนตรี</span>
+                </span>
+              </td>
+
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">นิยาย 44 เล่มจบ</span><span class="clean-tag-chip">ระบบเสียง TTS</span><span class="clean-tag-chip">จำตอนอ่านล่าสุด</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  HTML5
+                </div>
+              </td>
+
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="https://xianni-reader-psai.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" onclick="event.stopPropagation()">
+                    🌐 ออนไลน์
+                  </a>
+                  <a href="14_เว็บอ่านนิยายเซียนหนี่44เล่ม/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-12" data-category="entertainment" data-online="false" data-search="เว็บสอนกีต้า (guitarquest) guitarquest (สอนกีตาร์) เว็บเรียนเล่นกีตาร์ตั้งแต่เริ่มต้นจนชำนาญ ผ่านระบบจำลองเควสต์ผจญภัยแบบเกม พร้อมฟิงเกอร์บอร์ดจำลองเสียงคอร์ด เครื่องตั้งสาย และเครื่องเล่นตามคอร์ด guitar quest web audio คอร์ด tuner ตั้งสาย เพลงพร้อมคอร์ด" onclick="onRowClick('12', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#12</span>
+                  <div class="clean-icon-box" title="GuitarQuest (สอนกีตาร์)">
+                    🎸
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="row-title-text">
+                  <span>เว็บสอนกีต้า (GuitarQuest)</span>
+                  
+                  <span class="tag-status-local">💻 ในเครื่อง</span>
+                </div>
+                <div class="row-desc-text">
+                  เว็บเรียนเล่นกีตาร์ตั้งแต่เริ่มต้นจนชำนาญ ผ่านระบบจำลองเควสต์ผจญภัยแบบเกม พร้อมฟิงเกอร์บอร์ดจำลองเสียงคอร์ด เครื่องตั้งสาย และเครื่องเล่นตามคอร์ด
+                </div>
+              </td>
+
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>บันเทิง & ดนตรี</span>
+                </span>
+              </td>
+
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">Guitar Quest</span><span class="clean-tag-chip">Web Audio คอร์ด</span><span class="clean-tag-chip">Tuner ตั้งสาย</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  Web Audio API
+                </div>
+              </td>
+
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="02_เว็บสอนกีต้า/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-13" data-category="entertainment" data-online="false" data-search="เว็บอ่านนิยายออนไลน์ (หออักษรา) หออักษรา (e-book reader) ระบบอ่าน e-book และนิยายออนไลน์ พร้อมฟังก์ชันปรับแต่งธีม ขนาดตัวอักษร คั่นหน้า และถนอมสายตา 4 เล่ม 72 ตอน e-book reader ปรับขนาดอักษร sepia theme" onclick="onRowClick('13', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#13</span>
+                  <div class="clean-icon-box" title="หออักษรา (E-Book Reader)">
+                    📚
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="row-title-text">
+                  <span>เว็บอ่านนิยายออนไลน์ (หออักษรา)</span>
+                  
+                  <span class="tag-status-local">💻 ในเครื่อง</span>
+                </div>
+                <div class="row-desc-text">
+                  ระบบอ่าน E-Book และนิยายออนไลน์ พร้อมฟังก์ชันปรับแต่งธีม ขนาดตัวอักษร คั่นหน้า และถนอมสายตา
+                </div>
+              </td>
+
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>บันเทิง & ดนตรี</span>
+                </span>
+              </td>
+
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">4 เล่ม 72 ตอน</span><span class="clean-tag-chip">E-Book Reader</span><span class="clean-tag-chip">ปรับขนาดอักษร</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  HTML5
+                </div>
+              </td>
+
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="13_เว็บอ่านนิยายออนไลน์/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-14" data-category="entertainment" data-online="false" data-search="เว็บเกมยานอวกาศ (tactical survivor) เกมยานอวกาศ orbital เกมยานรบอวกาศแนว roguelite อัปเกรดยานรบ อาวุธ และฝ่าฝูงศัตรู เล่นได้ทันทีผ่านเว็บเบราว์เซอร์ พร้อมระบบเสียงและกราฟิกสุดล้ำ sci-fi roguelite canvas 2d ระบบอัปเกรดยาน mobile touch" onclick="onRowClick('14', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#14</span>
+                  <div class="clean-icon-box" title="เกมยานอวกาศ Orbital">
+                    🚀
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="row-title-text">
+                  <span>เว็บเกมยานอวกาศ (Tactical Survivor)</span>
+                  
+                  <span class="tag-status-local">💻 ในเครื่อง</span>
+                </div>
+                <div class="row-desc-text">
+                  เกมยานรบอวกาศแนว Roguelite อัปเกรดยานรบ อาวุธ และฝ่าฝูงศัตรู เล่นได้ทันทีผ่านเว็บเบราว์เซอร์ พร้อมระบบเสียงและกราฟิกสุดล้ำ
+                </div>
+              </td>
+
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>บันเทิง & ดนตรี</span>
+                </span>
+              </td>
+
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">Sci-Fi Roguelite</span><span class="clean-tag-chip">Canvas 2D</span><span class="clean-tag-chip">ระบบอัปเกรดยาน</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  HTML5 Canvas
+                </div>
+              </td>
+
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="09_เว็บเกมยานอวกาศ/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-15" data-category="fitness" data-online="false" data-search="แผนที่กล้ามเนื้อ (fastfit muscle map) แผนที่กล้ามเนื้อ muscle map แผนที่กายวิภาคกล้ามเนื้อร่างกาย ทั้งมุมมอง 2d interactive svg และ 3d model คลิกเลือกกล้ามเนื้อเพื่อแสดงรายชื่อท่าออกกำลังกายและกลไกการเคลื่อนไหวที่ตรงจุด 3d body map ระบบกายวิภาค ท่าออกกำลังกาย tier list" onclick="onRowClick('15', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#15</span>
+                  <div class="clean-icon-box" title="แผนที่กล้ามเนื้อ Muscle Map">
+                    🧬
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="row-title-text">
+                  <span>แผนที่กล้ามเนื้อ (FastFit Muscle Map)</span>
+                  
+                  <span class="tag-status-local">💻 ในเครื่อง</span>
+                </div>
+                <div class="row-desc-text">
+                  แผนที่กายวิภาคกล้ามเนื้อร่างกาย ทั้งมุมมอง 2D Interactive SVG และ 3D Model คลิกเลือกกล้ามเนื้อเพื่อแสดงรายชื่อท่าออกกำลังกายและกลไกการเคลื่อนไหวที่ตรงจุด
+                </div>
+              </td>
+
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>สุขภาพ & ฟิตเนส</span>
+                </span>
+              </td>
+
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">3D Body Map</span><span class="clean-tag-chip">ระบบกายวิภาค</span><span class="clean-tag-chip">ท่าออกกำลังกาย</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  Three.js 3D WebGL
+                </div>
+              </td>
+
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="16_Muscle_Map/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-16" data-category="fitness" data-online="false" data-search="เว็บฝึกวิ่ง (runevolution) runevolution ฝึกซ้อมวิ่ง ตารางฝึกซ้อมวิ่งตั้งแต่ระดับเริ่มต้นจนถึงฟูลมาราธอน คำนวณความเร็ว pace พร้อมแผนฟื้นฟูกล้ามเนื้อและอวาตาร์จำลองการวิ่งแอนิเมชัน 5k / 10k / มาราธอน pace calculator dynamic avatar level rpg" onclick="onRowClick('16', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#16</span>
+                  <div class="clean-icon-box" title="RunEvolution ฝึกซ้อมวิ่ง">
+                    🏃
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="row-title-text">
+                  <span>เว็บฝึกวิ่ง (RunEvolution)</span>
+                  
+                  <span class="tag-status-local">💻 ในเครื่อง</span>
+                </div>
+                <div class="row-desc-text">
+                  ตารางฝึกซ้อมวิ่งตั้งแต่ระดับเริ่มต้นจนถึงฟูลมาราธอน คำนวณความเร็ว Pace พร้อมแผนฟื้นฟูกล้ามเนื้อและอวาตาร์จำลองการวิ่งแอนิเมชัน
+                </div>
+              </td>
+
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>สุขภาพ & ฟิตเนส</span>
+                </span>
+              </td>
+
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">5K / 10K / มาราธอน</span><span class="clean-tag-chip">Pace Calculator</span><span class="clean-tag-chip">Dynamic Avatar</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  HTML5 SVG Animation
+                </div>
+              </td>
+
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="05_เว็บฝึกวิ่งRunEvolution/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-17" data-category="fitness" data-online="false" data-search="เว็บออกกำลังกายอนิเมะ (titan forge) titan forge (คาลิสเทนิกส์) โปรแกรมฝึกบอดี้เวทและคาลิสเทนิกส์ในรูปแบบเกม rpg สะสมค่าประสบการณ์ เลเวลอัพร่างกาย และเควสต์ท่าฝึกกายภาพ calisthenics rpg เควสต์ออกกำลังกาย บอดี้เวท level up" onclick="onRowClick('17', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#17</span>
+                  <div class="clean-icon-box" title="Titan Forge (คาลิสเทนิกส์)">
+                    ⚔️
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="row-title-text">
+                  <span>เว็บออกกำลังกายอนิเมะ (TITAN FORGE)</span>
+                  
+                  <span class="tag-status-local">💻 ในเครื่อง</span>
+                </div>
+                <div class="row-desc-text">
+                  โปรแกรมฝึกบอดี้เวทและคาลิสเทนิกส์ในรูปแบบเกม RPG สะสมค่าประสบการณ์ เลเวลอัพร่างกาย และเควสต์ท่าฝึกกายภาพ
+                </div>
+              </td>
+
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>สุขภาพ & ฟิตเนส</span>
+                </span>
+              </td>
+
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">Calisthenics RPG</span><span class="clean-tag-chip">เควสต์ออกกำลังกาย</span><span class="clean-tag-chip">บอดี้เวท</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  HTML5
+                </div>
+              </td>
+
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="04_เว็บออกกำลังกายอนิเมะ/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr class="eng-row" id="engrow-18" data-category="finance" data-online="false" data-search="เงินเดือนนี้ต้องรอด เงินเดือนนี้ต้องรอด ระบบบันทึกและวางแผนรายรับ-รายจ่ายรายเดือน จัดสรรก้อนหนี้สิน คุมงบกินอยู่ 10,000 บ. ค่านมลูก พร้อมคำแนะนำจากนักวางแผนการเงิน คุมงบ 10,000 บ. วางแผนหนี้สิน เงินเก็บลูก chart.js" onclick="onRowClick('18', this)">
+              <td>
+                <div class="row-id-cell">
+                  <span class="code-badge">#18</span>
+                  <div class="clean-icon-box" title="เงินเดือนนี้ต้องรอด">
+                    💰
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="row-title-text">
+                  <span>เงินเดือนนี้ต้องรอด</span>
+                  <span class="tag-special-badge">อัปเดต</span>
+                  <span class="tag-status-local">💻 ในเครื่อง</span>
+                </div>
+                <div class="row-desc-text">
+                  ระบบบันทึกและวางแผนรายรับ-รายจ่ายรายเดือน จัดสรรก้อนหนี้สิน คุมงบกินอยู่ 10,000 บ. ค่านมลูก พร้อมคำแนะนำจากนักวางแผนการเงิน
+                </div>
+              </td>
+
+              <td>
+                <span class="row-category-badge">
+                  <span>📁</span>
+                  <span>การเงิน & ธุรกิจ</span>
+                </span>
+              </td>
+
+              <td>
+                <div class="row-tags-wrapper">
+                  <span class="clean-tag-chip">คุมงบ 10,000 บ.</span><span class="clean-tag-chip">วางแผนหนี้สิน</span><span class="clean-tag-chip">เงินเก็บลูก</span>
+                </div>
+                <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; font-family:'JetBrains Mono', monospace;">
+                  HTML5
+                </div>
+              </td>
+
+              <td>
+                <div class="row-actions-group">
+                  
+                  <a href="03_เงินเดือนนี้ต้องรอด/index.html" target="_blank" class="btn-action-secondary" onclick="event.stopPropagation()">
+                    💻 ในเครื่อง
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
 
     <!-- CLEAN FOOTER -->
     <footer class="clean-footer">
@@ -1887,7 +2222,7 @@
 
   <script>
     // Projects Data
-    const projectsData = [{"id":"01","code":"#01","title":"เมนูของปรายใส (Praysai Kids Meals)","shortName":"เมนูของปรายใส","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"ป","iconType":"text","color":"from-rose-500 to-pink-600","desc":"เลือกวัตถุดิบที่มีในบ้าน ระบบจะช่วยคิดเมนูสำหรับปรายใสตามช่วงวัย เวลา และเนื้อสัมผัส พร้อมบอกของที่ขาดและบันทึกรายการซื้อของ","features":"คิดเมนูตามวัตถุดิบในบ้าน • เด็กตามวัย 6-24 ด.+ • บันทึกของที่ขาด • รายการเมนูโปรด","tech":"HTML5, Tailwind CSS, LocalStorage, PWA Ready","tags":["วัตถุดิบในบ้าน","เด็กตามวัย 6-24 ด.+","รายการซื้อของ","เมนูโปรด"],"onlineUrl":"https://prongnaruebest.github.io/-praysai-kids-meals/","localUrl":"19_เว็บเมนูของปรายใส/index.html","localPath":"D:\\00_INBOX\\Web Application\\19_เว็บเมนูของปรายใส","isOnline":true,"isSpecial":true,"specialTag":"🌟 ของปรายใส"},{"id":"02","code":"#02","title":"เว็บอาหารเด็กเล็ก (YumYum Toddler)","shortName":"เว็บอาหารเด็กเล็ก","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"🥣","iconType":"emoji","color":"from-lime-500 to-emerald-600","desc":"สูตรอาหารและแนวทางโภชนาการสำหรับเด็กวัยหัดเดิน 1-3 ปี ครบถ้วนสารอาหารสำคัญเพื่อการเจริญเติบโต พร้อมเวอร์ชันออนไลน์บนคลาวด์","features":"โภชนาการเด็ก 1-3 ปี • เมนูลดภูมิแพ้ • ตารางสารอาหาร BLW • Cloud App","tech":"Next.js / Vanilla Export, Tailwind CSS, Cloudflare","tags":["เด็กเล็ก 1-3 ขวบ","ตารางโภชนาการ","เมนูลดแพ้","Cloud App"],"onlineUrl":"https://yumyum-toddler-online.prong-naruebest.chatgpt.site/","localUrl":"08_เว็บอาหารเด็กเล็ก/index.html","localPath":"D:\\00_INBOX\\Web Application\\08_เว็บอาหารเด็กเล็ก","isOnline":true,"isSpecial":false},{"id":"03","code":"#03","title":"เว็บไอเดียกิจกรรมเด็ก (PlayPal)","shortName":"ไอเดียกิจกรรมเด็ก","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"🎨","iconType":"emoji","color":"from-amber-400 to-orange-500","desc":"คลัง 32+ ไอเดียกิจกรรมการเล่นสร้างสรรค์กับลูก เสริมทักษะประสาทสัมผัสและกล้ามเนื้อ พร้อมอุปกรณ์ที่หาได้ง่ายในบ้าน รองรับ PWA","features":"32+ กิจกรรมเล่นสร้างสรรค์ • แบ่งตามช่วงอายุ • พัฒนาการ Sensory • ใช้อุปกรณ์ในบ้าน","tech":"HTML5, Tailwind CSS, Web App Manifest, PWA","tags":["เล่นสร้างสรรค์","32+ กิจกรรม","เสริมพัฒนาการ","PWA"],"onlineUrl":"https://prongnaruebest.github.io/playpal-web/","localUrl":"07_เว็บไอเดียกิจกรรมเด็ก/index.html","localPath":"D:\\00_INBOX\\Web Application\\07_เว็บไอเดียกิจกรรมเด็ก","isOnline":true,"isSpecial":false},{"id":"04","code":"#04","title":"เว็บคู่มือพัฒนาการลูกน้อย (KidDev Hub)","shortName":"คู่มือพัฒนาการลูก","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"👶","iconType":"emoji","color":"from-pink-400 to-rose-500","desc":"คู่มือพัฒนาการเด็กตามช่วงอายุ การส่งเสริมทักษะทางอารมณ์ สังคม และสมอง พร้อมแนวทางการเลี้ยงดูเชิงบวก","features":"เช็กลิสต์พัฒนาการตามวัย • ทักษะสมอง EF • เลี้ยงลูกเชิงบวก • แนะนำการกระตุ้นพัฒนาการ","tech":"HTML5, CSS3, Responsive Design","tags":["0-5 ขวบ","เช็กลิสต์พัฒนาการ","EQ & EF","คู่มือคุณแม่"],"onlineUrl":null,"localUrl":"06_เว็บคู่มือพัฒนาการลูกน้อย/index.html","localPath":"D:\\00_INBOX\\Web Application\\06_เว็บคู่มือพัฒนาการลูกน้อย","isOnline":false,"isSpecial":false},{"id":"05","code":"#05","title":"เว็บสุ่มทำอาหาร (วันนี้กินอะไรดี)","shortName":"วันนี้กินอะไรดี (300 เมนู)","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"🍳","iconType":"emoji","color":"from-orange-500 to-amber-600","desc":"ระบบสุ่มเมนูอาหารประจำวันจากฐานข้อมูล 300 รายการ ช่วยแก้ปัญหาคิดไม่ออกว่าจะกินอะไร พร้อมข้อมูลสารอาหารและวิธีทำ","features":"สุ่มเมนูอาหาร 300+ รายการ • กรองตามประเภท ต้ม ผัด แกง ทอด • ข้อมูลแคลอรี • วัตถุดิบและวิธีทำ","tech":"HTML5, CSS3, JavaScript Single Page App","tags":["300+ เมนู","สุ่มอาหาร","ข้อมูลโภชนาการ","คำนวณแคลอรี"],"onlineUrl":null,"localUrl":"01_เว็บสุ่มทำอาหาร/index.html","localPath":"D:\\00_INBOX\\Web Application\\01_เว็บสุ่มทำอาหาร","isOnline":false,"isSpecial":false},{"id":"06","code":"#06","title":"Smart Zone AI (PDF Studio & Flipbook)","shortName":"SmartZone PDF Studio","category":"tech","categoryName":"เครื่องมือ & วิศวกรรม","icon":"📄","iconType":"emoji","color":"from-emerald-500 to-teal-700","desc":"โคลนและพัฒนาจาก szai.net ระบบจัดการ PDF ครบวงจร ทำฟลิปบุ๊ก 3D เสมือนจริง แก้ไข เซ็นเซอร์ข้อความ ใส่ลายเซ็น รวม แยกหน้า และแปลงเป็นรูปภาพ ทำงานในเบราว์เซอร์ 100%","features":"3D Flipbook เปิดหน้าเสมือนจริง • รวม/แยก/จัดเรียงหน้า PDF • เซ็นเซอร์ & ลายเซ็นดิจิทัล • แปลงรูปภาพ Client-side 100%","tech":"PDF-lib.js, PDF.js, PageFlip 3D, JSZip, Vanilla JS","tags":["3D Flipbook","PDF Editor & Sign","Merge/Split/Organize","100% Client-Side"],"onlineUrl":"https://prongnaruebest.github.io/Psai-web-projects/smartzone-pdf/","localUrl":"17_SmartZone_PDF_Studio/index.html","localPath":"D:\\00_INBOX\\Web Application\\17_SmartZone_PDF_Studio","isOnline":true,"isSpecial":true,"specialTag":"ใหม่"},{"id":"07","code":"#07","title":"เว็บพอร์ตโฟลิโอวิศวกร (Psai Naruebest)","shortName":"พอร์ตโฟลิโอวิศวกร Psai","category":"tech","categoryName":"เครื่องมือ & วิศวกรรม","icon":"🔭","iconType":"emoji","color":"from-sky-500 to-indigo-600","desc":"เว็บไซต์แสดงประวัติและผลงานวิศวกรรมอิเล็กทรอนิกส์ ระบบควบคุมหอดูดาว กล้องโทรทรรศน์อัตโนมัติ และสถาปัตยกรรมระบบ","features":"ประวัติผลงานวิศวกรรมดาราศาสตร์ • กล้องโทรทรรศน์อัตโนมัติ สดร. • เอกสารโครงสร้างสถาปัตยกรรม","tech":"HTML5, Tailwind CSS, Responsive Design, GitHub Pages","tags":["Electronics Engineer","NARIT Observatory","Robotic Telescope"],"onlineUrl":"https://prongnaruebest.github.io/psai-play/#about","localUrl":"11_เว็บพอร์ตโฟลิโอ/index.html","localPath":"D:\\00_INBOX\\Web Application\\11_เว็บพอร์ตโฟลิโอ","isOnline":true,"isSpecial":false},{"id":"08","code":"#08","title":"คอร์สวิศวกรรมระบบ (Personal Codex)","shortName":"คอร์สวิศวกรรมระบบ","category":"tech","categoryName":"เครื่องมือ & วิศวกรรม","icon":"⚙️","iconType":"emoji","color":"from-indigo-500 to-purple-600","desc":"หลักสูตรและเครื่องมือทดลองเชิงปฏิบัติการด้านวิศวกรรมสถาปัตยกรรมระบบขั้นสูง พร้อม Workbench แบบโต้ตอบ","features":"บทเรียนวิศวกรรมระบบ • Interactive Workbench • สถาปัตยกรรมระดับองค์กร • แบบฝึกหัดทดลอง","tech":"HTML5, CSS3, Interactive JavaScript","tags":["System Architecture","Interactive Course","Engineering Lab"],"onlineUrl":null,"localUrl":"12_เว็บคอร์สวิศวกรรมระบบ/index.html","localPath":"D:\\00_INBOX\\Web Application\\12_เว็บคอร์สวิศวกรรมระบบ","isOnline":false,"isSpecial":false},{"id":"09","code":"#09","title":"เว็บคลัง Prompt AI (Nexus Prompt Hub)","shortName":"คลัง Prompt AI Hub","category":"tech","categoryName":"เครื่องมือ & วิศวกรรม","icon":"🧠","iconType":"emoji","color":"from-violet-600 to-purple-700","desc":"คลังคำสั่งสำหรับสั่งงานปัญญาประดิษฐ์ (AI Prompts) หมวดงานเขียน วิเคราะห์ข้อมูล วางแผน และเขียนโค้ด","features":"รวม 200+ Prompt พร้อมใช้ • คัดลอกใน 1 คลิก • ค้นหาแบบ Realtime • หมวดหมู่งานหลากหลาย","tech":"HTML5, Tailwind CSS, JavaScript Search Filter","tags":["Prompt Engineering","AI Assistant","One-Click Copy"],"onlineUrl":null,"localUrl":"10_เว็บคลังPromptAI/index.html","localPath":"D:\\00_INBOX\\Web Application\\10_เว็บคลังPromptAI","isOnline":false,"isSpecial":false},{"id":"10","code":"#10","title":"บันทึกตอนล่าสุด อนิเมะ & มังงะ (TrackToon)","shortName":"TrackToon (อนิเมะ & มังงะ)","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"📺","iconType":"emoji","color":"from-sky-500 to-blue-700","desc":"เครื่องมือบันทึกความคืบหน้าการดูอนิเมะจีนและอ่านมังงะ/มันฮวาประจำวัน มีปุ่มกด +1 ตอนทันใจ ค้นหาตอนต่อไปใน 1 คลิก พร้อมฟังก์ชันคัดลอกและนำเข้ารายการข้อความดิบ (Clear Theme)","features":"Clear Theme ขาวสว่างอ่านง่าย • กด +1 ตอนทันใจ • ลิงก์ค้นหาตอนถัดไปทันที • Import/Export ข้อความดิบ","tech":"HTML5, Clear Modern CSS, LocalStorage, GitHub Pages","tags":["Clear Theme","Anime Tracker","Manga Progress","ปุ่มกด +1 ตอน"],"onlineUrl":"https://prongnaruebest.github.io/Psai-web-projects/tracktoon/","localUrl":"18_เว็บติดตามอนิเมะและมังงะ/index.html","localPath":"D:\\00_INBOX\\Web Application\\18_เว็บติดตามอนิเมะและมังงะ","isOnline":true,"isSpecial":true,"specialTag":"ใหม่"},{"id":"11","code":"#11","title":"นิยายเซียนหนี่ 44 เล่มจบ (Xian Ni)","shortName":"นิยายเซียนหนี่ 44 เล่ม","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"📖","iconType":"emoji","color":"from-blue-600 to-indigo-700","desc":"คลังนิยายกำลังภายในฉบับสมบูรณ์ 44 เล่ม พร้อมระบบอ่านออกเสียงจำลอง (Text-to-Speech) สำหรับฟังต่อเนื่องผ่านเน็ตหรือในเครื่อง","features":"นิยาย 44 เล่มจบสมบูรณ์ • ระบบอ่านออกเสียง TTS • จำตำแหน่งอ่านล่าสุด • โหมดถนอมสายตา","tech":"HTML5, Web Speech API (TTS), LocalStorage, Netlify","tags":["นิยาย 44 เล่มจบ","ระบบเสียง TTS","จำตอนอ่านล่าสุด","Cloud Reader"],"onlineUrl":"https://xianni-reader-psai.netlify.app/","localUrl":"14_เว็บอ่านนิยายเซียนหนี่44เล่ม/index.html","localPath":"D:\\00_INBOX\\Web Application\\14_เว็บอ่านนิยายเซียนหนี่44เล่ม","isOnline":true,"isSpecial":false},{"id":"12","code":"#12","title":"เว็บสอนกีต้า (GuitarQuest)","shortName":"GuitarQuest (สอนกีตาร์)","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"🎸","iconType":"emoji","color":"from-amber-500 to-orange-600","desc":"เว็บเรียนเล่นกีตาร์ตั้งแต่เริ่มต้นจนชำนาญ ผ่านระบบจำลองเควสต์ผจญภัยแบบเกม พร้อมฟิงเกอร์บอร์ดจำลองเสียงคอร์ด เครื่องตั้งสาย และเครื่องเล่นตามคอร์ด","features":"เควสต์ฝึกกีตาร์ RPG • เครื่องตั้งสาย Tuner • สังเคราะห์เสียงคอร์ด Web Audio • เพลงพร้อมคอร์ดและดีดตาม","tech":"Web Audio API, Canvas Confetti, Tailwind CSS, Game RPG Engine","tags":["Guitar Quest","Web Audio คอร์ด","Tuner ตั้งสาย","เพลงพร้อมคอร์ด"],"onlineUrl":null,"localUrl":"02_เว็บสอนกีต้า/index.html","localPath":"D:\\00_INBOX\\Web Application\\02_เว็บสอนกีต้า","isOnline":false,"isSpecial":false},{"id":"13","code":"#13","title":"เว็บอ่านนิยายออนไลน์ (หออักษรา)","shortName":"หออักษรา (E-Book Reader)","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"📚","iconType":"emoji","color":"from-amber-600 to-stone-800","desc":"ระบบอ่าน E-Book และนิยายออนไลน์ พร้อมฟังก์ชันปรับแต่งธีม ขนาดตัวอักษร คั่นหน้า และถนอมสายตา","features":"ฉบับสมบูรณ์ 4 เล่ม 72 ตอน • ปรับแต่งธีม Sepia/Dark/OLED • ปรับขนาดฟอนต์และระยะบรรทัด • คั่นหน้าและจำบทอ่าน","tech":"HTML5, CSS Custom Properties, LocalStorage","tags":["4 เล่ม 72 ตอน","E-Book Reader","ปรับขนาดอักษร","Sepia Theme"],"onlineUrl":null,"localUrl":"13_เว็บอ่านนิยายออนไลน์/index.html","localPath":"D:\\00_INBOX\\Web Application\\13_เว็บอ่านนิยายออนไลน์","isOnline":false,"isSpecial":false},{"id":"14","code":"#14","title":"เว็บเกมยานอวกาศ (Tactical Survivor)","shortName":"เกมยานอวกาศ Orbital","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"🚀","iconType":"emoji","color":"from-purple-600 to-indigo-800","desc":"เกมยานรบอวกาศแนว Roguelite อัปเกรดยานรบ อาวุธ และฝ่าฝูงศัตรู เล่นได้ทันทีผ่านเว็บเบราว์เซอร์ พร้อมระบบเสียงและกราฟิกสุดล้ำ","features":"Sci-Fi Roguelite Action • ระบบอัปเกรดยานและอาวุธ • ควบคุมสัมผัสบนมือถือและคีย์บอร์ด • 60 FPS Canvas Engine","tech":"HTML5 Canvas, TypeScript/JS Bundle, Service Worker, PWA","tags":["Sci-Fi Roguelite","Canvas 2D","ระบบอัปเกรดยาน","Mobile Touch"],"onlineUrl":null,"localUrl":"09_เว็บเกมยานอวกาศ/index.html","localPath":"D:\\00_INBOX\\Web Application\\09_เว็บเกมยานอวกาศ","isOnline":false,"isSpecial":false},{"id":"15","code":"#15","title":"แผนที่กล้ามเนื้อ (FastFit Muscle Map)","shortName":"แผนที่กล้ามเนื้อ Muscle Map","category":"fitness","categoryName":"สุขภาพ & ฟิตเนส","icon":"🧬","iconType":"emoji","color":"from-red-600 to-rose-700","desc":"แผนที่กายวิภาคกล้ามเนื้อร่างกาย ทั้งมุมมอง 2D Interactive SVG และ 3D Model คลิกเลือกกล้ามเนื้อเพื่อแสดงรายชื่อท่าออกกำลังกายและกลไกการเคลื่อนไหวที่ตรงจุด","features":"แผนที่กล้ามเนื้อ 2D SVG & 3D WebGL • 400+ ท่าออกกำลังกาย Tier List • ตัวกรองอุปกรณ์และจัดตารางฝึก • สรีระชาย/หญิง","tech":"Three.js 3D WebGL, Interactive SVG, JSON Database","tags":["3D Body Map","ระบบกายวิภาค","ท่าออกกำลังกาย","Tier List"],"onlineUrl":null,"localUrl":"16_Muscle_Map/index.html","localPath":"D:\\00_INBOX\\Web Application\\16_Muscle_Map","isOnline":false,"isSpecial":false},{"id":"16","code":"#16","title":"เว็บฝึกวิ่ง (RunEvolution)","shortName":"RunEvolution ฝึกซ้อมวิ่ง","category":"fitness","categoryName":"สุขภาพ & ฟิตเนส","icon":"🏃","iconType":"emoji","color":"from-cyan-500 to-blue-600","desc":"ตารางฝึกซ้อมวิ่งตั้งแต่ระดับเริ่มต้นจนถึงฟูลมาราธอน คำนวณความเร็ว Pace พร้อมแผนฟื้นฟูกล้ามเนื้อและอวาตาร์จำลองการวิ่งแอนิเมชัน","features":"ตารางซ้อม 5K/10K/Half/Full • คำนวณ Pace • อวาตาร์วิ่ง Dynamic SVG • ระบบเลเวลและ XP","tech":"HTML5 SVG Animation, Canvas Aura, LocalStorage State","tags":["5K / 10K / มาราธอน","Pace Calculator","Dynamic Avatar","Level RPG"],"onlineUrl":null,"localUrl":"05_เว็บฝึกวิ่งRunEvolution/index.html","localPath":"D:\\00_INBOX\\Web Application\\05_เว็บฝึกวิ่งRunEvolution","isOnline":false,"isSpecial":false},{"id":"17","code":"#17","title":"เว็บออกกำลังกายอนิเมะ (TITAN FORGE)","shortName":"Titan Forge (คาลิสเทนิกส์)","category":"fitness","categoryName":"สุขภาพ & ฟิตเนส","icon":"⚔️","iconType":"emoji","color":"from-rose-500 to-red-600","desc":"โปรแกรมฝึกบอดี้เวทและคาลิสเทนิกส์ในรูปแบบเกม RPG สะสมค่าประสบการณ์ เลเวลอัพร่างกาย และเควสต์ท่าฝึกกายภาพ","features":"เควสต์ฝึกบอดี้เวทสไตล์ RPG • เลเวลอัพสเตตัสพละกำลัง • ท่า Calisthenics Progression • บันทึกสถิติประจำวัน","tech":"HTML5, Tailwind CSS, RPG Gamification Engine","tags":["Calisthenics RPG","เควสต์ออกกำลังกาย","บอดี้เวท","Level Up"],"onlineUrl":null,"localUrl":"04_เว็บออกกำลังกายอนิเมะ/index.html","localPath":"D:\\00_INBOX\\Web Application\\04_เว็บออกกำลังกายอนิเมะ","isOnline":false,"isSpecial":false},{"id":"18","code":"#18","title":"เงินเดือนนี้ต้องรอด","shortName":"เงินเดือนนี้ต้องรอด","category":"finance","categoryName":"การเงิน & ธุรกิจ","icon":"💰","iconType":"emoji","color":"from-emerald-500 to-teal-600","desc":"ระบบบันทึกและวางแผนรายรับ-รายจ่ายรายเดือน จัดสรรก้อนหนี้สิน คุมงบกินอยู่ 10,000 บ. ค่านมลูก พร้อมคำแนะนำจากนักวางแผนการเงิน","features":"จำลองงบประมาณรายเดือน • ตัดหนี้และเงินเก็บลูก • กราฟสัดส่วนการเงิน Chart.js • ติดตั้ง PWA บนมือถือได้","tech":"HTML5, Tailwind CSS, Chart.js, FontAwesome, PWA","tags":["คุมงบ 10,000 บ.","วางแผนหนี้สิน","เงินเก็บลูก","Chart.js"],"onlineUrl":null,"localUrl":"03_เงินเดือนนี้ต้องรอด/index.html","localPath":"D:\\00_INBOX\\Web Application\\03_เงินเดือนนี้ต้องรอด","isOnline":false,"isSpecial":true,"specialTag":"อัปเดต"}];
+    const projectsData = [{"id":"01","code":"#01","title":"เมนูของปรายใส (Praysai Kids Meals)","shortName":"เมนูของปรายใส","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"🍽️","desc":"เลือกวัตถุดิบที่มีในบ้าน ระบบจะช่วยคิดเมนูสำหรับปรายใสตามช่วงวัย เวลา และเนื้อสัมผัส พร้อมบอกของที่ขาดและบันทึกรายการซื้อของ","features":"คิดเมนูตามวัตถุดิบในบ้าน • เด็กตามวัย 6-24 ด.+ • บันทึกของที่ขาด • รายการเมนูโปรด","tech":"HTML5 • Tailwind • LocalStorage • PWA","tags":["วัตถุดิบในบ้าน","เด็ก 6-24 ด.+","รายการซื้อของ","เมนูโปรด"],"onlineUrl":"https://prongnaruebest.github.io/-praysai-kids-meals/","localUrl":"19_เว็บเมนูของปรายใส/index.html","localPath":"D:\\00_INBOX\\Web Application\\19_เว็บเมนูของปรายใส","isOnline":true,"isSpecial":true,"specialTag":"🌟 ของปรายใส"},{"id":"02","code":"#02","title":"เว็บอาหารเด็กเล็ก (YumYum Toddler)","shortName":"เว็บอาหารเด็กเล็ก","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"🥣","desc":"สูตรอาหารและแนวทางโภชนาการสำหรับเด็กวัยหัดเดิน 1-3 ปี ครบถ้วนสารอาหารสำคัญเพื่อการเจริญเติบโต พร้อมเวอร์ชันออนไลน์บนคลาวด์","features":"โภชนาการเด็ก 1-3 ปี • เมนูลดภูมิแพ้ • ตารางสารอาหาร BLW • Cloud App","tech":"Next.js • Tailwind CSS • Cloudflare","tags":["เด็กเล็ก 1-3 ขวบ","ตารางโภชนาการ","เมนูลดแพ้","Cloud App"],"onlineUrl":"https://yumyum-toddler-online.prong-naruebest.chatgpt.site/","localUrl":"08_เว็บอาหารเด็กเล็ก/index.html","localPath":"D:\\00_INBOX\\Web Application\\08_เว็บอาหารเด็กเล็ก","isOnline":true,"isSpecial":false},{"id":"03","code":"#03","title":"เว็บไอเดียกิจกรรมเด็ก (PlayPal)","shortName":"ไอเดียกิจกรรมเด็ก","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"🎨","desc":"คลัง 32+ ไอเดียกิจกรรมการเล่นสร้างสรรค์กับลูก เสริมทักษะประสาทสัมผัสและกล้ามเนื้อ พร้อมอุปกรณ์ที่หาได้ง่ายในบ้าน รองรับ PWA","features":"32+ กิจกรรมเล่นสร้างสรรค์ • แบ่งตามช่วงอายุ • พัฒนาการ Sensory • ใช้อุปกรณ์ในบ้าน","tech":"HTML5 • Tailwind CSS • Web App Manifest • PWA","tags":["เล่นสร้างสรรค์","32+ กิจกรรม","เสริมพัฒนาการ","PWA"],"onlineUrl":"https://prongnaruebest.github.io/playpal-web/","localUrl":"07_เว็บไอเดียกิจกรรมเด็ก/index.html","localPath":"D:\\00_INBOX\\Web Application\\07_เว็บไอเดียกิจกรรมเด็ก","isOnline":true,"isSpecial":false},{"id":"04","code":"#04","title":"เว็บคู่มือพัฒนาการลูกน้อย (KidDev Hub)","shortName":"คู่มือพัฒนาการลูก","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"👶","desc":"คู่มือพัฒนาการเด็กตามช่วงอายุ การส่งเสริมทักษะทางอารมณ์ สังคม และสมอง พร้อมแนวทางการเลี้ยงดูเชิงบวก","features":"เช็กลิสต์พัฒนาการตามวัย • ทักษะสมอง EF • เลี้ยงลูกเชิงบวก • แนะนำการกระตุ้นพัฒนาการ","tech":"HTML5 • CSS3 • Responsive Design","tags":["0-5 ขวบ","เช็กลิสต์พัฒนาการ","EQ & EF","คู่มือคุณแม่"],"onlineUrl":null,"localUrl":"06_เว็บคู่มือพัฒนาการลูกน้อย/index.html","localPath":"D:\\00_INBOX\\Web Application\\06_เว็บคู่มือพัฒนาการลูกน้อย","isOnline":false,"isSpecial":false},{"id":"05","code":"#05","title":"เว็บสุ่มทำอาหาร (วันนี้กินอะไรดี)","shortName":"วันนี้กินอะไรดี (300 เมนู)","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"🍳","desc":"ระบบสุ่มเมนูอาหารประจำวันจากฐานข้อมูล 300 รายการ ช่วยแก้ปัญหาคิดไม่ออกว่าจะกินอะไร พร้อมข้อมูลสารอาหารและวิธีทำ","features":"สุ่มเมนูอาหาร 300+ รายการ • กรองตามประเภท ต้ม ผัด แกง ทอด • ข้อมูลแคลอรี • วัตถุดิบและวิธีทำ","tech":"HTML5 • Vanilla JavaScript SPA","tags":["300+ เมนู","สุ่มอาหาร","ข้อมูลโภชนาการ","คำนวณแคลอรี"],"onlineUrl":null,"localUrl":"01_เว็บสุ่มทำอาหาร/index.html","localPath":"D:\\00_INBOX\\Web Application\\01_เว็บสุ่มทำอาหาร","isOnline":false,"isSpecial":false},{"id":"06","code":"#06","title":"Smart Zone AI (PDF Studio & Flipbook)","shortName":"SmartZone PDF Studio","category":"tech","categoryName":"เครื่องมือ & วิศวกรรม","icon":"📄","desc":"โคลนและพัฒนาจาก szai.net ระบบจัดการ PDF ครบวงจร ทำฟลิปบุ๊ก 3D เสมือนจริง แก้ไข เซ็นเซอร์ข้อความ ใส่ลายเซ็น รวม แยกหน้า และแปลงเป็นรูปภาพ ทำงานในเบราว์เซอร์ 100%","features":"3D Flipbook เปิดหน้าเสมือนจริง • รวม/แยก/จัดเรียงหน้า PDF • เซ็นเซอร์ & ลายเซ็นดิจิทัล • แปลงรูปภาพ Client-side 100%","tech":"PDF-lib.js • PDF.js • PageFlip 3D • JSZip","tags":["3D Flipbook","PDF Editor & Sign","Merge/Split/Organize","100% Client-Side"],"onlineUrl":"https://prongnaruebest.github.io/Psai-web-projects/smartzone-pdf/","localUrl":"17_SmartZone_PDF_Studio/index.html","localPath":"D:\\00_INBOX\\Web Application\\17_SmartZone_PDF_Studio","isOnline":true,"isSpecial":true,"specialTag":"ใหม่"},{"id":"07","code":"#07","title":"เว็บพอร์ตโฟลิโอวิศวกร (Psai Naruebest)","shortName":"พอร์ตโฟลิโอวิศวกร Psai","category":"tech","categoryName":"เครื่องมือ & วิศวกรรม","icon":"🔭","desc":"เว็บไซต์แสดงประวัติและผลงานวิศวกรรมอิเล็กทรอนิกส์ ระบบควบคุมหอดูดาว กล้องโทรทรรศน์อัตโนมัติ และสถาปัตยกรรมระบบ","features":"ประวัติผลงานวิศวกรรมดาราศาสตร์ • กล้องโทรทรรศน์อัตโนมัติ สดร. • เอกสารโครงสร้างสถาปัตยกรรม","tech":"HTML5 • Tailwind CSS • GitHub Pages","tags":["Electronics Engineer","NARIT Observatory","Robotic Telescope"],"onlineUrl":"https://prongnaruebest.github.io/psai-play/#about","localUrl":"11_เว็บพอร์ตโฟลิโอ/index.html","localPath":"D:\\00_INBOX\\Web Application\\11_เว็บพอร์ตโฟลิโอ","isOnline":true,"isSpecial":false},{"id":"08","code":"#08","title":"คอร์สวิศวกรรมระบบ (Personal Codex)","shortName":"คอร์สวิศวกรรมระบบ","category":"tech","categoryName":"เครื่องมือ & วิศวกรรม","icon":"⚙️","desc":"หลักสูตรและเครื่องมือทดลองเชิงปฏิบัติการด้านวิศวกรรมสถาปัตยกรรมระบบขั้นสูง พร้อม Workbench แบบโต้ตอบ","features":"บทเรียนวิศวกรรมระบบ • Interactive Workbench • สถาปัตยกรรมระดับองค์กร • แบบฝึกหัดทดลอง","tech":"HTML5 • CSS3 • Interactive Lab","tags":["System Architecture","Interactive Course","Engineering Lab"],"onlineUrl":null,"localUrl":"12_เว็บคอร์สวิศวกรรมระบบ/index.html","localPath":"D:\\00_INBOX\\Web Application\\12_เว็บคอร์สวิศวกรรมระบบ","isOnline":false,"isSpecial":false},{"id":"09","code":"#09","title":"เว็บคลัง Prompt AI (Nexus Prompt Hub)","shortName":"คลัง Prompt AI Hub","category":"tech","categoryName":"เครื่องมือ & วิศวกรรม","icon":"🧠","desc":"คลังคำสั่งสำหรับสั่งงานปัญญาประดิษฐ์ (AI Prompts) หมวดงานเขียน วิเคราะห์ข้อมูล วางแผน และเขียนโค้ด","features":"รวม 200+ Prompt พร้อมใช้ • คัดลอกใน 1 คลิก • ค้นหาแบบ Realtime • หมวดหมู่งานหลากหลาย","tech":"HTML5 • Tailwind CSS • Realtime Search","tags":["Prompt Engineering","AI Assistant","One-Click Copy"],"onlineUrl":null,"localUrl":"10_เว็บคลังPromptAI/index.html","localPath":"D:\\00_INBOX\\Web Application\\10_เว็บคลังPromptAI","isOnline":false,"isSpecial":false},{"id":"10","code":"#10","title":"บันทึกตอนล่าสุด อนิเมะ & มังงะ (TrackToon)","shortName":"TrackToon (อนิเมะ & มังงะ)","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"📺","desc":"เครื่องมือบันทึกความคืบหน้าการดูอนิเมะจีนและอ่านมังงะ/มันฮวาประจำวัน มีปุ่มกด +1 ตอนทันใจ ค้นหาตอนต่อไปใน 1 คลิก พร้อมฟังก์ชันคัดลอกและนำเข้ารายการข้อความดิบ (Clear Theme)","features":"Clear Theme ขาวสว่างอ่านง่าย • กด +1 ตอนทันใจ • ลิงก์ค้นหาตอนถัดไปทันที • Import/Export ข้อความดิบ","tech":"HTML5 • Modern Minimal CSS • LocalStorage","tags":["Clear Theme","Anime Tracker","Manga Progress","ปุ่มกด +1 ตอน"],"onlineUrl":"https://prongnaruebest.github.io/Psai-web-projects/tracktoon/","localUrl":"18_เว็บติดตามอนิเมะและมังงะ/index.html","localPath":"D:\\00_INBOX\\Web Application\\18_เว็บติดตามอนิเมะและมังงะ","isOnline":true,"isSpecial":true,"specialTag":"ใหม่"},{"id":"11","code":"#11","title":"นิยายเซียนหนี่ 44 เล่มจบ (Xian Ni)","shortName":"นิยายเซียนหนี่ 44 เล่ม","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"📖","desc":"คลังนิยายกำลังภายในฉบับสมบูรณ์ 44 เล่ม พร้อมระบบอ่านออกเสียงจำลอง (Text-to-Speech) สำหรับฟังต่อเนื่องผ่านเน็ตหรือในเครื่อง","features":"นิยาย 44 เล่มจบสมบูรณ์ • ระบบอ่านออกเสียง TTS • จำตำแหน่งอ่านล่าสุด • โหมดถนอมสายตา","tech":"HTML5 • Web Speech API • LocalStorage","tags":["นิยาย 44 เล่มจบ","ระบบเสียง TTS","จำตอนอ่านล่าสุด","Cloud Reader"],"onlineUrl":"https://xianni-reader-psai.netlify.app/","localUrl":"14_เว็บอ่านนิยายเซียนหนี่44เล่ม/index.html","localPath":"D:\\00_INBOX\\Web Application\\14_เว็บอ่านนิยายเซียนหนี่44เล่ม","isOnline":true,"isSpecial":false},{"id":"12","code":"#12","title":"เว็บสอนกีต้า (GuitarQuest)","shortName":"GuitarQuest (สอนกีตาร์)","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"🎸","desc":"เว็บเรียนเล่นกีตาร์ตั้งแต่เริ่มต้นจนชำนาญ ผ่านระบบจำลองเควสต์ผจญภัยแบบเกม พร้อมฟิงเกอร์บอร์ดจำลองเสียงคอร์ด เครื่องตั้งสาย และเครื่องเล่นตามคอร์ด","features":"เควสต์ฝึกกีตาร์ RPG • เครื่องตั้งสาย Tuner • สังเคราะห์เสียงคอร์ด Web Audio • เพลงพร้อมคอร์ดและดีดตาม","tech":"Web Audio API • Canvas Confetti • Game Engine","tags":["Guitar Quest","Web Audio คอร์ด","Tuner ตั้งสาย","เพลงพร้อมคอร์ด"],"onlineUrl":null,"localUrl":"02_เว็บสอนกีต้า/index.html","localPath":"D:\\00_INBOX\\Web Application\\02_เว็บสอนกีต้า","isOnline":false,"isSpecial":false},{"id":"13","code":"#13","title":"เว็บอ่านนิยายออนไลน์ (หออักษรา)","shortName":"หออักษรา (E-Book Reader)","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"📚","desc":"ระบบอ่าน E-Book และนิยายออนไลน์ พร้อมฟังก์ชันปรับแต่งธีม ขนาดตัวอักษร คั่นหน้า และถนอมสายตา","features":"ฉบับสมบูรณ์ 4 เล่ม 72 ตอน • ปรับแต่งธีม Sepia/Dark/OLED • ปรับขนาดฟอนต์และระยะบรรทัด • คั่นหน้าและจำบทอ่าน","tech":"HTML5 • CSS Variables • LocalStorage","tags":["4 เล่ม 72 ตอน","E-Book Reader","ปรับขนาดอักษร","Sepia Theme"],"onlineUrl":null,"localUrl":"13_เว็บอ่านนิยายออนไลน์/index.html","localPath":"D:\\00_INBOX\\Web Application\\13_เว็บอ่านนิยายออนไลน์","isOnline":false,"isSpecial":false},{"id":"14","code":"#14","title":"เว็บเกมยานอวกาศ (Tactical Survivor)","shortName":"เกมยานอวกาศ Orbital","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"🚀","desc":"เกมยานรบอวกาศแนว Roguelite อัปเกรดยานรบ อาวุธ และฝ่าฝูงศัตรู เล่นได้ทันทีผ่านเว็บเบราว์เซอร์ พร้อมระบบเสียงและกราฟิกสุดล้ำ","features":"Sci-Fi Roguelite Action • ระบบอัปเกรดยานและอาวุธ • ควบคุมสัมผัสบนมือถือและคีย์บอร์ด • 60 FPS Canvas Engine","tech":"HTML5 Canvas • TypeScript Bundle • PWA","tags":["Sci-Fi Roguelite","Canvas 2D","ระบบอัปเกรดยาน","Mobile Touch"],"onlineUrl":null,"localUrl":"09_เว็บเกมยานอวกาศ/index.html","localPath":"D:\\00_INBOX\\Web Application\\09_เว็บเกมยานอวกาศ","isOnline":false,"isSpecial":false},{"id":"15","code":"#15","title":"แผนที่กล้ามเนื้อ (FastFit Muscle Map)","shortName":"แผนที่กล้ามเนื้อ Muscle Map","category":"fitness","categoryName":"สุขภาพ & ฟิตเนส","icon":"🧬","desc":"แผนที่กายวิภาคกล้ามเนื้อร่างกาย ทั้งมุมมอง 2D Interactive SVG และ 3D Model คลิกเลือกกล้ามเนื้อเพื่อแสดงรายชื่อท่าออกกำลังกายและกลไกการเคลื่อนไหวที่ตรงจุด","features":"แผนที่กล้ามเนื้อ 2D SVG & 3D WebGL • 400+ ท่าออกกำลังกาย Tier List • ตัวกรองอุปกรณ์และจัดตารางฝึก • สรีระชาย/หญิง","tech":"Three.js 3D WebGL • Interactive SVG • JSON DB","tags":["3D Body Map","ระบบกายวิภาค","ท่าออกกำลังกาย","Tier List"],"onlineUrl":null,"localUrl":"16_Muscle_Map/index.html","localPath":"D:\\00_INBOX\\Web Application\\16_Muscle_Map","isOnline":false,"isSpecial":false},{"id":"16","code":"#16","title":"เว็บฝึกวิ่ง (RunEvolution)","shortName":"RunEvolution ฝึกซ้อมวิ่ง","category":"fitness","categoryName":"สุขภาพ & ฟิตเนส","icon":"🏃","desc":"ตารางฝึกซ้อมวิ่งตั้งแต่ระดับเริ่มต้นจนถึงฟูลมาราธอน คำนวณความเร็ว Pace พร้อมแผนฟื้นฟูกล้ามเนื้อและอวาตาร์จำลองการวิ่งแอนิเมชัน","features":"ตารางซ้อม 5K/10K/Half/Full • คำนวณ Pace • อวาตาร์วิ่ง Dynamic SVG • ระบบเลเวลและ XP","tech":"HTML5 SVG Animation • Canvas Aura • LocalStorage","tags":["5K / 10K / มาราธอน","Pace Calculator","Dynamic Avatar","Level RPG"],"onlineUrl":null,"localUrl":"05_เว็บฝึกวิ่งRunEvolution/index.html","localPath":"D:\\00_INBOX\\Web Application\\05_เว็บฝึกวิ่งRunEvolution","isOnline":false,"isSpecial":false},{"id":"17","code":"#17","title":"เว็บออกกำลังกายอนิเมะ (TITAN FORGE)","shortName":"Titan Forge (คาลิสเทนิกส์)","category":"fitness","categoryName":"สุขภาพ & ฟิตเนส","icon":"⚔️","desc":"โปรแกรมฝึกบอดี้เวทและคาลิสเทนิกส์ในรูปแบบเกม RPG สะสมค่าประสบการณ์ เลเวลอัพร่างกาย และเควสต์ท่าฝึกกายภาพ","features":"เควสต์ฝึกบอดี้เวทสไตล์ RPG • เลเวลอัพสเตตัสพละกำลัง • ท่า Calisthenics Progression • บันทึกสถิติประจำวัน","tech":"HTML5 • RPG Gamification Engine","tags":["Calisthenics RPG","เควสต์ออกกำลังกาย","บอดี้เวท","Level Up"],"onlineUrl":null,"localUrl":"04_เว็บออกกำลังกายอนิเมะ/index.html","localPath":"D:\\00_INBOX\\Web Application\\04_เว็บออกกำลังกายอนิเมะ","isOnline":false,"isSpecial":false},{"id":"18","code":"#18","title":"เงินเดือนนี้ต้องรอด","shortName":"เงินเดือนนี้ต้องรอด","category":"finance","categoryName":"การเงิน & ธุรกิจ","icon":"💰","desc":"ระบบบันทึกและวางแผนรายรับ-รายจ่ายรายเดือน จัดสรรก้อนหนี้สิน คุมงบกินอยู่ 10,000 บ. ค่านมลูก พร้อมคำแนะนำจากนักวางแผนการเงิน","features":"จำลองงบประมาณรายเดือน • ตัดหนี้และเงินเก็บลูก • กราฟสัดส่วนการเงิน Chart.js • ติดตั้ง PWA บนมือถือได้","tech":"HTML5 • Chart.js • FontAwesome • PWA","tags":["คุมงบ 10,000 บ.","วางแผนหนี้สิน","เงินเก็บลูก","Chart.js"],"onlineUrl":null,"localUrl":"03_เงินเดือนนี้ต้องรอด/index.html","localPath":"D:\\00_INBOX\\Web Application\\03_เงินเดือนนี้ต้องรอด","isOnline":false,"isSpecial":true,"specialTag":"อัปเดต"}];
     let activeProjectId = "01";
     let activeCategory = "all";
     let activeView = "map";
@@ -1899,30 +2234,29 @@
       if (btnEl) btnEl.classList.add('active');
 
       const mapContainer = document.getElementById('mindMapContainer');
-      const showcaseContainer = document.getElementById('categoriesShowcaseContainer');
+      const directorySection = document.getElementById('masterDirectorySection');
       const drawer = document.getElementById('horizontalDrawer');
 
       if (viewName === 'map') {
         mapContainer.style.display = 'block';
         drawer.style.display = 'block';
-        showcaseContainer.style.display = 'block';
+        directorySection.style.display = 'block';
         filterProjectChips('all', document.getElementById('chip-all'));
       } else if (viewName === 'online') {
         mapContainer.style.display = 'block';
         drawer.style.display = 'block';
-        showcaseContainer.style.display = 'block';
+        directorySection.style.display = 'block';
         filterProjectChips('online-only', document.getElementById('chip-online-only'));
       } else if (viewName === 'local') {
         mapContainer.style.display = 'block';
         drawer.style.display = 'block';
-        showcaseContainer.style.display = 'block';
+        directorySection.style.display = 'block';
         filterProjectChips('all', document.getElementById('chip-all'));
-      } else if (viewName === 'categories') {
+      } else if (viewName === 'table-only') {
         mapContainer.style.display = 'none';
         drawer.style.display = 'none';
-        showcaseContainer.style.display = 'block';
-        document.querySelectorAll('.category-section').forEach(sec => sec.style.display = 'block');
-        document.querySelectorAll('.project-row').forEach(row => row.style.display = 'grid');
+        directorySection.style.display = 'block';
+        document.querySelectorAll('.eng-row').forEach(row => row.style.display = '');
       }
     }
 
@@ -1948,7 +2282,9 @@
       document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
       if (chipEl) chipEl.classList.add('active');
 
-      // Filter Nodes in Grid
+      let visibleCount = 0;
+
+      // Filter Nodes in Mind Map Grid
       document.querySelectorAll('.p-node').forEach(node => {
         const cat = node.getAttribute('data-category');
         const isOnline = node.getAttribute('data-online') === 'true';
@@ -1961,32 +2297,34 @@
         node.style.display = show ? 'flex' : 'none';
       });
 
-      // Filter Detailed Category Sections below
-      document.querySelectorAll('.category-section').forEach(sec => {
-        const cat = sec.getAttribute('data-cat-section');
+      // Filter Rows in Master Clean Table
+      document.querySelectorAll('.eng-row').forEach(row => {
+        const cat = row.getAttribute('data-category');
+        const isOnline = row.getAttribute('data-online') === 'true';
+
         let show = false;
-        if (filterType === 'all' || filterType === 'online-only') show = true;
+        if (filterType === 'all') show = true;
+        else if (filterType === 'online-only') show = isOnline;
         else if (filterType === cat) show = true;
 
-        sec.style.display = show ? 'block' : 'none';
+        row.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
       });
 
-      // Filter Rows within Sections
-      document.querySelectorAll('.project-row').forEach(row => {
-        const isOnline = row.getAttribute('data-online') === 'true';
-        if (filterType === 'online-only') {
-          row.style.display = isOnline ? 'grid' : 'none';
-        } else {
-          row.style.display = 'grid';
-        }
-      });
+      // Update Directory Stats Badge
+      document.getElementById('directoryStatsBadge').textContent = 'แสดง ' + visibleCount + ' รายการ';
     }
 
-    // Select Project Node
+    // Select Project Node (Clicking chip or row)
     function selectProjectNode(projId, nodeEl) {
       activeProjectId = projId;
       document.querySelectorAll('.p-node').forEach(n => n.classList.remove('active'));
       if (nodeEl) nodeEl.classList.add('active');
+
+      // Highlight corresponding row in table
+      document.querySelectorAll('.eng-row').forEach(r => r.classList.remove('active'));
+      const activeRow = document.getElementById('engrow-' + projId);
+      if (activeRow) activeRow.classList.add('active');
 
       const proj = projectsData.find(p => p.id === projId);
       if (!proj) return;
@@ -1996,7 +2334,7 @@
       document.getElementById('drawerPath').textContent = proj.localPath + (proj.onlineUrl ? ' • ' + proj.onlineUrl : '');
       document.getElementById('drawerColFeatures').textContent = proj.features;
       document.getElementById('drawerColTech').textContent = proj.tech;
-      document.getElementById('drawerColTags').innerHTML = proj.tags.map(t => '<span class="tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">' + t + '</span>').join('');
+      document.getElementById('drawerColTags').innerHTML = proj.tags.map(t => '<span class="clean-tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">' + t + '</span>').join('');
 
       let launchHtml = '<div style="display:flex; flex-direction:column; gap:6px;">';
       if (proj.onlineUrl) {
@@ -2023,16 +2361,15 @@
       }, 700);
 
       // Scroll to Row if visible
-      const targetRow = document.getElementById('proj-row-' + projId);
-      if (targetRow && targetRow.offsetParent !== null) {
-        targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        targetRow.style.backgroundColor = '#f0f9ff';
-        targetRow.style.outline = '2px solid #0284c7';
-        setTimeout(() => {
-          targetRow.style.backgroundColor = '';
-          targetRow.style.outline = '';
-        }, 1500);
+      if (activeRow && activeRow.offsetParent !== null) {
+        activeRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
+    }
+
+    // On Table Row Click
+    function onRowClick(projId, rowEl) {
+      const chipNode = document.getElementById('pnode-' + projId);
+      selectProjectNode(projId, chipNode);
     }
 
     // Live Search
@@ -2042,6 +2379,8 @@
         filterProjectChips(activeCategory, document.getElementById('chip-' + activeCategory) || document.getElementById('chip-all'));
         return;
       }
+
+      let matchCount = 0;
 
       // Filter Nodes
       document.querySelectorAll('.p-node').forEach(node => {
@@ -2053,22 +2392,14 @@
       });
 
       // Filter Rows
-      let hasVisible = {};
-      document.querySelectorAll('.project-row').forEach(row => {
+      document.querySelectorAll('.eng-row').forEach(row => {
         const searchText = row.getAttribute('data-search') || '';
         const match = searchText.includes(q);
-        row.style.display = match ? 'grid' : 'none';
-        if (match) {
-          const cat = row.getAttribute('data-category');
-          hasVisible[cat] = true;
-        }
+        row.style.display = match ? '' : 'none';
+        if (match) matchCount++;
       });
 
-      // Show/Hide Category Sections
-      document.querySelectorAll('.category-section').forEach(sec => {
-        const cat = sec.getAttribute('data-cat-section');
-        sec.style.display = hasVisible[cat] ? 'block' : 'none';
-      });
+      document.getElementById('directoryStatsBadge').textContent = 'พบ ' + matchCount + ' รายการ';
     }
 
     // Copy Drawer Path
@@ -2077,7 +2408,7 @@
       if (!proj) return;
       const textToCopy = proj.onlineUrl ? proj.onlineUrl : proj.localPath;
       navigator.clipboard.writeText(textToCopy).then(() => {
-        showToast('📋 คัดลอก Path / ลิงก์เรียบร้อยแล้ว: ' + proj.shortName);
+        showToast('📋 คัดลอกเรียบร้อยแล้ว: ' + proj.shortName);
       }).catch(() => {
         showToast('คัดลอกไม่สำเร็จ');
       });
@@ -2106,6 +2437,8 @@
     window.addEventListener('DOMContentLoaded', () => {
       const firstNode = document.getElementById('pnode-01');
       if (firstNode) firstNode.classList.add('active');
+      const firstRow = document.getElementById('engrow-01');
+      if (firstRow) firstRow.classList.add('active');
     });
   </script>
 </body>
