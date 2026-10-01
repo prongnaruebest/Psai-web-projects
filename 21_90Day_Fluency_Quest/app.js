@@ -1053,6 +1053,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
 // UI Event Handlers
 function setupEventListeners() {
+  setupTopNavBar();
+
   // Roadmap Phase Filter Buttons
   document.querySelectorAll(".roadmap-filter-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
@@ -1270,3 +1272,83 @@ function renderMistakeBankModalFull() {
     container.appendChild(el);
   });
 }
+
+// Top Quick Mode Navigation Bar Logic
+function setupTopNavBar() {
+  const topNavButtons = document.querySelectorAll(".top-nav-btn");
+  if (!topNavButtons.length) return;
+
+  function setActiveTopNav(target) {
+    topNavButtons.forEach(btn => {
+      const nav = btn.getAttribute("data-nav");
+      if (nav === target) {
+        btn.className = "top-nav-btn active flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap bg-blue-600 text-white shadow-xs";
+      } else {
+        if (nav === "stories") {
+          btn.className = "top-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-white transition whitespace-nowrap border border-blue-200/60 bg-blue-50/60";
+        } else {
+          btn.className = "top-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white transition whitespace-nowrap border border-transparent";
+        }
+      }
+    });
+  }
+
+  topNavButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-nav");
+      if (window.app) window.app.playSfx('click');
+
+      if (target === "roadmap") {
+        if (window.switchToAdultMode) window.switchToAdultMode();
+        setActiveTopNav("roadmap");
+        const el = document.getElementById("roadmap-section");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (target === "daily") {
+        if (window.switchToAdultMode) window.switchToAdultMode();
+        setActiveTopNav("daily");
+        const el = document.getElementById("daily-quests-section");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (target === "stories") {
+        if (window.switchToKidsMode) window.switchToKidsMode();
+        setActiveTopNav("stories");
+        const el = document.getElementById("kids-stories-section");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (target === "music") {
+        if (window.switchToKidsMode) window.switchToKidsMode();
+        setActiveTopNav("music");
+        const el = document.getElementById("kids-music-section");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (target === "kids-curriculum") {
+        if (window.switchToKidsMode) window.switchToKidsMode();
+        setActiveTopNav("kids-curriculum");
+        const el = document.getElementById("kids-curriculum-section");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (target === "ai-chat") {
+        if (window.switchToAdultMode) window.switchToAdultMode();
+        setActiveTopNav("ai-chat");
+        if (window.app) {
+          const currentDayData = FULL_CURRICULUM.find(d => d.day === window.app.state.activeSelectedDay);
+          const speakingQuest = currentDayData ? currentDayData.quests.find(q => q.type === "speaking") : null;
+          if (speakingQuest) {
+            window.app.openMissionModal(speakingQuest.id);
+          } else {
+            const el = document.getElementById("daily-quests-section");
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+      } else if (target === "mistake-bank") {
+        setActiveTopNav("mistake-bank");
+        renderMistakeBankModalFull();
+        document.getElementById("mistake-bank-modal")?.classList.remove("hidden");
+      }
+    });
+  });
+
+  document.getElementById("btn-switch-adult-mode")?.addEventListener("click", () => {
+    setActiveTopNav("roadmap");
+  });
+  document.getElementById("btn-switch-kids-mode")?.addEventListener("click", () => {
+    setActiveTopNav("stories");
+  });
+}
+

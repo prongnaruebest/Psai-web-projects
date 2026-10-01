@@ -62,6 +62,15 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #94a3b8;
     }
+
+    /* Hide scrollbars for clean top nav */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
 </head>
 <body class="bg-[#f8fafc] text-slate-800 min-h-screen selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden">
@@ -135,6 +144,64 @@
         </button>
       </div>
     </div>
+
+    <!-- Row 2: Top Quick Mode Navigation Bar (แถบเมนูโหมดด้านบน ใช้งานง่าย เข้าถึงได้ทันที) -->
+    <div class="border-t border-slate-100 bg-slate-50/80 px-4 py-2 sm:px-6">
+      <div class="mx-auto max-w-7xl flex items-center justify-between gap-3">
+        <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 scroll-smooth w-full md:w-auto">
+          
+          <!-- Tab 1: Roadmap -->
+          <button data-nav="roadmap" class="top-nav-btn active flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap bg-blue-600 text-white shadow-xs">
+            <span>🗺️</span>
+            <span>แผนที่ 90 วัน</span>
+          </button>
+
+          <!-- Tab 2: Daily Quests -->
+          <button data-nav="daily" class="top-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white transition whitespace-nowrap border border-transparent">
+            <span>🎯</span>
+            <span>ภารกิจวันนี้</span>
+          </button>
+
+          <!-- Tab 3: Kids Stories (Highlighted & Requested by User) -->
+          <button data-nav="stories" class="top-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-white transition whitespace-nowrap border border-blue-200/60 bg-blue-50/60">
+            <span>📖</span>
+            <span class="font-bold text-blue-700">คลังนิทาน 1,400+ เรื่อง</span>
+            <span class="text-[10px] px-1.5 py-0.2 bg-blue-600 text-white rounded-full font-bold">Kids</span>
+          </button>
+
+          <!-- Tab 4: Music & Chords -->
+          <button data-nav="music" class="top-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white transition whitespace-nowrap border border-transparent">
+            <span>🎸</span>
+            <span>เพลง & คอร์ด Monsters</span>
+          </button>
+
+          <!-- Tab 5: AI Roleplay -->
+          <button data-nav="ai-chat" class="top-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white transition whitespace-nowrap border border-transparent">
+            <span>🤖</span>
+            <span>ห้องสนทนา AI</span>
+          </button>
+
+          <!-- Tab 6: Mistake Bank -->
+          <button data-nav="mistake-bank" class="top-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white transition whitespace-nowrap border border-transparent">
+            <span>🧠</span>
+            <span>คลังจุดอ่อน (SRS)</span>
+          </button>
+
+          <!-- Tab 7: Kids Curriculum -->
+          <button data-nav="kids-curriculum" class="top-nav-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-white transition whitespace-nowrap border border-transparent">
+            <span>🧸</span>
+            <span>หลักสูตรเด็ก 4 ทักษะ</span>
+          </button>
+
+        </div>
+
+        <div class="hidden lg:flex items-center text-[11px] text-slate-500 font-medium shrink-0">
+          <span class="flex items-center gap-1 bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-xs">
+            <span>✨</span> แถบเมนูลัดเข้าถึงทุกโหมด
+          </span>
+        </div>
+      </div>
+    </div>
   </header>
 
   <!-- 2. Main Content Area -->
@@ -144,7 +211,7 @@
     <div id="adult-mode-container" class="space-y-8">
       
       <!-- 90-Day Quest Roadmap Section -->
-      <section class="rounded-3xl border border-slate-200/90 bg-white p-5 sm:p-7 shadow-xs">
+      <section id="roadmap-section" class="rounded-3xl border border-slate-200/90 bg-white p-5 sm:p-7 shadow-xs scroll-mt-28">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <div>
             <span class="text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1.5">
@@ -180,7 +247,7 @@
       </section>
 
       <!-- Selected Day's Focus Center -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div id="daily-quests-section" class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start scroll-mt-28">
         
         <!-- Left 2 Cols: 3 Daily Quests -->
         <div class="lg:col-span-2 space-y-6">
@@ -311,8 +378,30 @@
         </div>
       </section>
 
+      <!-- 1,400+ STORIES CATALOG (Promoted to Top for Easy Access) -->
+      <section id="kids-stories-section" class="space-y-4 scroll-mt-28">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1.5">
+              📖 Interactive Storybooks Library
+            </span>
+            <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-0.5">
+              คลังนิทานและเรื่องราวโต้ตอบกว่า 1,400+ เรื่อง
+            </h3>
+            <p class="text-xs text-slate-500">แตะเพื่อเปิดอ่าน มีเสียง Phonics ออกเสียงทีละคำและภาพการ์ตูนสีสันสดใส</p>
+          </div>
+          <span class="text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+            1,400+ เรื่องจุใจ
+          </span>
+        </div>
+
+        <div id="kids-stories-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Rendered by kidsApp.js -->
+        </div>
+      </section>
+
       <!-- FEATURED SONG STUDIO: "Monsters" (Katie Sky) -->
-      <section class="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs space-y-6">
+      <section id="kids-music-section" class="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs space-y-6 scroll-mt-28">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
           <div>
             <span class="text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1.5">
@@ -383,32 +472,10 @@
         </div>
       </section>
 
-      <!-- 1,400+ STORIES CATALOG -->
-      <section class="space-y-4">
-        <div class="flex items-center justify-between">
-          <div>
-            <span class="text-xs font-bold uppercase tracking-wider text-blue-600">
-              📖 Interactive Storybooks Library
-            </span>
-            <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-0.5">
-              คลังนิทานและเรื่องราวโต้ตอบกว่า 1,400+ เรื่อง
-            </h3>
-            <p class="text-xs text-slate-500">แตะเพื่อเปิดอ่าน มีเสียง Phonics ออกเสียงทีละคำและภาพการ์ตูนสีสันสดใส</p>
-          </div>
-          <span class="text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-            1,400+ เรื่องจุใจ
-          </span>
-        </div>
-
-        <div id="kids-stories-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- Rendered by kidsApp.js -->
-        </div>
-      </section>
-
       <!-- 4-SKILLS 3-MONTH CURRICULUM OVERVIEW -->
-      <section class="space-y-4">
+      <section id="kids-curriculum-section" class="space-y-4 scroll-mt-28">
         <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-1.5">
             🗓️ 3-Month Mastery Framework
           </span>
           <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-0.5">

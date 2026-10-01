@@ -341,28 +341,46 @@ class KidsFluencyStudio {
   }
 
   setupKidsEventListeners() {
-    // Mode Switcher Buttons (Adult vs Kids)
+    // Global Mode Switcher Functions (Adult vs Kids)
+    window.switchToAdultMode = () => {
+      const btnAdult = document.getElementById("btn-switch-adult-mode");
+      const btnKids = document.getElementById("btn-switch-kids-mode");
+      const adultContainer = document.getElementById("adult-mode-container");
+      const kidsContainer = document.getElementById("kids-mode-container");
+
+      if (btnAdult && btnKids) {
+        btnAdult.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-blue-700 shadow-xs border border-slate-200/80 transition";
+        btnKids.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 transition";
+      }
+
+      if (adultContainer && kidsContainer) {
+        adultContainer.classList.remove("hidden");
+        kidsContainer.classList.add("hidden");
+      }
+    };
+
+    window.switchToKidsMode = () => {
+      const btnAdult = document.getElementById("btn-switch-adult-mode");
+      const btnKids = document.getElementById("btn-switch-kids-mode");
+      const adultContainer = document.getElementById("adult-mode-container");
+      const kidsContainer = document.getElementById("kids-mode-container");
+
+      if (btnAdult && btnKids) {
+        btnKids.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-blue-700 shadow-xs border border-slate-200/80 transition";
+        btnAdult.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 transition";
+      }
+
+      if (adultContainer && kidsContainer) {
+        adultContainer.classList.add("hidden");
+        kidsContainer.classList.remove("hidden");
+      }
+      this.initUI();
+    };
+
     const btnAdult = document.getElementById("btn-switch-adult-mode");
     const btnKids = document.getElementById("btn-switch-kids-mode");
-    const adultContainer = document.getElementById("adult-mode-container");
-    const kidsContainer = document.getElementById("kids-mode-container");
-
-    btnAdult?.addEventListener("click", () => {
-      btnAdult.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-blue-700 shadow-xs border border-slate-200/80 transition";
-      btnKids.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 transition";
-
-      adultContainer.classList.remove("hidden");
-      kidsContainer.classList.add("hidden");
-    });
-
-    btnKids?.addEventListener("click", () => {
-      btnKids.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-blue-700 shadow-xs border border-slate-200/80 transition";
-      btnAdult.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 transition";
-
-      adultContainer.classList.add("hidden");
-      kidsContainer.classList.remove("hidden");
-      this.initUI();
-    });
+    btnAdult?.addEventListener("click", () => window.switchToAdultMode());
+    btnKids?.addEventListener("click", () => window.switchToKidsMode());
 
     // Story Reader Controls
     document.getElementById("btn-story-speak-full")?.addEventListener("click", () => {
