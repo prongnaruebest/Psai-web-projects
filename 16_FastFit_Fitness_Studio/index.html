@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>FastFit Studio - ศูนย์รวมฟิตเนส 3 โหมด (แผนที่กล้ามเนื้อ • บอดี้เวท RPG • วิ่งมาราธอน)</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230f172a'/><path d='M8 16L12 8L20 24L24 16' stroke='%2338bdf8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/><circle cx='12' cy='8' r='2' fill='%2322c55e'/><circle cx='20' cy='24' r='2' fill='%23f97316'/></svg>" type="image/svg+xml">
+
+  <!-- Google Fonts: Prompt & Kanit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --header-height: 60px;
+      --bg-dark: #07090e;
+      --bg-surface: #0e131f;
+      --border-color: rgba(255, 255, 255, 0.09);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      
+      /* Mode Accent Colors */
+      --accent-muscle: #0284c7;
+      --accent-muscle-glow: rgba(2, 132, 199, 0.4);
+      --accent-titan: #a855f7;
+      --accent-titan-glow: rgba(168, 85, 247, 0.4);
+      --accent-run: #22c55e;
+      --accent-run-glow: rgba(34, 197, 94, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Prompt', 'Kanit', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+    }
+
+    /* TOP MASTER HEADER */
+    .master-header {
+      height: var(--header-height);
+      background: rgba(14, 19, 31, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 50;
+      position: relative;
+    }
+
+    /* LEFT: BRAND INFO */
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 220px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0284c7, #22c55e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 2px 10px rgba(2, 132, 199, 0.35);
+      flex-shrink: 0;
+    }
+
+    .brand-text h1 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1.2;
+    }
+
+    .brand-badge {
+      font-size: 10px;
+      font-weight: 700;
+      background: rgba(2, 132, 199, 0.18);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 1px 6px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* CENTER: MODE TABS */
+    .tabs-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+
+    .mode-tab {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 16px;
+      border-radius: 8px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .mode-tab:hover {
+      color: #f1f5f9;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .mode-tab .tab-icon {
+      font-size: 17px;
+      line-height: 1;
+    }
+
+    .mode-tab .tab-details {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .mode-tab .tab-title {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .mode-tab .tab-badge {
+      font-size: 9.5px;
+      font-weight: 500;
+      opacity: 0.75;
+      font-family: 'Kanit', sans-serif;
+    }
+
+    /* ACTIVE TAB STATES */
+    /* Mode 1: Muscle Map */
+    .mode-tab.tab-muscle.active {
+      background: rgba(2, 132, 199, 0.16);
+      border-color: rgba(56, 189, 248, 0.45);
+      color: #38bdf8;
+      box-shadow: 0 0 15px rgba(2, 132, 199, 0.2);
+    }
+    .mode-tab.tab-muscle.active .tab-badge {
+      color: #bae6fd;
+      opacity: 1;
+    }
+
+    /* Mode 2: Titan Forge */
+    .mode-tab.tab-titan.active {
+      background: rgba(168, 85, 247, 0.16);
+      border-color: rgba(192, 132, 252, 0.45);
+      color: #c084fc;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+    }
+    .mode-tab.tab-titan.active .tab-badge {
+      color: #f3e8ff;
+      opacity: 1;
+    }
+
+    /* Mode 3: RunEvolution */
+    .mode-tab.tab-run.active {
+      background: rgba(34, 197, 94, 0.16);
+      border-color: rgba(74, 222, 128, 0.45);
+      color: #4ade80;
+      box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+    }
+    .mode-tab.tab-run.active .tab-badge {
+      color: #dcfce7;
+      opacity: 1;
+    }
+
+    /* RIGHT: UTILITY ACTIONS */
+    .utility-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 220px;
+      justify-content: flex-end;
+    }
+
+    .btn-action {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      color: #cbd5e1;
+      padding: 7px 11px;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-action:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-action-portal {
+      background: rgba(2, 132, 199, 0.15);
+      border-color: rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+      font-weight: 600;
+    }
+    .btn-action-portal:hover {
+      background: rgba(2, 132, 199, 0.25);
+      color: #ffffff;
+      border-color: #38bdf8;
+    }
+
+    /* VIEWPORT CONTAINER */
+    .viewport-container {
+      width: 100%;
+      height: calc(100vh - var(--header-height));
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+    }
+
+    /* IFRAMES */
+    .mode-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .mode-frame.active {
+      display: block;
+      z-index: 10;
+    }
+
+    /* OVERVIEW MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      max-width: 680px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 17px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .mode-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .mode-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-1px);
+    }
+
+    .mode-card-icon {
+      font-size: 28px;
+      line-height: 1;
+      padding: 8px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      flex-shrink: 0;
+    }
+
+    .mode-card-content h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .mode-card-content p {
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    .modal-footer {
+      padding: 14px 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 900px) {
+      .brand-section {
+        min-width: auto;
+      }
+      .brand-sub {
+        display: none;
+      }
+      .utility-actions {
+        min-width: auto;
+      }
+      .btn-action-text {
+        display: none;
+      }
+      .mode-tab .tab-badge {
+        display: none;
+      }
+      .mode-tab {
+        padding: 7px 12px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .master-header {
+        padding: 0 10px;
+      }
+      .brand-section h1 {
+        display: none;
+      }
+      .mode-tab {
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+      .mode-tab .tab-icon {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MASTER TOP HEADER -->
+  <header class="master-header">
+    
+    <!-- BRAND / LOGO -->
+    <div class="brand-section">
+      <div class="brand-icon">⚡</div>
+      <div class="brand-text">
+        <h1>
+          <span>FastFit Studio</span>
+          <span class="brand-badge">All-in-One</span>
+        </h1>
+        <div class="brand-sub">ศูนย์รวมฟิตเนส 3 โหมดอัจฉริยะ</div>
+      </div>
+    </div>
+
+    <!-- MODE TABS -->
+    <nav class="tabs-wrapper" aria-label="Fitness Modes">
+      <!-- TAB 1: MUSCLE MAP -->
+      <button class="mode-tab tab-muscle active" id="tab-muscle" onclick="switchMode('muscle')">
+        <span class="tab-icon">🧬</span>
+        <div class="tab-details">
+          <span class="tab-title">แผนที่กล้ามเนื้อ</span>
+          <span class="tab-badge">2D/3D Anatomy & Tier</span>
+        </div>
+      </button>
+
+      <!-- TAB 2: TITAN FORGE -->
+      <button class="mode-tab tab-titan" id="tab-titan" onclick="switchMode('titan')">
+        <span class="tab-icon">⚔️</span>
+        <div class="tab-details">
+          <span class="tab-title">ออกกำลังกายอนิเมะ</span>
+          <span class="tab-badge">TITAN FORGE RPG</span>
+        </div>
+      </button>
+
+      <!-- TAB 3: RUN EVOLUTION -->
+      <button class="mode-tab tab-run" id="tab-run" onclick="switchMode('run')">
+        <span class="tab-icon">🏃</span>
+        <div class="tab-details">
+          <span class="tab-title">เว็บฝึกวิ่ง</span>
+          <span class="tab-badge">RunEvolution Marathon</span>
+        </div>
+      </button>
+    </nav>
+
+    <!-- RIGHT UTILITIES -->
+    <div class="utility-actions">
+      <!-- OVERVIEW INFO -->
+      <button class="btn-action" onclick="openOverviewModal()" title="ดูคู่มือ 3 โหมด">
+        <span>💡</span>
+        <span class="btn-action-text">คู่มือโหมด</span>
+      </button>
+
+      <!-- FULLSCREEN TOGGLE -->
+      <button class="btn-action" onclick="toggleFullscreen()" title="เปิดโหมดเต็มจอ">
+        <span id="fullscreen-icon">⛶</span>
+      </button>
+
+      <!-- STANDALONE TAB -->
+      <button class="btn-action" onclick="openStandaloneTab()" title="เปิดโหมดปัจจุบันในแท็บใหม่">
+        <span>↗</span>
+      </button>
+
+      <!-- BACK TO PORTAL -->
+      <a href="../00_ศูนย์รวมเว็บแอปพลิเคชัน.html" class="btn-action btn-action-portal" title="กลับหน้าศูนย์รวมแอปพลิเคชันทั้งหมด">
+        <span>🏠</span>
+        <span class="btn-action-text">ศูนย์รวมเว็บ</span>
+      </a>
+    </div>
+
+  </header>
+
+  <!-- VIEWPORT CONTAINER (PERSISTENT IFRAMES IN MEMORY) -->
+  <main class="viewport-container">
+    <!-- MODE 1: MUSCLE MAP -->
+    <iframe id="frame-muscle" class="mode-frame active" src="modes/muscle_map/index.html" title="FastFit Muscle Map"></iframe>
+
+    <!-- MODE 2: TITAN FORGE -->
+    <iframe id="frame-titan" class="mode-frame" src="modes/titan_forge/index.html" title="TITAN FORGE Anime Bodyweight RPG"></iframe>
+
+    <!-- MODE 3: RUN EVOLUTION -->
+    <iframe id="frame-run" class="mode-frame" src="modes/run_evolution/index.html" title="RunEvolution Marathon Training"></iframe>
+  </main>
+
+  <!-- MODAL: 3-IN-1 ECOSYSTEM OVERVIEW -->
+  <div class="modal-overlay" id="overviewModal" onclick="closeOverviewModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3>
+          <span>⚡ FastFit Studio Ecosystem</span>
+        </h3>
+        <button class="btn-action" onclick="closeOverviewModal()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p style="font-size: 13px; color: #cbd5e1; line-height: 1.6;">
+          FastFit Studio ผสานรวม 3 แอปพลิเคชันออกกำลังกายระดับมืออาชีพไว้ในที่เดียว โดยจัดหมวดหมู่ให้เชื่อมโยงกันอย่างเป็นวิทยาศาสตร์:
+        </p>
+
+        <!-- CARD 1 -->
+        <div class="mode-card" onclick="switchMode('muscle'); closeOverviewModal();">
+          <div class="mode-card-icon">🧬</div>
+          <div class="mode-card-content">
+            <h4 style="color: #38bdf8;">1. แผนที่กล้ามเนื้อ (FastFit Muscle Map)</h4>
+            <p>กายวิภาคศาสตร์กล้ามเนื้อร่างกาย 2D SVG & 3D WebGL เจาะลึกท่าฝึก 400+ ท่า พร้อมระบบ Tier List และจัดตารางตามกลุ่มกล้ามเนื้อ</p>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="mode-card" onclick="switchMode('titan'); closeOverviewModal();">
+          <div class="mode-card-icon">⚔️</div>
+          <div class="mode-card-content">
+            <h4 style="color: #c084fc;">2. ออกกำลังกายอนิเมะ (TITAN FORGE RPG)</h4>
+            <p>ฝึกบอดี้เวทและคาลิสเทนิกส์ในรูปแบบเกม Solo Hunter RPG อัปเลเวลสเตตัสพละกำลัง เควสต์ท่าฝึกประจำวัน และโหมดจัดตารางเวิร์กเอาต์</p>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="mode-card" onclick="switchMode('run'); closeOverviewModal();">
+          <div class="mode-card-icon">🏃</div>
+          <div class="mode-card-content">
+            <h4 style="color: #4ade80;">3. เว็บฝึกวิ่ง (RunEvolution)</h4>
+            <p>ตารางฝึกซ้อมวิ่งตั้งแต่ 5K, 10K, Half จนถึง Full Marathon คำนวณความเร็ว Pace พร้อมระบบจำลองอวาตาร์วิ่งและตรวจจับกล้ามเนื้อ</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-action" onclick="closeOverviewModal()">ปิดหน้าต่าง</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Registered Modes
+    const MODES = {
+      muscle: {
+        id: 'muscle',
+        title: 'FastFit Studio - แผนที่กล้ามเนื้อ 3D',
+        tabId: 'tab-muscle',
+        frameId: 'frame-muscle',
+        path: 'modes/muscle_map/index.html'
+      },
+      titan: {
+        id: 'titan',
+        title: 'FastFit Studio - TITAN FORGE บอดี้เวท RPG',
+        tabId: 'tab-titan',
+        frameId: 'frame-titan',
+        path: 'modes/titan_forge/index.html'
+      },
+      run: {
+        id: 'run',
+        title: 'FastFit Studio - RunEvolution ซ้อมวิ่งมาราธอน',
+        tabId: 'tab-run',
+        frameId: 'frame-run',
+        path: 'modes/run_evolution/index.html'
+      }
+    };
+
+    let currentMode = 'muscle';
+
+    // Switch Mode function
+    function switchMode(modeKey) {
+      if (!MODES[modeKey]) return;
+      currentMode = modeKey;
+
+      // 1. Update Tabs
+      document.querySelectorAll('.mode-tab').forEach(tab => tab.classList.remove('active'));
+      const activeTab = document.getElementById(MODES[modeKey].tabId);
+      if (activeTab) activeTab.classList.add('active');
+
+      // 2. Update Iframes (keeping state alive in memory)
+      document.querySelectorAll('.mode-frame').forEach(frame => frame.classList.remove('active'));
+      const activeFrame = document.getElementById(MODES[modeKey].frameId);
+      if (activeFrame) activeFrame.classList.add('active');
+
+      // 3. Update Title & Hash
+      document.title = MODES[modeKey].title;
+      if (window.location.hash !== '#' + modeKey) {
+        history.replaceState(null, null, '#' + modeKey);
+      }
+    }
+
+    // Handle Hash on load and on hashchange
+    function syncFromHash() {
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      if (MODES[hash]) {
+        switchMode(hash);
+      } else {
+        switchMode('muscle');
+      }
+    }
+
+    window.addEventListener('hashchange', syncFromHash);
+
+    // Initial Load
+    window.addEventListener('DOMContentLoaded', () => {
+      syncFromHash();
+    });
+
+    // Keyboard Shortcuts: 1, 2, 3
+    window.addEventListener('keydown', (e) => {
+      // Don't trigger if user is typing in an input
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+      
+      if (e.key === '1') switchMode('muscle');
+      if (e.key === '2') switchMode('titan');
+      if (e.key === '3') switchMode('run');
+    });
+
+    // Open Standalone Tab
+    function openStandaloneTab() {
+      const mode = MODES[currentMode];
+      if (mode) {
+        window.open(mode.path, '_blank');
+      }
+    }
+
+    // Toggle Fullscreen
+    function toggleFullscreen() {
+      const icon = document.getElementById('fullscreen-icon');
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().then(() => {
+          if (icon) icon.textContent = '✕';
+        }).catch(err => console.log(err));
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().then(() => {
+            if (icon) icon.textContent = '⛶';
+          });
+        }
+      }
+    }
+
+    // Overview Modal
+    function openOverviewModal() {
+      document.getElementById('overviewModal').classList.add('open');
+    }
+    function closeOverviewModal(e) {
+      if (!e || e.target.id === 'overviewModal' || e.target.classList.contains('btn-action')) {
+        document.getElementById('overviewModal').classList.remove('open');
+      }
+    }
+  </script>
+</body>
+</html>

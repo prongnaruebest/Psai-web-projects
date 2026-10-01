@@ -46,12 +46,10 @@
 
 ---
 
-### 🏃 4. หมวดหมู่: สุขภาพ & ออกกำลังกาย (Health & Fitness) - 3 เว็บไซต์
-| ลำดับ | ชื่อโปรเจกต์ | รายละเอียดหลัก | โฟลเดอร์ในเครื่อง | ตัวเปิดด่วน (.bat) |
+### 🏃 4. หมวดหมู่: สุขภาพ & ฟิตเนส (Health & Fitness) - 1 ซูเปอร์แอปพลิเคชัน (3 โหมดในตัว)
+| ลำดับ | ชื่อโปรเจกต์ | ลิงก์ออนไลน์ (Live Web) | โฟลเดอร์ในเครื่อง | ตัวเปิดด่วน (.bat) |
 |---|---|---|---|---|
-| **04** | **เว็บออกกำลังกายอนิเมะ (TITAN FORGE)** | Calisthenics & บอดี้เวท RPG เลเวลอัพร่างกาย | [`04_เว็บออกกำลังกายอนิเมะ/`](04_เว็บออกกำลังกายอนิเมะ/) | `04_เปิดเว็บ_ออกกำลังกายอนิเมะ.bat` |
-| **05** | **เว็บฝึกวิ่ง (RunEvolution)** | แผนซ้อมวิ่ง 5K, 10K, Half, Full Marathon & Pace Calculator | [`05_เว็บฝึกวิ่งRunEvolution/`](05_เว็บฝึกวิ่งRunEvolution/) | `05_เปิดเว็บ_ฝึกวิ่ง.bat` |
-| **16** | **แผนที่กล้ามเนื้อ (FastFit Muscle Map)** | 3D Body Anatomy เจาะลึกกล้ามเนื้อ & ท่าฝึกเฉพาะส่วน | [`16_Muscle_Map/`](16_Muscle_Map/) | `16_เปิดใช้งาน_แผนที่กล้ามเนื้อ.bat` |
+| **16** | **FastFit Studio (ศูนย์รวมฟิตเนส 3 โหมด)**<br>• โหมด 1: แผนที่กล้ามเนื้อ 3D (Muscle Map)<br>• โหมด 2: บอดี้เวท RPG (TITAN FORGE)<br>• โหมด 3: ซ้อมวิ่งมาราธอน (RunEvolution) | [🌐 GitHub Pages](https://prongnaruebest.github.io/Psai-web-projects/16_FastFit_Fitness_Studio/) | [`16_FastFit_Fitness_Studio/`](16_FastFit_Fitness_Studio/) | `16_เปิดเว็บ_FastFit_Fitness_Studio.bat` |
 
 ---
 
