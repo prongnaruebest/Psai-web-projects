@@ -1,2 +1,4 @@
-@echo off 
-start index.html 
+@echo off
+chcp 65001 >nul
+start "" "%~dp0index.html"
+exit
