@@ -44,10 +44,17 @@
       --shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.08);
       
       /* SVG & Anatomy Palette */
-      --muscle-fill: #eef2f6;
-      --muscle-stroke: #475569;
+      --skin: #f1f5f9;
+      --bm-skin-hi: #ffffff;
+      --muscle: #e2e8f0;
+      --bm-hi: #ffffff;
+      --bm-lo: #cbd5e1;
+      --muscle-fill: #e2e8f0;
+      --muscle-stroke: #94a3b8;
       --muscle-hover: #fef08a;
       --muscle-active: #f59e0b;
+      --bm-lite-hi: #f8fafc;
+      --bm-lite-lo: #cbd5e1;
     }
 
     [data-theme="dark"] {
@@ -64,8 +71,19 @@
       --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
       --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.35);
       --shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.5);
-      --muscle-fill: #1e293b;
-      --muscle-stroke: #64748b;
+
+      /* SVG & Anatomy Palette Dark */
+      --skin: #1e293b;
+      --bm-skin-hi: #334155;
+      --muscle: #283548;
+      --bm-hi: #3b4b62;
+      --bm-lo: #1a2332;
+      --muscle-fill: #283548;
+      --muscle-stroke: #475569;
+      --muscle-hover: #fef08a;
+      --muscle-active: #f59e0b;
+      --bm-lite-hi: #3b4b62;
+      --bm-lite-lo: #1e293b;
     }
 
     * {
@@ -286,6 +304,60 @@
       filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.06));
     }
 
+    /* SVG Body Anatomy Elements */
+    .bm-svg {
+      width: 100%;
+      height: 100%;
+      max-height: 640px;
+    }
+
+    .bm-shadow {
+      fill: rgba(0, 0, 0, 0.08);
+      transition: fill 0.3s ease;
+    }
+    [data-theme="dark"] .bm-shadow {
+      fill: rgba(0, 0, 0, 0.45);
+    }
+
+    .bm-skin {
+      fill: url(#bmSkin);
+      stroke: none;
+      transition: fill 0.3s ease;
+    }
+
+    .bm-hair {
+      fill: #475569;
+      transition: fill 0.3s ease;
+    }
+    [data-theme="dark"] .bm-hair {
+      fill: #0f172a;
+    }
+
+    .bm-cloth {
+      fill: #334155;
+      transition: fill 0.3s ease;
+    }
+    [data-theme="dark"] .bm-cloth {
+      fill: #1e293b;
+    }
+
+    .bm-outline {
+      fill: none !important;
+      stroke: #64748b;
+      stroke-width: 1.2px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.3s ease;
+    }
+    [data-theme="dark"] .bm-outline {
+      stroke: #475569;
+    }
+
+    .bm-lite {
+      fill: url(#bmLite);
+      opacity: 0.75;
+    }
+
     /* SVG Muscle Styles */
     .m {
       cursor: pointer;
@@ -294,18 +366,24 @@
     }
 
     .m path, .m polygon, .m rect {
+      fill: url(#bmMuscle);
+      stroke: var(--muscle-stroke, #94a3b8);
+      stroke-width: 0.8px;
+      stroke-linejoin: round;
       transition: fill 0.2s ease, filter 0.2s ease, stroke 0.2s ease;
     }
 
     .m:hover path, .m:hover polygon, .m:hover rect {
-      fill: #fef08a !important;
+      fill: url(#bmHover) !important;
+      stroke: #d97706 !important;
+      stroke-width: 1.2px !important;
       filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.7));
     }
 
     .m.is-active path, .m.is-active polygon, .m.is-active rect {
       fill: url(#bmActive) !important;
       stroke: #b45309 !important;
-      stroke-width: 1.5 !important;
+      stroke-width: 1.5px !important;
       filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.95)) !important;
     }
 
@@ -1044,9 +1122,24 @@
 </head>
 <body>
 
-  <!-- Hidden SVG Gradients & Filters -->
-  <svg width="0" height="0" style="position:absolute;width:0;height:0" aria-hidden="true">
+  <!-- Hidden SVG Gradients & Filters for 2D Body Map Anatomy -->
+  <svg id="bm-defs" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;" aria-hidden="true" focusable="false">
     <defs>
+      <radialGradient id="bmMuscle" cx=".38" cy=".3" r=".85">
+        <stop offset="0" style="stop-color:var(--bm-hi,#ffffff)"/>
+        <stop offset=".62" style="stop-color:var(--muscle,#e2e8f0)"/>
+        <stop offset="1" style="stop-color:var(--bm-lo,#cbd5e1)"/>
+      </radialGradient>
+      <radialGradient id="bmHover" cx=".38" cy=".3" r=".85">
+        <stop offset="0" stop-color="#fff6cf"/>
+        <stop offset=".6" stop-color="#ffe27a"/>
+        <stop offset="1" stop-color="#f2bd2c"/>
+      </radialGradient>
+      <radialGradient id="bmSecondary" cx=".38" cy=".3" r=".85">
+        <stop offset="0" stop-color="#e3f1ff"/>
+        <stop offset=".6" stop-color="#7cc0ff"/>
+        <stop offset="1" stop-color="#2f84e0"/>
+      </radialGradient>
       <radialGradient id="bmActive" cx=".36" cy=".28" r=".9">
         <stop offset="0" stop-color="#fff1a8"/>
         <stop offset=".45" stop-color="#ffcc1a"/>
@@ -1055,8 +1148,19 @@
       <filter id="bmGlow" x="-30%" y="-30%" width="160%" height="160%">
         <feGaussianBlur stdDeviation="3.2" result="b"/>
         <feColorMatrix in="b" type="matrix" values="1 0 0 0 1  0 .85 0 0 .75  0 0 0 0 0  0 0 0 .8 0" result="g"/>
-        <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+        <feMerge>
+          <feMergeNode in="g"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
       </filter>
+      <radialGradient id="bmLite" cx=".4" cy=".35" r=".8">
+        <stop offset="0" style="stop-color:var(--bm-lite-hi,#f8fafc)"/>
+        <stop offset="1" style="stop-color:var(--bm-lite-lo,#cbd5e1)"/>
+      </radialGradient>
+      <linearGradient id="bmSkin" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" style="stop-color:var(--bm-skin-hi,#ffffff)"/>
+        <stop offset="1" style="stop-color:var(--skin,#f1f5f9)"/>
+      </linearGradient>
     </defs>
   </svg>
 
