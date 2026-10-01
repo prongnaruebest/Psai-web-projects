@@ -109,10 +109,15 @@
         <input type="file" id="jsonFileInput" class="hidden" accept=".json" onchange="handleJsonFileSelect(event)">
 
         <!-- Clear Theme Badge -->
-        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 border border-blue-200/80 text-xs text-blue-700 font-semibold shadow-xs" title="✨ ธีมเคลียร์ (Clear Theme) - สว่าง สะอาด โปร่งใส อ่านง่าย">
-          <span>✨</span>
-          <span class="hidden md:inline">Clear Theme</span>
-        </div>
+        <button 
+          id="themeToggleBtn"
+          onclick="toggleTheme()" 
+          class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shadow-xs active:scale-95 border border-slate-200"
+          title="สลับโหมดสว่าง / โหมดกลางคืน (Dark Mode)"
+        >
+          <span id="themeToggleIcon">🌙</span>
+          <span id="themeToggleText" class="hidden md:inline">โหมดมืด</span>
+        </button>
 
         <!-- Add Button (Big) -->
         <button 
@@ -180,6 +185,33 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- Weekly Broadcast Schedule Bar -->
+    <div class="glass-panel rounded-2xl p-3 sm:p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm">📅</span>
+        <div>
+          <h3 class="text-xs sm:text-sm font-bold text-slate-800">ตารางฉายประจำสัปดาห์ (Weekly Schedule)</h3>
+          <p class="text-[11px] text-slate-500">กรองดูอนิเมะและมังงะตามวันปล่อยตอนใหม่</p>
+        </div>
+      </div>
+
+      <!-- Day filter buttons -->
+      <div class="flex items-center gap-1.5 flex-wrap" id="dayFilterContainer">
+        <button data-day="all" class="day-filter-btn px-2.5 py-1 rounded-xl text-xs font-semibold bg-blue-600 text-white shadow-xs transition cursor-pointer">ทั้งหมด</button>
+        <button data-day="today" class="day-filter-btn px-2.5 py-1 rounded-xl text-xs font-bold bg-rose-50 text-rose-600 border border-rose-200 hover:bg-rose-100 transition cursor-pointer flex items-center gap-1">
+          <span>🔥 ฉายวันนี้</span>
+          <span id="todayCountBadge" class="px-1.5 py-0.2 rounded-full text-[10px] bg-rose-600 text-white">0</span>
+        </button>
+        <button data-day="mon" class="day-filter-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-100 transition cursor-pointer">จันทร์</button>
+        <button data-day="tue" class="day-filter-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-100 transition cursor-pointer">อังคาร</button>
+        <button data-day="wed" class="day-filter-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-100 transition cursor-pointer">พุธ</button>
+        <button data-day="thu" class="day-filter-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-100 transition cursor-pointer">พฤหัสฯ</button>
+        <button data-day="fri" class="day-filter-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-100 transition cursor-pointer">ศุกร์</button>
+        <button data-day="sat" class="day-filter-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-100 transition cursor-pointer">เสาร์</button>
+        <button data-day="sun" class="day-filter-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-100 transition cursor-pointer">อาทิตย์</button>
+      </div>
     </div>
 
     <!-- Filter & Toolbar Bar -->
@@ -424,6 +456,20 @@
               <option value="เล่มที่">เล่มที่</option>
             </select>
           </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-600 mb-1">วันปล่อยตอนใหม่ประจำสัปดาห์</label>
+          <select id="editBroadcastDay" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500">
+            <option value="">-- ไม่ระบุวันปล่อยตอน --</option>
+            <option value="mon">วันจันทร์ (Monday)</option>
+            <option value="tue">วันอังคาร (Tuesday)</option>
+            <option value="wed">วันพุธ (Wednesday)</option>
+            <option value="thu">วันพฤหัสบดี (Thursday)</option>
+            <option value="fri">วันศุกร์ (Friday)</option>
+            <option value="sat">วันเสาร์ (Saturday)</option>
+            <option value="sun">วันอาทิตย์ (Sunday)</option>
+          </select>
         </div>
 
         <div>

@@ -1,3 +1,28 @@
+
+// ==================== NEW: WEEKLY SCHEDULE & BROADCAST DAY HELPERS ====================
+const DAY_LABELS = {
+  mon: { short: 'จันทร์', full: 'วันจันทร์', color: 'bg-amber-50 text-amber-700 border-amber-200' },
+  tue: { short: 'อังคาร', full: 'วันอังคาร', color: 'bg-pink-50 text-pink-700 border-pink-200' },
+  wed: { short: 'พุธ', full: 'วันพุธ', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+  thu: { short: 'พฤหัส', full: 'วันพฤหัสบดี', color: 'bg-orange-50 text-orange-700 border-orange-200' },
+  fri: { short: 'ศุกร์', full: 'วันศุกร์', color: 'bg-sky-50 text-sky-700 border-sky-200' },
+  sat: { short: 'เสาร์', full: 'วันเสาร์', color: 'bg-purple-50 text-purple-700 border-purple-200' },
+  sun: { short: 'อาทิตย์', full: 'วันอาทิตย์', color: 'bg-rose-50 text-rose-700 border-rose-200' }
+};
+
+function getDayBadge(day) {
+  if (!day || !DAY_LABELS[day]) return '';
+  const dayNames = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+  const todayDay = dayNames[new Date().getDay()];
+  const isToday = day === todayDay;
+  const info = DAY_LABELS[day];
+
+  if (isToday) {
+    return `<span class="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-bold bg-rose-500 text-white shadow-xs animate-pulse" title="ตอนใหม่ออกวันนี้!">🔥 ตอนใหม่ออกวันนี้ (${info.short})</span>`;
+  }
+  return `<span class="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-medium ${info.color} border" title="ออกทุก${info.full}">📅 ทุกวัน${info.short}</span>`;
+}
+
 /**
  * TrackToon & Donghua - ระบบติดตามความคืบหน้า อนิเมะ & มังงะ
  * พัฒนาสำหรับ Psai Web Projects
@@ -11,6 +36,7 @@ const DEFAULT_ITEMS = [
   // --- อนิเมะจีนน่าดู (6 เรื่อง) ---
   {
     id: "anime-1",
+    broadcastDay: "sat",
     category: "anime",
     title: "ภูตถังซาน 2",
     alias: "หวี่เฮ่า",
@@ -24,6 +50,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "anime-2",
+    broadcastDay: "mon",
     category: "anime",
     title: "ฝืนลิขิตฟ้าข้าขอเป็นเซียน",
     alias: "หวังหลิน",
@@ -37,6 +64,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "anime-3",
+    broadcastDay: "wed",
     category: "anime",
     title: "มหาศึกล้างพิภพ",
     alias: "หลัวเฟิง",
@@ -50,6 +78,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "anime-4",
+    broadcastDay: "sun",
     category: "anime",
     title: "สัประยุทธ์ทะลุฟ้า",
     alias: "เซียวเหยียน",
@@ -63,6 +92,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "anime-5",
+    broadcastDay: "sat",
     category: "anime",
     title: "คัมภีร์วิถีเซียน",
     alias: "หานลี่",
@@ -76,6 +106,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "anime-6",
+    broadcastDay: "thu",
     category: "anime",
     title: "ตำนานเทพกู้จักรวาล",
     alias: "ฉินมู่",
@@ -91,6 +122,7 @@ const DEFAULT_ITEMS = [
   // --- อ่านตูน / มันฮวา / มังงะ (19 เรื่อง) ---
   {
     id: "toon-1",
+    broadcastDay: "fri",
     category: "manga",
     title: "Solo Max-Level Newbie",
     alias: "ผู้เล่นหน้าใหม่เลเวลแมกซ์",
@@ -104,6 +136,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-2",
+    broadcastDay: "wed",
     category: "manga",
     title: "Pick Me Up, Infinite Gacha",
     alias: "พิคมีอัป กาชาไร้ขีดจำกัด",
@@ -117,6 +150,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-3",
+    broadcastDay: "thu",
     category: "manga",
     title: "Nano Machine",
     alias: "นาโนมาชิน",
@@ -130,6 +164,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-4",
+    broadcastDay: "tue",
     category: "manga",
     title: "Revenge of the Iron-Blooded Sword Hound",
     alias: "หมาล่าเนื้อตระกูลดาบเหล็ก",
@@ -143,6 +178,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-5",
+    broadcastDay: "wed",
     category: "manga",
     title: "The Regressed Mercenary’s Machinations",
     alias: "ตำนานราชาแห่งทหารรับจ้าง",
@@ -156,6 +192,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-6",
+    broadcastDay: "mon",
     category: "manga",
     title: "Regressing as the Reincarnated Bastard of the Sword Clan",
     alias: "ผู้หวนคืนสายเลือดรองแห่งตระกูลดาบ",
@@ -169,6 +206,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-7",
+    broadcastDay: "wed",
     category: "manga",
     title: "Solo Leveling: Ragnarok",
     alias: "โซโล่เลเวลลิ่ง แร็คนาร็อก",
@@ -182,6 +220,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-8",
+    broadcastDay: "wed",
     category: "manga",
     title: "The Regressed Son of a Duke is an Assassin",
     alias: "บุตรดยุกย้อนเวลาเป็นนักฆ่า",
@@ -195,6 +234,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-9",
+    broadcastDay: "mon",
     category: "manga",
     title: "Swordmaster’s Youngest Son",
     alias: "ลูกชายคนเล็กของปรมาจารย์ดาบ",
@@ -208,6 +248,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-10",
+    broadcastDay: "sun",
     category: "manga",
     title: "Mercenary Enrollment",
     alias: "พี่ชายบอดี้การ์ด",
@@ -221,6 +262,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-11",
+    broadcastDay: "fri",
     category: "manga",
     title: "Killer Peter",
     alias: "ปีเตอร์โคตรนักฆ่า",
@@ -234,6 +276,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-12",
+    broadcastDay: "tue",
     category: "manga",
     title: "I Became The Rogue First Prince",
     alias: "เทพดาบอย่างข้าดันกลายเป็นองค์ชายสวะซะงั้น",
@@ -247,6 +290,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-13",
+    broadcastDay: "wed",
     category: "manga",
     title: "The Infinite Mage",
     alias: "จอมเวทไร้ขีดจำกัด",
@@ -260,6 +304,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-14",
+    broadcastDay: "thu",
     category: "manga",
     title: "Call of the Spear",
     alias: "call of spear",
@@ -273,6 +318,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-15",
+    broadcastDay: "sun",
     category: "manga",
     title: "The Beginning After the End",
     alias: "จุดเริ่มต้นหลังจุดจบ (TBATE)",
@@ -286,6 +332,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-16",
+    broadcastDay: "sat",
     category: "manga",
     title: "Top Tier Providence",
     alias: "แอบฝึกฝนพันปีจนไร้เทียมทาน",
@@ -299,6 +346,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-17",
+    broadcastDay: "mon",
     category: "manga",
     title: "The Novel’s Extra",
     alias: "ตัวประกอบนิยาย (The novel extra)",
@@ -312,6 +360,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-18",
+    broadcastDay: "wed",
     category: "manga",
     title: "Steel-Eating Player",
     alias: "ผู้เล่นเขมือบเหล็ก",
@@ -325,6 +374,7 @@ const DEFAULT_ITEMS = [
   },
   {
     id: "toon-19",
+    broadcastDay: "tue",
     category: "manga",
     title: "Regressing With the King’s Power",
     alias: "เกิดใหม่พร้อมพลังแห่งราชัน",
@@ -347,6 +397,7 @@ let appState = {
   searchQuery: '',
   sortBy: 'updated',     // 'updated' | 'ep_desc' | 'ep_asc' | 'title' | 'fav_first'
   viewMode: 'table',     // 'table' (ตารางแนวนอนแยกหมวด) | 'grid'
+  dayFilter: 'all',    // 'all' | 'today' | 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun'
   editingItemId: null
 };
 
@@ -365,6 +416,13 @@ function loadData() {
     if (raw) {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) {
+        // Populate broadcastDay for existing items if missing
+        const defaultMap = {"anime-1":"sat","anime-2":"mon","anime-3":"wed","anime-4":"sun","anime-5":"sat","anime-6":"thu","toon-1":"fri","toon-2":"wed","toon-3":"thu","toon-4":"tue","toon-5":"wed","toon-6":"mon","toon-7":"wed","toon-8":"wed","toon-9":"mon","toon-10":"sun","toon-11":"fri","toon-12":"tue","toon-13":"wed","toon-14":"thu","toon-15":"sun","toon-16":"sat","toon-17":"mon","toon-18":"wed","toon-19":"tue"};
+        parsed.forEach(it => {
+          if (!it.broadcastDay && defaultMap[it.id]) {
+            it.broadcastDay = defaultMap[it.id];
+          }
+        });
         appState.items = parsed;
         return;
       }
@@ -523,6 +581,17 @@ function getFilteredAndSortedItems() {
     list = list.filter(item => item.isFavorite);
   }
 
+  // Day filter
+  if (appState.dayFilter && appState.dayFilter !== 'all') {
+    if (appState.dayFilter === 'today') {
+      const dayNames = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+      const todayDay = dayNames[new Date().getDay()];
+      list = list.filter(item => item.broadcastDay === todayDay);
+    } else {
+      list = list.filter(item => item.broadcastDay === appState.dayFilter);
+    }
+  }
+
   // Search filter
   const query = appState.searchQuery.trim().toLowerCase();
   if (query) {
@@ -569,6 +638,12 @@ function updateStats() {
 
   const totalAnimeEps = animeItems.reduce((acc, cur) => acc + (cur.currentEp || 0), 0);
   const totalMangaEps = mangaItems.reduce((acc, cur) => acc + (cur.currentEp || 0), 0);
+
+  const dayNames = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+  const todayDay = dayNames[new Date().getDay()];
+  const todayCount = appState.items.filter(x => x.broadcastDay === todayDay).length;
+  const todayBadgeEl = document.getElementById('todayCountBadge');
+  if (todayBadgeEl) todayBadgeEl.textContent = todayCount;
 
   document.getElementById('statTotalCount').innerText = `${total} เรื่อง`;
   document.getElementById('statAnimeCount').innerText = `${animeItems.length} เรื่อง (${totalAnimeEps} ตอน)`;
@@ -632,6 +707,7 @@ function renderGridView(container, list) {
             <div class="flex items-center gap-1.5 flex-wrap">
               ${catBadge}
               ${statusBadge}
+              ${getDayBadge(item.broadcastDay)}
             </div>
             
             <div class="flex items-center gap-1">
@@ -846,8 +922,11 @@ function renderSingleCategoryTable(config) {
 
         <!-- ชื่อเรื่อง & โน้ต -->
         <td class="py-3 px-3.5">
-          <div class="font-bold text-slate-900 text-sm sm:text-base hover:text-blue-600 transition-colors line-clamp-1" title="${item.title}">
-            ${item.title}
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="font-bold text-slate-900 text-sm sm:text-base hover:text-blue-600 transition-colors line-clamp-1" title="${item.title}">
+              ${item.title}
+            </span>
+            ${getDayBadge(item.broadcastDay)}
           </div>
           ${item.note ? `
             <div class="text-xs text-slate-500 mt-0.5 line-clamp-1 flex items-center gap-1" title="${item.note}">
@@ -1252,6 +1331,8 @@ function openAddModal() {
   document.getElementById('editUnit').value = document.getElementById('editCategory').value === 'anime' ? 'ep' : 'ตอนที่';
   document.getElementById('editStatus').value = 'watching';
   document.getElementById('editFavorite').checked = false;
+  const broadcastDayEl = document.getElementById('editBroadcastDay');
+  if (broadcastDayEl) broadcastDayEl.value = '';
   document.getElementById('deleteBtn').classList.add('hidden');
   document.getElementById('itemModal').classList.remove('hidden');
   setTimeout(() => {
@@ -1322,6 +1403,8 @@ function openEditModal(id) {
   document.getElementById('editUnit').value = item.unit || 'ep';
   document.getElementById('editStatus').value = item.status || 'watching';
   document.getElementById('editFavorite').checked = !!item.isFavorite;
+  const broadcastDayEl = document.getElementById('editBroadcastDay');
+  if (broadcastDayEl) broadcastDayEl.value = item.broadcastDay || '';
   document.getElementById('editNote').value = item.note || '';
   document.getElementById('editUrl').value = item.customUrl || '';
   document.getElementById('deleteBtn').classList.remove('hidden');
@@ -1342,6 +1425,7 @@ function handleSaveItem(e) {
   const unit = document.getElementById('editUnit').value;
   const status = document.getElementById('editStatus').value;
   const isFavorite = document.getElementById('editFavorite').checked;
+  const broadcastDay = document.getElementById('editBroadcastDay') ? document.getElementById('editBroadcastDay').value : '';
   const note = document.getElementById('editNote').value.trim();
   const customUrl = document.getElementById('editUrl').value.trim();
 
@@ -1361,6 +1445,7 @@ function handleSaveItem(e) {
       item.unit = unit;
       item.status = status;
       item.isFavorite = isFavorite;
+      item.broadcastDay = broadcastDay;
       item.note = note;
       item.customUrl = customUrl;
       item.updatedAt = new Date().toISOString();
@@ -1377,6 +1462,7 @@ function handleSaveItem(e) {
       unit,
       status,
       isFavorite,
+      broadcastDay,
       note,
       customUrl,
       updatedAt: new Date().toISOString()
@@ -1415,15 +1501,57 @@ function resetToDefaults() {
   }
 }
 
-// Clear Theme (✨ สว่าง สะอาด โปร่งใส คมชัด อ่านง่ายสูงสุด)
+// Theme Manager (✨ Clear Light / 🌙 OLED Deep Slate Dark Mode)
 function applyTheme() {
-  document.body.classList.remove('theme-dark', 'theme-sepia', 'theme-sage', 'theme-mocha');
-  document.body.classList.add('theme-clear');
-  localStorage.setItem(THEME_KEY, 'clear');
+  const saved = localStorage.getItem(THEME_KEY) || 'clear';
+  const isDark = saved === 'dark';
+  document.body.classList.remove('theme-sepia', 'theme-sage', 'theme-mocha');
+  if (isDark) {
+    document.body.classList.add('theme-dark');
+    document.body.classList.remove('theme-clear');
+    document.documentElement.classList.add('dark');
+  } else {
+    document.body.classList.add('theme-clear');
+    document.body.classList.remove('theme-dark');
+    document.documentElement.classList.remove('dark');
+  }
+  updateThemeButton(isDark);
+}
+
+function toggleTheme() {
+  const current = localStorage.getItem(THEME_KEY) || 'clear';
+  const newTheme = current === 'dark' ? 'clear' : 'dark';
+  localStorage.setItem(THEME_KEY, newTheme);
+  applyTheme();
+  showToast(newTheme === 'dark' ? 'เปลี่ยนเป็น 🌙 โหมดมืด (Dark Mode)' : 'เปลี่ยนเป็น ☀️ โหมดสว่าง (Clear Mode)', 'info');
+}
+
+function updateThemeButton(isDark) {
+  const icon = document.getElementById('themeToggleIcon');
+  const text = document.getElementById('themeToggleText');
+  if (icon && text) {
+    icon.textContent = isDark ? '☀️' : '🌙';
+    text.textContent = isDark ? 'โหมดสว่าง' : 'โหมดมืด';
+  }
 }
 
 // Event Listeners setup
 function setupEventListeners() {
+  // Day filter listeners
+  document.querySelectorAll('.day-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.day-filter-btn').forEach(b => {
+        b.classList.remove('bg-blue-600', 'text-white', 'shadow-xs');
+        b.classList.add('text-slate-600', 'hover:bg-slate-100');
+      });
+      btn.classList.add('bg-blue-600', 'text-white', 'shadow-xs');
+      btn.classList.remove('text-slate-600', 'hover:bg-slate-100');
+
+      appState.dayFilter = btn.dataset.day;
+      renderApp();
+    });
+  });
+
   // Category tabs
   document.querySelectorAll('.cat-tab-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {

@@ -13,6 +13,7 @@
   <header class="topbar">
     <a class="brand" href="./" aria-label="เมนูของปรายใส หน้าหลัก"><span class="brandmark">ป</span><span>เมนูของปรายใส</span></a>
     <div class="header-actions">
+      <button class="ghost" id="pantryButton" type="button" style="border: 1px solid #f59e0b; color: #b45309; background: #fffbeb;">⏰ ของใกล้หมดอายุ <span id="pantryCount">0</span></button>
       <button class="ghost" id="favoritesButton" type="button">เมนูโปรด <span id="favoriteCount">0</span></button>
       <button class="ghost" id="shoppingButton" type="button">รายการซื้อ <span id="shoppingCount">0</span></button>
     </div>
@@ -60,6 +61,34 @@
 
   <button class="mobile-find" id="mobileFind" type="button">ดูเมนูที่ทำได้ <span id="mobileSelectedCount">0</span></button>
 
+  <dialog id="pantryDialog">
+    <div class="dialog-body" style="max-width: 540px;">
+      <div class="dialog-head">
+        <div>
+          <span class="badge" style="background:#fef3c7; color:#b45309; border:1px solid #fde68a;">คลังของสดในบ้าน</span>
+          <h2>⏰ วัตถุดิบใกล้หมดอายุ</h2>
+        </div>
+        <button class="close" type="button" aria-label="ปิด" id="closePantry">×</button>
+      </div>
+      <p style="font-size: 13px; color: #64748b; margin: 4px 0 12px;">ระบุของสดในตู้เย็นที่ต้องรีบกิน ระบบจะช่วยคัดเมนูเพื่อกำจัดของก่อนเสีย</p>
+      
+      <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+        <select id="pantrySelectIngredient" style="flex: 1; padding: 8px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 13px;"></select>
+        <select id="pantrySelectStatus" style="padding: 8px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 13px;">
+          <option value="urgent">🔴 รีบใช้ใน 1-2 วัน</option>
+          <option value="soon">🟡 ควรใช้ใน 3 วัน</option>
+        </select>
+        <button id="addPantryItem" class="primary" style="padding: 8px 14px; font-size: 13px;">+ เพิ่ม</button>
+      </div>
+
+      <div id="pantryListContainer" style="max-height: 240px; overflow-y: auto; margin-bottom: 14px; border: 1px solid #f1f5f9; border-radius: 8px; padding: 6px;"></div>
+
+      <div class="dialog-actions" style="display: flex; gap: 8px;">
+        <button class="secondary" id="clearPantryBtn" type="button" style="font-size: 13px;">ล้างทั้งหมด</button>
+        <button class="primary" id="autoCookExpiringBtn" type="button" style="background:#d97706; font-size: 13px;">⚡ คิดเมนูกำจัดของใกล้หมดอายุทันที</button>
+      </div>
+    </div>
+  </dialog>
   <dialog id="recipeDialog"><div id="recipeContent"></div></dialog>
   <dialog id="listDialog"><div id="listContent"></div></dialog>
   <dialog id="confirmDialog"><div class="dialog-body"><h2>ล้างข้อมูลทั้งหมด?</h2><p>รายการโปรด ประวัติ และค่าที่เลือกในอุปกรณ์นี้จะถูกลบ</p><div class="dialog-actions"><button class="secondary" id="cancelClear">ยกเลิก</button><button class="danger" id="confirmClear">ล้างข้อมูล</button></div></div></dialog>

@@ -68,3 +68,216 @@ function bind(){
 
 restoreControls();renderTabs();renderIngredients();renderFilterOptions();bind();updateCounts();renderRecipes();renderRecent();
 window.addEventListener('keydown',event=>{if(event.key==='Escape')document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close());});
+
+
+// ==================== NEW: PANTRY EXPIRY & MEAL FEEDBACK EXTENSION ====================
+function getPantryExpiring() {
+  try {
+    return JSON.parse(localStorage.getItem('praysai_pantry_expiring')) || [
+      { id: 'egg', status: 'urgent', nameTh: 'ไข่ไก่' },
+      { id: 'tofu_egg', status: 'soon', nameTh: 'เต้าหู้ไข่' },
+      { id: 'pumpkin', status: 'soon', nameTh: 'ฟักทอง' }
+    ];
+  } catch(e) { return []; }
+}
+
+function savePantryExpiring(list) {
+  localStorage.setItem('praysai_pantry_expiring', JSON.stringify(list));
+  updatePantryCountBadge();
+}
+
+function updatePantryCountBadge() {
+  const list = getPantryExpiring();
+  const el = document.getElementById('pantryCount');
+  if (el) el.textContent = list.length;
+}
+
+function getMealReactions() {
+  try {
+    return JSON.parse(localStorage.getItem('praysai_meal_reactions')) || {};
+  } catch(e) { return {}; }
+}
+
+function saveMealReaction(recipeId, rating, allergyNote) {
+  const map = getMealReactions();
+  map[recipeId] = { rating, allergyNote, date: new Date().toISOString() };
+  localStorage.setItem('praysai_meal_reactions', JSON.stringify(map));
+}
+
+function initPantryModal() {
+  const pantryBtn = document.getElementById('pantryButton');
+  const pantryDialog = document.getElementById('pantryDialog');
+  const closePantry = document.getElementById('closePantry');
+  const selectIngredient = document.getElementById('pantrySelectIngredient');
+  const addBtn = document.getElementById('addPantryItem');
+  const clearBtn = document.getElementById('clearPantryBtn');
+  const autoCookBtn = document.getElementById('autoCookExpiringBtn');
+
+  if (!pantryBtn || !pantryDialog) return;
+
+  // Populate ingredient select dropdown
+  if (selectIngredient) {
+    selectIngredient.innerHTML = ingredients.filter(i => i.enabled).map(i => `<option value="${i.id}">${i.nameTh}</option>`).join('');
+  }
+
+  function renderPantryList() {
+    const list = getPantryExpiring();
+    const container = document.getElementById('pantryListContainer');
+    if (!container) return;
+    if (list.length === 0) {
+      container.innerHTML = '<div style="padding:16px; text-align:center; color:#94a3b8; font-size:13px;">ยังไม่มีวัตถุดิบใกล้หมดอายุในรายการ</div>';
+      return;
+    }
+    container.innerHTML = list.map(item => {
+      const isUrgent = item.status === 'urgent';
+      const badgeColor = isUrgent ? '#ef4444' : '#f59e0b';
+      const badgeText = isUrgent ? '🔴 รีบใช้ใน 1-2 วัน' : '🟡 ควรใช้ใน 3 วัน';
+      return `<div style="display:flex; align-items:center; justify-content:space-between; padding:8px; border-bottom:1px solid #f1f5f9;">
+        <div>
+          <span style="font-weight:600; font-size:13.5px;">${item.nameTh}</span>
+          <span style="font-size:11px; color:${badgeColor}; margin-left:8px; font-weight:500;">${badgeText}</span>
+        </div>
+        <button type="button" class="link-danger" data-remove-pantry="${item.id}" style="font-size:12px; cursor:pointer;">ลบ</button>
+      </div>`;
+    }).join('');
+
+    container.querySelectorAll('[data-remove-pantry]').forEach(btn => {
+      btn.onclick = () => {
+        const id = btn.dataset.removePantry;
+        const filtered = getPantryExpiring().filter(x => x.id !== id);
+        savePantryExpiring(filtered);
+        renderPantryList();
+      };
+    });
+  }
+
+  pantryBtn.onclick = () => {
+    renderPantryList();
+    pantryDialog.showModal();
+  };
+
+  if (closePantry) closePantry.onclick = () => pantryDialog.close();
+
+  if (addBtn) {
+    addBtn.onclick = () => {
+      const id = selectIngredient.value;
+      const status = document.getElementById('pantrySelectStatus').value;
+      const nameTh = ingredientName(id);
+      let list = getPantryExpiring();
+      if (!list.some(x => x.id === id)) {
+        list.push({ id, status, nameTh });
+        savePantryExpiring(list);
+        renderPantryList();
+      }
+    };
+  }
+
+  if (clearBtn) {
+    clearBtn.onclick = () => {
+      savePantryExpiring([]);
+      renderPantryList();
+    };
+  }
+
+  if (autoCookBtn) {
+    autoCookBtn.onclick = () => {
+      const list = getPantryExpiring();
+      if (list.length === 0) {
+        alert('กรุณาเพิ่มวัตถุดิบใกล้หมดอายุก่อน');
+        return;
+      }
+      state.selectedIngredients = [...new Set([...state.selectedIngredients, ...list.map(x => x.id)])];
+      persist();
+      renderIngredients();
+      renderRecipes();
+      pantryDialog.close();
+      const resultsEl = document.getElementById('results');
+      if (resultsEl) resultsEl.scrollIntoView({ behavior: 'smooth' });
+    };
+  }
+}
+
+// Enhance openRecipe dialog with rating stars and reaction
+const origOpenRecipe = openRecipe;
+openRecipe = function(id) {
+  origOpenRecipe(id);
+  const recipe = recipeById(id);
+  if (!recipe) return;
+
+  const reactions = getMealReactions();
+  const currentReaction = reactions[id] || { rating: 0, allergyNote: 'normal' };
+
+  const reactionBoxHtml = `
+    <div style="margin-top:16px; padding:14px; background:#fffbeb; border:1px solid #fde68a; border-radius:12px;">
+      <h4 style="font-size:13px; font-weight:700; color:#b45309; margin:0 0 8px;">🌟 บันทึกความชอบ & อาการของปรายใสสำหรับเมนูนี้:</h4>
+      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:12px; color:#78350f;">ระดับความชอบ:</span>
+          <div style="display:flex; gap:4px;" id="starRatingBox">
+            <button type="button" class="star-btn" data-star="1" style="cursor:pointer; background:none; border:none; font-size:18px; color:${currentReaction.rating >= 1 ? '#f59e0b' : '#cbd5e1'};">★</button>
+            <button type="button" class="star-btn" data-star="2" style="cursor:pointer; background:none; border:none; font-size:18px; color:${currentReaction.rating >= 2 ? '#f59e0b' : '#cbd5e1'};">★</button>
+            <button type="button" class="star-btn" data-star="3" style="cursor:pointer; background:none; border:none; font-size:18px; color:${currentReaction.rating >= 3 ? '#f59e0b' : '#cbd5e1'};">★</button>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:12px; color:#78350f;">อาการ/ปฏิกิริยา:</span>
+          <select id="allergySelect" style="padding:4px 8px; border-radius:6px; border:1px solid #fcd34d; font-size:12px; background:white;">
+            <option value="normal" ${currentReaction.allergyNote === 'normal' ? 'selected' : ''}>ปกติ (กินเกลี้ยง)</option>
+            <option value="dislike" ${currentReaction.allergyNote === 'dislike' ? 'selected' : ''}>ไม่ค่อยชอบ</option>
+            <option value="rash" ${currentReaction.allergyNote === 'rash' ? 'selected' : ''}>มีผื่น/คัน</option>
+            <option value="bloating" ${currentReaction.allergyNote === 'bloating' ? 'selected' : ''}>ท้องอืด/แหวะ</option>
+          </select>
+        </div>
+      </div>
+      <div id="ratingSavedFeedback" style="font-size:11px; color:#16a34a; font-weight:600; margin-top:6px; display:none;">✔ บันทึกข้อมูลปรายใสเรียบร้อยแล้ว</div>
+    </div>
+  `;
+
+  const contentEl = document.getElementById('recipeContent');
+  if (contentEl) {
+    const dialogBody = contentEl.querySelector('.dialog-body');
+    if (dialogBody) {
+      const actionsEl = dialogBody.querySelector('.dialog-actions');
+      if (actionsEl) {
+        const wrap = document.createElement('div');
+        wrap.innerHTML = reactionBoxHtml;
+        dialogBody.insertBefore(wrap, actionsEl);
+
+        let selectedStars = currentReaction.rating;
+        const starBtns = wrap.querySelectorAll('.star-btn');
+        starBtns.forEach(btn => {
+          btn.onclick = () => {
+            selectedStars = parseInt(btn.dataset.star, 10);
+            starBtns.forEach(b => {
+              const s = parseInt(b.dataset.star, 10);
+              b.style.color = s <= selectedStars ? '#f59e0b' : '#cbd5e1';
+            });
+            saveMealReaction(id, selectedStars, document.getElementById('allergySelect').value);
+            showFeedback();
+          };
+        });
+
+        const allergySelect = wrap.querySelector('#allergySelect');
+        if (allergySelect) {
+          allergySelect.onchange = () => {
+            saveMealReaction(id, selectedStars, allergySelect.value);
+            showFeedback();
+          };
+        }
+
+        function showFeedback() {
+          const fb = wrap.querySelector('#ratingSavedFeedback');
+          if (fb) {
+            fb.style.display = 'block';
+            setTimeout(() => fb.style.display = 'none', 1500);
+          }
+        }
+      }
+    }
+  }
+};
+
+setTimeout(() => {
+  initPantryModal();
+  updatePantryCountBadge();
+}, 100);

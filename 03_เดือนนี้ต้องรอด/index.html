@@ -46,6 +46,226 @@
         }
       }
     }
+
+    // ==================== NEW SALARY COUNTDOWN & QUICK EXPENSE LOGIC ====================
+    let activeExpenseCat = 'food';
+
+    function getPaydaySetting() {
+      return localStorage.getItem('money_survival_payday') || '25';
+    }
+
+    function changePayday(val) {
+      localStorage.setItem('money_survival_payday', val);
+      updateSalaryCountdown();
+    }
+
+    function getExpensesKey() {
+      return 'money_survival_expenses_' + (db ? db.activeMonth : 'default');
+    }
+
+    function getMonthlyExpenses() {
+      const key = getExpensesKey();
+      try {
+        return JSON.parse(localStorage.getItem(key)) || [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveMonthlyExpenses(list) {
+      const key = getExpensesKey();
+      localStorage.setItem(key, JSON.stringify(list));
+      updateSalaryCountdown();
+    }
+
+    function openQuickExpenseModal() {
+      document.getElementById('quickExpenseModal').classList.remove('hidden');
+      document.getElementById('quickExpenseAmount').value = '';
+      document.getElementById('quickExpenseNote').value = '';
+      setTimeout(() => document.getElementById('quickExpenseAmount').focus(), 100);
+    }
+
+    function closeQuickExpenseModal() {
+      document.getElementById('quickExpenseModal').classList.add('hidden');
+    }
+
+    function addQuickAmount(amt) {
+      const input = document.getElementById('quickExpenseAmount');
+      const cur = parseFloat(input.value) || 0;
+      input.value = cur + amt;
+    }
+
+    function selectExpenseCat(cat, btn) {
+      activeExpenseCat = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => {
+        b.className = 'cat-btn px-2.5 py-2 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-600 font-medium text-center';
+      });
+      btn.className = 'cat-btn active px-2.5 py-2 rounded-xl border border-amber-500 bg-amber-500/20 text-amber-300 font-medium text-center';
+    }
+
+    function saveQuickExpense() {
+      const amount = parseFloat(document.getElementById('quickExpenseAmount').value);
+      if (!amount || amount <= 0) {
+        alert('กรุณาระบุจำนวนเงินที่ถูกต้อง');
+        return;
+      }
+      const note = document.getElementById('quickExpenseNote').value.trim() || getDefaultCatName(activeExpenseCat);
+      const list = getMonthlyExpenses();
+      const newEntry = {
+        id: Date.now().toString(),
+        amount: amount,
+        category: activeExpenseCat,
+        note: note,
+        date: new Date().toISOString()
+      };
+      list.unshift(newEntry);
+      saveMonthlyExpenses(list);
+      closeQuickExpenseModal();
+    }
+
+    function getDefaultCatName(cat) {
+      switch(cat) {
+        case 'food': return 'ค่าข้าว/อาหาร';
+        case 'coffee': return 'กาแฟ/เครื่องดื่ม';
+        case 'transport': return 'ค่าเดินทาง';
+        case 'kid': return 'ของใช้ลูก';
+        case 'grocery': return 'ของใช้บ้าน';
+        default: return 'จิปาถะ';
+      }
+    }
+
+    function getCatIcon(cat) {
+      switch(cat) {
+        case 'food': return '🍛';
+        case 'coffee': return '☕';
+        case 'transport': return '🚗';
+        case 'kid': return '👶';
+        case 'grocery': return '🛒';
+        default: return '🏷️';
+      }
+    }
+
+    function deleteExpenseItem(id) {
+      if (!confirm('ยืนยันลบรายการนี้?')) return;
+      let list = getMonthlyExpenses();
+      list = list.filter(item => item.id !== id);
+      saveMonthlyExpenses(list);
+    }
+
+    function toggleExpenseHistory() {
+      const container = document.getElementById('expenseHistoryContainer');
+      container.classList.toggle('hidden');
+    }
+
+    function updateSalaryCountdown() {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const currentMonth = now.getMonth();
+      const currentDate = now.getDate();
+
+      const paydaySetting = getPaydaySetting();
+      const paydaySelect = document.getElementById('salaryPaydaySelect');
+      if (paydaySelect) paydaySelect.value = paydaySetting;
+
+      let targetDate;
+      if (paydaySetting === 'end') {
+        const lastDay = new Date(currentYear, currentMonth + 1, 0).getDate();
+        targetDate = new Date(currentYear, currentMonth, lastDay, 23, 59, 59);
+      } else {
+        const targetDay = parseInt(paydaySetting, 10) || 25;
+        if (currentDate <= targetDay) {
+          targetDate = new Date(currentYear, currentMonth, targetDay, 23, 59, 59);
+        } else {
+          targetDate = new Date(currentYear, currentMonth + 1, targetDay, 23, 59, 59);
+        }
+      }
+
+      const diffTime = targetDate - now;
+      let diffDays = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+
+      const countdownDaysEl = document.getElementById('countdownDaysText');
+      if (countdownDaysEl) countdownDaysEl.textContent = diffDays + ' วัน';
+
+      const countdownTargetDateEl = document.getElementById('countdownTargetDate');
+      if (countdownTargetDateEl) {
+        countdownTargetDateEl.textContent = 'เป้าหมาย: ' + targetDate.toLocaleDateString('th-TH', { day: 'numeric', month: 'short' });
+      }
+
+      // Calculate total expenses logged
+      const expenses = getMonthlyExpenses();
+      const totalSpent = expenses.reduce((sum, item) => sum + item.amount, 0);
+
+      // Living envelope base amount (default 10,000)
+      const baseLiving = (db && db.months[db.activeMonth]) ? db.months[db.activeMonth].livingEnvelope : 10000;
+      const realRemaining = Math.max(0, baseLiving - totalSpent);
+
+      const livingRealEl = document.getElementById('livingRealRemaining');
+      if (livingRealEl) {
+        livingRealEl.textContent = fmt(realRemaining) + ' ฿';
+        if (realRemaining < 2000) livingRealEl.className = 'text-2xl sm:text-3xl font-black font-mono text-rose-400 my-0.5';
+        else if (realRemaining < 4000) livingRealEl.className = 'text-2xl sm:text-3xl font-black font-mono text-amber-300 my-0.5';
+        else livingRealEl.className = 'text-2xl sm:text-3xl font-black font-mono text-emerald-400 my-0.5';
+      }
+
+      // Safe Daily Allowance
+      const dailySafe = Math.round(realRemaining / diffDays);
+      const dailySafeEl = document.getElementById('dailySafeAllowance');
+      if (dailySafeEl) dailySafeEl.textContent = fmt(dailySafe) + ' ฿/วัน';
+
+      // Safety Badge
+      const badgeEl = document.getElementById('dailySafetyBadge');
+      const adviceEl = document.getElementById('dailySafetyAdvice');
+      if (badgeEl && adviceEl) {
+        if (dailySafe >= 250) {
+          badgeEl.className = 'text-base sm:text-lg font-black font-mono text-emerald-400 my-0.5 flex items-center gap-1.5';
+          badgeEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> ปลอดภัยสบายใจ 🟢';
+          adviceEl.textContent = 'งบเพียงพอ ใช้จ่ายตามปกติเงินเหลือแน่นอน';
+        } else if (dailySafe >= 150) {
+          badgeEl.className = 'text-base sm:text-lg font-black font-mono text-amber-300 my-0.5 flex items-center gap-1.5';
+          badgeEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> เริ่มตึงตัว 🟡';
+          adviceEl.textContent = 'คุมรายจ่ายกาแฟและมื้อพิเศษ อย่าให้เกิน ' + dailySafe + ' บ./วัน';
+        } else {
+          badgeEl.className = 'text-base sm:text-lg font-black font-mono text-rose-400 my-0.5 flex items-center gap-1.5';
+          badgeEl.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> วิกฤต รัดเข็มขัด 🔴';
+          adviceEl.textContent = 'ต้องประหยัดสูงสุด! เน้นทำกับข้าวกินเองในบ้าน';
+        }
+      }
+
+      // Update Recent Strip
+      const countEl = document.getElementById('expensesCountBadge');
+      const totalEl = document.getElementById('expensesTotalBadge');
+      if (countEl) countEl.textContent = expenses.length + ' รายการ';
+      if (totalEl) totalEl.textContent = 'จ่ายสะสม ' + fmt(totalSpent) + ' ฿';
+
+      // Render History List
+      const listEl = document.getElementById('expenseHistoryList');
+      if (listEl) {
+        if (expenses.length === 0) {
+          listEl.innerHTML = '<div class="py-3 text-center text-slate-500 text-xs">ยังไม่มีรายการบันทึกในเดือนนี้</div>';
+        } else {
+          listEl.innerHTML = expenses.map(item => {
+            const d = new Date(item.date);
+            const timeStr = d.toLocaleDateString('th-TH', { day: 'numeric', month: 'short' }) + ' ' + d.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+            return `<div class="flex items-center justify-between py-2 text-slate-300">
+              <div class="flex items-center gap-2">
+                <span>${getCatIcon(item.category)}</span>
+                <div>
+                  <div class="font-medium text-white">${item.note}</div>
+                  <div class="text-[10px] text-slate-500">${timeStr}</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="font-mono font-bold text-amber-300">-${fmt(item.amount)} ฿</span>
+                <button onclick="deleteExpenseItem('${item.id}')" class="text-slate-500 hover:text-rose-400 p-1 text-xs cursor-pointer" title="ลบรายการ">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+            </div>`;
+          }).join('');
+        }
+      }
+    }
+
   </script>
 
   <style>
@@ -245,6 +465,173 @@
 
         </div>
 
+      </div>
+    </div>
+
+    <!-- ==================== NEW FEATURE: SALARY COUNTDOWN & DAILY EXPENSE MONITOR ==================== -->
+    <div class="mb-6 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 rounded-2xl p-5 sm:p-6 border border-amber-500/30 shadow-lg text-white">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-white/10">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1.5">
+              <i class="fa-solid fa-bolt"></i> ฟีเจอร์ใหม่
+            </span>
+            <span class="text-xs text-slate-300">ระบบคุมงบ 10,000 บ. ให้อยู่รอดจริง</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-black mt-1 text-white flex items-center gap-2">
+            <i class="fa-solid fa-hourglass-half text-amber-400"></i>
+            นับถอยหลังเงินเดือนออก & งบใช้จ่ายปลอดภัยรายวัน
+          </h3>
+        </div>
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <div class="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-xl border border-white/15 text-xs">
+            <span class="text-slate-300">วันเงินเดือนออก:</span>
+            <select id="salaryPaydaySelect" onchange="changePayday(this.value)" class="bg-slate-900 text-amber-300 font-bold font-mono px-2 py-1 rounded border border-white/20 text-xs focus:outline-none focus:border-amber-400">
+              <option value="25">ทุกวันที่ 25</option>
+              <option value="28">ทุกวันที่ 28</option>
+              <option value="30">ทุกวันที่ 30</option>
+              <option value="end">วันสิ้นเดือน</option>
+            </select>
+          </div>
+          <button onclick="openQuickExpenseModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 font-bold text-slate-950 text-sm shadow-md transition flex items-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-plus-circle"></i> + จดรายจ่ายด่วน
+          </button>
+        </div>
+      </div>
+
+      <!-- Grid 4 Metrics -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 pt-4">
+        <!-- Metric 1: วันที่เหลือ -->
+        <div class="bg-white/5 rounded-xl p-3.5 border border-white/10">
+          <div class="text-[11px] text-slate-400 font-medium">เหลืออีกกี่วัน</div>
+          <div id="countdownDaysText" class="text-2xl sm:text-3xl font-black font-mono text-amber-300 my-0.5">-- วัน</div>
+          <div id="countdownTargetDate" class="text-[10px] text-slate-400">สู่วันเงินเดือนออก</div>
+        </div>
+
+        <!-- Metric 2: ยอดงบกินอยู่คงเหลือสุทธิ -->
+        <div class="bg-white/5 rounded-xl p-3.5 border border-white/10">
+          <div class="text-[11px] text-slate-400 font-medium">งบกินอยู่คงเหลือจริง</div>
+          <div id="livingRealRemaining" class="text-2xl sm:text-3xl font-black font-mono text-emerald-400 my-0.5">10,000 ฿</div>
+          <div class="text-[10px] text-slate-400">จากงบซอง 10,000 บาท</div>
+        </div>
+
+        <!-- Metric 3: เพดานใช้จ่ายปลอดภัยต่อวัน -->
+        <div class="bg-white/5 rounded-xl p-3.5 border border-white/10">
+          <div class="text-[11px] text-slate-400 font-medium">ใช้ได้เฉลี่ยไม่เกิน</div>
+          <div id="dailySafeAllowance" class="text-2xl sm:text-3xl font-black font-mono text-sky-300 my-0.5">-- ฿/วัน</div>
+          <div class="text-[10px] text-slate-400">คงเหลือ ÷ วันที่เหลือ</div>
+        </div>
+
+        <!-- Metric 4: สถานะความปลอดภัย -->
+        <div class="bg-white/5 rounded-xl p-3.5 border border-white/10 flex flex-col justify-between">
+          <div class="text-[11px] text-slate-400 font-medium">ระดับความปลอดภัย</div>
+          <div id="dailySafetyBadge" class="text-base sm:text-lg font-black font-mono text-emerald-400 my-0.5 flex items-center gap-1.5">
+            🟢 ปลอดภัยสบายใจ
+          </div>
+          <div id="dailySafetyAdvice" class="text-[10px] text-slate-300">ใช้จ่ายตามแผน เงินเหลือถึงสิ้นเดือน</div>
+        </div>
+      </div>
+
+      <!-- Quick Recent Expenses Strip -->
+      <div id="recentExpensesStrip" class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-300 flex-wrap gap-2">
+        <div class="flex items-center gap-2">
+          <span class="text-slate-400">รายจ่ายบันทึกล่าสุดในเดือนนี้:</span>
+          <span id="expensesCountBadge" class="px-2 py-0.5 rounded bg-white/10 font-mono text-amber-300 font-bold">0 รายการ</span>
+          <span id="expensesTotalBadge" class="text-slate-300">รวม 0 ฿</span>
+        </div>
+        <button onclick="toggleExpenseHistory()" class="text-amber-400 hover:text-amber-300 underline cursor-pointer text-xs">
+          ดูประวัติทั้งหมด / ลบรายการ ➔
+        </button>
+      </div>
+
+      <!-- Collapsible History Drawer -->
+      <div id="expenseHistoryContainer" class="hidden mt-3 p-3 bg-black/40 rounded-xl border border-white/10 max-h-60 overflow-y-auto">
+        <div class="flex items-center justify-between pb-2 border-b border-white/10 text-xs font-bold text-slate-300">
+          <span>รายการรายจ่าย</span>
+          <span>จำนวนเงิน</span>
+        </div>
+        <div id="expenseHistoryList" class="divide-y divide-white/5 text-xs">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Floating Action Button (Mobile Friendly) -->
+    <div class="fixed bottom-6 right-6 z-40">
+      <button onclick="openQuickExpenseModal()" class="flex items-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-bold shadow-2xl hover:scale-105 active:scale-95 transition-all cursor-pointer border-2 border-white/20">
+        <i class="fa-solid fa-plus-circle text-lg"></i>
+        <span>จดรายจ่าย</span>
+      </button>
+    </div>
+
+    <!-- Quick Expense Modal -->
+    <div id="quickExpenseModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+      <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6 max-w-md w-full text-white shadow-2xl space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
+              <i class="fa-solid fa-receipt"></i>
+            </span>
+            <h4 class="font-bold text-lg text-white">บันทึกรายจ่ายด่วน</h4>
+          </div>
+          <button onclick="closeQuickExpenseModal()" class="text-slate-400 hover:text-white text-lg cursor-pointer">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Amount input -->
+        <div>
+          <label class="text-xs text-slate-400 mb-1 block">จำนวนเงิน (บาท):</label>
+          <div class="relative">
+            <input type="number" id="quickExpenseAmount" placeholder="0" min="1" step="1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-2xl font-mono font-bold text-amber-300 focus:outline-none focus:border-amber-400">
+            <span class="absolute right-4 top-3 text-slate-400 text-lg">฿</span>
+          </div>
+          <!-- Quick Amount Buttons -->
+          <div class="flex gap-1.5 mt-2 flex-wrap">
+            <button onclick="addQuickAmount(30)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200">+30</button>
+            <button onclick="addQuickAmount(40)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200">+40</button>
+            <button onclick="addQuickAmount(50)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200">+50</button>
+            <button onclick="addQuickAmount(100)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200">+100</button>
+            <button onclick="addQuickAmount(150)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200">+150</button>
+            <button onclick="addQuickAmount(200)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200">+200</button>
+          </div>
+        </div>
+
+        <!-- Category Select -->
+        <div>
+          <label class="text-xs text-slate-400 mb-1 block">หมวดหมู่:</label>
+          <div class="grid grid-cols-3 gap-2 text-xs">
+            <button type="button" onclick="selectExpenseCat('food', this)" class="cat-btn active px-2.5 py-2 rounded-xl border border-amber-500 bg-amber-500/20 text-amber-300 font-medium text-center">
+              🍛 ค่าข้าว/อาหาร
+            </button>
+            <button type="button" onclick="selectExpenseCat('coffee', this)" class="cat-btn px-2.5 py-2 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-600 font-medium text-center">
+              ☕ กาแฟ/น้ำ
+            </button>
+            <button type="button" onclick="selectExpenseCat('transport', this)" class="cat-btn px-2.5 py-2 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-600 font-medium text-center">
+              🚗 เดินทาง
+            </button>
+            <button type="button" onclick="selectExpenseCat('kid', this)" class="cat-btn px-2.5 py-2 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-600 font-medium text-center">
+              👶 ของลูก
+            </button>
+            <button type="button" onclick="selectExpenseCat('grocery', this)" class="cat-btn px-2.5 py-2 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-600 font-medium text-center">
+              🛒 ของใช้บ้าน
+            </button>
+            <button type="button" onclick="selectExpenseCat('other', this)" class="cat-btn px-2.5 py-2 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-600 font-medium text-center">
+              🏷️ จิปาถะ
+            </button>
+          </div>
+        </div>
+
+        <!-- Note input -->
+        <div>
+          <label class="text-xs text-slate-400 mb-1 block">บันทึกสั้นๆ (ไม่บังคับ):</label>
+          <input type="text" id="quickExpenseNote" placeholder="เช่น กะเพราไข่ดาว, นมลูกกล่อง" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-amber-400">
+        </div>
+
+        <!-- Submit Button -->
+        <button onclick="saveQuickExpense()" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-bold text-base shadow-lg transition cursor-pointer flex items-center justify-center gap-2">
+          <i class="fa-solid fa-check-circle"></i> บันทึกรายจ่ายทันที
+        </button>
       </div>
     </div>
 
@@ -1260,6 +1647,7 @@
       renderCurrentMonth();
       initTrendChart();
       updateData();
+      updateSalaryCountdown();
 
       // Register PWA Service Worker
       if ('serviceWorker' in navigator) {
