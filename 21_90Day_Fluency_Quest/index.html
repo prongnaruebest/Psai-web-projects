@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>90-Day Fluency Quest | แพลตฟอร์มพิชิตภาษา 90 วัน & Kids Wonderland</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Prompt', 'Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Prompt & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Prompt', 'Inter', sans-serif;
+    }
+
+    /* 3D Flashcard Flip Mechanics */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    .flipped {
+      transform: rotateY(180deg);
+    }
+
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-blue-600/30 overflow-x-hidden">
+
+  <!-- Confetti Canvas Overlay -->
+  <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50 hidden"></canvas>
+
+  <!-- 1. Header Navigation Bar -->
+  <header class="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+      
+      <!-- App Brand -->
+      <div class="flex items-center gap-3">
+        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-pink-500 font-extrabold text-white text-lg shadow-lg shadow-blue-600/25">
+          90
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base sm:text-lg font-bold tracking-tight text-white">Fluency Quest</h1>
+            <span id="header-day-badge" class="text-[11px] font-bold text-blue-400 bg-blue-500/10 px-2.5 py-0.5 rounded-full border border-blue-500/20">
+              Day 1 of 90
+            </span>
+          </div>
+          <div class="flex items-center gap-2">
+            <p id="header-level-title" class="text-xs text-slate-400 font-medium">Lvl 1: Novice Pioneer</p>
+            <div class="w-16 sm:w-24 bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div id="header-level-progress" class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full w-0 transition-all duration-500"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mode Switcher Tabs (Adult vs Kids) -->
+      <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-2xl shadow-inner">
+        <button id="btn-switch-adult-mode" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-600 text-white transition shadow-sm">
+          <span>🎓</span>
+          <span class="hidden md:inline">โหมดทั่วไป (ผู้ใหญ่)</span>
+        </button>
+        <button id="btn-switch-kids-mode" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition">
+          <span>🧸</span>
+          <span>โหมดเด็ก & เพลง</span>
+        </button>
+      </div>
+
+      <!-- Gamification Counters -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Streak -->
+        <div class="flex items-center gap-1.5 rounded-full bg-orange-500/10 border border-orange-500/25 px-3 py-1.5 text-xs font-bold text-orange-400 shadow-sm" title="สถิติเข้าฝึกฝนต่อเนื่อง">
+          <span class="text-base leading-none">🔥</span>
+          <span id="header-streak-badge">1 วัน</span>
+        </div>
+
+        <!-- Total XP -->
+        <div class="flex items-center gap-1.5 rounded-full bg-amber-500/10 border border-amber-500/25 px-3 py-1.5 text-xs font-bold text-amber-400 shadow-sm" title="คะแนนประสบการณ์สะสม">
+          <span class="text-base leading-none">⚡</span>
+          <span id="header-xp-badge">0 XP</span>
+        </div>
+
+        <!-- Freeze Item -->
+        <div class="hidden lg:flex items-center gap-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 px-3 py-1.5 text-xs font-semibold text-cyan-300" title="Streak Freeze">
+          <span class="text-sm">❄️</span>
+          <span id="header-freeze-badge">2 Freeze</span>
+        </div>
+
+        <!-- Settings Button -->
+        <button id="btn-open-settings" class="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-800/80 border border-slate-700/60 hover:bg-slate-700 text-slate-300 transition" title="การตั้งค่า">
+          ⚙️
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. Main Content Area -->
+  <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+
+    <!-- ==================== MODE 1: ADULT 90-DAY QUEST ==================== -->
+    <div id="adult-mode-container" class="space-y-8">
+      
+      <!-- 90-Day Quest Roadmap Section -->
+      <section class="rounded-3xl border border-slate-800 bg-slate-900/60 p-5 sm:p-7 backdrop-blur-xl shadow-xl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-400 flex items-center gap-1.5">
+              🗺️ Interactive Quest Map
+            </span>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-0.5">
+              แผนที่เส้นทางพิชิตภาษา 90 วัน
+            </h2>
+            <p class="text-xs text-slate-400 mt-1">คลิกที่วันเพื่อดูรายละเอียดภารกิจและเริ่มฝึกฝน (ปลดล็อกทีละวันเมื่อทำสำเร็จ)</p>
+          </div>
+
+          <!-- Phase Tabs Filter -->
+          <div class="flex flex-wrap items-center gap-1.5 bg-slate-950/80 p-1.5 rounded-2xl border border-slate-800">
+            <button data-phase="all" class="roadmap-filter-btn active text-xs font-semibold px-3 py-1.5 rounded-xl bg-blue-600 text-white transition">
+              ทั้งหมด (1-90)
+            </button>
+            <button data-phase="1" class="roadmap-filter-btn text-xs font-semibold px-3 py-1.5 rounded-xl text-slate-400 hover:text-white transition">
+              Phase 1 (1-30)
+            </button>
+            <button data-phase="2" class="roadmap-filter-btn text-xs font-semibold px-3 py-1.5 rounded-xl text-slate-400 hover:text-white transition">
+              Phase 2 (31-60)
+            </button>
+            <button data-phase="3" class="roadmap-filter-btn text-xs font-semibold px-3 py-1.5 rounded-xl text-slate-400 hover:text-white transition">
+              Phase 3 (61-90)
+            </button>
+          </div>
+        </div>
+
+        <!-- Roadmap Scrollable Grid -->
+        <div id="roadmap-nodes-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-3 max-h-72 overflow-y-auto pr-1">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+      </section>
+
+      <!-- Selected Day's Focus Center -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        
+        <!-- Left 2 Cols: 3 Daily Quests -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="rounded-3xl border border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900/90 to-blue-950/30 p-6 shadow-lg">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+              <div>
+                <span id="selected-day-phase" class="text-xs font-bold uppercase tracking-wider text-blue-400">
+                  Phase 1: Foundation
+                </span>
+                <h2 id="selected-day-title" class="text-xl sm:text-2xl font-bold text-white mt-1">
+                  Day 1: Survival Greetings & Introductions
+                </h2>
+                <p id="selected-day-subtitle" class="text-xs text-slate-400 mt-0.5">
+                  การทักทายและการแนะนำตัวเบื้องต้น
+                </p>
+              </div>
+              
+              <div class="shrink-0 text-right">
+                <span id="selected-day-progress-text" class="text-xs font-bold text-slate-300">0/3 สำเร็จ (0%)</span>
+                <div class="w-36 bg-slate-800 h-2.5 rounded-full overflow-hidden mt-1.5">
+                  <div id="selected-day-progress-bar" class="bg-gradient-to-r from-blue-500 to-emerald-400 h-full w-0 transition-all duration-500 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center justify-between px-1">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                🎯 ภารกิจประจำวันนี้ (3 Micro-Missions)
+              </h3>
+              <span class="text-xs text-slate-500">วันละ ~30 นาทีเพื่อผลลัพธ์ยั่งยืน</span>
+            </div>
+
+            <div id="daily-quests-list" class="space-y-4">
+              <!-- Rendered by app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 1 Col: Widgets & Mistake Bank -->
+        <div class="space-y-6">
+          <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 backdrop-blur-xl shadow-lg">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🧠</span>
+                <h4 class="font-bold text-slate-200 text-sm">Mistake Bank</h4>
+              </div>
+              <span id="mistake-bank-badge-count" class="text-xs font-bold rounded-full bg-amber-500/10 text-amber-400 px-2.5 py-0.5 border border-amber-500/20">
+                0 รายการ
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+              ระบบ Spaced Repetition นำจุดที่คุณเคยพลาดกลับมาวนทบทวน เพื่อเปลี่ยนเป็นความชำนาญถาวร
+            </p>
+
+            <div id="mistake-bank-preview-list" class="space-y-2 mb-4">
+              <!-- Rendered by app.js -->
+            </div>
+
+            <button id="btn-open-mistake-bank" class="w-full text-center text-xs font-bold text-blue-400 hover:text-blue-300 transition flex items-center justify-center gap-1 py-2 rounded-xl bg-blue-500/10 border border-blue-500/20">
+              เปิดคลังจุดอ่อนทั้งหมด ➔
+            </button>
+          </div>
+
+          <!-- Weekly Boss Fight Card -->
+          <div class="rounded-3xl border border-indigo-500/30 bg-gradient-to-br from-indigo-950/40 to-purple-950/30 p-6 shadow-lg relative overflow-hidden">
+            <div class="flex items-center gap-2 text-indigo-400 text-xs font-extrabold uppercase mb-2">
+              <span>⚔️</span> Weekly Milestone Boss
+            </div>
+            <h4 class="font-bold text-slate-100 text-base mb-1">
+              Boss Battle: Day 7 / 14 / 21
+            </h4>
+            <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+              ทุก 7 วัน คุณจะได้ประลองบทสนทนาสถานการณ์จำลองเพื่อวัดผลและปลดล็อกเหรียญตราเกียรติยศ
+            </p>
+            <div class="flex items-center justify-between text-xs text-indigo-300 font-semibold bg-indigo-900/30 p-2.5 rounded-xl border border-indigo-500/20">
+              <span>รางวัล: +150 XP & เหรียญ Boss Slayer</span>
+              <span>🏆</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== MODE 2: KIDS WONDERLAND & MUSIC STUDIO ==================== -->
+    <div id="kids-mode-container" class="hidden space-y-8">
+      
+      <!-- Kids Hero Banner -->
+      <section class="rounded-3xl border border-pink-500/30 bg-gradient-to-r from-purple-950/60 via-pink-950/40 to-indigo-950/60 p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div class="space-y-2 max-w-2xl">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-extrabold text-pink-300 bg-pink-500/20 border border-pink-500/30 px-3 py-1 rounded-full">
+                🌈 Kids Wonderland (3 เดือน)
+              </span>
+              <span class="text-xs font-semibold text-yellow-300 bg-yellow-500/10 border border-yellow-500/20 px-3 py-1 rounded-full">
+                มาตรฐานหลักสูตรอเมริกา US Common Core
+              </span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-black text-white leading-tight">
+              พัฒนาครบทั้ง 4 ทักษะ: ฟัง • พูด • อ่าน • เขียน
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              เรียนสบาย สนุกสนาน ผ่านเกม คอร์ดดนตรีสด และคลังนิทานแอนิเมชันกว่า 1,400+ เรื่อง ให้ลูกรักหลงรักภาษาอังกฤษอย่างเป็นธรรมชาติ
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-700/60 text-center">
+              <span class="text-2xl block">👂</span>
+              <span class="text-[11px] font-bold text-amber-400">ฟัง Phonics</span>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-700/60 text-center">
+              <span class="text-2xl block">🗣️</span>
+              <span class="text-[11px] font-bold text-emerald-400">พูด ร้องเพลง</span>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-700/60 text-center">
+              <span class="text-2xl block">📖</span>
+              <span class="text-[11px] font-bold text-blue-400">อ่าน นิทาน</span>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-700/60 text-center">
+              <span class="text-2xl block">✍️</span>
+              <span class="text-[11px] font-bold text-purple-400">เขียน คำศัพท์</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURED SONG STUDIO: "Monsters" (Katie Sky) -->
+      <section class="rounded-3xl border border-indigo-500/40 bg-slate-900/80 p-6 sm:p-8 backdrop-blur-xl shadow-2xl space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-pink-400 flex items-center gap-1.5">
+              🎸 Music Learning Lab • เพลงแนะนำประจำสัปดาห์
+            </span>
+            <h3 class="text-xl sm:text-2xl font-black text-white mt-1">
+              "Monsters" (I See Your Monsters) - Katie Sky
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">
+              เรียนภาษาอังกฤษผ่านบทเพลงแห่งความกล้าหาญ ปลูกฝังมิตรภาพและความรักในครอบครัว
+            </p>
+          </div>
+
+          <!-- Strummer hint -->
+          <div class="flex items-center gap-2 text-xs font-semibold text-yellow-300 bg-yellow-500/10 px-3 py-1.5 rounded-xl border border-yellow-500/20">
+            <span>✨</span>
+            <span>กดปุ่มคอร์ดเพื่อดีดเสียงกีตาร์สดได้จริง!</span>
+          </div>
+        </div>
+
+        <!-- Interactive Chord Sound Bar -->
+        <div class="space-y-2">
+          <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">
+            🎼 คอร์ดเพลงหลัก (คลิกเพื่อฟังเสียงคอร์ดกีตาร์อะคูสติก):
+          </span>
+          <div id="kids-chords-bar" class="grid grid-cols-3 sm:grid-cols-5 gap-3">
+            <!-- Rendered by kidsApp.js -->
+          </div>
+        </div>
+
+        <!-- Karaoke & Sing-Along Lyrics -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+          
+          <!-- Left 2 Cols: Lyrics with Chords -->
+          <div class="lg:col-span-2 space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold uppercase text-slate-300">เนื้อเพลงพร้อมคอร์ดและคำแปล:</h4>
+              <button id="btn-karaoke-record" class="px-4 py-2 rounded-2xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs shadow-lg transition flex items-center gap-2">
+                🎙️ อัดเสียงร้องคาราโอเกะ
+              </button>
+            </div>
+
+            <audio id="karaoke-user-audio" controls class="w-full hidden mt-2"></audio>
+
+            <div id="kids-lyrics-container" class="space-y-4">
+              <!-- Rendered by kidsApp.js -->
+            </div>
+          </div>
+
+          <!-- Right 1 Col: Vocab & Tips from the Song -->
+          <div class="space-y-4">
+            <div class="rounded-2xl border border-slate-800 bg-slate-950/70 p-5 space-y-3">
+              <h4 class="font-bold text-sm text-yellow-300 flex items-center gap-1.5">
+                <span>⭐</span> คลังคำศัพท์น่ารู้จากเพลง
+              </h4>
+              <div id="kids-song-vocab-list" class="space-y-2">
+                <!-- Rendered by kidsApp.js -->
+              </div>
+            </div>
+
+            <div class="rounded-2xl border border-slate-800 bg-slate-950/50 p-5 space-y-2 text-xs text-slate-400">
+              <h5 class="font-bold text-slate-200">💡 เคล็ดลับการฝึกร้องคู่กับลูก:</h5>
+              <p>• ให้ลูกฝึกร้องคำว่า <strong>"I'll be your lighthouse"</strong> (ฉันจะเป็นประภาคารส่องแสงนำทางให้เธอ)</p>
+              <p>• พ่อแม่สามารถดีดคอร์ด Am - C - G - F ซ้ำไปเรื่อยๆ เพื่อสร้างบรรยากาศที่อบอุ่นและสนุกสนาน</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 1,400+ STORIES CATALOG -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-400">
+              📖 Interactive Storybooks Library
+            </span>
+            <h3 class="text-xl sm:text-2xl font-black text-white mt-0.5">
+              คลังนิทานและเรื่องราวโต้ตอบกว่า 1,400+ เรื่อง
+            </h3>
+            <p class="text-xs text-slate-400">แตะเพื่อเปิดอ่าน มีเสียง Phonics ออกเสียงทีละคำและภาพการ์ตูนสีสันสดใส</p>
+          </div>
+          <span class="text-xs font-bold text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">
+            1,400+ เรื่องจุใจ
+          </span>
+        </div>
+
+        <div id="kids-stories-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Rendered by kidsApp.js -->
+        </div>
+      </section>
+
+      <!-- 4-SKILLS 3-MONTH CURRICULUM OVERVIEW -->
+      <section class="space-y-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">
+            🗓️ 3-Month Mastery Framework
+          </span>
+          <h3 class="text-xl sm:text-2xl font-black text-white mt-0.5">
+            โครงสร้างหลักสูตรเด็ก 4 ทักษะใน 3 เดือน (90 วัน)
+          </h3>
+          <p class="text-xs text-slate-400">ออกแบบตามพัฒนาการช่วงวัยเพื่อผลลัพธ์สูงและมีความสุขในการเรียนรู้</p>
+        </div>
+
+        <div id="kids-curriculum-container" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Rendered by kidsApp.js -->
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- Modal 1: Adult Mission Player -->
+  <div id="mission-player-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
+    <div class="w-full max-w-3xl rounded-3xl border border-slate-800 bg-slate-900 p-6 sm:p-8 shadow-2xl overflow-y-auto max-h-[92vh]">
+      
+      <div class="flex items-center justify-between border-b border-slate-800/80 pb-4 mb-6">
+        <div>
+          <span id="player-modal-xp" class="text-xs font-bold text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20">
+            +50 XP
+          </span>
+          <h3 id="player-modal-title" class="text-lg sm:text-xl font-bold text-white mt-1">Mission Title</h3>
+          <p id="player-modal-subtitle" class="text-xs text-slate-400">Mission Subtitle</p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-1.5 rounded-xl bg-slate-800 px-3 py-1.5 text-xs font-mono font-bold text-blue-400 border border-slate-700">
+            <span>⏱️</span>
+            <span id="mission-focus-timer">10:00</span>
+          </div>
+
+          <button id="btn-close-player" class="h-9 w-9 flex items-center justify-center rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW A: Vocab Sprint (3D Flashcard) -->
+      <div id="view-vocab-sprint" class="hidden space-y-6">
+        <div class="flex items-center justify-between text-xs text-slate-400">
+          <span id="flashcard-counter">คำที่ 1 จาก 5</span>
+          <span class="text-blue-400">💡 คลิกที่การ์ดเพื่อพลิกดูความหมาย</span>
+        </div>
+
+        <div id="flashcard-3d" class="perspective-1000 w-full h-64 sm:h-72 cursor-pointer select-none">
+          <div id="flashcard-inner" class="transform-style-3d relative w-full h-full duration-500 transition-transform">
+            
+            <div class="backface-hidden absolute inset-0 flex flex-col items-center justify-center p-6 rounded-3xl border border-slate-700/80 bg-gradient-to-br from-slate-800 to-slate-900 shadow-xl text-center">
+              <span class="text-xs uppercase font-bold tracking-wider text-amber-400 mb-2">Target Vocabulary</span>
+              <h2 id="card-term" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-1">
+                Pleasure to meet you
+              </h2>
+              <p id="card-ipa" class="text-sm font-mono text-slate-400 mb-4">/ˈpleʒər tuː miːt juː/</p>
+              
+              <button id="btn-speak-term" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-blue-600/20 border border-blue-500/30 text-blue-300 text-xs font-semibold hover:bg-blue-600 hover:text-white transition">
+                🔊 ฟังเสียงเจ้าของภาษา
+              </button>
+            </div>
+
+            <div class="backface-hidden rotate-y-180 absolute inset-0 flex flex-col items-center justify-center p-6 rounded-3xl border border-emerald-500/40 bg-gradient-to-br from-slate-900 to-emerald-950/40 shadow-xl text-center">
+              <span class="text-xs uppercase font-bold tracking-wider text-emerald-400 mb-2">Meaning & Context</span>
+              <h3 id="card-meaning" class="text-xl sm:text-2xl font-bold text-slate-100 mb-3">
+                ยินดีที่ได้รู้จัก (สุภาพและเป็นธรรมชาติ)
+              </h3>
+              <p id="card-example" class="text-sm text-slate-300 italic max-w-md bg-slate-800/80 p-3 rounded-xl border border-slate-700/60">
+                "Hi Sarah, it's a pleasure to meet you."
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-2">
+          <button id="btn-prev-card" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold text-slate-300 transition">
+            ◀ คำก่อนหน้า
+          </button>
+          <button id="btn-next-card" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-lg transition">
+            คำถัดไป ▶
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW B: Shadowing Lab -->
+      <div id="view-shadowing-lab" class="hidden space-y-6">
+        <div class="rounded-2xl border border-slate-800 bg-slate-950/60 p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Shadowing Script</span>
+            <div class="flex items-center gap-2">
+              <button id="btn-play-native-slow" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 font-medium">
+                🐢 ฟังแบบช้า (0.75x)
+              </button>
+              <button id="btn-play-native-normal" class="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs text-white font-bold shadow-md">
+                🔊 ฟังความเร็วปกติ (1.0x)
+              </button>
+            </div>
+          </div>
+
+          <p id="shadowing-script-en" class="text-base sm:text-lg text-slate-100 font-medium leading-relaxed bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+            Script content...
+          </p>
+
+          <p id="shadowing-script-th" class="text-xs sm:text-sm text-slate-400 italic">
+            คำแปลภาษาไทย...
+          </p>
+
+          <p id="shadowing-key-focus" class="text-xs text-amber-300 font-semibold bg-amber-500/10 p-2.5 rounded-xl border border-amber-500/20">
+            💡 เทคนิคออกเสียง...
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-slate-800 bg-slate-950/40 p-5 text-center space-y-4">
+          <h4 class="text-xs font-bold text-slate-300 uppercase">อัดเสียงพูดตามเพื่อฟังเทียบเคียง</h4>
+          
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <button id="btn-record-voice" class="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-lg transition flex items-center gap-2">
+              🎙️ บันทึกเสียงพูดตาม
+            </button>
+            <button id="btn-play-user-recording" disabled class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition opacity-50 flex items-center gap-2">
+              ▶️ ฟังเสียงที่อัดไว้
+            </button>
+          </div>
+
+          <audio id="shadowing-user-audio" controls class="mx-auto hidden max-w-xs mt-2"></audio>
+        </div>
+
+        <div class="flex justify-end pt-2">
+          <button id="btn-complete-shadowing" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg transition">
+            สำเร็จภารกิจ Shadowing ✓
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW C: AI Roleplay Sandbox -->
+      <div id="view-ai-roleplay" class="hidden space-y-4">
+        <div class="rounded-2xl border border-slate-800 bg-slate-950/60 p-4 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">สถานการณ์จำลอง</span>
+            <span id="roleplay-persona-badge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+              AI Persona
+            </span>
+          </div>
+          <p id="roleplay-scenario-text" class="text-xs sm:text-sm text-slate-200">
+            Scenario details...
+          </p>
+          <ul id="roleplay-checklist" class="space-y-1 pt-1">
+            <!-- Checklist items -->
+          </ul>
+        </div>
+
+        <div id="roleplay-messages-container" class="rounded-2xl border border-slate-800 bg-slate-950/80 p-4 h-72 overflow-y-auto space-y-3">
+          <!-- Chat messages rendered dynamically -->
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input 
+            type="text" 
+            id="roleplay-text-input" 
+            placeholder="พิมพ์ตอบกลับเป็นภาษาอังกฤษ หรือกดปุ่มไมค์เพื่อพูด..." 
+            class="flex-1 rounded-xl border border-slate-700 bg-slate-800 px-4 py-2.5 text-xs sm:text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500"
+          >
+          <button id="btn-mic-roleplay" class="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition shrink-0">
+            🎙️ พูด
+          </button>
+          <button id="btn-send-roleplay" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition shrink-0">
+            ส่ง ➔
+          </button>
+        </div>
+
+        <div class="flex justify-end pt-2">
+          <button id="btn-complete-roleplay" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg transition">
+            เสร็จสิ้นการสนทนาและบันทึกคะแนน ✓
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal 2: Kids Interactive Story Reader -->
+  <div id="kids-story-reader-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md hidden">
+    <div class="w-full max-w-2xl rounded-3xl border border-pink-500/40 bg-slate-900 p-6 sm:p-8 shadow-2xl overflow-y-auto max-h-[90vh] space-y-5">
+      
+      <!-- Reader Header -->
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <span id="story-page-counter" class="text-xs font-bold text-yellow-300 bg-yellow-500/10 px-2.5 py-0.5 rounded-full border border-yellow-500/20">
+            หน้า 1 จาก 4
+          </span>
+          <h3 id="story-modal-title" class="text-lg sm:text-xl font-black text-white mt-1">Story Title</h3>
+          <p id="story-modal-subtitle" class="text-xs text-slate-400">Story Thai</p>
+        </div>
+        <button id="btn-close-story-reader" class="h-9 w-9 flex items-center justify-center rounded-xl bg-slate-800 text-slate-400 hover:text-white">
+          ✕
+        </button>
+      </div>
+
+      <!-- Illustration Area -->
+      <div class="rounded-3xl border border-slate-800 bg-gradient-to-b from-indigo-950/40 to-slate-950 p-8 text-center">
+        <div id="story-illustration-emoji" class="text-6xl sm:text-7xl mb-4 select-none">
+          🌳🐇🐢
+        </div>
+        
+        <p id="story-text-en" class="text-lg sm:text-xl font-bold text-white leading-relaxed mb-3">
+          Story text in English...
+        </p>
+
+        <p id="story-text-th" class="text-xs sm:text-sm text-slate-300 italic mb-4">
+          คำแปลภาษาไทย...
+        </p>
+
+        <button id="btn-story-speak-full" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md transition">
+          🔊 ฟังเสียงอ่านนิทานทั้งหน้านี้
+        </button>
+      </div>
+
+      <!-- Phonics Highlight Words -->
+      <div class="space-y-2">
+        <span class="text-xs font-bold text-slate-300 block">✨ แตะคำศัพท์เพื่อฟังเสียง Phonics:</span>
+        <div id="story-highlight-words" class="flex flex-wrap gap-2">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Reader Navigation Footer -->
+      <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+        <button id="btn-story-prev" class="px-4 py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-xs font-bold text-slate-300 transition">
+          ◀ หน้าก่อนหน้า
+        </button>
+        <button id="btn-story-next" class="px-5 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-lg transition">
+          หน้าถัดไป ▶
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal 3: Mistake Bank Full Review -->
+  <div id="mistake-bank-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
+    <div class="w-full max-w-2xl rounded-3xl border border-slate-800 bg-slate-900 p-6 sm:p-8 shadow-2xl overflow-y-auto max-h-[85vh]">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+        <div>
+          <h3 class="text-lg font-bold text-white flex items-center gap-2">
+            <span>🧠</span> คลังจุดอ่อนที่ต้องทบทวน (Mistake Bank)
+          </h3>
+          <p class="text-xs text-slate-400">คลิก "จำได้แม่นแล้ว" เพื่อเพิ่มดาวความชำนาญ (Mastery 5 ดาว = พิชิตถาวร)</p>
+        </div>
+        <button id="btn-close-mistake-modal" class="h-8 w-8 flex items-center justify-center rounded-lg bg-slate-800 text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div id="full-mistake-list" class="space-y-3">
+        <!-- Rendered by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Settings (API & Profile) -->
+  <div id="settings-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
+    <div class="w-full max-w-md rounded-3xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+        <h3 class="font-bold text-white text-base">⚙️ การตั้งค่า AI และแอปพลิเคชัน</h3>
+        <button id="btn-close-settings" class="text-slate-400 hover:text-white text-sm">✕</button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">โมเดล AI สำหรับประเมินและ Roleplay</label>
+          <select id="api-provider-select" class="w-full rounded-xl border border-slate-700 bg-slate-800 px-3 py-2 text-slate-100">
+            <option value="local">Smart Offline Simulator (ไม่ต้องใช้เน็ต/API Key)</option>
+            <option value="gemini">Google Gemini API (Cloud LLM)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">API Key (กรณีเลือก Gemini)</label>
+          <input 
+            type="password" 
+            id="api-key-input" 
+            placeholder="AIzaSy..." 
+            class="w-full rounded-xl border border-slate-700 bg-slate-800 px-3 py-2 text-slate-100 placeholder-slate-500 font-mono text-xs"
+          >
+          <p class="text-[10px] text-slate-400 mt-1">คีย์จะถูกบันทึกไว้ในเบราว์เซอร์ของคุณเท่านั้น (LocalStorage)</p>
+        </div>
+
+        <div class="pt-4 flex justify-end gap-2 border-t border-slate-800">
+          <button id="btn-save-settings" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold transition">
+            บันทึกการตั้งค่า
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 5: Day Celebration -->
+  <div id="day-celebration-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
+    <div class="w-full max-w-sm rounded-3xl border border-emerald-500/40 bg-slate-900 p-6 text-center shadow-2xl space-y-4">
+      <div class="text-5xl animate-bounce">🏆</div>
+      <h3 class="text-xl font-extrabold text-white">พิชิต Day <span id="celebration-day-num">1</span> สำเร็จ!</h3>
+      <p class="text-xs text-slate-300 leading-relaxed">
+        คุณทำครบทั้ง 3 ภารกิจประจำวันแล้ว สถิติ Streak ของคุณเพิ่มขึ้นเป็น <strong id="celebration-streak-count" class="text-orange-400 font-bold">2</strong> วันต่อเนื่อง!
+      </p>
+      <button id="btn-close-celebration" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-blue-600 text-white font-bold text-xs shadow-lg transition">
+        รับรางวัลและลุยต่อ ➔
+      </button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="curriculum.js"></script>
+  <script src="kidsData.js"></script>
+  <script src="app.js"></script>
+  <script src="kidsApp.js"></script>
+</body>
+</html>

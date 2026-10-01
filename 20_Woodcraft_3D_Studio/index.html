@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Woodcraft 3D Studio - ออกแบบและจำลองประกอบงานไม้</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Three.js & OrbitControls -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Prompt', sans-serif;
+    }
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    /* Print Styles */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #printable-sheet, #printable-sheet * {
+        visibility: visible !important;
+      }
+      #printable-sheet {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 20px !important;
+        background: white !important;
+        color: black !important;
+        display: block !important;
+        z-index: 99999 !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 h-screen flex flex-col overflow-hidden select-none">
+
+  <!-- Header Bar -->
+  <header class="h-14 bg-white border-b border-slate-200 px-4 flex items-center justify-between shrink-0 z-20 shadow-sm">
+    <div class="flex items-center space-x-3">
+      <div class="w-9 h-9 rounded-xl bg-amber-600 flex items-center justify-center text-white shadow-md shadow-amber-600/30">
+        <i data-lucide="hammer" class="w-5 h-5"></i>
+      </div>
+      <div>
+        <h1 class="text-sm font-bold tracking-tight text-slate-900 flex items-center gap-2">
+          Woodcraft 3D Studio
+          <span class="text-[10px] px-2 py-0.5 font-normal bg-amber-100 text-amber-800 rounded-full border border-amber-300">
+            ระบบออกแบบงานไม้ & ประกอบ 3D
+          </span>
+        </h1>
+        <p class="text-[11px] font-semibold text-slate-600" id="project-title">Pallet Coffee Table (โต๊ะกลางกาแฟ)</p>
+        <p class="text-[10px] text-slate-400 truncate max-w-xs" id="project-desc">โต๊ะกลางกาแฟไม้พาเลททรงคลาสสิก พร้อมบล็อกไม้ขา 4 มุม คานขื่อ และไม้แผ่นท็อปเรียงชิด</p>
+      </div>
+    </div>
+
+    <!-- Top Action Buttons -->
+    <div class="flex items-center space-x-2">
+      <!-- Screenshot Button -->
+      <button id="btn-screenshot" title="จับภาพหน้าจอ 3D" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition border border-slate-200">
+        <i data-lucide="camera" class="w-4 h-4 text-slate-600"></i>
+        <span>จับภาพ</span>
+      </button>
+
+      <!-- Export 3D OBJ -->
+      <button id="btn-export-obj" title="ดาวน์โหลดไฟล์ 3D (.OBJ) สำหรับ Blender / SketchUp" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-amber-800 bg-amber-50 hover:bg-amber-100 rounded-lg transition border border-amber-200">
+        <i data-lucide="download" class="w-4 h-4 text-amber-700"></i>
+        <span>ส่งออก 3D (.OBJ)</span>
+      </button>
+
+      <!-- Audio Toggle -->
+      <label class="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg cursor-pointer border border-slate-200">
+        <input type="checkbox" id="toggle-sound" checked class="w-3.5 h-3.5 accent-amber-600">
+        <i data-lucide="volume-2" class="w-4 h-4 text-slate-600"></i>
+        <span>เสียงประกอบ</span>
+      </label>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="flex-1 flex overflow-hidden relative">
+
+    <!-- Left Sidebar: Templates & Parametric Dimensions -->
+    <aside class="w-80 bg-white border-r border-slate-200 flex flex-col shrink-0 z-10 shadow-sm overflow-hidden">
+      <!-- Sidebar Tabs -->
+      <div class="p-3 border-b border-slate-200 bg-slate-50/70 flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+          <i data-lucide="layout-grid" class="w-4 h-4 text-amber-600"></i>
+          ตัวอย่างรูปแบบงานไม้ (Templates)
+        </span>
+        <span class="text-[11px] text-slate-500 font-semibold">20 รูปแบบ</span>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="px-3 pt-2 pb-1 border-b border-slate-100 bg-white flex flex-wrap gap-1">
+        <button data-category="all" class="cat-tab-btn px-2 py-0.5 text-[10px] font-semibold rounded-md transition bg-amber-600 text-white cursor-pointer">
+          ทั้งหมด (20)
+        </button>
+        <button data-category="โต๊ะ" class="cat-tab-btn px-2 py-0.5 text-[10px] font-medium rounded-md transition bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer">
+          โต๊ะ (6)
+        </button>
+        <button data-category="เก้าอี้" class="cat-tab-btn px-2 py-0.5 text-[10px] font-medium rounded-md transition bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer">
+          เก้าอี้ (4)
+        </button>
+        <button data-category="ชั้นวาง/ตู้" class="cat-tab-btn px-2 py-0.5 text-[10px] font-medium rounded-md transition bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer">
+          ชั้นวาง/ตู้ (4)
+        </button>
+        <button data-category="กลางแจ้ง" class="cat-tab-btn px-2 py-0.5 text-[10px] font-medium rounded-md transition bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer">
+          กลางแจ้ง (3)
+        </button>
+        <button data-category="ของแต่งบ้าน" class="cat-tab-btn px-2 py-0.5 text-[10px] font-medium rounded-md transition bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer">
+          ของแต่งบ้าน (3)
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-3 space-y-4">
+        <!-- Template List (20 Models) -->
+        <div id="template-list-container" class="space-y-1.5">
+          
+          <!-- 1. Pallet Coffee Table -->
+          <button data-project-id="pallet-coffee-table" data-category="โต๊ะ" class="template-btn w-full p-2.5 rounded-xl border border-amber-600 bg-amber-50 ring-1 ring-amber-500 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-amber-200/70 flex items-center justify-center text-amber-900 shrink-0 font-bold text-xs transition">
+              80x60
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">1. Pallet Coffee Table</div>
+              <div class="text-[11px] text-slate-500 truncate">โต๊ะกลางกาแฟ 80×60×40 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-amber-200 text-amber-900 rounded font-medium">โต๊ะ</span>
+          </button>
+
+          <!-- 2. Pallet Bench -->
+          <button data-project-id="pallet-bench" data-category="เก้าอี้" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              120x60
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">2. Pallet Bench</div>
+              <div class="text-[11px] text-slate-500 truncate">ม้านั่งยาวพนักพิง 120×60×75 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-700 rounded font-medium">เก้าอี้</span>
+          </button>
+
+          <!-- 3. Pallet Wood Crate -->
+          <button data-project-id="pallet-wood-crate" data-category="ชั้นวาง/ตู้" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              50x40
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">3. Pallet Wood Crate</div>
+              <div class="text-[11px] text-slate-500 truncate">ลังไม้/กล่องอเนกประสงค์ 50×40×30 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-700 rounded font-medium">กล่อง</span>
+          </button>
+
+          <!-- 4. Pallet Wall Shelf -->
+          <button data-project-id="pallet-wall-shelf" data-category="ชั้นวาง/ตู้" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              80x14
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">4. Pallet Wall Shelf</div>
+              <div class="text-[11px] text-slate-500 truncate">ชั้นวางของติดผนัง 80×14×60 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-700 rounded font-medium">ชั้นวาง</span>
+          </button>
+
+          <!-- 5. Vertical Garden Planter -->
+          <button data-project-id="vertical-garden-planter" data-category="กลางแจ้ง" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              80x15
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">5. Vertical Garden Planter</div>
+              <div class="text-[11px] text-slate-500 truncate">กระถางแนวตั้งติดผนัง 80×15×120 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-medium">สวน</span>
+          </button>
+
+          <!-- 6. Pallet Outdoor Lounge -->
+          <button data-project-id="pallet-outdoor-lounge" data-category="กลางแจ้ง" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              70x200
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">6. Pallet Outdoor Lounge</div>
+              <div class="text-[11px] text-slate-500 truncate">เตียงนอนอาบแดด 70×200×30 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-blue-100 text-blue-800 rounded font-medium">เตียง</span>
+          </button>
+
+          <!-- 7. Classic Dining Table -->
+          <button data-project-id="classic-dining-table" data-category="โต๊ะ" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              120x75
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">7. Classic Dining Table</div>
+              <div class="text-[11px] text-slate-500 truncate">โต๊ะอาหารทรงเหลี่ยม 120×75×75 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-purple-100 text-purple-800 rounded font-medium">โต๊ะ</span>
+          </button>
+
+          <!-- 8. Minimal Stool -->
+          <button data-project-id="minimal-stool" data-category="เก้าอี้" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              35x35
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">8. Minimal Stool</div>
+              <div class="text-[11px] text-slate-500 truncate">เก้าอี้สตูลไม้สี่เหลี่ยม 35×35×45 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-700 rounded font-medium">เก้าอี้</span>
+          </button>
+
+          <!-- 9. Bookshelf Ladder -->
+          <button data-project-id="bookshelf-ladder" data-category="ชั้นวาง/ตู้" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              60x35
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">9. Ladder Bookshelf</div>
+              <div class="text-[11px] text-slate-500 truncate">ชั้นวางของทรงบันได 60×35×150 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-amber-100 text-amber-800 rounded font-medium">ชั้นวาง</span>
+          </button>
+
+          <!-- 10. Bedside Nightstand -->
+          <button data-project-id="bedside-nightstand" data-category="โต๊ะ" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              45x40
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">10. Bedside Nightstand</div>
+              <div class="text-[11px] text-slate-500 truncate">โต๊ะข้างเตียงมินิมอล 45×40×55 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-purple-100 text-purple-800 rounded font-medium">โต๊ะ</span>
+          </button>
+
+          <!-- 11. TV Media Console -->
+          <button data-project-id="tv-console-credenza" data-category="ชั้นวาง/ตู้" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              150x40
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">11. TV Media Console</div>
+              <div class="text-[11px] text-slate-500 truncate">ตู้วางทีวีสแกนดิเนเวีย 150×40×50 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-indigo-100 text-indigo-800 rounded font-medium">ตู้</span>
+          </button>
+
+          <!-- 12. Shoe Rack Bench -->
+          <button data-project-id="shoe-rack-bench" data-category="เก้าอี้" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              90x30
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">12. Shoe Rack Bench</div>
+              <div class="text-[11px] text-slate-500 truncate">ม้านั่งใส่รองเท้า 2 ชั้น 90×30×45 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-700 rounded font-medium">เก้าอี้</span>
+          </button>
+
+          <!-- 13. Standing Desk -->
+          <button data-project-id="standing-desk" data-category="โต๊ะ" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              120x60
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">13. Standing Desk</div>
+              <div class="text-[11px] text-slate-500 truncate">โต๊ะทำงานแบบยืน 120×60×105 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-amber-200 text-amber-900 rounded font-medium">โต๊ะ</span>
+          </button>
+
+          <!-- 14. Kitchen Island Cart -->
+          <button data-project-id="kitchen-island-cart" data-category="โต๊ะ" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              100x60
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">14. Kitchen Island Cart</div>
+              <div class="text-[11px] text-slate-500 truncate">โต๊ะเตรียมอาหารในครัว 100×60×90 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-amber-200 text-amber-900 rounded font-medium">โต๊ะ</span>
+          </button>
+
+          <!-- 15. Wine Bottle & Glass Rack -->
+          <button data-project-id="wine-bottle-glass-rack" data-category="ของแต่งบ้าน" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              70x20
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">15. Wine & Glass Rack</div>
+              <div class="text-[11px] text-slate-500 truncate">ที่แขวนไวน์และแก้ว 70×20×40 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-rose-100 text-rose-800 rounded font-medium">บาร์</span>
+          </button>
+
+          <!-- 16. Outdoor Picnic Table -->
+          <button data-project-id="picnic-table-benches" data-category="กลางแจ้ง" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              150x140
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">16. Outdoor Picnic Table</div>
+              <div class="text-[11px] text-slate-500 truncate">โต๊ะปิกนิกสนามพร้อมม้านั่ง 150×140×75 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-medium">สนาม</span>
+          </button>
+
+          <!-- 17. Elevated Dog Bed -->
+          <button data-project-id="dog-bed-couch" data-category="ของแต่งบ้าน" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              80x60
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">17. Elevated Dog Bed</div>
+              <div class="text-[11px] text-slate-500 truncate">เตียงนอนสัตว์เลี้ยงยกพื้น 80×60×28 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-orange-100 text-orange-800 rounded font-medium">สัตว์เลี้ยง</span>
+          </button>
+
+          <!-- 18. Adirondack Chair -->
+          <button data-project-id="adirondack-chair" data-category="เก้าอี้" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              80x90
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">18. Adirondack Chair</div>
+              <div class="text-[11px] text-slate-500 truncate">เก้าอี้พักผ่อนแอดิรอนแด็ก 80×90×90 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-blue-100 text-blue-800 rounded font-medium">เก้าอี้</span>
+          </button>
+
+          <!-- 19. Hallway Coat Tree -->
+          <button data-project-id="coat-rack-tree" data-category="ของแต่งบ้าน" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              45x45
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">19. Hallway Coat Tree</div>
+              <div class="text-[11px] text-slate-500 truncate">ที่แขวนเสื้อโค้ตทรงต้นไม้ 45×45×175 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-700 rounded font-medium">แต่งบ้าน</span>
+          </button>
+
+          <!-- 20. Folding Camping Table -->
+          <button data-project-id="folding-camping-table" data-category="โต๊ะ" class="template-btn w-full p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex items-center space-x-3 cursor-pointer">
+            <div class="badge-box w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0 font-bold text-xs transition">
+              90x60
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-900 truncate">20. Folding Camping Table</div>
+              <div class="text-[11px] text-slate-500 truncate">โต๊ะแคมป์ปิ้งไม้พับได้ 90×60×45 cm</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 bg-amber-200 text-amber-900 rounded font-medium">โต๊ะ</span>
+          </button>
+
+        </div>
+
+        <hr class="border-slate-200">
+
+        <!-- Dimension & Parametric Scaling Controls -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+              <i data-lucide="maximize" class="w-4 h-4 text-amber-600"></i>
+              ปรับขนาดมิติชิ้นงาน (Dimensions)
+            </h3>
+            <span class="text-[10px] text-slate-400 font-mono">หน่วย: CM</span>
+          </div>
+
+          <!-- Quick Scale Multipliers -->
+          <div class="grid grid-cols-4 gap-1.5">
+            <button data-scale="0.8" class="scale-btn py-1 text-[11px] font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md transition text-center">
+              ย่อ 0.8x
+            </button>
+            <button data-scale="1.0" class="scale-btn py-1 text-[11px] font-semibold bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-md transition text-center">
+              เดิม 1.0x
+            </button>
+            <button data-scale="1.2" class="scale-btn py-1 text-[11px] font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md transition text-center">
+              ขยาย 1.2x
+            </button>
+            <button data-scale="1.5" class="scale-btn py-1 text-[11px] font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md transition text-center">
+              ขยาย 1.5x
+            </button>
+          </div>
+
+          <!-- Width, Depth, Height Inputs -->
+          <div class="space-y-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+            <!-- Width -->
+            <div class="flex items-center justify-between">
+              <label for="dim-width" class="text-xs font-medium text-slate-600">ความกว้าง (Width - X):</label>
+              <div class="flex items-center space-x-1">
+                <input type="number" id="dim-width" value="80" min="20" max="300" step="1"
+                  class="w-16 px-2 py-1 text-xs font-semibold text-right border border-slate-300 rounded focus:ring-1 focus:ring-amber-500 focus:outline-none">
+                <span class="text-xs text-slate-400">cm</span>
+              </div>
+            </div>
+
+            <!-- Depth -->
+            <div class="flex items-center justify-between">
+              <label for="dim-depth" class="text-xs font-medium text-slate-600">ความลึก (Depth - Z):</label>
+              <div class="flex items-center space-x-1">
+                <input type="number" id="dim-depth" value="60" min="20" max="300" step="1"
+                  class="w-16 px-2 py-1 text-xs font-semibold text-right border border-slate-300 rounded focus:ring-1 focus:ring-amber-500 focus:outline-none">
+                <span class="text-xs text-slate-400">cm</span>
+              </div>
+            </div>
+
+            <!-- Height -->
+            <div class="flex items-center justify-between">
+              <label for="dim-height" class="text-xs font-medium text-slate-600">ความสูง (Height - Y):</label>
+              <div class="flex items-center space-x-1">
+                <input type="number" id="dim-height" value="40" min="15" max="250" step="1"
+                  class="w-16 px-2 py-1 text-xs font-semibold text-right border border-slate-300 rounded focus:ring-1 focus:ring-amber-500 focus:outline-none">
+                <span class="text-xs text-slate-400">cm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="border-slate-200">
+
+        <!-- Wood Texture / Finish Selector -->
+        <div class="space-y-2">
+          <h3 class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+            <i data-lucide="palette" class="w-4 h-4 text-amber-600"></i>
+            ลวดลาย & ชนิดเนื้อไม้ (Wood Finish)
+          </h3>
+          <div class="grid grid-cols-2 gap-2">
+            <button data-wood="pine" class="wood-type-btn p-2 rounded-lg border border-slate-200 text-left flex items-center space-x-2 ring-2 ring-amber-500 bg-white">
+              <span class="w-5 h-5 rounded-full bg-[#d8b180] border border-amber-900/20 shadow-inner shrink-0"></span>
+              <span class="text-xs font-medium text-slate-800">ไม้สนพาเลท</span>
+            </button>
+            <button data-wood="teak" class="wood-type-btn p-2 rounded-lg border border-slate-200 text-left flex items-center space-x-2 bg-white">
+              <span class="w-5 h-5 rounded-full bg-[#b87b3a] border border-amber-900/20 shadow-inner shrink-0"></span>
+              <span class="text-xs font-medium text-slate-800">ไม้สักทอง</span>
+            </button>
+            <button data-wood="walnut" class="wood-type-btn p-2 rounded-lg border border-slate-200 text-left flex items-center space-x-2 bg-white">
+              <span class="w-5 h-5 rounded-full bg-[#563d2d] border border-amber-900/20 shadow-inner shrink-0"></span>
+              <span class="text-xs font-medium text-slate-800">ไม้วอลนัท</span>
+            </button>
+            <button data-wood="whitewash" class="wood-type-btn p-2 rounded-lg border border-slate-200 text-left flex items-center space-x-2 bg-white">
+              <span class="w-5 h-5 rounded-full bg-[#e4ded5] border border-amber-900/20 shadow-inner shrink-0"></span>
+              <span class="text-xs font-medium text-slate-800">ไม้ขาวนอร์ดิก</span>
+            </button>
+          </div>
+        </div>
+
+        <hr class="border-slate-200">
+
+        <!-- Display Toggles -->
+        <div class="space-y-2">
+          <h3 class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+            <i data-lucide="sliders" class="w-4 h-4 text-amber-600"></i>
+            ตัวเลือกการแสดงผล 3D
+          </h3>
+          <div class="space-y-1.5 text-xs text-slate-700">
+            <label class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+              <span class="flex items-center gap-2">
+                <i data-lucide="user" class="w-3.5 h-3.5 text-slate-500"></i>
+                หุ่นคนเทียบสเกล (160 cm)
+              </span>
+              <input type="checkbox" id="toggle-human" checked class="w-4 h-4 accent-amber-600 rounded">
+            </label>
+            <label class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+              <span class="flex items-center gap-2">
+                <i data-lucide="ruler" class="w-3.5 h-3.5 text-slate-500"></i>
+                เส้นบอกขนาดมิติ (Dimensions)
+              </span>
+              <input type="checkbox" id="toggle-dimensions" checked class="w-4 h-4 accent-amber-600 rounded">
+            </label>
+            <label class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+              <span class="flex items-center gap-2">
+                <i data-lucide="grid" class="w-3.5 h-3.5 text-slate-500"></i>
+                พื้นตารางช็อปไม้ (Grid)
+              </span>
+              <input type="checkbox" id="toggle-grid" checked class="w-4 h-4 accent-amber-600 rounded">
+            </label>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Center: 3D Viewport & Floating Controls -->
+    <main class="flex-1 flex flex-col relative overflow-hidden bg-slate-200">
+      
+      <!-- Top Floating Viewport Toolbar -->
+      <div class="absolute top-3 left-4 right-4 z-10 flex items-center justify-between pointer-events-none">
+        <!-- Camera Views -->
+        <div class="pointer-events-auto bg-white/90 backdrop-blur-md px-2 py-1.5 rounded-xl shadow-md border border-slate-200/80 flex items-center space-x-1">
+          <span class="text-[11px] font-semibold text-slate-400 px-2">มุมกล้อง:</span>
+          <button id="cam-iso" class="px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 rounded-lg transition">3D อิสระ</button>
+          <button id="cam-front" class="px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 rounded-lg transition">หน้าตรง</button>
+          <button id="cam-top" class="px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 rounded-lg transition">มุมมองบน</button>
+          <button id="cam-side" class="px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 rounded-lg transition">ด้านข้าง</button>
+        </div>
+
+        <!-- Render Modes -->
+        <div class="pointer-events-auto bg-white/90 backdrop-blur-md p-1 rounded-xl shadow-md border border-slate-200/80 flex items-center space-x-1 text-xs">
+          <button data-mode="realistic" class="viewmode-btn px-2.5 py-1 font-medium rounded-lg transition bg-white shadow-sm text-amber-800">
+            เนื้อไม้สมจริง
+          </button>
+          <button data-mode="wireframe" class="viewmode-btn px-2.5 py-1 font-medium rounded-lg transition text-slate-600 hover:bg-slate-100">
+            โครงลวด (Wireframe)
+          </button>
+          <button data-mode="xray" class="viewmode-btn px-2.5 py-1 font-medium rounded-lg transition text-slate-600 hover:bg-slate-100">
+            เอกซเรย์ (X-Ray)
+          </button>
+        </div>
+      </div>
+
+      <!-- 3D Canvas Container -->
+      <div id="canvas-container" class="flex-1 w-full h-full relative cursor-grab active:cursor-grabbing"></div>
+
+      <!-- Bottom Floating Assembly Dock (Controls & Timeline) -->
+      <div class="absolute bottom-4 left-4 right-4 z-10 flex justify-center pointer-events-none">
+        <div class="pointer-events-auto bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-xl border border-slate-200/90 w-full max-w-3xl flex flex-col space-y-2.5">
+          
+          <!-- Assembly Step & Play Controls -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <!-- Play / Pause Animation Button -->
+              <button id="btn-play-pause" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-amber-600 hover:bg-amber-700 rounded-xl transition shadow-md shadow-amber-600/30">
+                <i data-lucide="play" class="w-4 h-4"></i>
+                <span>เล่นอนิเมชั่น</span>
+              </button>
+
+              <!-- Step Buttons -->
+              <div class="flex items-center bg-slate-100 rounded-xl p-0.5 border border-slate-200">
+                <button id="btn-prev-step" title="ขั้นตอนก่อนหน้า" class="p-1 hover:bg-white rounded-lg text-slate-600 transition">
+                  <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+                <span id="step-label" class="px-3 text-xs font-bold text-slate-800 min-w-[120px] text-center">
+                  ขั้นตอนที่ 6 / 6
+                </span>
+                <button id="btn-next-step" title="ขั้นตอนถัดไป" class="p-1 hover:bg-white rounded-lg text-slate-600 transition">
+                  <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Explode Distance Multiplier -->
+            <div class="flex items-center space-x-2 text-xs text-slate-600">
+              <span class="text-[11px] font-medium">ระยะกระจายชิ้นส่วน:</span>
+              <input type="range" id="explode-dist-slider" min="0.5" max="2.5" step="0.1" value="1.0" class="w-20 accent-amber-600">
+            </div>
+          </div>
+
+          <!-- Assembly Progress Slider (Exploded View -> Assembled) -->
+          <div class="space-y-1">
+            <div class="flex items-center justify-between text-[11px] font-semibold text-slate-500">
+              <span class="flex items-center gap-1">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-600"></i>
+                แยกชิ้นส่วนกระจายตัว (Exploded View 0%)
+              </span>
+              <span>ประกอบสมบูรณ์ (Assembled 100%)</span>
+            </div>
+            <input type="range" id="assembly-slider" min="0" max="100" value="100" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600">
+          </div>
+
+          <!-- Hidden step slider for sync -->
+          <input type="range" id="step-slider" min="1" max="6" value="6" class="hidden">
+        </div>
+      </div>
+    </main>
+
+    <!-- Right Sidebar: Inspector & Cut List (BOM) -->
+    <aside class="w-96 bg-white border-l border-slate-200 flex flex-col shrink-0 z-10 shadow-sm overflow-hidden">
+      <!-- Tabs Header -->
+      <div class="p-3 border-b border-slate-200 bg-slate-50/70 flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+          <i data-lucide="clipboard-list" class="w-4 h-4 text-amber-600"></i>
+          รายการตัดไม้ & การเข้ามุม (Cut List)
+        </span>
+        <button id="btn-print-bom" class="p-1 hover:bg-slate-200 rounded text-slate-600 transition" title="พิมพ์รายการตัดไม้">
+          <i data-lucide="printer" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-3 space-y-4">
+        
+        <!-- Selected Part Inspector Card (Appears when clicking wood in 3D) -->
+        <div id="part-inspector-card" class="bg-amber-50/70 border border-amber-300 rounded-xl p-3 space-y-2.5 hidden">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
+              <span id="insp-part-name" class="text-xs font-bold text-slate-900">แผ่นไม้ที่เลือก</span>
+            </div>
+            <span id="insp-part-step" class="text-[10px] px-2 py-0.5 font-mono bg-blue-100 text-blue-800 rounded-full font-semibold">Step 1</span>
+          </div>
+
+          <!-- Wood Category & Joinery Type -->
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div>
+              <label class="text-[11px] text-slate-500 font-medium">ประเภทชิ้นส่วน:</label>
+              <div id="insp-part-cat" class="font-semibold text-slate-700">Slat</div>
+            </div>
+            <div>
+              <label for="insp-joint-type" class="text-[11px] text-slate-500 font-medium">รูปแบบการเข้าไม้:</label>
+              <select id="insp-joint-type" class="w-full mt-0.5 p-1 text-xs border border-amber-300 rounded bg-white font-medium focus:ring-1 focus:ring-amber-500">
+                <option value="butt">ต่อชนตรง (Butt Joint)</option>
+                <option value="miter">บากเฉียง 45° (Miter Joint)</option>
+                <option value="pocket-hole">พ็อกเก็ตโฮล (Pocket Hole)</option>
+                <option value="lap">บากครึ่งไม้ (Lap Joint)</option>
+                <option value="mortise-tenon">เดือยรู (Mortise & Tenon)</option>
+                <option value="dowel">สลักเดือยกลม (Dowel)</option>
+                <option value="pallet-block">บล็อกพาเลท (Pallet Block)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Fine-tune Dimensions of this piece -->
+          <div class="space-y-1">
+            <label class="text-[11px] text-slate-500 font-medium">ขนาดชิ้นนี้ (cm): กว้าง × ยาว × หนา</label>
+            <div class="grid grid-cols-3 gap-1.5">
+              <input type="number" id="insp-dim-x" step="0.5" class="px-2 py-1 text-xs text-center border border-slate-300 rounded bg-white font-semibold">
+              <input type="number" id="insp-dim-y" step="0.5" class="px-2 py-1 text-xs text-center border border-slate-300 rounded bg-white font-semibold">
+              <input type="number" id="insp-dim-z" step="0.5" class="px-2 py-1 text-xs text-center border border-slate-300 rounded bg-white font-semibold">
+            </div>
+          </div>
+        </div>
+
+        <!-- Cut List Table -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-xs font-semibold text-slate-700">
+            <span>ตารางสรุปรายการตัดไม้ (Cut List)</span>
+            <span id="total-pieces-count" class="font-bold text-amber-700">0 ชิ้น</span>
+          </div>
+
+          <div class="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+            <table class="w-full border-collapse text-left">
+              <thead>
+                <tr class="bg-slate-50 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                  <th class="p-2.5">ลำดับ</th>
+                  <th class="p-2.5">ชื่อชิ้นส่วน</th>
+                  <th class="p-2.5 text-center">จน.</th>
+                  <th class="p-2.5">ขนาด (W×H×D)</th>
+                  <th class="p-2.5">การเข้าไม้</th>
+                </tr>
+              </thead>
+              <tbody id="cutlist-table-body">
+                <!-- Dynamically Populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Summary Totals -->
+        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+          <div>
+            <span class="text-[11px] text-slate-500 font-medium">ความยาวไม้รวมโดยประมาณ:</span>
+            <div id="total-linear-meters" class="text-sm font-bold text-slate-900">0.00 เมตร</div>
+          </div>
+          <div class="text-right">
+            <span class="text-[11px] text-slate-500 font-medium">มาตรฐานไม้:</span>
+            <div class="text-xs font-semibold text-amber-700">หนา 1.6 - 2.5 cm</div>
+          </div>
+        </div>
+
+        <!-- Parts Hierarchy Tree (List of all pieces in 3D) -->
+        <div class="space-y-2">
+          <div class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+            <i data-lucide="layers" class="w-4 h-4 text-amber-600"></i>
+            โครงสร้างชิ้นส่วนทั้งหมด (Parts Tree)
+          </div>
+          <p class="text-[11px] text-slate-500">คลิกที่ชิ้นส่วนเพื่อซูมไฮไลต์ใน 3D:</p>
+          <div id="parts-tree-list" class="space-y-1 max-h-48 overflow-y-auto pr-1">
+            <!-- Dynamically Populated -->
+          </div>
+        </div>
+
+        <!-- Instructions Card -->
+        <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-3 text-xs text-blue-900 space-y-1.5">
+          <div class="font-bold flex items-center gap-1.5">
+            <i data-lucide="info" class="w-4 h-4 text-blue-600"></i>
+            คำแนะนำการใช้งาน
+          </div>
+          <ul class="list-disc list-inside space-y-0.5 text-[11px] text-blue-800">
+            <li>คลิกซ้ายค้างแล้วลากเพื่อหมุนมุมมอง 3D</li>
+            <li>หมุนลูกกลิ้งเมาส์เพื่อซูมเข้า-ออก</li>
+            <li>คลิกขวาค้างเพื่อเลื่อนขนาน (Pan)</li>
+            <li>คลิกที่ชิ้นไม้ใน 3D เพื่อแก้ไขขนาดและการเข้ามุม</li>
+            <li>เลื่อนสไลเดอร์เพื่อดูอนิเมชั่นระเบิดชิ้นส่วน (Exploded View)</li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Print & Export Modal -->
+  <div id="print-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden border border-slate-200">
+      <!-- Modal Header -->
+      <div class="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50 shrink-0">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center text-amber-700">
+            <i data-lucide="printer" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h2 class="text-sm font-bold text-slate-900">พิมพ์แบบสรุปรายการตัดไม้ (Cut Sheet)</h2>
+            <p class="text-[11px] text-slate-500">พร้อมสั่งพิมพ์หรือบันทึกเป็น PDF เพื่อนำไปตัดไม้จริง</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btn-trigger-print" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition shadow-sm cursor-pointer">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+            พิมพ์ / บันทึก PDF
+          </button>
+          <button id="btn-close-print-modal" class="p-1.5 hover:bg-slate-200 rounded-lg text-slate-500 transition cursor-pointer">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Printable Area -->
+      <div class="flex-1 overflow-y-auto p-6 bg-slate-50/50">
+        <div id="printable-sheet" class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+          <!-- Document Header -->
+          <div class="border-b-2 border-amber-600 pb-3 flex items-start justify-between">
+            <div>
+              <div class="text-[10px] font-bold tracking-widest text-amber-600 uppercase">Woodcraft 3D Studio CAD Plan</div>
+              <h1 id="print-sheet-title" class="text-lg font-bold text-slate-900">Pallet Coffee Table</h1>
+              <p id="print-sheet-desc" class="text-xs text-slate-500">โต๊ะกลางกาแฟไม้พาเลททรงคลาสสิก</p>
+            </div>
+            <div class="text-right text-xs">
+              <div class="font-bold text-slate-800">มิติรวม (W × D × H):</div>
+              <div id="print-sheet-dims" class="text-amber-700 font-mono font-bold text-sm">80 × 60 × 40 CM</div>
+            </div>
+          </div>
+
+          <!-- Summary Stats -->
+          <div class="grid grid-cols-3 gap-3 p-3 bg-slate-50 rounded-lg text-center border border-slate-200 text-xs">
+            <div>
+              <span class="text-slate-400 text-[10px]">จำนวนชิ้นส่วนไม้ทั้งหมด</span>
+              <div id="print-sheet-pieces" class="font-bold text-slate-800 text-sm mt-0.5">23 ชิ้น</div>
+            </div>
+            <div>
+              <span class="text-slate-400 text-[10px]">ความยาวไม้รวมโดยประมาณ</span>
+              <div id="print-sheet-length" class="font-bold text-amber-700 text-sm mt-0.5">14.50 เมตร</div>
+            </div>
+            <div>
+              <span class="text-slate-400 text-[10px]">ชนิดเนื้อไม้ที่เลือก</span>
+              <div id="print-sheet-wood" class="font-bold text-slate-800 text-sm mt-0.5">ไม้สนพาเลท</div>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="overflow-hidden border border-slate-200 rounded-lg">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-100 text-slate-600 text-[10px] uppercase font-bold border-b border-slate-200">
+                  <th class="p-2">#</th>
+                  <th class="p-2">รายการชิ้นส่วน</th>
+                  <th class="p-2 text-center">จำนวน</th>
+                  <th class="p-2">ขนาดตัด (หนา × กว้าง × ยาว cm)</th>
+                  <th class="p-2">การเข้าไม้ / รอยต่อ</th>
+                </tr>
+              </thead>
+              <tbody id="print-sheet-table-body">
+                <!-- Dynamically Populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Footer Notes -->
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between text-[10px] text-slate-400">
+            <span>พิมพ์จาก Woodcraft 3D Studio - แพลตฟอร์มออกแบบงานไม้ 3D</span>
+            <span id="print-sheet-date"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="models.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>
