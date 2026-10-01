@@ -4,959 +4,2108 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ศูนย์รวมเว็บแอปพลิเคชัน by Psai</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'><rect width='32' height='32' rx='8' fill='%23059669'/><path d='M16 4V28M6 10C6 17.5 10.5 22 16 22C21.5 22 26 17.5 26 10' stroke='white' stroke-width='2.6' stroke-linecap='round'/><circle cx='6' cy='10' r='2.5' fill='%23a7f3d0'/><circle cx='26' cy='10' r='2.5' fill='%23bae6fd'/><circle cx='16' cy='4' r='2.5' fill='%23fef08a'/></svg>" type="image/svg+xml">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'><rect width='32' height='32' rx='8' fill='%230284c7'/><path d='M16 4V28M6 10C6 17.5 10.5 22 16 22C21.5 22 26 17.5 26 10' stroke='white' stroke-width='2.6' stroke-linecap='round'/><circle cx='6' cy='10' r='2.5' fill='%23bae6fd'/><circle cx='26' cy='10' r='2.5' fill='%23a7f3d0'/><circle cx='16' cy='4' r='2.5' fill='%23fef08a'/></svg>" type="image/svg+xml">
   
-  <!-- Fonts -->
+  <!-- Fonts: Prompt & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Prompt', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
-          }
-        }
-      }
-    }
-  </script>
-
   <style>
+    :root {
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border-subtle: #e2e8f0;
+      --border-active: #0284c7;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      
+      --brand-blue: #0284c7;
+      --brand-dark-blue: #0369a1;
+      --accent-cyan: #06b6d4;
+      --accent-green: #10b981;
+      --accent-purple: #8b5cf6;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
+      --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.03);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Prompt", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Sarabun", "Kanit", sans-serif;
+    }
+
     body {
-      background-color: #f8fafc;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      padding: 24px 20px 48px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    /* TOP HEADER */
+    .top-header {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 22px 28px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 26px;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .brand-info h1 {
+      font-size: 22px;
+      font-weight: 800;
       color: #0f172a;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
     }
-    .project-row {
-      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+
+    .brand-info h1 span.by-psai {
+      background: linear-gradient(135deg, #0284c7, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
     }
-    .project-row:hover {
-      background-color: #f8fafc;
+
+    .brand-info p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .top-badges {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .badge-green {
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+    }
+
+    .badge-blue {
+      background: #f0f9ff;
+      color: #0284c7;
+      border: 1px solid #bae6fd;
+    }
+
+    /* VIEW SWITCHER BAR */
+    .view-switch-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .view-btn {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      color: #334155;
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .view-btn:hover {
+      background: #f1f5f9;
       border-color: #94a3b8;
     }
-    .custom-scroll::-webkit-scrollbar {
-      height: 6px;
+
+    .view-btn.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
     }
-    .custom-scroll::-webkit-scrollbar-thumb {
+
+    /* LIVE SEARCH BAR */
+    .search-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 12px 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 14.5px;
+      color: #0f172a;
+      background: transparent;
+    }
+
+    .search-input::placeholder {
+      color: #94a3b8;
+    }
+
+    .search-badge {
+      font-size: 12px;
+      background: #f1f5f9;
+      color: #64748b;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* MAIN MIND MAP CONTAINER */
+    .map-container {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 26px 28px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+
+    .map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .map-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .map-instruction {
+      font-size: 13px;
+      color: #0284c7;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      padding: 5px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    /* ROOT NODE BUTTON */
+    .root-node-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+
+    .root-card {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: white;
+      padding: 12px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .root-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.38);
+    }
+
+    .root-card.active {
+      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.25), 0 6px 20px rgba(2, 132, 199, 0.4);
+    }
+
+    /* BRANCHES GRID (MIND MAP CATEGORIES) */
+    .vault-branches-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .branch-card {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      user-select: none;
+    }
+
+    .branch-card:hover {
+      background: #ffffff !important;
+      border-color: #0284c7 !important;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(2, 132, 199, 0.15) !important;
+    }
+
+    .branch-card.active {
+      background: #ffffff !important;
+      border-color: #0284c7 !important;
+      border-width: 2px !important;
+      transform: translateY(-2px);
+      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.2), 0 8px 20px rgba(2, 132, 199, 0.12) !important;
+    }
+
+    .branch-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .branch-code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    .branch-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .branch-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* PROJECTS FILTER BAR */
+    .projects-filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--border-subtle);
+    }
+
+    .filter-chip {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+
+    .filter-chip:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .filter-chip.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+    }
+
+    /* PROJECT NODES GRID */
+    .project-nodes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 10px;
+      max-height: 360px;
+      overflow-y: auto;
+      padding-right: 6px;
+      margin-bottom: 8px;
+    }
+
+    .project-nodes-grid::-webkit-scrollbar {
+      width: 6px;
+    }
+    .project-nodes-grid::-webkit-scrollbar-thumb {
       background: #cbd5e1;
-      border-radius: 9999px;
+      border-radius: 999px;
+    }
+
+    .p-node {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .p-node:hover {
+      border-color: #0284c7 !important;
+      background: #f0f9ff !important;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12) !important;
+    }
+
+    .p-node.active {
+      border-color: #0284c7 !important;
+      background: #e0f2fe !important;
+      border-width: 2px !important;
+      font-weight: 600 !important;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.25) !important;
+      transform: translateY(-2px);
+    }
+
+    .p-node-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .p-node-id {
+      font-size: 11px;
+      font-weight: 700;
+      color: #0284c7;
+      font-family: "JetBrains Mono", monospace;
+      flex-shrink: 0;
+    }
+
+    .p-node-name {
+      font-size: 13px;
+      color: #1e293b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 600;
+    }
+
+    .p-node-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      flex-shrink: 0;
+    }
+
+    .tag-online {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #86efac;
+    }
+
+    .tag-local {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* HORIZONTAL TABLE DRAWER */
+    .drawer-section {
+      background: #ffffff;
+      border: 2px solid #0284c7;
+      border-radius: 18px;
+      padding: 24px 28px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .drawer-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .drawer-title-group h2 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .drawer-path {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+      color: #0369a1;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-top: 5px;
+      display: inline-block;
+      word-break: break-all;
+    }
+
+    .drawer-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-action-primary {
+      background: #0284c7;
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+    }
+
+    .btn-action-primary:hover {
+      background: #0369a1;
+      transform: translateY(-1px);
+    }
+
+    .btn-action-secondary {
+      background: #f8fafc;
+      color: #334155;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #cbd5e1;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-action-secondary:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .btn-copy {
+      background: #f0f9ff;
+      color: #0284c7;
+      border: 1px solid #bae6fd;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-copy:hover {
+      background: #0284c7;
+      color: white;
+    }
+
+    /* HORIZONTAL 4-COLUMN TABLE */
+    .horizontal-table-wrapper {
+      overflow-x: auto;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    .h-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      min-width: 860px;
+    }
+
+    .h-table th {
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1.5px solid #cbd5e1;
+    }
+
+    .h-table td {
+      padding: 14px 16px;
+      vertical-align: top;
+      font-size: 13px;
+      color: #1e293b;
+      border-right: 1px solid #f1f5f9;
+      line-height: 1.6;
+    }
+    .h-table td:last-child {
+      border-right: none;
+    }
+
+    /* CATEGORY SHOWCASE CARDS (EXPANDED LIST) */
+    .category-section {
+      margin-bottom: 24px;
+    }
+
+    .category-banner {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 14px 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .category-banner-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .category-banner-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .category-banner-title h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .category-banner-title p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    .projects-table-card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .project-row {
+      padding: 16px 20px;
+      border-bottom: 1px solid #f1f5f9;
+      display: grid;
+      grid-template-columns: 50px 1.4fr 1.6fr auto;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.15s ease;
+    }
+
+    .project-row:last-child {
+      border-bottom: none;
+    }
+
+    .project-row:hover {
+      background: #f8fafc;
+    }
+
+    .project-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      flex-shrink: 0;
+    }
+
+    .project-main-info h3 {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .project-tags {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 5px;
+    }
+
+    .tag-chip {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+      font-weight: 500;
+    }
+
+    .project-desc-text {
+      font-size: 12.5px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .project-btn-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    /* TOAST NOTIFICATION */
+    .toast-notification {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-left: 4px solid #0284c7;
+    }
+
+    .toast-notification.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* FOOTER */
+    .clean-footer {
+      text-align: center;
+      padding: 28px 20px;
+      color: var(--text-light);
+      font-size: 12.5px;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .project-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .project-btn-group {
+        justify-content: flex-start;
+      }
     }
   </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col font-sans">
+<body>
 
-  <!-- Header -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+  <div class="container">
+    
+    <!-- TOP HEADER -->
+    <header class="top-header">
+      <div class="brand-left">
+        <div class="brand-logo" title="Psai Web Projects">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 4V28" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M6 10C6 17.5 10.5 22 16 22C21.5 22 26 17.5 26 10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+            <circle cx="6" cy="10" r="2.5" fill="#bae6fd"/>
+            <circle cx="26" cy="10" r="2.5" fill="#a7f3d0"/>
+            <circle cx="16" cy="4" r="2.5" fill="#fef08a"/>
+            <circle cx="16" cy="28" r="2" fill="white"/>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <h1>
+            <span>ศูนย์รวมเว็บแอปพลิเคชัน</span>
+            <span class="by-psai">by Psai</span>
+          </h1>
+          <p>คลังรวมโปรเจกต์เว็บแอปพลิเคชันทั้งหมดของ Psai • สถาปัตยกรรมแยกหมวดหมู่ พร้อมเปิดใช้งานทั้งแบบออนไลน์และในเครื่อง</p>
+        </div>
+      </div>
+      <div class="top-badges">
+        <span class="badge badge-green">✔ ระบบพร้อมใช้งาน 100%</span>
+        <span class="badge badge-blue">📁 5 หมวดหมู่</span>
+        <span class="badge badge-blue">🚀 18 เว็บแอปพลิเคชัน</span>
+      </div>
+    </header>
+
+    <!-- VIEW SWITCHER BAR -->
+    <div class="view-switch-bar">
+      <button class="view-btn active" id="btn-view-map" onclick="switchView('map', this)">
+        🌿 1. ผังภาพรวม Mind Map & ศูนย์รวมเว็บ
+      </button>
+      <button class="view-btn" id="btn-view-online" onclick="switchView('online', this)">
+        🌐 2. เว็บไซต์ออนไลน์ (7 Online Live Apps)
+      </button>
+      <button class="view-btn" id="btn-view-local" onclick="switchView('local', this)">
+        💻 3. แอปพลิเคชันในเครื่อง (All 18 Local Apps)
+      </button>
+      <button class="view-btn" id="btn-view-categories" onclick="switchView('categories', this)">
+        📑 4. แสดงแยกตามหมวดหมู่ (Category View)
+      </button>
+    </div>
+
+    <!-- LIVE SEARCH BAR -->
+    <div class="search-panel">
+      <span style="font-size: 18px; color: #0284c7;">🔍</span>
+      <input type="text" id="masterSearch" class="search-input" oninput="onSearchInput(this.value)" placeholder="พิมพ์ค้นหาเว็บ เช่น เมนูของปรายใส, อาหารเด็ก, กีต้าร์, วางแผนการเงิน, วิ่ง, กายวิภาค, อนิเมะ, นิยาย, PDF, Prompt AI...">
+      <span class="search-badge">Live Filter</span>
+    </div>
+
+    <!-- MAIN MIND MAP & TRUSS FLOW -->
+    <div class="map-container" id="mindMapContainer">
+      <div class="map-header">
+        <div class="map-title">
+          <span>🌿 แผนผังโครงสร้างภาพรวม (Psai Web Applications Mind Map)</span>
+        </div>
+        <div class="map-instruction">
+          👉 คลิกเลือกหมวดหมู่หรือเว็บแอปพลิเคชัน เพื่อเปิดดูรายละเอียดในตารางแนวนอนด้านล่าง
+        </div>
+      </div>
+
+      <!-- ROOT NODE -->
+      <div class="root-node-bar">
+        <div class="root-card active" id="rootNodeCard" onclick="selectRoot()">
+          <span>🌐 ไดรฟ์ D:\Web Application (Psai Web Projects Root)</span>
+        </div>
+      </div>
+
+      <!-- 5 CATEGORY BRANCHES -->
+      <div class="vault-branches-grid">
         
-        <!-- Title & Counter with Psai Logo -->
-        <div class="flex items-center gap-3.5">
-          <!-- Psai Logo Emblem -->
-          <div class="relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 via-teal-600 to-cyan-500 text-white shadow-md shadow-emerald-500/25 ring-2 ring-emerald-500/20 flex-shrink-0 transition-transform duration-200 hover:scale-105">
-            <svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16 4V28" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
-              <path d="M6 10C6 17.5 10.5 22 16 22C21.5 22 26 17.5 26 10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
-              <circle cx="6" cy="10" r="2.5" fill="#a7f3d0"/>
-              <circle cx="26" cy="10" r="2.5" fill="#bae6fd"/>
-              <circle cx="16" cy="4" r="2.5" fill="#fef08a"/>
-              <circle cx="16" cy="28" r="2" fill="currentColor"/>
-            </svg>
-            <span class="absolute -top-1 -right-1 flex h-3 w-3">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-400 border-2 border-white"></span>
+        <div class="branch-card" id="branch-family" onclick="selectCategoryBranch('family', this)">
+          <div class="branch-top">
+            <span class="branch-code" style="background:#ecfdf5; color:#059669;">01</span>
+            <span style="font-size: 11px; color:#0284c7; font-weight:bold;">5 เว็บไซต์</span>
+          </div>
+          <div class="branch-title">
+            <span>👨‍👩‍👧</span>
+            <span>ครอบครัว & เด็ก</span>
+          </div>
+          <div class="branch-sub">เมนูอาหารเด็ก พัฒนาการลูกน้อย และไอเดียกิจกรรมเล่นสร้างสรรค์</div>
+        </div>
+        
+        <div class="branch-card" id="branch-tech" onclick="selectCategoryBranch('tech', this)">
+          <div class="branch-top">
+            <span class="branch-code" style="background:#bae6fd; color:#0369a1;">02</span>
+            <span style="font-size: 11px; color:#0284c7; font-weight:bold;">4 เว็บไซต์</span>
+          </div>
+          <div class="branch-title">
+            <span>🛠️</span>
+            <span>เครื่องมือ & วิศวกรรม</span>
+          </div>
+          <div class="branch-sub">SmartZone PDF Studio, พอร์ตโฟลิโอวิศวกร, Codex และคลัง Prompt AI</div>
+        </div>
+        
+        <div class="branch-card" id="branch-entertainment" onclick="selectCategoryBranch('entertainment', this)">
+          <div class="branch-top">
+            <span class="branch-code" style="background:#ede9fe; color:#6d28d9;">03</span>
+            <span style="font-size: 11px; color:#0284c7; font-weight:bold;">5 เว็บไซต์</span>
+          </div>
+          <div class="branch-title">
+            <span>🎮</span>
+            <span>บันเทิง & ดนตรี</span>
+          </div>
+          <div class="branch-sub">TrackToon อนิเมะ/มังงะ, GuitarQuest, นิยายเซียนหนี่, หออักษรา และเกมยานอวกาศ</div>
+        </div>
+        
+        <div class="branch-card" id="branch-fitness" onclick="selectCategoryBranch('fitness', this)">
+          <div class="branch-top">
+            <span class="branch-code" style="background:#ffe4e6; color:#be123c;">04</span>
+            <span style="font-size: 11px; color:#0284c7; font-weight:bold;">3 เว็บไซต์</span>
+          </div>
+          <div class="branch-title">
+            <span>🏃</span>
+            <span>สุขภาพ & ฟิตเนส</span>
+          </div>
+          <div class="branch-sub">Muscle Map กายวิภาค, RunEvolution วิ่งมาราธอน และ Titan Forge บอดี้เวท RPG</div>
+        </div>
+        
+        <div class="branch-card" id="branch-finance" onclick="selectCategoryBranch('finance', this)">
+          <div class="branch-top">
+            <span class="branch-code" style="background:#dcfce7; color:#15803d;">05</span>
+            <span style="font-size: 11px; color:#0284c7; font-weight:bold;">1 เว็บไซต์</span>
+          </div>
+          <div class="branch-title">
+            <span>💰</span>
+            <span>การเงิน & ธุรกิจ</span>
+          </div>
+          <div class="branch-sub">เงินเดือนนี้ต้องรอด จัดสรรงบประมาณ คุมงบกินอยู่ และเงินเก็บลูก</div>
+        </div>
+        
+      </div>
+
+      <!-- 18 PROJECTS SELECTOR & NODES GRID -->
+      <div id="projectsSelectorContainer">
+        <div class="projects-filter-bar">
+          <span style="font-size: 13px; font-weight: 600; color: #475569; margin-right: 4px;">สายงาน / หมวดหมู่:</span>
+          <button class="filter-chip active" id="chip-all" onclick="filterProjectChips('all', this)">ทั้งหมด (18)</button>
+          
+          <button class="filter-chip" id="chip-family" onclick="filterProjectChips('family', this)">👨‍👩‍👧 ครอบครัว & เด็ก (5)</button>
+          
+          <button class="filter-chip" id="chip-tech" onclick="filterProjectChips('tech', this)">🛠️ เครื่องมือ & วิศวกรรม (4)</button>
+          
+          <button class="filter-chip" id="chip-entertainment" onclick="filterProjectChips('entertainment', this)">🎮 บันเทิง & ดนตรี (5)</button>
+          
+          <button class="filter-chip" id="chip-fitness" onclick="filterProjectChips('fitness', this)">🏃 สุขภาพ & ฟิตเนส (3)</button>
+          
+          <button class="filter-chip" id="chip-finance" onclick="filterProjectChips('finance', this)">💰 การเงิน & ธุรกิจ (1)</button>
+          
+          <button class="filter-chip" id="chip-online-only" onclick="filterProjectChips('online-only', this)">🌐 เว็บไซต์ออนไลน์ (7)</button>
+        </div>
+
+        <div class="project-nodes-grid" id="projectNodesGrid">
+          
+          <div class="p-node" id="pnode-01" data-category="family" data-online="true" onclick="selectProjectNode('01', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#01</span>
+              <span class="p-node-name" title="เมนูของปรายใส (Praysai Kids Meals)">เมนูของปรายใส</span>
+            </div>
+            <span class="p-node-tag tag-online">
+              online
             </span>
           </div>
-
-          <div>
-            <div class="flex items-center gap-2.5 flex-wrap">
-              <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-                <span>ศูนย์รวมเว็บแอปพลิเคชัน</span>
-                <span class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-transparent bg-clip-text font-black">by Psai</span>
-              </h1>
-              <span id="appCountBadge" class="hidden"></span>
+          
+          <div class="p-node" id="pnode-02" data-category="family" data-online="true" onclick="selectProjectNode('02', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#02</span>
+              <span class="p-node-name" title="เว็บอาหารเด็กเล็ก (YumYum Toddler)">เว็บอาหารเด็กเล็ก</span>
             </div>
-            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
-              คลังรวมโปรเจกต์เว็บแอปพลิเคชันทั้งหมดของ <span class="font-semibold text-slate-700">Psai</span> • แยกหมวดหมู่ชัดเจน พร้อมทางเลือกเปิดใช้งานทั้งแบบออนไลน์และในเครื่อง
-            </p>
+            <span class="p-node-tag tag-online">
+              online
+            </span>
           </div>
+          
+          <div class="p-node" id="pnode-03" data-category="family" data-online="true" onclick="selectProjectNode('03', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#03</span>
+              <span class="p-node-name" title="เว็บไอเดียกิจกรรมเด็ก (PlayPal)">ไอเดียกิจกรรมเด็ก</span>
+            </div>
+            <span class="p-node-tag tag-online">
+              online
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-04" data-category="family" data-online="false" onclick="selectProjectNode('04', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#04</span>
+              <span class="p-node-name" title="เว็บคู่มือพัฒนาการลูกน้อย (KidDev Hub)">คู่มือพัฒนาการลูก</span>
+            </div>
+            <span class="p-node-tag tag-local">
+              local
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-05" data-category="family" data-online="false" onclick="selectProjectNode('05', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#05</span>
+              <span class="p-node-name" title="เว็บสุ่มทำอาหาร (วันนี้กินอะไรดี)">วันนี้กินอะไรดี (300 เมนู)</span>
+            </div>
+            <span class="p-node-tag tag-local">
+              local
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-06" data-category="tech" data-online="true" onclick="selectProjectNode('06', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#06</span>
+              <span class="p-node-name" title="Smart Zone AI (PDF Studio & Flipbook)">SmartZone PDF Studio</span>
+            </div>
+            <span class="p-node-tag tag-online">
+              online
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-07" data-category="tech" data-online="true" onclick="selectProjectNode('07', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#07</span>
+              <span class="p-node-name" title="เว็บพอร์ตโฟลิโอวิศวกร (Psai Naruebest)">พอร์ตโฟลิโอวิศวกร Psai</span>
+            </div>
+            <span class="p-node-tag tag-online">
+              online
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-08" data-category="tech" data-online="false" onclick="selectProjectNode('08', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#08</span>
+              <span class="p-node-name" title="คอร์สวิศวกรรมระบบ (Personal Codex)">คอร์สวิศวกรรมระบบ</span>
+            </div>
+            <span class="p-node-tag tag-local">
+              local
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-09" data-category="tech" data-online="false" onclick="selectProjectNode('09', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#09</span>
+              <span class="p-node-name" title="เว็บคลัง Prompt AI (Nexus Prompt Hub)">คลัง Prompt AI Hub</span>
+            </div>
+            <span class="p-node-tag tag-local">
+              local
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-10" data-category="entertainment" data-online="true" onclick="selectProjectNode('10', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#10</span>
+              <span class="p-node-name" title="บันทึกตอนล่าสุด อนิเมะ & มังงะ (TrackToon)">TrackToon (อนิเมะ & มังงะ)</span>
+            </div>
+            <span class="p-node-tag tag-online">
+              online
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-11" data-category="entertainment" data-online="true" onclick="selectProjectNode('11', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#11</span>
+              <span class="p-node-name" title="นิยายเซียนหนี่ 44 เล่มจบ (Xian Ni)">นิยายเซียนหนี่ 44 เล่ม</span>
+            </div>
+            <span class="p-node-tag tag-online">
+              online
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-12" data-category="entertainment" data-online="false" onclick="selectProjectNode('12', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#12</span>
+              <span class="p-node-name" title="เว็บสอนกีต้า (GuitarQuest)">GuitarQuest (สอนกีตาร์)</span>
+            </div>
+            <span class="p-node-tag tag-local">
+              local
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-13" data-category="entertainment" data-online="false" onclick="selectProjectNode('13', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#13</span>
+              <span class="p-node-name" title="เว็บอ่านนิยายออนไลน์ (หออักษรา)">หออักษรา (E-Book Reader)</span>
+            </div>
+            <span class="p-node-tag tag-local">
+              local
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-14" data-category="entertainment" data-online="false" onclick="selectProjectNode('14', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#14</span>
+              <span class="p-node-name" title="เว็บเกมยานอวกาศ (Tactical Survivor)">เกมยานอวกาศ Orbital</span>
+            </div>
+            <span class="p-node-tag tag-local">
+              local
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-15" data-category="fitness" data-online="false" onclick="selectProjectNode('15', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#15</span>
+              <span class="p-node-name" title="แผนที่กล้ามเนื้อ (FastFit Muscle Map)">แผนที่กล้ามเนื้อ Muscle Map</span>
+            </div>
+            <span class="p-node-tag tag-local">
+              local
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-16" data-category="fitness" data-online="false" onclick="selectProjectNode('16', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#16</span>
+              <span class="p-node-name" title="เว็บฝึกวิ่ง (RunEvolution)">RunEvolution ฝึกซ้อมวิ่ง</span>
+            </div>
+            <span class="p-node-tag tag-local">
+              local
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-17" data-category="fitness" data-online="false" onclick="selectProjectNode('17', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#17</span>
+              <span class="p-node-name" title="เว็บออกกำลังกายอนิเมะ (TITAN FORGE)">Titan Forge (คาลิสเทนิกส์)</span>
+            </div>
+            <span class="p-node-tag tag-local">
+              local
+            </span>
+          </div>
+          
+          <div class="p-node" id="pnode-18" data-category="finance" data-online="false" onclick="selectProjectNode('18', this)">
+            <div class="p-node-left">
+              <span class="p-node-id">#18</span>
+              <span class="p-node-name" title="เงินเดือนนี้ต้องรอด">เงินเดือนนี้ต้องรอด</span>
+            </div>
+            <span class="p-node-tag tag-local">
+              local
+            </span>
+          </div>
+          
         </div>
-
-        <!-- Search Box -->
-        <div class="w-full sm:w-80 relative">
-          <input 
-            type="text" 
-            id="searchInput" 
-            placeholder="ค้นหาชื่อเว็บ, หมวดหมู่, คีย์เวิร์ด..." 
-            oninput="filterProjects()"
-            class="w-full pl-3.5 pr-8 py-2 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-slate-400 focus:border-slate-400 text-xs sm:text-sm text-slate-900 transition placeholder:text-slate-400 shadow-2xs"
-          >
-          <button 
-            id="clearSearchBtn" 
-            onclick="clearSearch()" 
-            class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 hidden text-xs font-bold"
-          >
-            ✕
-          </button>
-        </div>
-
       </div>
-
-      <!-- Category Filter Tabs -->
-      <div class="flex items-center gap-1.5 overflow-x-auto pt-3 text-xs pb-0.5 custom-scroll">
-        <button onclick="setCategory('all', this)" class="filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-white font-medium transition flex items-center gap-1.5 shrink-0">
-          <span>🌟 ทั้งหมด</span>
-        </button>
-        <button onclick="setCategory('online', this)" class="filter-btn px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-300 hover:bg-emerald-100 font-medium transition flex items-center gap-1.5 shrink-0">
-          <span>🌐 มีเว็บออนไลน์ (Live Web)</span>
-        </button>
-        <button onclick="setCategory('family', this)" class="filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium transition flex items-center gap-1.5 shrink-0">
-          <span>👨‍👩‍👧 ครอบครัว & เด็ก</span>
-        </button>
-        <button onclick="setCategory('tech', this)" class="filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium transition flex items-center gap-1.5 shrink-0">
-          <span>💻 เทคโนโลยี & วิศวกรรม</span>
-        </button>
-        <button onclick="setCategory('entertainment', this)" class="filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium transition flex items-center gap-1.5 shrink-0">
-          <span>🎮 ดนตรี, เกม & นิยาย</span>
-        </button>
-        <button onclick="setCategory('fitness', this)" class="filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium transition flex items-center gap-1.5 shrink-0">
-          <span>🏃 สุขภาพ & ออกกำลังกาย</span>
-        </button>
-        <button onclick="setCategory('finance', this)" class="filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium transition flex items-center gap-1.5 shrink-0">
-          <span>💰 การเงิน & ธุรกิจ</span>
-        </button>
-      </div>
-
-    </div>
-  </header>
-
-  <!-- Main Content: Categorized View -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex-1 w-full space-y-6">
-    
-    <!-- Portal Recommendation Banner -->
-    <div class="bg-gradient-to-r from-emerald-50 via-teal-50 to-sky-50 border border-emerald-200/80 rounded-2xl px-5 py-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs text-slate-700 shadow-2xs">
-      <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold shadow-xs">
-          💡
-        </div>
-        <div>
-          <span class="font-bold text-slate-900">ช่องทางเปิดใช้งาน:</span>
-          <span>เว็บที่มีป้าย <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold text-[11px]">🌐 เปิดออนไลน์ (Live)</span> สามารถคลิกเปิดผ่านเน็ตได้ทันทีจากทุกอุปกรณ์ และมีปุ่ม <span class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-800 font-semibold text-[11px]">💻 เปิดในเครื่อง</span> สำหรับใช้งานออฟไลน์</span>
-        </div>
-      </div>
-      <div class="text-[11px] text-slate-500 font-mono shrink-0 flex items-center gap-2">
-        <span>กด <kbd class="px-1.5 py-0.5 rounded bg-white border border-slate-300 text-slate-700 shadow-2xs font-sans font-bold">/</kbd> เพื่อค้นหา</span>
-        <span>•</span>
-        <span><kbd class="px-1.5 py-0.5 rounded bg-white border border-slate-300 text-slate-700 shadow-2xs font-sans font-bold">Ctrl + D</kbd> บันทึกบุ๊กมาร์ก</span>
-      </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- CATEGORY 1: ครอบครัว & เด็ก (Family & Kids) -->
-    <!-- ========================================== -->
-    <section class="category-section space-y-3" data-category="family">
-      <!-- Category Header Banner -->
-      <div class="flex items-center justify-between bg-white border border-slate-200 rounded-2xl px-5 py-3 shadow-xs">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center text-xl font-bold">
-            👨‍👩‍👧
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-base font-bold text-slate-900">หมวดหมู่: ครอบครัว & เด็ก</h2>
-            </div>
-            <p class="text-xs text-slate-500">เมนูอาหารเด็ก พัฒนาการลูกน้อย และไอเดียกิจกรรมเล่นสร้างสรรค์</p>
-          </div>
-        </div>
-        <span class="text-xs font-mono font-medium text-slate-400 hidden sm:inline">Family & Kids Collection</span>
-      </div>
-
-      <!-- Table Container -->
-      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs divide-y divide-slate-100">
-        
-        <!-- เมนูของปรายใส (Praysai Kids Meals) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-rose-500 bg-rose-50/15" 
-             data-category="family" 
-             data-online="true"
-             data-search="19 เมนูของปรายใส praysai kids meals อาหารเด็ก วัตถุดิบในบ้าน เด็กตามวัย เมนูโปรด รายการซื้อของ github pages">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-rose-500 via-pink-500 to-amber-400 shadow-sm shrink-0 text-white font-black text-sm" title="โลโก้โปรเจกต์">
-              ป
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2 flex-wrap">
-              <span>เมนูของปรายใส (Praysai Kids Meals)</span>
-              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-pink-100 text-pink-800 border border-pink-300">🌟 ของปรายใส</span>
-              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">🌐 ออนไลน์</span>
-            </div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200 font-medium">วัตถุดิบในบ้าน</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200 font-medium">เด็กตามวัย 6-24 ด.+</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200 font-medium">รายการซื้อของ</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200 font-medium">เมนูโปรด</span>
-            </div>
-          </div>
-          <div class="md:col-span-4 text-xs text-slate-500 leading-relaxed">
-            เลือกวัตถุดิบที่มีในบ้าน ระบบจะช่วยคิดเมนูสำหรับปรายใสตามช่วงวัย เวลา และเนื้อสัมผัส พร้อมบอกของที่ขาดและบันทึกรายการซื้อของ
-          </div>
-          <div class="md:col-span-3 flex items-center md:justify-end gap-2 pt-1 md:pt-0 flex-wrap sm:flex-nowrap">
-            <a href="https://prongnaruebest.github.io/-praysai-kids-meals/" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition shadow-xs flex items-center justify-center gap-1">
-              <span>🌐 เปิดออนไลน์</span>
-            </a>
-            <a href="19_เว็บเมนูของปรายใส/index.html" target="_blank" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium transition border border-slate-200 flex items-center justify-center gap-1">
-              <span>💻 ในเครื่อง</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- เว็บอาหารเด็กเล็ก (YumYum Toddler) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-lime-500" 
-             data-category="family" 
-             data-online="true"
-             data-search="08 yumyum toddler เว็บอาหารเด็กเล็ก เมนูเด็ก 1-3 ขวบ โภชนาการ blw ข้าวเด็ก เมนูลดแพ้ chatgpt site">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-lime-500 to-emerald-600 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2 flex-wrap">
-              <span>เว็บอาหารเด็กเล็ก (YumYum Toddler)</span>
-              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">🌐 ออนไลน์</span>
-            </div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">เด็กเล็ก 1-3 ขวบ</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">ตารางโภชนาการ</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">เมนูลดแพ้</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">Cloud App</span>
-            </div>
-          </div>
-          <div class="md:col-span-4 text-xs text-slate-500 leading-relaxed">
-            สูตรอาหารและแนวทางโภชนาการสำหรับเด็กวัยหัดเดิน 1-3 ปี ครบถ้วนสารอาหารสำคัญเพื่อการเจริญเติบโต พร้อมเวอร์ชันออนไลน์บนคลาวด์
-          </div>
-          <div class="md:col-span-3 flex items-center md:justify-end gap-2 pt-1 md:pt-0 flex-wrap sm:flex-nowrap">
-            <a href="https://yumyum-toddler-online.prong-naruebest.chatgpt.site/" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition shadow-xs flex items-center justify-center gap-1">
-              <span>🌐 เปิดออนไลน์</span>
-            </a>
-            <a href="08_เว็บอาหารเด็กเล็ก/index.html" target="_blank" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium transition border border-slate-200 flex items-center justify-center gap-1">
-              <span>💻 ในเครื่อง</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- เว็บไอเดียกิจกรรมเด็ก (PlayPal) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-amber-400" 
-             data-category="family" 
-             data-online="true"
-             data-search="07 playpal เว็บไอเดียกิจกรรมเด็ก 32 กิจกรรมเล่นกับลูก sensory motor skills playpal-web github pages">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-amber-400 to-yellow-500 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2 flex-wrap">
-              <span>เว็บไอเดียกิจกรรมเด็ก (PlayPal)</span>
-              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">🌐 ออนไลน์</span>
-            </div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">32+ ไอเดียกิจกรรม</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">Sensory Play</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">PWA Mobile App</span>
-            </div>
-          </div>
-          <div class="md:col-span-4 text-xs text-slate-500 leading-relaxed">
-            คลัง 32+ ไอเดียกิจกรรมการเล่นสร้างสรรค์กับลูก เสริมทักษะประสาทสัมผัสและกล้ามเนื้อ พร้อมอุปกรณ์ที่หาได้ง่ายในบ้าน รองรับ PWA
-          </div>
-          <div class="md:col-span-3 flex items-center md:justify-end gap-2 pt-1 md:pt-0 flex-wrap sm:flex-nowrap">
-            <a href="https://prongnaruebest.github.io/playpal-web/" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition shadow-xs flex items-center justify-center gap-1">
-              <span>🌐 เปิดออนไลน์</span>
-            </a>
-            <a href="07_เว็บไอเดียกิจกรรมเด็ก/index.html" target="_blank" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium transition border border-slate-200 flex items-center justify-center gap-1">
-              <span>💻 ในเครื่อง</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- เว็บคู่มือพัฒนาการลูกน้อย (KidDev Hub) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-pink-400" 
-             data-category="family" 
-             data-search="06 kiddev hub เว็บคู่มือพัฒนาการลูกน้อย เด็ก 0-10 ขวบ สมอง จิตวิทยา เลี้ยงลูก">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-pink-400 to-rose-500 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base">เว็บคู่มือพัฒนาการลูกน้อย (KidDev Hub)</div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">ช่วงวัย 0-10 ขวบ</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">พัฒนาการสมอง</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">จิตวิทยาเด็ก</span>
-            </div>
-          </div>
-          <div class="md:col-span-5 text-xs text-slate-500 leading-relaxed">
-            คู่มือพัฒนาการเด็กตามช่วงอายุ การส่งเสริมทักษะทางอารมณ์ สังคม และสมอง พร้อมแนวทางการเลี้ยงดูเชิงบวก
-          </div>
-          <div class="md:col-span-2 flex items-center md:justify-end gap-2 pt-1 md:pt-0">
-            <a href="06_เว็บคู่มือพัฒนาการลูกน้อย/index.html" target="_blank" class="w-full md:w-auto text-center px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium transition shadow-xs">
-              เปิดเว็บไซต์
-            </a>
-          </div>
-        </div>
-
-        <!-- เว็บสุ่มทำอาหาร -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-orange-400" 
-             data-category="family" 
-             data-search="01 วันนี้กินอะไรดี เมนูทำอาหาร สุ่มอาหาร คู่ครัว แคลอรี่ วัตถุดิบ">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-amber-500 to-orange-600 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.8V4a2 2 0 1 1 4 0v9.8"/><path d="M14 13.8V4a2 2 0 1 1 4 0v9.8"/><path d="M3 13.8a7 7 0 0 0 14 0"/><path d="M12 21v-4"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base">เว็บสุ่มทำอาหาร (วันนี้กินอะไรดี)</div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">300 เมนูคู่ครัว</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">คำนวณแคลอรี่</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">ค้นหาวัตถุดิบ</span>
-            </div>
-          </div>
-          <div class="md:col-span-5 text-xs text-slate-500 leading-relaxed">
-            ระบบสุ่มเมนูอาหารประจำวันจากฐานข้อมูล 300 รายการ ช่วยแก้ปัญหาคิดไม่ออกว่าจะกินอะไร พร้อมข้อมูลสารอาหารและวิธีทำ
-          </div>
-          <div class="md:col-span-2 flex items-center md:justify-end gap-2 pt-1 md:pt-0">
-            <a href="01_เว็บสุ่มทำอาหาร/index.html" target="_blank" class="w-full md:w-auto text-center px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium transition shadow-xs">
-              เปิดเว็บไซต์
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- CATEGORY 2: เทคโนโลยี & วิศวกรรม (Tech & Engineering) -->
-    <!-- ========================================== -->
-    <section class="category-section space-y-3" data-category="tech">
-      <!-- Category Header Banner -->
-      <div class="flex items-center justify-between bg-white border border-slate-200 rounded-2xl px-5 py-3 shadow-xs">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center text-xl font-bold">
-            💻
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-base font-bold text-slate-900">หมวดหมู่: เทคโนโลยี & วิศวกรรม</h2>
-            </div>
-            <p class="text-xs text-slate-500">ผลงานวิศวกรรมอิเล็กทรอนิกส์ หอดูดาว เครื่องมือจัดการ PDF และคลัง Prompt AI</p>
-          </div>
-        </div>
-        <span class="text-xs font-mono font-medium text-slate-400 hidden sm:inline">Engineering & Technology</span>
-      </div>
-
-      <!-- Table Container -->
-      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs divide-y divide-slate-100">
-        
-        <!-- เว็บพอร์ตโฟลิโอวิศวกร (Psai Naruebest Portfolio) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-teal-600" 
-             data-category="tech" 
-             data-online="true"
-             data-search="11 naruebest komol psai-play psai naruebest เว็บพอร์ตโฟลิโอ วิศวกรอิเล็กทรอนิกส์ resume showcase narit observatory robotic telescope filter wheel github pages">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-slate-900 via-teal-900 to-emerald-900 border border-teal-500/40 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2 flex-wrap">
-              <span>เว็บพอร์ตโฟลิโอวิศวกร (Psai Naruebest)</span>
-              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">🌐 ออนไลน์</span>
-            </div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">Electronics Engineer</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">NARIT Observatory</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">Robotic Telescope</span>
-            </div>
-          </div>
-          <div class="md:col-span-4 text-xs text-slate-500 leading-relaxed">
-            เว็บไซต์แสดงประวัติและผลงานวิศวกรรมอิเล็กทรอนิกส์ ระบบควบคุมหอดูดาว กล้องโทรทรรศน์อัตโนมัติ และสถาปัตยกรรมระบบ
-          </div>
-          <div class="md:col-span-3 flex items-center md:justify-end gap-2 pt-1 md:pt-0 flex-wrap sm:flex-nowrap">
-            <a href="https://prongnaruebest.github.io/psai-play/#about" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition shadow-xs flex items-center justify-center gap-1">
-              <span>🌐 เปิดออนไลน์</span>
-            </a>
-            <a href="11_เว็บพอร์ตโฟลิโอ/index.html" target="_blank" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium transition border border-slate-200 flex items-center justify-center gap-1">
-              <span>💻 ในเครื่อง</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Smart Zone AI (PDF Studio & Flipbook) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-emerald-500 bg-emerald-50/10" 
-             data-category="tech" 
-             data-online="true"
-             data-search="17 smartzone szai pdf studio flipbook edit merge split organize images ฟลิปบุ๊ก รวมไฟล์ แยกหน้า แปลงรูปภาพ github pages">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-emerald-500 to-teal-700 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2 flex-wrap">
-              <span>Smart Zone AI (PDF Studio & Flipbook)</span>
-              <span class="text-[10px] font-semibold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">ใหม่</span>
-              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">🌐 ออนไลน์</span>
-            </div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">3D Flipbook</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">PDF Editor & Sign</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">Merge/Split/Organize</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">100% Client-Side</span>
-            </div>
-          </div>
-          <div class="md:col-span-4 text-xs text-slate-500 leading-relaxed">
-            โคลนและพัฒนาจาก szai.net ระบบจัดการ PDF ครบวงจร ทำฟลิปบุ๊ก 3D เสมือนจริง แก้ไข เซ็นเซอร์ข้อความ ใส่ลายเซ็น รวม แยกหน้า และแปลงเป็นรูปภาพ ทำงานในเบราว์เซอร์ 100%
-          </div>
-          <div class="md:col-span-3 flex items-center md:justify-end gap-2 pt-1 md:pt-0 flex-wrap sm:flex-nowrap">
-            <a href="https://prongnaruebest.github.io/Psai-web-projects/smartzone-pdf/" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition shadow-xs flex items-center justify-center gap-1">
-              <span>🌐 เปิดออนไลน์</span>
-            </a>
-            <a href="17_SmartZone_PDF_Studio/index.html" target="_blank" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium transition border border-slate-200 flex items-center justify-center gap-1">
-              <span>💻 ในเครื่อง</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- คอร์สวิศวกรรมระบบ (Personal Codex) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-sky-500" 
-             data-category="tech" 
-             data-search="12 personal codex 101-102 เว็บคอร์สวิศวกรรมระบบ 14 interactive workbenches architecture">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-sky-500 to-blue-700 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base">คอร์สวิศวกรรมระบบ (Personal Codex)</div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">Codex 101–102</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">14 Workbenches</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">System Architecture</span>
-            </div>
-          </div>
-          <div class="md:col-span-5 text-xs text-slate-500 leading-relaxed">
-            หลักสูตรและเครื่องมือทดลองเชิงปฏิบัติการด้านวิศวกรรมสถาปัตยกรรมระบบขั้นสูง พร้อม Workbench แบบโต้ตอบ
-          </div>
-          <div class="md:col-span-2 flex items-center md:justify-end gap-2 pt-1 md:pt-0">
-            <a href="12_เว็บคอร์สวิศวกรรมระบบ/index.html" target="_blank" class="w-full md:w-auto text-center px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium transition shadow-xs">
-              เปิดเว็บไซต์
-            </a>
-          </div>
-        </div>
-
-        <!-- คลัง Prompt AI (Nexus Prompt Hub) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-blue-500" 
-             data-category="tech" 
-             data-search="10 nexus prompt hub เว็บคลังpromptai รวม 200 prompt ai chatgpt claude gemini">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base">เว็บคลัง Prompt AI (Nexus Prompt Hub)</div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">200+ Prompts</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">Prompt Engineering</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">คัดลอกใน 1 คลิก</span>
-            </div>
-          </div>
-          <div class="md:col-span-5 text-xs text-slate-500 leading-relaxed">
-            คลังคำสั่งสำหรับสั่งงานปัญญาประดิษฐ์ (AI Prompts) หมวดงานเขียน วิเคราะห์ข้อมูล วางแผน และเขียนโค้ด
-          </div>
-          <div class="md:col-span-2 flex items-center md:justify-end gap-2 pt-1 md:pt-0">
-            <a href="10_เว็บคลังPromptAI/index.html" target="_blank" class="w-full md:w-auto text-center px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium transition shadow-xs">
-              เปิดเว็บไซต์
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- CATEGORY 3: ดนตรี, เกม & นิยาย (Entertainment) -->
-    <!-- ========================================== -->
-    <section class="category-section space-y-3" data-category="entertainment">
-      <!-- Category Header Banner -->
-      <div class="flex items-center justify-between bg-white border border-slate-200 rounded-2xl px-5 py-3 shadow-xs">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl font-bold">
-            🎮
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-base font-bold text-slate-900">หมวดหมู่: ดนตรี, เกม & นิยาย</h2>
-            </div>
-            <p class="text-xs text-slate-500">คลังนิยายเซียนหนี่ 44 เล่มจบ ติดตามอนิเมะ/มังงะ เกมเรียนกีตาร์ และเกมอวกาศ</p>
-          </div>
-        </div>
-        <span class="text-xs font-mono font-medium text-slate-400 hidden sm:inline">Entertainment & Novels</span>
-      </div>
-
-      <!-- Table Container -->
-      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs divide-y divide-slate-100">
-        
-        <!-- นิยายเซียนหนี่ 44 เล่มจบ (Xian Ni) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-amber-500" 
-             data-category="entertainment" 
-             data-online="true"
-             data-search="14 xian ni ฝืนลิขิตฟ้า ข้าขอเป็นเซียน เว็บอ่านนิยายเซียนหนี่44เล่ม จบ เสียงอ่าน tts netlify cloud">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-amber-500 to-red-600 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2 flex-wrap">
-              <span>นิยายเซียนหนี่ 44 เล่มจบ (Xian Ni)</span>
-              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">🌐 ออนไลน์</span>
-            </div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">ครบ 44 เล่มจบ</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">ระบบอ่านออกเสียง TTS</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">Netlify Cloud</span>
-            </div>
-          </div>
-          <div class="md:col-span-4 text-xs text-slate-500 leading-relaxed">
-            คลังนิยายกำลังภายในฉบับสมบูรณ์ 44 เล่ม พร้อมระบบอ่านออกเสียงจำลอง (Text-to-Speech) สำหรับฟังต่อเนื่องผ่านเน็ตหรือในเครื่อง
-          </div>
-          <div class="md:col-span-3 flex items-center md:justify-end gap-2 pt-1 md:pt-0 flex-wrap sm:flex-nowrap">
-            <a href="https://xianni-reader-psai.netlify.app/" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition shadow-xs flex items-center justify-center gap-1">
-              <span>🌐 เปิดออนไลน์</span>
-            </a>
-            <a href="14_เว็บอ่านนิยายเซียนหนี่44เล่ม/index.html" target="_blank" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium transition border border-slate-200 flex items-center justify-center gap-1">
-              <span>💻 ในเครื่อง</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- ติดตามอนิเมะ & มังงะ (TrackToon) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-sky-500 bg-sky-50/10" 
-             data-category="entertainment" 
-             data-online="true"
-             data-search="18 tracktoon บันทึกตอนล่าสุด ติดตามอนิเมะและมังงะ อนิเมะจีน donghua มันฮวา webtoon ถังซาน หวังหลิน เซียนหนี่ หลัวเฟิง สัประยุทธ์ หานลี่ ฉินมู่ solo max level pick me up nano machine github pages">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-sky-500 to-indigo-600 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2 flex-wrap">
-              <span>บันทึกตอนล่าสุด อนิเมะ & มังงะ (TrackToon)</span>
-              <span class="text-[10px] font-semibold px-1.5 py-0.2 rounded bg-sky-100 text-sky-800 border border-sky-300">ใหม่</span>
-              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">🌐 ออนไลน์</span>
-            </div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-semibold border border-blue-200">✨ Clear Theme สว่างสบายตา</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">กด +1 ตอนทันใจ</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">อนิเมะจีน 6 เรื่อง</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">มันฮวา 19 เรื่อง</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">คัดลอกสรุปข้อความ</span>
-            </div>
-          </div>
-          <div class="md:col-span-4 text-xs text-slate-500 leading-relaxed">
-            เครื่องมือบันทึกความคืบหน้าการดูอนิเมะจีนและอ่านมังงะ/มันฮวาประจำวัน มีปุ่มกด +1 ตอนทันใจ ค้นหาตอนต่อไปใน 1 คลิก พร้อมฟังก์ชันคัดลอกและนำเข้ารายการข้อความดิบ
-          </div>
-          <div class="md:col-span-3 flex items-center md:justify-end gap-2 pt-1 md:pt-0 flex-wrap sm:flex-nowrap">
-            <a href="https://prongnaruebest.github.io/Psai-web-projects/tracktoon/" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition shadow-xs flex items-center justify-center gap-1">
-              <span>🌐 เปิดออนไลน์</span>
-            </a>
-            <a href="18_เว็บติดตามอนิเมะและมังงะ/index.html" target="_blank" class="flex-1 sm:flex-none text-center px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium transition border border-slate-200 flex items-center justify-center gap-1">
-              <span>💻 ในเครื่อง</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- เว็บสอนกีต้า (GuitarQuest) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-indigo-500" 
-             data-category="entertainment" 
-             data-search="02 guitarquest เว็บสอนกีต้า เรียนกีตาร์ คอร์ด สเกล ดนตรี rpg ทฤษฎีดนตรี">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base">เว็บสอนกีต้า (GuitarQuest)</div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">RPG Quests</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">คอร์ด & สเกล</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">Audio Web Synthesizer</span>
-            </div>
-          </div>
-          <div class="md:col-span-5 text-xs text-slate-500 leading-relaxed">
-            เว็บเรียนเล่นกีตาร์ตั้งแต่เริ่มต้นจนชำนาญ ผ่านระบบจำลองเควสต์ผจญภัยแบบเกม พร้อมฟิงเกอร์บอร์ดจำลองเสียงคอร์ด
-          </div>
-          <div class="md:col-span-2 flex items-center md:justify-end gap-2 pt-1 md:pt-0">
-            <a href="02_เว็บสอนกีต้า/index.html" target="_blank" class="w-full md:w-auto text-center px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium transition shadow-xs">
-              เปิดเว็บไซต์
-            </a>
-          </div>
-        </div>
-
-        <!-- เว็บอ่านนิยายออนไลน์ (หออักษรา) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-stone-500" 
-             data-category="entertainment" 
-             data-search="13 novel reader เว็บอ่านนิยายออนไลน์ หออักษรา 4 เล่ม 72 ตอน ebook dark mode">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-amber-600 to-stone-800 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-amber-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base">เว็บอ่านนิยายออนไลน์ (หออักษรา)</div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">4 เล่ม 72 ตอน</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">E-Book Reader</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">ปรับขนาดอักษร</span>
-            </div>
-          </div>
-          <div class="md:col-span-5 text-xs text-slate-500 leading-relaxed">
-            ระบบอ่าน E-Book และนิยายออนไลน์ พร้อมฟังก์ชันปรับแต่งธีม ขนาดตัวอักษร คั่นหน้า และถนอมสายตา
-          </div>
-          <div class="md:col-span-2 flex items-center md:justify-end gap-2 pt-1 md:pt-0">
-            <a href="13_เว็บอ่านนิยายออนไลน์/index.html" target="_blank" class="w-full md:w-auto text-center px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium transition shadow-xs">
-              เปิดเว็บไซต์
-            </a>
-          </div>
-        </div>
-
-        <!-- เว็บเกมยานอวกาศ (Tactical Survivor) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-purple-600" 
-             data-category="entertainment" 
-             data-search="09 tactical survivor orbital เว็บเกมยานอวกาศ sci-fi roguelite canvas html5">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-purple-600 to-fuchsia-700 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base">เว็บเกมยานอวกาศ (Tactical Survivor)</div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">Sci-Fi Action</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">Roguelite</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">HTML5 Canvas</span>
-            </div>
-          </div>
-          <div class="md:col-span-5 text-xs text-slate-500 leading-relaxed">
-            เกมยานรบอวกาศแนว Roguelite อัปเกรดยานรบ อาวุธ และฝ่าฝูงศัตรู เล่นได้ทันทีผ่านเว็บเบราว์เซอร์
-          </div>
-          <div class="md:col-span-2 flex items-center md:justify-end gap-2 pt-1 md:pt-0">
-            <a href="09_เว็บเกมยานอวกาศ/index.html" target="_blank" class="w-full md:w-auto text-center px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium transition shadow-xs">
-              เปิดเว็บไซต์
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- CATEGORY 4: สุขภาพ & ออกกำลังกาย (Health & Fitness) -->
-    <!-- ========================================== -->
-    <section class="category-section space-y-3" data-category="fitness">
-      <!-- Category Header Banner -->
-      <div class="flex items-center justify-between bg-white border border-slate-200 rounded-2xl px-5 py-3 shadow-xs">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl font-bold">
-            🏃
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-base font-bold text-slate-900">หมวดหมู่: สุขภาพ & ออกกำลังกาย</h2>
-            </div>
-            <p class="text-xs text-slate-500">บอดี้เวทสไตล์ RPG ตารางซ้อมวิ่งมาราธอน และแผนที่กายวิภาคกล้ามเนื้อ</p>
-          </div>
-        </div>
-        <span class="text-xs font-mono font-medium text-slate-400 hidden sm:inline">Health & Fitness</span>
-      </div>
-
-      <!-- Table Container -->
-      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs divide-y divide-slate-100">
-        
-        <!-- เว็บออกกำลังกายอนิเมะ (TITAN FORGE) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-rose-500" 
-             data-category="fitness" 
-             data-search="04 titan forge เว็บออกกำลังกายอนิเมะ calisthenics rpg บอดี้เวท กล้ามเนื้อ เควสต์">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-rose-500 to-red-600 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1a5 5 0 0 0-7.07 0l-.71.71a5 5 0 0 0 0 7.07l1 1"/><path d="m3 3 1 1a5 5 0 0 0 7.07 0l.71-.71a5 5 0 0 0 0-7.07l-1-1"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base">เว็บออกกำลังกายอนิเมะ (TITAN FORGE)</div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">Calisthenics</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">บอดี้เวท</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">เควสต์ประจำวัน</span>
-            </div>
-          </div>
-          <div class="md:col-span-5 text-xs text-slate-500 leading-relaxed">
-            โปรแกรมฝึกบอดี้เวทและคาลิสเทนิกส์ในรูปแบบเกม RPG สะสมค่าประสบการณ์ เลเวลอัพร่างกาย และเควสต์ท่าฝึกกายภาพ
-          </div>
-          <div class="md:col-span-2 flex items-center md:justify-end gap-2 pt-1 md:pt-0">
-            <a href="04_เว็บออกกำลังกายอนิเมะ/index.html" target="_blank" class="w-full md:w-auto text-center px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium transition shadow-xs">
-              เปิดเว็บไซต์
-            </a>
-          </div>
-        </div>
-
-        <!-- เว็บฝึกวิ่ง (RunEvolution) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-cyan-500" 
-             data-category="fitness" 
-             data-search="05 runevolution เว็บฝึกวิ่ง ซ้อมวิ่ง 5k 10k half full marathon เพซ pace">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-cyan-500 to-blue-600 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base">เว็บฝึกวิ่ง (RunEvolution)</div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">5K / 10K / มาราธอน</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">Pace Calculator</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">ตารางฝึกซ้อม</span>
-            </div>
-          </div>
-          <div class="md:col-span-5 text-xs text-slate-500 leading-relaxed">
-            ตารางฝึกซ้อมวิ่งตั้งแต่ระดับเริ่มต้นจนถึงฟูลมาราธอน คำนวณความเร็ว Pace พร้อมแผนฟื้นฟูกล้ามเนื้อ
-          </div>
-          <div class="md:col-span-2 flex items-center md:justify-end gap-2 pt-1 md:pt-0">
-            <a href="05_เว็บฝึกวิ่งRunEvolution/index.html" target="_blank" class="w-full md:w-auto text-center px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium transition shadow-xs">
-              เปิดเว็บไซต์
-            </a>
-          </div>
-        </div>
-
-        <!-- แผนที่กล้ามเนื้อ (FastFit Muscle Map) -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-red-600" 
-             data-category="fitness" 
-             data-search="16 fastfit muscle map แผนที่กล้ามเนื้อ กายวิภาค อนาโตมี ท่าฝึก body anatomy">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-red-600 to-rose-700 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base">แผนที่กล้ามเนื้อ (FastFit Muscle Map)</div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">3D Body Map</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">ระบบกายวิภาค</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">จับคู่ท่าฝึกเฉพาะส่วน</span>
-            </div>
-          </div>
-          <div class="md:col-span-5 text-xs text-slate-500 leading-relaxed">
-            แผนที่กายวิภาคกล้ามเนื้อร่างกาย คลิกเลือกกล้ามเนื้อเพื่อแสดงรายชื่อท่าออกกำลังกายและกลไกการเคลื่อนไหวที่ตรงจุด
-          </div>
-          <div class="md:col-span-2 flex items-center md:justify-end gap-2 pt-1 md:pt-0">
-            <a href="16_Muscle_Map/index.html" target="_blank" class="w-full md:w-auto text-center px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium transition shadow-xs">
-              เปิดเว็บไซต์
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- CATEGORY 5: การเงิน & ธุรกิจ (Finance) -->
-    <!-- ========================================== -->
-    <section class="category-section space-y-3" data-category="finance">
-      <!-- Category Header Banner -->
-      <div class="flex items-center justify-between bg-white border border-slate-200 rounded-2xl px-5 py-3 shadow-xs">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl font-bold">
-            💰
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-base font-bold text-slate-900">หมวดหมู่: การเงิน & ธุรกิจ</h2>
-            </div>
-            <p class="text-xs text-slate-500">วางแผนงบประมาณ บริหารหนี้สิน คุมงบกินอยู่ และเงินเก็บลูก</p>
-          </div>
-        </div>
-        <span class="text-xs font-mono font-medium text-slate-400 hidden sm:inline">Finance & Wealth</span>
-      </div>
-
-      <!-- Table Container -->
-      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs divide-y divide-slate-100">
-        
-        <!-- เงินเดือนนี้ต้องรอด -->
-        <div class="project-row p-4 sm:px-5 sm:py-3.5 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3 border-l-4 border-l-emerald-600 bg-emerald-50/20" 
-             data-category="finance" 
-             data-search="03 เงินเดือนนี้ต้องรอด วางแผนการเงิน บริหารรายรับรายจ่าย ตัดหนี้ เงินเก็บลูก บิล ซองงบใช้จ่าย 10000 cfp">
-          <div class="md:col-span-1 flex items-center md:justify-center">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-emerald-500 to-teal-600 shadow-sm shrink-0" title="โลโก้โปรเจกต์">
-              <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            </div>
-          </div>
-          <div class="md:col-span-4">
-            <div class="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2">
-              <span>เงินเดือนนี้ต้องรอด</span>
-              <span class="text-[10px] font-semibold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">อัปเดต</span>
-            </div>
-            <div class="flex items-center gap-1.5 flex-wrap mt-1">
-              <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">จัดสรร 3 ซอง</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">ตัดหนี้-ค่างวด</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">เงินเก็บลูก</span>
-              <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">คำแนะนำ CFP</span>
-            </div>
-          </div>
-          <div class="md:col-span-5 text-xs text-slate-500 leading-relaxed">
-            ระบบบันทึกและวางแผนรายรับ-รายจ่ายรายเดือน จัดสรรก้อนหนี้สิน คุมงบกินอยู่ 10,000 บ. ค่านมลูก พร้อมคำแนะนำจากนักวางแผนการเงิน
-          </div>
-          <div class="md:col-span-2 flex items-center md:justify-end gap-2 pt-1 md:pt-0">
-            <a href="03_เงินเดือนนี้ต้องรอด/index.html" target="_blank" class="w-full md:w-auto text-center px-3.5 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-medium transition shadow-xs">
-              เปิดเว็บไซต์
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- No Results State -->
-    <div id="noResults" class="p-12 text-center text-slate-400 hidden bg-white rounded-2xl border border-slate-200">
-      <div class="text-base font-semibold text-slate-600 mb-1">ไม่พบโปรเจกต์ที่ตรงกับคำค้นหา</div>
-      <p class="text-xs">กรุณาลองพิมพ์คำค้นหาใหม่อีกครั้ง หรือเลือกแท็บ "🌟 ทั้งหมด"</p>
     </div>
 
-  </main>
+    <!-- HORIZONTAL TABLE DRAWER -->
+    <section class="drawer-section" id="horizontalDrawer">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <h2 id="drawerTitle">
+            <span>🌟</span>
+            <span id="drawerTitleText">เมนูของปรายใส (Praysai Kids Meals)</span>
+          </h2>
+          <span class="drawer-path" id="drawerPath">D:\00_INBOX\Web Application\19_เว็บเมนูของปรายใส</span>
+        </div>
+        <div class="drawer-actions" id="drawerActions">
+          <a href="https://prongnaruebest.github.io/-praysai-kids-meals/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" id="drawerOnlineBtn">🌐 เปิดออนไลน์</a>
+          <a href="19_เว็บเมนูของปรายใส/index.html" target="_blank" class="btn-action-secondary" id="drawerLocalBtn">💻 ในเครื่อง</a>
+          <button class="btn-copy" onclick="copyDrawerPath()">📋 คัดลอก Path</button>
+        </div>
+      </div>
 
-  <!-- Footer -->
-  <footer class="bg-white border-t border-slate-200 py-4 mt-8 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <div>
+      <!-- HORIZONTAL SPEC TABLE -->
+      <div class="horizontal-table-wrapper">
+        <table class="h-table">
+          <thead>
+            <tr>
+              <th style="width: 28%; color:#0284c7; border-top: 3px solid #0284c7;">🎯 จุดเด่น & ฟังก์ชันหลัก</th>
+              <th style="width: 26%; color:#7c3aed; border-top: 3px solid #8b5cf6;">💻 เทคโนโลยีที่ใช้</th>
+              <th style="width: 26%; color:#059669; border-top: 3px solid #10b981;">📂 หมวดหมู่ & แท็ก</th>
+              <th style="width: 20%; color:#d97706; border-top: 3px solid #f59e0b;">🚀 ช่องทางเข้าใช้งาน</th>
+            </tr>
+          </thead>
+          <tbody id="drawerTableBody">
+            <tr>
+              <td id="drawerColFeatures">คิดเมนูตามวัตถุดิบในบ้าน • เด็กตามวัย 6-24 ด.+ • บันทึกของที่ขาด • รายการเมนูโปรด</td>
+              <td id="drawerColTech">HTML5, Tailwind CSS, LocalStorage, PWA Ready</td>
+              <td id="drawerColTags">
+                <span class="tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">วัตถุดิบในบ้าน</span><span class="tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">เด็กตามวัย 6-24 ด.+</span><span class="tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">รายการซื้อของ</span><span class="tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">เมนูโปรด</span>
+              </td>
+              <td id="drawerColLaunch">
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  <a href="https://prongnaruebest.github.io/-praysai-kids-meals/" target="_blank" rel="noopener noreferrer" style="color:#0284c7; font-weight:700; text-decoration:none;">🌐 เปิดเวอร์ชันออนไลน์ ➔</a>
+                  <a href="19_เว็บเมนูของปรายใส/index.html" target="_blank" style="color:#475569; font-weight:600; text-decoration:none;">💻 เปิดไฟล์ในเครื่อง ➔</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FULL CATEGORIES SHOWCASE LIST -->
+    <div id="categoriesShowcaseContainer">
+      
+      <section class="category-section" data-cat-section="family">
+        <div class="category-banner">
+          <div class="category-banner-left">
+            <div class="category-banner-icon" style="background:#ecfdf5; color:#059669;">
+              👨‍👩‍👧
+            </div>
+            <div class="category-banner-title">
+              <h2>หมวดหมู่: ครอบครัว & เด็ก</h2>
+              <p>เมนูอาหารเด็ก พัฒนาการลูกน้อย และไอเดียกิจกรรมเล่นสร้างสรรค์</p>
+            </div>
+          </div>
+          <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#94a3b8;">Family & Kids</span>
+        </div>
+
+        <div class="projects-table-card">
+          
+          <div class="project-row" id="proj-row-01" data-category="family" data-online="true" data-search="เมนูของปรายใส (praysai kids meals) เมนูของปรายใส เลือกวัตถุดิบที่มีในบ้าน ระบบจะช่วยคิดเมนูสำหรับปรายใสตามช่วงวัย เวลา และเนื้อสัมผัส พร้อมบอกของที่ขาดและบันทึกรายการซื้อของ วัตถุดิบในบ้าน เด็กตามวัย 6-24 ด.+ รายการซื้อของ เมนูโปรด">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-rose-500 to-pink-600" style="background: linear-gradient(135deg, #f43f5e, #e11d48);">
+                ป
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>เมนูของปรายใส (Praysai Kids Meals)</span>
+                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#fef3c7; color:#b45309; border:1px solid #fde68a;">🌟 ของปรายใส</span>
+                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#dcfce7; color:#15803d; border:1px solid #86efac;">🌐 ออนไลน์</span>
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">วัตถุดิบในบ้าน</span><span class="tag-chip">เด็กตามวัย 6-24 ด.+</span><span class="tag-chip">รายการซื้อของ</span><span class="tag-chip">เมนูโปรด</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              เลือกวัตถุดิบที่มีในบ้าน ระบบจะช่วยคิดเมนูสำหรับปรายใสตามช่วงวัย เวลา และเนื้อสัมผัส พร้อมบอกของที่ขาดและบันทึกรายการซื้อของ
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="https://prongnaruebest.github.io/-praysai-kids-meals/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="padding:6px 14px; font-size:12px;">
+                🌐 เปิดออนไลน์
+              </a>
+              <a href="19_เว็บเมนูของปรายใส/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+          <div class="project-row" id="proj-row-02" data-category="family" data-online="true" data-search="เว็บอาหารเด็กเล็ก (yumyum toddler) เว็บอาหารเด็กเล็ก สูตรอาหารและแนวทางโภชนาการสำหรับเด็กวัยหัดเดิน 1-3 ปี ครบถ้วนสารอาหารสำคัญเพื่อการเจริญเติบโต พร้อมเวอร์ชันออนไลน์บนคลาวด์ เด็กเล็ก 1-3 ขวบ ตารางโภชนาการ เมนูลดแพ้ cloud app">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-lime-500 to-emerald-600" style="background: linear-gradient(135deg, #84cc16, #059669);">
+                🥣
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>เว็บอาหารเด็กเล็ก (YumYum Toddler)</span>
+                
+                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#dcfce7; color:#15803d; border:1px solid #86efac;">🌐 ออนไลน์</span>
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">เด็กเล็ก 1-3 ขวบ</span><span class="tag-chip">ตารางโภชนาการ</span><span class="tag-chip">เมนูลดแพ้</span><span class="tag-chip">Cloud App</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              สูตรอาหารและแนวทางโภชนาการสำหรับเด็กวัยหัดเดิน 1-3 ปี ครบถ้วนสารอาหารสำคัญเพื่อการเจริญเติบโต พร้อมเวอร์ชันออนไลน์บนคลาวด์
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="https://yumyum-toddler-online.prong-naruebest.chatgpt.site/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="padding:6px 14px; font-size:12px;">
+                🌐 เปิดออนไลน์
+              </a>
+              <a href="08_เว็บอาหารเด็กเล็ก/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+          <div class="project-row" id="proj-row-03" data-category="family" data-online="true" data-search="เว็บไอเดียกิจกรรมเด็ก (playpal) ไอเดียกิจกรรมเด็ก คลัง 32+ ไอเดียกิจกรรมการเล่นสร้างสรรค์กับลูก เสริมทักษะประสาทสัมผัสและกล้ามเนื้อ พร้อมอุปกรณ์ที่หาได้ง่ายในบ้าน รองรับ pwa เล่นสร้างสรรค์ 32+ กิจกรรม เสริมพัฒนาการ pwa">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-amber-400 to-orange-500" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                🎨
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>เว็บไอเดียกิจกรรมเด็ก (PlayPal)</span>
+                
+                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#dcfce7; color:#15803d; border:1px solid #86efac;">🌐 ออนไลน์</span>
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">เล่นสร้างสรรค์</span><span class="tag-chip">32+ กิจกรรม</span><span class="tag-chip">เสริมพัฒนาการ</span><span class="tag-chip">PWA</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              คลัง 32+ ไอเดียกิจกรรมการเล่นสร้างสรรค์กับลูก เสริมทักษะประสาทสัมผัสและกล้ามเนื้อ พร้อมอุปกรณ์ที่หาได้ง่ายในบ้าน รองรับ PWA
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="https://prongnaruebest.github.io/playpal-web/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="padding:6px 14px; font-size:12px;">
+                🌐 เปิดออนไลน์
+              </a>
+              <a href="07_เว็บไอเดียกิจกรรมเด็ก/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+          <div class="project-row" id="proj-row-04" data-category="family" data-online="false" data-search="เว็บคู่มือพัฒนาการลูกน้อย (kiddev hub) คู่มือพัฒนาการลูก คู่มือพัฒนาการเด็กตามช่วงอายุ การส่งเสริมทักษะทางอารมณ์ สังคม และสมอง พร้อมแนวทางการเลี้ยงดูเชิงบวก 0-5 ขวบ เช็กลิสต์พัฒนาการ eq & ef คู่มือคุณแม่">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-pink-400 to-rose-500" style="background: linear-gradient(135deg, #f43f5e, #e11d48);">
+                👶
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>เว็บคู่มือพัฒนาการลูกน้อย (KidDev Hub)</span>
+                
+                
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">0-5 ขวบ</span><span class="tag-chip">เช็กลิสต์พัฒนาการ</span><span class="tag-chip">EQ & EF</span><span class="tag-chip">คู่มือคุณแม่</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              คู่มือพัฒนาการเด็กตามช่วงอายุ การส่งเสริมทักษะทางอารมณ์ สังคม และสมอง พร้อมแนวทางการเลี้ยงดูเชิงบวก
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="06_เว็บคู่มือพัฒนาการลูกน้อย/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+          <div class="project-row" id="proj-row-05" data-category="family" data-online="false" data-search="เว็บสุ่มทำอาหาร (วันนี้กินอะไรดี) วันนี้กินอะไรดี (300 เมนู) ระบบสุ่มเมนูอาหารประจำวันจากฐานข้อมูล 300 รายการ ช่วยแก้ปัญหาคิดไม่ออกว่าจะกินอะไร พร้อมข้อมูลสารอาหารและวิธีทำ 300+ เมนู สุ่มอาหาร ข้อมูลโภชนาการ คำนวณแคลอรี">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-orange-500 to-amber-600" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                🍳
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>เว็บสุ่มทำอาหาร (วันนี้กินอะไรดี)</span>
+                
+                
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">300+ เมนู</span><span class="tag-chip">สุ่มอาหาร</span><span class="tag-chip">ข้อมูลโภชนาการ</span><span class="tag-chip">คำนวณแคลอรี</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              ระบบสุ่มเมนูอาหารประจำวันจากฐานข้อมูล 300 รายการ ช่วยแก้ปัญหาคิดไม่ออกว่าจะกินอะไร พร้อมข้อมูลสารอาหารและวิธีทำ
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="01_เว็บสุ่มทำอาหาร/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+        
+      <section class="category-section" data-cat-section="tech">
+        <div class="category-banner">
+          <div class="category-banner-left">
+            <div class="category-banner-icon" style="background:#bae6fd; color:#0369a1;">
+              🛠️
+            </div>
+            <div class="category-banner-title">
+              <h2>หมวดหมู่: เครื่องมือ & วิศวกรรม</h2>
+              <p>SmartZone PDF Studio, พอร์ตโฟลิโอวิศวกร, Codex และคลัง Prompt AI</p>
+            </div>
+          </div>
+          <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#94a3b8;">Engineering & Tools</span>
+        </div>
+
+        <div class="projects-table-card">
+          
+          <div class="project-row" id="proj-row-06" data-category="tech" data-online="true" data-search="smart zone ai (pdf studio & flipbook) smartzone pdf studio โคลนและพัฒนาจาก szai.net ระบบจัดการ pdf ครบวงจร ทำฟลิปบุ๊ก 3d เสมือนจริง แก้ไข เซ็นเซอร์ข้อความ ใส่ลายเซ็น รวม แยกหน้า และแปลงเป็นรูปภาพ ทำงานในเบราว์เซอร์ 100% 3d flipbook pdf editor & sign merge/split/organize 100% client-side">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-emerald-500 to-teal-700" style="background: linear-gradient(135deg, #10b981, #047857);">
+                📄
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>Smart Zone AI (PDF Studio & Flipbook)</span>
+                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#fef3c7; color:#b45309; border:1px solid #fde68a;">ใหม่</span>
+                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#dcfce7; color:#15803d; border:1px solid #86efac;">🌐 ออนไลน์</span>
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">3D Flipbook</span><span class="tag-chip">PDF Editor & Sign</span><span class="tag-chip">Merge/Split/Organize</span><span class="tag-chip">100% Client-Side</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              โคลนและพัฒนาจาก szai.net ระบบจัดการ PDF ครบวงจร ทำฟลิปบุ๊ก 3D เสมือนจริง แก้ไข เซ็นเซอร์ข้อความ ใส่ลายเซ็น รวม แยกหน้า และแปลงเป็นรูปภาพ ทำงานในเบราว์เซอร์ 100%
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="https://prongnaruebest.github.io/Psai-web-projects/smartzone-pdf/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="padding:6px 14px; font-size:12px;">
+                🌐 เปิดออนไลน์
+              </a>
+              <a href="17_SmartZone_PDF_Studio/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+          <div class="project-row" id="proj-row-07" data-category="tech" data-online="true" data-search="เว็บพอร์ตโฟลิโอวิศวกร (psai naruebest) พอร์ตโฟลิโอวิศวกร psai เว็บไซต์แสดงประวัติและผลงานวิศวกรรมอิเล็กทรอนิกส์ ระบบควบคุมหอดูดาว กล้องโทรทรรศน์อัตโนมัติ และสถาปัตยกรรมระบบ electronics engineer narit observatory robotic telescope">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-sky-500 to-indigo-600" style="background: linear-gradient(135deg, #0284c7, #1d4ed8);">
+                🔭
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>เว็บพอร์ตโฟลิโอวิศวกร (Psai Naruebest)</span>
+                
+                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#dcfce7; color:#15803d; border:1px solid #86efac;">🌐 ออนไลน์</span>
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">Electronics Engineer</span><span class="tag-chip">NARIT Observatory</span><span class="tag-chip">Robotic Telescope</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              เว็บไซต์แสดงประวัติและผลงานวิศวกรรมอิเล็กทรอนิกส์ ระบบควบคุมหอดูดาว กล้องโทรทรรศน์อัตโนมัติ และสถาปัตยกรรมระบบ
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="https://prongnaruebest.github.io/psai-play/#about" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="padding:6px 14px; font-size:12px;">
+                🌐 เปิดออนไลน์
+              </a>
+              <a href="11_เว็บพอร์ตโฟลิโอ/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+          <div class="project-row" id="proj-row-08" data-category="tech" data-online="false" data-search="คอร์สวิศวกรรมระบบ (personal codex) คอร์สวิศวกรรมระบบ หลักสูตรและเครื่องมือทดลองเชิงปฏิบัติการด้านวิศวกรรมสถาปัตยกรรมระบบขั้นสูง พร้อม workbench แบบโต้ตอบ system architecture interactive course engineering lab">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-indigo-500 to-purple-600" style="background: linear-gradient(135deg, #0284c7, #0369a1);">
+                ⚙️
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>คอร์สวิศวกรรมระบบ (Personal Codex)</span>
+                
+                
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">System Architecture</span><span class="tag-chip">Interactive Course</span><span class="tag-chip">Engineering Lab</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              หลักสูตรและเครื่องมือทดลองเชิงปฏิบัติการด้านวิศวกรรมสถาปัตยกรรมระบบขั้นสูง พร้อม Workbench แบบโต้ตอบ
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="12_เว็บคอร์สวิศวกรรมระบบ/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+          <div class="project-row" id="proj-row-09" data-category="tech" data-online="false" data-search="เว็บคลัง prompt ai (nexus prompt hub) คลัง prompt ai hub คลังคำสั่งสำหรับสั่งงานปัญญาประดิษฐ์ (ai prompts) หมวดงานเขียน วิเคราะห์ข้อมูล วางแผน และเขียนโค้ด prompt engineering ai assistant one-click copy">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-violet-600 to-purple-700" style="background: linear-gradient(135deg, #7c3aed, #4c1d95);">
+                🧠
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>เว็บคลัง Prompt AI (Nexus Prompt Hub)</span>
+                
+                
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">Prompt Engineering</span><span class="tag-chip">AI Assistant</span><span class="tag-chip">One-Click Copy</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              คลังคำสั่งสำหรับสั่งงานปัญญาประดิษฐ์ (AI Prompts) หมวดงานเขียน วิเคราะห์ข้อมูล วางแผน และเขียนโค้ด
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="10_เว็บคลังPromptAI/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+        
+      <section class="category-section" data-cat-section="entertainment">
+        <div class="category-banner">
+          <div class="category-banner-left">
+            <div class="category-banner-icon" style="background:#ede9fe; color:#6d28d9;">
+              🎮
+            </div>
+            <div class="category-banner-title">
+              <h2>หมวดหมู่: บันเทิง & ดนตรี</h2>
+              <p>TrackToon อนิเมะ/มังงะ, GuitarQuest, นิยายเซียนหนี่, หออักษรา และเกมยานอวกาศ</p>
+            </div>
+          </div>
+          <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#94a3b8;">Entertainment & Media</span>
+        </div>
+
+        <div class="projects-table-card">
+          
+          <div class="project-row" id="proj-row-10" data-category="entertainment" data-online="true" data-search="บันทึกตอนล่าสุด อนิเมะ & มังงะ (tracktoon) tracktoon (อนิเมะ & มังงะ) เครื่องมือบันทึกความคืบหน้าการดูอนิเมะจีนและอ่านมังงะ/มันฮวาประจำวัน มีปุ่มกด +1 ตอนทันใจ ค้นหาตอนต่อไปใน 1 คลิก พร้อมฟังก์ชันคัดลอกและนำเข้ารายการข้อความดิบ (clear theme) clear theme anime tracker manga progress ปุ่มกด +1 ตอน">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-sky-500 to-blue-700" style="background: linear-gradient(135deg, #0284c7, #1d4ed8);">
+                📺
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>บันทึกตอนล่าสุด อนิเมะ & มังงะ (TrackToon)</span>
+                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#fef3c7; color:#b45309; border:1px solid #fde68a;">ใหม่</span>
+                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#dcfce7; color:#15803d; border:1px solid #86efac;">🌐 ออนไลน์</span>
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">Clear Theme</span><span class="tag-chip">Anime Tracker</span><span class="tag-chip">Manga Progress</span><span class="tag-chip">ปุ่มกด +1 ตอน</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              เครื่องมือบันทึกความคืบหน้าการดูอนิเมะจีนและอ่านมังงะ/มันฮวาประจำวัน มีปุ่มกด +1 ตอนทันใจ ค้นหาตอนต่อไปใน 1 คลิก พร้อมฟังก์ชันคัดลอกและนำเข้ารายการข้อความดิบ (Clear Theme)
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="https://prongnaruebest.github.io/Psai-web-projects/tracktoon/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="padding:6px 14px; font-size:12px;">
+                🌐 เปิดออนไลน์
+              </a>
+              <a href="18_เว็บติดตามอนิเมะและมังงะ/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+          <div class="project-row" id="proj-row-11" data-category="entertainment" data-online="true" data-search="นิยายเซียนหนี่ 44 เล่มจบ (xian ni) นิยายเซียนหนี่ 44 เล่ม คลังนิยายกำลังภายในฉบับสมบูรณ์ 44 เล่ม พร้อมระบบอ่านออกเสียงจำลอง (text-to-speech) สำหรับฟังต่อเนื่องผ่านเน็ตหรือในเครื่อง นิยาย 44 เล่มจบ ระบบเสียง tts จำตอนอ่านล่าสุด cloud reader">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-blue-600 to-indigo-700" style="background: linear-gradient(135deg, #0284c7, #0369a1);">
+                📖
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>นิยายเซียนหนี่ 44 เล่มจบ (Xian Ni)</span>
+                
+                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#dcfce7; color:#15803d; border:1px solid #86efac;">🌐 ออนไลน์</span>
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">นิยาย 44 เล่มจบ</span><span class="tag-chip">ระบบเสียง TTS</span><span class="tag-chip">จำตอนอ่านล่าสุด</span><span class="tag-chip">Cloud Reader</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              คลังนิยายกำลังภายในฉบับสมบูรณ์ 44 เล่ม พร้อมระบบอ่านออกเสียงจำลอง (Text-to-Speech) สำหรับฟังต่อเนื่องผ่านเน็ตหรือในเครื่อง
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="https://xianni-reader-psai.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="padding:6px 14px; font-size:12px;">
+                🌐 เปิดออนไลน์
+              </a>
+              <a href="14_เว็บอ่านนิยายเซียนหนี่44เล่ม/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+          <div class="project-row" id="proj-row-12" data-category="entertainment" data-online="false" data-search="เว็บสอนกีต้า (guitarquest) guitarquest (สอนกีตาร์) เว็บเรียนเล่นกีตาร์ตั้งแต่เริ่มต้นจนชำนาญ ผ่านระบบจำลองเควสต์ผจญภัยแบบเกม พร้อมฟิงเกอร์บอร์ดจำลองเสียงคอร์ด เครื่องตั้งสาย และเครื่องเล่นตามคอร์ด guitar quest web audio คอร์ด tuner ตั้งสาย เพลงพร้อมคอร์ด">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-amber-500 to-orange-600" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                🎸
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>เว็บสอนกีต้า (GuitarQuest)</span>
+                
+                
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">Guitar Quest</span><span class="tag-chip">Web Audio คอร์ด</span><span class="tag-chip">Tuner ตั้งสาย</span><span class="tag-chip">เพลงพร้อมคอร์ด</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              เว็บเรียนเล่นกีตาร์ตั้งแต่เริ่มต้นจนชำนาญ ผ่านระบบจำลองเควสต์ผจญภัยแบบเกม พร้อมฟิงเกอร์บอร์ดจำลองเสียงคอร์ด เครื่องตั้งสาย และเครื่องเล่นตามคอร์ด
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="02_เว็บสอนกีต้า/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+          <div class="project-row" id="proj-row-13" data-category="entertainment" data-online="false" data-search="เว็บอ่านนิยายออนไลน์ (หออักษรา) หออักษรา (e-book reader) ระบบอ่าน e-book และนิยายออนไลน์ พร้อมฟังก์ชันปรับแต่งธีม ขนาดตัวอักษร คั่นหน้า และถนอมสายตา 4 เล่ม 72 ตอน e-book reader ปรับขนาดอักษร sepia theme">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-amber-600 to-stone-800" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                📚
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>เว็บอ่านนิยายออนไลน์ (หออักษรา)</span>
+                
+                
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">4 เล่ม 72 ตอน</span><span class="tag-chip">E-Book Reader</span><span class="tag-chip">ปรับขนาดอักษร</span><span class="tag-chip">Sepia Theme</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              ระบบอ่าน E-Book และนิยายออนไลน์ พร้อมฟังก์ชันปรับแต่งธีม ขนาดตัวอักษร คั่นหน้า และถนอมสายตา
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="13_เว็บอ่านนิยายออนไลน์/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+          <div class="project-row" id="proj-row-14" data-category="entertainment" data-online="false" data-search="เว็บเกมยานอวกาศ (tactical survivor) เกมยานอวกาศ orbital เกมยานรบอวกาศแนว roguelite อัปเกรดยานรบ อาวุธ และฝ่าฝูงศัตรู เล่นได้ทันทีผ่านเว็บเบราว์เซอร์ พร้อมระบบเสียงและกราฟิกสุดล้ำ sci-fi roguelite canvas 2d ระบบอัปเกรดยาน mobile touch">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-purple-600 to-indigo-800" style="background: linear-gradient(135deg, #0284c7, #0369a1);">
+                🚀
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>เว็บเกมยานอวกาศ (Tactical Survivor)</span>
+                
+                
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">Sci-Fi Roguelite</span><span class="tag-chip">Canvas 2D</span><span class="tag-chip">ระบบอัปเกรดยาน</span><span class="tag-chip">Mobile Touch</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              เกมยานรบอวกาศแนว Roguelite อัปเกรดยานรบ อาวุธ และฝ่าฝูงศัตรู เล่นได้ทันทีผ่านเว็บเบราว์เซอร์ พร้อมระบบเสียงและกราฟิกสุดล้ำ
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="09_เว็บเกมยานอวกาศ/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+        
+      <section class="category-section" data-cat-section="fitness">
+        <div class="category-banner">
+          <div class="category-banner-left">
+            <div class="category-banner-icon" style="background:#ffe4e6; color:#be123c;">
+              🏃
+            </div>
+            <div class="category-banner-title">
+              <h2>หมวดหมู่: สุขภาพ & ฟิตเนส</h2>
+              <p>Muscle Map กายวิภาค, RunEvolution วิ่งมาราธอน และ Titan Forge บอดี้เวท RPG</p>
+            </div>
+          </div>
+          <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#94a3b8;">Health & Fitness</span>
+        </div>
+
+        <div class="projects-table-card">
+          
+          <div class="project-row" id="proj-row-15" data-category="fitness" data-online="false" data-search="แผนที่กล้ามเนื้อ (fastfit muscle map) แผนที่กล้ามเนื้อ muscle map แผนที่กายวิภาคกล้ามเนื้อร่างกาย ทั้งมุมมอง 2d interactive svg และ 3d model คลิกเลือกกล้ามเนื้อเพื่อแสดงรายชื่อท่าออกกำลังกายและกลไกการเคลื่อนไหวที่ตรงจุด 3d body map ระบบกายวิภาค ท่าออกกำลังกาย tier list">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-red-600 to-rose-700" style="background: linear-gradient(135deg, #f43f5e, #e11d48);">
+                🧬
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>แผนที่กล้ามเนื้อ (FastFit Muscle Map)</span>
+                
+                
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">3D Body Map</span><span class="tag-chip">ระบบกายวิภาค</span><span class="tag-chip">ท่าออกกำลังกาย</span><span class="tag-chip">Tier List</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              แผนที่กายวิภาคกล้ามเนื้อร่างกาย ทั้งมุมมอง 2D Interactive SVG และ 3D Model คลิกเลือกกล้ามเนื้อเพื่อแสดงรายชื่อท่าออกกำลังกายและกลไกการเคลื่อนไหวที่ตรงจุด
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="16_Muscle_Map/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+          <div class="project-row" id="proj-row-16" data-category="fitness" data-online="false" data-search="เว็บฝึกวิ่ง (runevolution) runevolution ฝึกซ้อมวิ่ง ตารางฝึกซ้อมวิ่งตั้งแต่ระดับเริ่มต้นจนถึงฟูลมาราธอน คำนวณความเร็ว pace พร้อมแผนฟื้นฟูกล้ามเนื้อและอวาตาร์จำลองการวิ่งแอนิเมชัน 5k / 10k / มาราธอน pace calculator dynamic avatar level rpg">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-cyan-500 to-blue-600" style="background: linear-gradient(135deg, #0284c7, #0369a1);">
+                🏃
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>เว็บฝึกวิ่ง (RunEvolution)</span>
+                
+                
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">5K / 10K / มาราธอน</span><span class="tag-chip">Pace Calculator</span><span class="tag-chip">Dynamic Avatar</span><span class="tag-chip">Level RPG</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              ตารางฝึกซ้อมวิ่งตั้งแต่ระดับเริ่มต้นจนถึงฟูลมาราธอน คำนวณความเร็ว Pace พร้อมแผนฟื้นฟูกล้ามเนื้อและอวาตาร์จำลองการวิ่งแอนิเมชัน
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="05_เว็บฝึกวิ่งRunEvolution/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+          <div class="project-row" id="proj-row-17" data-category="fitness" data-online="false" data-search="เว็บออกกำลังกายอนิเมะ (titan forge) titan forge (คาลิสเทนิกส์) โปรแกรมฝึกบอดี้เวทและคาลิสเทนิกส์ในรูปแบบเกม rpg สะสมค่าประสบการณ์ เลเวลอัพร่างกาย และเควสต์ท่าฝึกกายภาพ calisthenics rpg เควสต์ออกกำลังกาย บอดี้เวท level up">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-rose-500 to-red-600" style="background: linear-gradient(135deg, #f43f5e, #e11d48);">
+                ⚔️
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>เว็บออกกำลังกายอนิเมะ (TITAN FORGE)</span>
+                
+                
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">Calisthenics RPG</span><span class="tag-chip">เควสต์ออกกำลังกาย</span><span class="tag-chip">บอดี้เวท</span><span class="tag-chip">Level Up</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              โปรแกรมฝึกบอดี้เวทและคาลิสเทนิกส์ในรูปแบบเกม RPG สะสมค่าประสบการณ์ เลเวลอัพร่างกาย และเควสต์ท่าฝึกกายภาพ
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="04_เว็บออกกำลังกายอนิเมะ/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+        
+      <section class="category-section" data-cat-section="finance">
+        <div class="category-banner">
+          <div class="category-banner-left">
+            <div class="category-banner-icon" style="background:#dcfce7; color:#15803d;">
+              💰
+            </div>
+            <div class="category-banner-title">
+              <h2>หมวดหมู่: การเงิน & ธุรกิจ</h2>
+              <p>เงินเดือนนี้ต้องรอด จัดสรรงบประมาณ คุมงบกินอยู่ และเงินเก็บลูก</p>
+            </div>
+          </div>
+          <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:#94a3b8;">Finance & Budget</span>
+        </div>
+
+        <div class="projects-table-card">
+          
+          <div class="project-row" id="proj-row-18" data-category="finance" data-online="false" data-search="เงินเดือนนี้ต้องรอด เงินเดือนนี้ต้องรอด ระบบบันทึกและวางแผนรายรับ-รายจ่ายรายเดือน จัดสรรก้อนหนี้สิน คุมงบกินอยู่ 10,000 บ. ค่านมลูก พร้อมคำแนะนำจากนักวางแผนการเงิน คุมงบ 10,000 บ. วางแผนหนี้สิน เงินเก็บลูก chart.js">
+            <div>
+              <div class="project-icon-box bg-gradient-to-br from-emerald-500 to-teal-600" style="background: linear-gradient(135deg, #10b981, #047857);">
+                💰
+              </div>
+            </div>
+
+            <div class="project-main-info">
+              <h3>
+                <span>เงินเดือนนี้ต้องรอด</span>
+                <span style="font-size:11px; padding:2px 7px; border-radius:5px; background:#fef3c7; color:#b45309; border:1px solid #fde68a;">อัปเดต</span>
+                
+              </h3>
+              <div class="project-tags">
+                <span class="tag-chip">คุมงบ 10,000 บ.</span><span class="tag-chip">วางแผนหนี้สิน</span><span class="tag-chip">เงินเก็บลูก</span><span class="tag-chip">Chart.js</span>
+              </div>
+            </div>
+
+            <div class="project-desc-text">
+              ระบบบันทึกและวางแผนรายรับ-รายจ่ายรายเดือน จัดสรรก้อนหนี้สิน คุมงบกินอยู่ 10,000 บ. ค่านมลูก พร้อมคำแนะนำจากนักวางแผนการเงิน
+            </div>
+
+            <div class="project-btn-group">
+              
+              <a href="03_เงินเดือนนี้ต้องรอด/index.html" target="_blank" class="btn-action-secondary" style="padding:6px 14px; font-size:12px;">
+                💻 ในเครื่อง
+              </a>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+        
+    </div>
+
+    <!-- CLEAN FOOTER -->
+    <footer class="clean-footer">
+      <div style="font-weight: 600; color: #334155;">
         ศูนย์รวมเว็บแอปพลิเคชัน by Psai • D:\00_INBOX\Web Application
       </div>
-      <div class="text-slate-400 font-mono text-[11px]">
-        คลังรวมโปรเจกต์เว็บแอปพลิเคชัน • HTML5 / CSS3 / JavaScript
+      <div>
+        คลังรวมโปรเจกต์เว็บแอปพลิเคชัน 18 โปรเจกต์ (7 เว็บไซต์ออนไลน์ Live) • HTML5 / CSS3 / JavaScript
       </div>
-    </div>
-  </footer>
+    </footer>
 
-  <!-- Filter & Search Script -->
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toastNotification" class="toast-notification">
+    <span>📋</span>
+    <span id="toastMessage">คัดลอกเรียบร้อยแล้ว</span>
+  </div>
+
   <script>
-    let currentCategory = 'all';
+    // Projects Data
+    const projectsData = [{"id":"01","code":"#01","title":"เมนูของปรายใส (Praysai Kids Meals)","shortName":"เมนูของปรายใส","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"ป","iconType":"text","color":"from-rose-500 to-pink-600","desc":"เลือกวัตถุดิบที่มีในบ้าน ระบบจะช่วยคิดเมนูสำหรับปรายใสตามช่วงวัย เวลา และเนื้อสัมผัส พร้อมบอกของที่ขาดและบันทึกรายการซื้อของ","features":"คิดเมนูตามวัตถุดิบในบ้าน • เด็กตามวัย 6-24 ด.+ • บันทึกของที่ขาด • รายการเมนูโปรด","tech":"HTML5, Tailwind CSS, LocalStorage, PWA Ready","tags":["วัตถุดิบในบ้าน","เด็กตามวัย 6-24 ด.+","รายการซื้อของ","เมนูโปรด"],"onlineUrl":"https://prongnaruebest.github.io/-praysai-kids-meals/","localUrl":"19_เว็บเมนูของปรายใส/index.html","localPath":"D:\\00_INBOX\\Web Application\\19_เว็บเมนูของปรายใส","isOnline":true,"isSpecial":true,"specialTag":"🌟 ของปรายใส"},{"id":"02","code":"#02","title":"เว็บอาหารเด็กเล็ก (YumYum Toddler)","shortName":"เว็บอาหารเด็กเล็ก","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"🥣","iconType":"emoji","color":"from-lime-500 to-emerald-600","desc":"สูตรอาหารและแนวทางโภชนาการสำหรับเด็กวัยหัดเดิน 1-3 ปี ครบถ้วนสารอาหารสำคัญเพื่อการเจริญเติบโต พร้อมเวอร์ชันออนไลน์บนคลาวด์","features":"โภชนาการเด็ก 1-3 ปี • เมนูลดภูมิแพ้ • ตารางสารอาหาร BLW • Cloud App","tech":"Next.js / Vanilla Export, Tailwind CSS, Cloudflare","tags":["เด็กเล็ก 1-3 ขวบ","ตารางโภชนาการ","เมนูลดแพ้","Cloud App"],"onlineUrl":"https://yumyum-toddler-online.prong-naruebest.chatgpt.site/","localUrl":"08_เว็บอาหารเด็กเล็ก/index.html","localPath":"D:\\00_INBOX\\Web Application\\08_เว็บอาหารเด็กเล็ก","isOnline":true,"isSpecial":false},{"id":"03","code":"#03","title":"เว็บไอเดียกิจกรรมเด็ก (PlayPal)","shortName":"ไอเดียกิจกรรมเด็ก","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"🎨","iconType":"emoji","color":"from-amber-400 to-orange-500","desc":"คลัง 32+ ไอเดียกิจกรรมการเล่นสร้างสรรค์กับลูก เสริมทักษะประสาทสัมผัสและกล้ามเนื้อ พร้อมอุปกรณ์ที่หาได้ง่ายในบ้าน รองรับ PWA","features":"32+ กิจกรรมเล่นสร้างสรรค์ • แบ่งตามช่วงอายุ • พัฒนาการ Sensory • ใช้อุปกรณ์ในบ้าน","tech":"HTML5, Tailwind CSS, Web App Manifest, PWA","tags":["เล่นสร้างสรรค์","32+ กิจกรรม","เสริมพัฒนาการ","PWA"],"onlineUrl":"https://prongnaruebest.github.io/playpal-web/","localUrl":"07_เว็บไอเดียกิจกรรมเด็ก/index.html","localPath":"D:\\00_INBOX\\Web Application\\07_เว็บไอเดียกิจกรรมเด็ก","isOnline":true,"isSpecial":false},{"id":"04","code":"#04","title":"เว็บคู่มือพัฒนาการลูกน้อย (KidDev Hub)","shortName":"คู่มือพัฒนาการลูก","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"👶","iconType":"emoji","color":"from-pink-400 to-rose-500","desc":"คู่มือพัฒนาการเด็กตามช่วงอายุ การส่งเสริมทักษะทางอารมณ์ สังคม และสมอง พร้อมแนวทางการเลี้ยงดูเชิงบวก","features":"เช็กลิสต์พัฒนาการตามวัย • ทักษะสมอง EF • เลี้ยงลูกเชิงบวก • แนะนำการกระตุ้นพัฒนาการ","tech":"HTML5, CSS3, Responsive Design","tags":["0-5 ขวบ","เช็กลิสต์พัฒนาการ","EQ & EF","คู่มือคุณแม่"],"onlineUrl":null,"localUrl":"06_เว็บคู่มือพัฒนาการลูกน้อย/index.html","localPath":"D:\\00_INBOX\\Web Application\\06_เว็บคู่มือพัฒนาการลูกน้อย","isOnline":false,"isSpecial":false},{"id":"05","code":"#05","title":"เว็บสุ่มทำอาหาร (วันนี้กินอะไรดี)","shortName":"วันนี้กินอะไรดี (300 เมนู)","category":"family","categoryName":"ครอบครัว & เด็ก","icon":"🍳","iconType":"emoji","color":"from-orange-500 to-amber-600","desc":"ระบบสุ่มเมนูอาหารประจำวันจากฐานข้อมูล 300 รายการ ช่วยแก้ปัญหาคิดไม่ออกว่าจะกินอะไร พร้อมข้อมูลสารอาหารและวิธีทำ","features":"สุ่มเมนูอาหาร 300+ รายการ • กรองตามประเภท ต้ม ผัด แกง ทอด • ข้อมูลแคลอรี • วัตถุดิบและวิธีทำ","tech":"HTML5, CSS3, JavaScript Single Page App","tags":["300+ เมนู","สุ่มอาหาร","ข้อมูลโภชนาการ","คำนวณแคลอรี"],"onlineUrl":null,"localUrl":"01_เว็บสุ่มทำอาหาร/index.html","localPath":"D:\\00_INBOX\\Web Application\\01_เว็บสุ่มทำอาหาร","isOnline":false,"isSpecial":false},{"id":"06","code":"#06","title":"Smart Zone AI (PDF Studio & Flipbook)","shortName":"SmartZone PDF Studio","category":"tech","categoryName":"เครื่องมือ & วิศวกรรม","icon":"📄","iconType":"emoji","color":"from-emerald-500 to-teal-700","desc":"โคลนและพัฒนาจาก szai.net ระบบจัดการ PDF ครบวงจร ทำฟลิปบุ๊ก 3D เสมือนจริง แก้ไข เซ็นเซอร์ข้อความ ใส่ลายเซ็น รวม แยกหน้า และแปลงเป็นรูปภาพ ทำงานในเบราว์เซอร์ 100%","features":"3D Flipbook เปิดหน้าเสมือนจริง • รวม/แยก/จัดเรียงหน้า PDF • เซ็นเซอร์ & ลายเซ็นดิจิทัล • แปลงรูปภาพ Client-side 100%","tech":"PDF-lib.js, PDF.js, PageFlip 3D, JSZip, Vanilla JS","tags":["3D Flipbook","PDF Editor & Sign","Merge/Split/Organize","100% Client-Side"],"onlineUrl":"https://prongnaruebest.github.io/Psai-web-projects/smartzone-pdf/","localUrl":"17_SmartZone_PDF_Studio/index.html","localPath":"D:\\00_INBOX\\Web Application\\17_SmartZone_PDF_Studio","isOnline":true,"isSpecial":true,"specialTag":"ใหม่"},{"id":"07","code":"#07","title":"เว็บพอร์ตโฟลิโอวิศวกร (Psai Naruebest)","shortName":"พอร์ตโฟลิโอวิศวกร Psai","category":"tech","categoryName":"เครื่องมือ & วิศวกรรม","icon":"🔭","iconType":"emoji","color":"from-sky-500 to-indigo-600","desc":"เว็บไซต์แสดงประวัติและผลงานวิศวกรรมอิเล็กทรอนิกส์ ระบบควบคุมหอดูดาว กล้องโทรทรรศน์อัตโนมัติ และสถาปัตยกรรมระบบ","features":"ประวัติผลงานวิศวกรรมดาราศาสตร์ • กล้องโทรทรรศน์อัตโนมัติ สดร. • เอกสารโครงสร้างสถาปัตยกรรม","tech":"HTML5, Tailwind CSS, Responsive Design, GitHub Pages","tags":["Electronics Engineer","NARIT Observatory","Robotic Telescope"],"onlineUrl":"https://prongnaruebest.github.io/psai-play/#about","localUrl":"11_เว็บพอร์ตโฟลิโอ/index.html","localPath":"D:\\00_INBOX\\Web Application\\11_เว็บพอร์ตโฟลิโอ","isOnline":true,"isSpecial":false},{"id":"08","code":"#08","title":"คอร์สวิศวกรรมระบบ (Personal Codex)","shortName":"คอร์สวิศวกรรมระบบ","category":"tech","categoryName":"เครื่องมือ & วิศวกรรม","icon":"⚙️","iconType":"emoji","color":"from-indigo-500 to-purple-600","desc":"หลักสูตรและเครื่องมือทดลองเชิงปฏิบัติการด้านวิศวกรรมสถาปัตยกรรมระบบขั้นสูง พร้อม Workbench แบบโต้ตอบ","features":"บทเรียนวิศวกรรมระบบ • Interactive Workbench • สถาปัตยกรรมระดับองค์กร • แบบฝึกหัดทดลอง","tech":"HTML5, CSS3, Interactive JavaScript","tags":["System Architecture","Interactive Course","Engineering Lab"],"onlineUrl":null,"localUrl":"12_เว็บคอร์สวิศวกรรมระบบ/index.html","localPath":"D:\\00_INBOX\\Web Application\\12_เว็บคอร์สวิศวกรรมระบบ","isOnline":false,"isSpecial":false},{"id":"09","code":"#09","title":"เว็บคลัง Prompt AI (Nexus Prompt Hub)","shortName":"คลัง Prompt AI Hub","category":"tech","categoryName":"เครื่องมือ & วิศวกรรม","icon":"🧠","iconType":"emoji","color":"from-violet-600 to-purple-700","desc":"คลังคำสั่งสำหรับสั่งงานปัญญาประดิษฐ์ (AI Prompts) หมวดงานเขียน วิเคราะห์ข้อมูล วางแผน และเขียนโค้ด","features":"รวม 200+ Prompt พร้อมใช้ • คัดลอกใน 1 คลิก • ค้นหาแบบ Realtime • หมวดหมู่งานหลากหลาย","tech":"HTML5, Tailwind CSS, JavaScript Search Filter","tags":["Prompt Engineering","AI Assistant","One-Click Copy"],"onlineUrl":null,"localUrl":"10_เว็บคลังPromptAI/index.html","localPath":"D:\\00_INBOX\\Web Application\\10_เว็บคลังPromptAI","isOnline":false,"isSpecial":false},{"id":"10","code":"#10","title":"บันทึกตอนล่าสุด อนิเมะ & มังงะ (TrackToon)","shortName":"TrackToon (อนิเมะ & มังงะ)","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"📺","iconType":"emoji","color":"from-sky-500 to-blue-700","desc":"เครื่องมือบันทึกความคืบหน้าการดูอนิเมะจีนและอ่านมังงะ/มันฮวาประจำวัน มีปุ่มกด +1 ตอนทันใจ ค้นหาตอนต่อไปใน 1 คลิก พร้อมฟังก์ชันคัดลอกและนำเข้ารายการข้อความดิบ (Clear Theme)","features":"Clear Theme ขาวสว่างอ่านง่าย • กด +1 ตอนทันใจ • ลิงก์ค้นหาตอนถัดไปทันที • Import/Export ข้อความดิบ","tech":"HTML5, Clear Modern CSS, LocalStorage, GitHub Pages","tags":["Clear Theme","Anime Tracker","Manga Progress","ปุ่มกด +1 ตอน"],"onlineUrl":"https://prongnaruebest.github.io/Psai-web-projects/tracktoon/","localUrl":"18_เว็บติดตามอนิเมะและมังงะ/index.html","localPath":"D:\\00_INBOX\\Web Application\\18_เว็บติดตามอนิเมะและมังงะ","isOnline":true,"isSpecial":true,"specialTag":"ใหม่"},{"id":"11","code":"#11","title":"นิยายเซียนหนี่ 44 เล่มจบ (Xian Ni)","shortName":"นิยายเซียนหนี่ 44 เล่ม","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"📖","iconType":"emoji","color":"from-blue-600 to-indigo-700","desc":"คลังนิยายกำลังภายในฉบับสมบูรณ์ 44 เล่ม พร้อมระบบอ่านออกเสียงจำลอง (Text-to-Speech) สำหรับฟังต่อเนื่องผ่านเน็ตหรือในเครื่อง","features":"นิยาย 44 เล่มจบสมบูรณ์ • ระบบอ่านออกเสียง TTS • จำตำแหน่งอ่านล่าสุด • โหมดถนอมสายตา","tech":"HTML5, Web Speech API (TTS), LocalStorage, Netlify","tags":["นิยาย 44 เล่มจบ","ระบบเสียง TTS","จำตอนอ่านล่าสุด","Cloud Reader"],"onlineUrl":"https://xianni-reader-psai.netlify.app/","localUrl":"14_เว็บอ่านนิยายเซียนหนี่44เล่ม/index.html","localPath":"D:\\00_INBOX\\Web Application\\14_เว็บอ่านนิยายเซียนหนี่44เล่ม","isOnline":true,"isSpecial":false},{"id":"12","code":"#12","title":"เว็บสอนกีต้า (GuitarQuest)","shortName":"GuitarQuest (สอนกีตาร์)","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"🎸","iconType":"emoji","color":"from-amber-500 to-orange-600","desc":"เว็บเรียนเล่นกีตาร์ตั้งแต่เริ่มต้นจนชำนาญ ผ่านระบบจำลองเควสต์ผจญภัยแบบเกม พร้อมฟิงเกอร์บอร์ดจำลองเสียงคอร์ด เครื่องตั้งสาย และเครื่องเล่นตามคอร์ด","features":"เควสต์ฝึกกีตาร์ RPG • เครื่องตั้งสาย Tuner • สังเคราะห์เสียงคอร์ด Web Audio • เพลงพร้อมคอร์ดและดีดตาม","tech":"Web Audio API, Canvas Confetti, Tailwind CSS, Game RPG Engine","tags":["Guitar Quest","Web Audio คอร์ด","Tuner ตั้งสาย","เพลงพร้อมคอร์ด"],"onlineUrl":null,"localUrl":"02_เว็บสอนกีต้า/index.html","localPath":"D:\\00_INBOX\\Web Application\\02_เว็บสอนกีต้า","isOnline":false,"isSpecial":false},{"id":"13","code":"#13","title":"เว็บอ่านนิยายออนไลน์ (หออักษรา)","shortName":"หออักษรา (E-Book Reader)","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"📚","iconType":"emoji","color":"from-amber-600 to-stone-800","desc":"ระบบอ่าน E-Book และนิยายออนไลน์ พร้อมฟังก์ชันปรับแต่งธีม ขนาดตัวอักษร คั่นหน้า และถนอมสายตา","features":"ฉบับสมบูรณ์ 4 เล่ม 72 ตอน • ปรับแต่งธีม Sepia/Dark/OLED • ปรับขนาดฟอนต์และระยะบรรทัด • คั่นหน้าและจำบทอ่าน","tech":"HTML5, CSS Custom Properties, LocalStorage","tags":["4 เล่ม 72 ตอน","E-Book Reader","ปรับขนาดอักษร","Sepia Theme"],"onlineUrl":null,"localUrl":"13_เว็บอ่านนิยายออนไลน์/index.html","localPath":"D:\\00_INBOX\\Web Application\\13_เว็บอ่านนิยายออนไลน์","isOnline":false,"isSpecial":false},{"id":"14","code":"#14","title":"เว็บเกมยานอวกาศ (Tactical Survivor)","shortName":"เกมยานอวกาศ Orbital","category":"entertainment","categoryName":"บันเทิง & ดนตรี","icon":"🚀","iconType":"emoji","color":"from-purple-600 to-indigo-800","desc":"เกมยานรบอวกาศแนว Roguelite อัปเกรดยานรบ อาวุธ และฝ่าฝูงศัตรู เล่นได้ทันทีผ่านเว็บเบราว์เซอร์ พร้อมระบบเสียงและกราฟิกสุดล้ำ","features":"Sci-Fi Roguelite Action • ระบบอัปเกรดยานและอาวุธ • ควบคุมสัมผัสบนมือถือและคีย์บอร์ด • 60 FPS Canvas Engine","tech":"HTML5 Canvas, TypeScript/JS Bundle, Service Worker, PWA","tags":["Sci-Fi Roguelite","Canvas 2D","ระบบอัปเกรดยาน","Mobile Touch"],"onlineUrl":null,"localUrl":"09_เว็บเกมยานอวกาศ/index.html","localPath":"D:\\00_INBOX\\Web Application\\09_เว็บเกมยานอวกาศ","isOnline":false,"isSpecial":false},{"id":"15","code":"#15","title":"แผนที่กล้ามเนื้อ (FastFit Muscle Map)","shortName":"แผนที่กล้ามเนื้อ Muscle Map","category":"fitness","categoryName":"สุขภาพ & ฟิตเนส","icon":"🧬","iconType":"emoji","color":"from-red-600 to-rose-700","desc":"แผนที่กายวิภาคกล้ามเนื้อร่างกาย ทั้งมุมมอง 2D Interactive SVG และ 3D Model คลิกเลือกกล้ามเนื้อเพื่อแสดงรายชื่อท่าออกกำลังกายและกลไกการเคลื่อนไหวที่ตรงจุด","features":"แผนที่กล้ามเนื้อ 2D SVG & 3D WebGL • 400+ ท่าออกกำลังกาย Tier List • ตัวกรองอุปกรณ์และจัดตารางฝึก • สรีระชาย/หญิง","tech":"Three.js 3D WebGL, Interactive SVG, JSON Database","tags":["3D Body Map","ระบบกายวิภาค","ท่าออกกำลังกาย","Tier List"],"onlineUrl":null,"localUrl":"16_Muscle_Map/index.html","localPath":"D:\\00_INBOX\\Web Application\\16_Muscle_Map","isOnline":false,"isSpecial":false},{"id":"16","code":"#16","title":"เว็บฝึกวิ่ง (RunEvolution)","shortName":"RunEvolution ฝึกซ้อมวิ่ง","category":"fitness","categoryName":"สุขภาพ & ฟิตเนส","icon":"🏃","iconType":"emoji","color":"from-cyan-500 to-blue-600","desc":"ตารางฝึกซ้อมวิ่งตั้งแต่ระดับเริ่มต้นจนถึงฟูลมาราธอน คำนวณความเร็ว Pace พร้อมแผนฟื้นฟูกล้ามเนื้อและอวาตาร์จำลองการวิ่งแอนิเมชัน","features":"ตารางซ้อม 5K/10K/Half/Full • คำนวณ Pace • อวาตาร์วิ่ง Dynamic SVG • ระบบเลเวลและ XP","tech":"HTML5 SVG Animation, Canvas Aura, LocalStorage State","tags":["5K / 10K / มาราธอน","Pace Calculator","Dynamic Avatar","Level RPG"],"onlineUrl":null,"localUrl":"05_เว็บฝึกวิ่งRunEvolution/index.html","localPath":"D:\\00_INBOX\\Web Application\\05_เว็บฝึกวิ่งRunEvolution","isOnline":false,"isSpecial":false},{"id":"17","code":"#17","title":"เว็บออกกำลังกายอนิเมะ (TITAN FORGE)","shortName":"Titan Forge (คาลิสเทนิกส์)","category":"fitness","categoryName":"สุขภาพ & ฟิตเนส","icon":"⚔️","iconType":"emoji","color":"from-rose-500 to-red-600","desc":"โปรแกรมฝึกบอดี้เวทและคาลิสเทนิกส์ในรูปแบบเกม RPG สะสมค่าประสบการณ์ เลเวลอัพร่างกาย และเควสต์ท่าฝึกกายภาพ","features":"เควสต์ฝึกบอดี้เวทสไตล์ RPG • เลเวลอัพสเตตัสพละกำลัง • ท่า Calisthenics Progression • บันทึกสถิติประจำวัน","tech":"HTML5, Tailwind CSS, RPG Gamification Engine","tags":["Calisthenics RPG","เควสต์ออกกำลังกาย","บอดี้เวท","Level Up"],"onlineUrl":null,"localUrl":"04_เว็บออกกำลังกายอนิเมะ/index.html","localPath":"D:\\00_INBOX\\Web Application\\04_เว็บออกกำลังกายอนิเมะ","isOnline":false,"isSpecial":false},{"id":"18","code":"#18","title":"เงินเดือนนี้ต้องรอด","shortName":"เงินเดือนนี้ต้องรอด","category":"finance","categoryName":"การเงิน & ธุรกิจ","icon":"💰","iconType":"emoji","color":"from-emerald-500 to-teal-600","desc":"ระบบบันทึกและวางแผนรายรับ-รายจ่ายรายเดือน จัดสรรก้อนหนี้สิน คุมงบกินอยู่ 10,000 บ. ค่านมลูก พร้อมคำแนะนำจากนักวางแผนการเงิน","features":"จำลองงบประมาณรายเดือน • ตัดหนี้และเงินเก็บลูก • กราฟสัดส่วนการเงิน Chart.js • ติดตั้ง PWA บนมือถือได้","tech":"HTML5, Tailwind CSS, Chart.js, FontAwesome, PWA","tags":["คุมงบ 10,000 บ.","วางแผนหนี้สิน","เงินเก็บลูก","Chart.js"],"onlineUrl":null,"localUrl":"03_เงินเดือนนี้ต้องรอด/index.html","localPath":"D:\\00_INBOX\\Web Application\\03_เงินเดือนนี้ต้องรอด","isOnline":false,"isSpecial":true,"specialTag":"อัปเดต"}];
+    let activeProjectId = "01";
+    let activeCategory = "all";
+    let activeView = "map";
 
-    function setCategory(category, btn) {
-      currentCategory = category;
+    // View Switching
+    function switchView(viewName, btnEl) {
+      activeView = viewName;
+      document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
 
-      // Update button styles
-      document.querySelectorAll('.filter-btn').forEach(b => {
-        b.className = 'filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium transition flex items-center gap-1.5 shrink-0';
-        const badge = b.querySelector('.count-badge');
-        if (badge) badge.className = 'count-badge px-1.5 py-0.2 rounded-full text-[10px] bg-slate-200 text-slate-700 font-bold';
-      });
+      const mapContainer = document.getElementById('mindMapContainer');
+      const showcaseContainer = document.getElementById('categoriesShowcaseContainer');
+      const drawer = document.getElementById('horizontalDrawer');
 
-      if (category === 'online') {
-        btn.className = 'filter-btn px-3 py-1.5 rounded-lg bg-emerald-700 text-white font-medium transition flex items-center gap-1.5 shrink-0 shadow-xs';
-        const activeBadge = btn.querySelector('.count-badge');
-        if (activeBadge) activeBadge.className = 'count-badge px-1.5 py-0.2 rounded-full text-[10px] bg-emerald-900 text-emerald-100 font-bold';
-      } else {
-        btn.className = 'filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-white font-medium transition flex items-center gap-1.5 shrink-0 shadow-xs';
-        const activeBadge = btn.querySelector('.count-badge');
-        if (activeBadge) activeBadge.className = 'count-badge px-1.5 py-0.2 rounded-full text-[10px] bg-slate-700 text-slate-200 font-bold';
+      if (viewName === 'map') {
+        mapContainer.style.display = 'block';
+        drawer.style.display = 'block';
+        showcaseContainer.style.display = 'block';
+        filterProjectChips('all', document.getElementById('chip-all'));
+      } else if (viewName === 'online') {
+        mapContainer.style.display = 'block';
+        drawer.style.display = 'block';
+        showcaseContainer.style.display = 'block';
+        filterProjectChips('online-only', document.getElementById('chip-online-only'));
+      } else if (viewName === 'local') {
+        mapContainer.style.display = 'block';
+        drawer.style.display = 'block';
+        showcaseContainer.style.display = 'block';
+        filterProjectChips('all', document.getElementById('chip-all'));
+      } else if (viewName === 'categories') {
+        mapContainer.style.display = 'none';
+        drawer.style.display = 'none';
+        showcaseContainer.style.display = 'block';
+        document.querySelectorAll('.category-section').forEach(sec => sec.style.display = 'block');
+        document.querySelectorAll('.project-row').forEach(row => row.style.display = 'grid');
       }
-
-      filterProjects();
     }
 
-    function filterProjects() {
-      const query = document.getElementById('searchInput').value.trim().toLowerCase();
-      const clearBtn = document.getElementById('clearSearchBtn');
-      const rows = document.querySelectorAll('.project-row');
-      const sections = document.querySelectorAll('.category-section');
-      const noResults = document.getElementById('noResults');
-      let visibleCount = 0;
+    // Select Root
+    function selectRoot() {
+      document.querySelectorAll('.branch-card').forEach(b => b.classList.remove('active'));
+      document.getElementById('rootNodeCard').classList.add('active');
+      filterProjectChips('all', document.getElementById('chip-all'));
+    }
 
-      if (query) {
-        clearBtn.classList.remove('hidden');
-      } else {
-        clearBtn.classList.add('hidden');
-      }
+    // Category Branch Click
+    function selectCategoryBranch(catId, cardEl) {
+      document.getElementById('rootNodeCard').classList.remove('active');
+      document.querySelectorAll('.branch-card').forEach(b => b.classList.remove('active'));
+      if (cardEl) cardEl.classList.add('active');
+      const chipBtn = document.getElementById('chip-' + catId);
+      filterProjectChips(catId, chipBtn);
+    }
 
-      // Check each row
-      rows.forEach(row => {
-        const rowCategory = row.getAttribute('data-category');
+    // Filter Chips
+    function filterProjectChips(filterType, chipEl) {
+      activeCategory = filterType;
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      if (chipEl) chipEl.classList.add('active');
+
+      // Filter Nodes in Grid
+      document.querySelectorAll('.p-node').forEach(node => {
+        const cat = node.getAttribute('data-category');
+        const isOnline = node.getAttribute('data-online') === 'true';
+
+        let show = false;
+        if (filterType === 'all') show = true;
+        else if (filterType === 'online-only') show = isOnline;
+        else if (filterType === cat) show = true;
+
+        node.style.display = show ? 'flex' : 'none';
+      });
+
+      // Filter Detailed Category Sections below
+      document.querySelectorAll('.category-section').forEach(sec => {
+        const cat = sec.getAttribute('data-cat-section');
+        let show = false;
+        if (filterType === 'all' || filterType === 'online-only') show = true;
+        else if (filterType === cat) show = true;
+
+        sec.style.display = show ? 'block' : 'none';
+      });
+
+      // Filter Rows within Sections
+      document.querySelectorAll('.project-row').forEach(row => {
         const isOnline = row.getAttribute('data-online') === 'true';
-        const rowSearch = (row.getAttribute('data-search') || '').toLowerCase();
-
-        let matchesCategory = false;
-        if (currentCategory === 'all') {
-          matchesCategory = true;
-        } else if (currentCategory === 'online') {
-          matchesCategory = isOnline;
+        if (filterType === 'online-only') {
+          row.style.display = isOnline ? 'grid' : 'none';
         } else {
-          matchesCategory = (rowCategory === currentCategory);
-        }
-
-        const matchesQuery = (!query || rowSearch.includes(query));
-
-        if (matchesCategory && matchesQuery) {
-          row.classList.remove('hidden');
-          visibleCount++;
-        } else {
-          row.classList.add('hidden');
+          row.style.display = 'grid';
         }
       });
+    }
 
-      // Show/hide category section containers based on whether they contain visible rows
-      sections.forEach(sec => {
-        const secCat = sec.getAttribute('data-category');
-        const visibleRowsInSec = sec.querySelectorAll('.project-row:not(.hidden)');
-        
-        if (visibleRowsInSec.length > 0) {
-          sec.classList.remove('hidden');
-        } else {
-          sec.classList.add('hidden');
-        }
-      });
+    // Select Project Node
+    function selectProjectNode(projId, nodeEl) {
+      activeProjectId = projId;
+      document.querySelectorAll('.p-node').forEach(n => n.classList.remove('active'));
+      if (nodeEl) nodeEl.classList.add('active');
 
-      document.getElementById('appCountBadge').innerText = `${visibleCount} รายการ`;
+      const proj = projectsData.find(p => p.id === projId);
+      if (!proj) return;
 
-      if (visibleCount === 0) {
-        noResults.classList.remove('hidden');
-      } else {
-        noResults.classList.add('hidden');
+      // Update Horizontal Drawer
+      document.getElementById('drawerTitleText').textContent = proj.title;
+      document.getElementById('drawerPath').textContent = proj.localPath + (proj.onlineUrl ? ' • ' + proj.onlineUrl : '');
+      document.getElementById('drawerColFeatures').textContent = proj.features;
+      document.getElementById('drawerColTech').textContent = proj.tech;
+      document.getElementById('drawerColTags').innerHTML = proj.tags.map(t => '<span class="tag-chip" style="margin:2px 3px 2px 0; display:inline-block;">' + t + '</span>').join('');
+
+      let launchHtml = '<div style="display:flex; flex-direction:column; gap:6px;">';
+      if (proj.onlineUrl) {
+        launchHtml += '<a href="' + proj.onlineUrl + '" target="_blank" rel="noopener noreferrer" style="color:#0284c7; font-weight:700; text-decoration:none;">🌐 เปิดเวอร์ชันออนไลน์ ➔</a>';
+      }
+      launchHtml += '<a href="' + proj.localUrl + '" target="_blank" style="color:#475569; font-weight:600; text-decoration:none;">💻 เปิดไฟล์ในเครื่อง ➔</a></div>';
+      document.getElementById('drawerColLaunch').innerHTML = launchHtml;
+
+      // Update Drawer Actions
+      let actionsHtml = '';
+      if (proj.onlineUrl) {
+        actionsHtml += '<a href="' + proj.onlineUrl + '" target="_blank" rel="noopener noreferrer" class="btn-action-primary">🌐 เปิดออนไลน์</a>';
+      }
+      actionsHtml += '<a href="' + proj.localUrl + '" target="_blank" class="btn-action-secondary">💻 ในเครื่อง</a>';
+      actionsHtml += '<button class="btn-copy" onclick="copyDrawerPath()">📋 คัดลอก Path</button>';
+      document.getElementById('drawerActions').innerHTML = actionsHtml;
+
+      // Highlight pulse
+      const drawer = document.getElementById('horizontalDrawer');
+      drawer.style.borderColor = '#0284c7';
+      drawer.style.boxShadow = '0 0 0 4px rgba(2, 132, 199, 0.25), 0 10px 25px rgba(2, 132, 199, 0.15)';
+      setTimeout(() => {
+        drawer.style.boxShadow = 'var(--shadow-lg)';
+      }, 700);
+
+      // Scroll to Row if visible
+      const targetRow = document.getElementById('proj-row-' + projId);
+      if (targetRow && targetRow.offsetParent !== null) {
+        targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        targetRow.style.backgroundColor = '#f0f9ff';
+        targetRow.style.outline = '2px solid #0284c7';
+        setTimeout(() => {
+          targetRow.style.backgroundColor = '';
+          targetRow.style.outline = '';
+        }, 1500);
       }
     }
 
-    function clearSearch() {
-      document.getElementById('searchInput').value = '';
-      filterProjects();
-      document.getElementById('searchInput').focus();
+    // Live Search
+    function onSearchInput(query) {
+      const q = query.trim().toLowerCase();
+      if (!q) {
+        filterProjectChips(activeCategory, document.getElementById('chip-' + activeCategory) || document.getElementById('chip-all'));
+        return;
+      }
+
+      // Filter Nodes
+      document.querySelectorAll('.p-node').forEach(node => {
+        const id = node.id.replace('pnode-', '');
+        const p = projectsData.find(item => item.id === id);
+        if (!p) return;
+        const text = (p.title + ' ' + p.shortName + ' ' + p.desc + ' ' + p.tags.join(' ')).toLowerCase();
+        node.style.display = text.includes(q) ? 'flex' : 'none';
+      });
+
+      // Filter Rows
+      let hasVisible = {};
+      document.querySelectorAll('.project-row').forEach(row => {
+        const searchText = row.getAttribute('data-search') || '';
+        const match = searchText.includes(q);
+        row.style.display = match ? 'grid' : 'none';
+        if (match) {
+          const cat = row.getAttribute('data-category');
+          hasVisible[cat] = true;
+        }
+      });
+
+      // Show/Hide Category Sections
+      document.querySelectorAll('.category-section').forEach(sec => {
+        const cat = sec.getAttribute('data-cat-section');
+        sec.style.display = hasVisible[cat] ? 'block' : 'none';
+      });
     }
 
-    // Keyboard Shortcuts: '/' to search, 'Esc' to clear
+    // Copy Drawer Path
+    function copyDrawerPath() {
+      const proj = projectsData.find(p => p.id === activeProjectId);
+      if (!proj) return;
+      const textToCopy = proj.onlineUrl ? proj.onlineUrl : proj.localPath;
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        showToast('📋 คัดลอก Path / ลิงก์เรียบร้อยแล้ว: ' + proj.shortName);
+      }).catch(() => {
+        showToast('คัดลอกไม่สำเร็จ');
+      });
+    }
+
+    // Toast
+    function showToast(msg) {
+      const t = document.getElementById('toastNotification');
+      document.getElementById('toastMessage').textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => {
+        t.classList.remove('show');
+      }, 2500);
+    }
+
+    // Shortcut: Press '/' to focus search
     window.addEventListener('keydown', (e) => {
-      const search = document.getElementById('searchInput');
-      if (e.key === '/' && document.activeElement !== search) {
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
         e.preventDefault();
-        search.focus();
-        search.select();
-      } else if (e.key === 'Escape' && document.activeElement === search) {
-        clearSearch();
-        search.blur();
+        const searchInput = document.getElementById('masterSearch');
+        if (searchInput) searchInput.focus();
       }
+    });
+
+    // Auto highlight first project
+    window.addEventListener('DOMContentLoaded', () => {
+      const firstNode = document.getElementById('pnode-01');
+      if (firstNode) firstNode.classList.add('active');
     });
   </script>
 </body>
