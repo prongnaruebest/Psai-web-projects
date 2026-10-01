@@ -1,3 +1,6 @@
-﻿@echo off
-chcp 65001 > nul
-start "" "%~dp000_ศูนย์รวมเว็บแอปพลิเคชัน.html"
+@echo off
+chcp 65001 >nul
+title Psai Dashboard - Web Projects Hub
+echo กำลังเปิด Psai Dashboard ในเบราว์เซอร์ของคุณ...
+start "" "%~dp0index.html"
+exit
