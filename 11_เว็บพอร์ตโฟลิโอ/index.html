@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Naruebest Komol | Electronic Engineer Portfolio</title>
+  <title>Psai Naruebest | Electronic & Systems Engineer Portfolio</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✦</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -22,18 +23,338 @@
     }
   </script>
   <style>
-    body { font-feature-settings: "cv02", "cv03", "cv04", "cv11"; }
+    body { font-feature-settings: "cv02", "cv03", "cv04", "cv11"; margin: 0; padding: 0; }
     .glass-card {
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(226, 232, 240, 0.8);
+      border: 1px solid rgba(226, 232, 240, 0.85);
     }
+
+    /* === SCOPED STYLES FOR OVERVIEW MODE (#view-overview) === */
+    #view-overview {
+      --ink: #07111f;
+      --paper: #f1f0ea;
+      --orange: #ff5a1f;
+      --blue: #a9d5e8;
+      --line: rgba(7, 17, 31, 0.18);
+      --max: 1420px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Arial, "Noto Sans Thai", 'Prompt', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+    #view-overview * { box-sizing: border-box; }
+    #view-overview .noise { position: fixed; inset: 0; pointer-events: none; opacity: .025; z-index: 20; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    #view-overview .skip { position: absolute; left: -999px; top: 0; }
+    #view-overview .skip:focus { left: 16px; z-index: 30; background: #fff; padding: 10px; }
+    #view-overview .site-header { height: 74px; display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 34px; padding: 0 4vw; border-bottom: 1px solid rgba(255,255,255,.18); color: #fff; position: absolute; top: 56px; z-index: 10; width: 100%; }
+    #view-overview .brand { display: flex; align-items: center; gap: 13px; color: inherit; text-decoration: none; font-size: 12px; letter-spacing: .16em; font-weight: 700; }
+    #view-overview .brand-mark { display: grid; place-items: center; width: 35px; height: 35px; border: 1px solid currentColor; border-radius: 50%; letter-spacing: 0; font-size: 11px; }
+    #view-overview .menu { display: flex; gap: 27px; }
+    #view-overview .menu a, #view-overview .lang { color: inherit; background: none; border: 0; text-decoration: none; font-size: 12px; letter-spacing: .09em; cursor: pointer; }
+    #view-overview .menu-button { display: none; }
+    #view-overview .hero { min-height: 850px; height: 100svh; max-height: 1100px; background: var(--ink); color: #fff; display: grid; grid-template-columns: 58% 42%; position: relative; overflow: hidden; padding-top: 56px; }
+    #view-overview .hero-copy { padding: clamp(150px,17vh,210px) 4vw 80px; align-self: center; z-index: 2; }
+    #view-overview .eyebrow, #view-overview .section-no { font-size: 11px; letter-spacing: .2em; font-weight: 700; }
+    #view-overview .hero h1 { font-size: clamp(44px,6vw,96px); line-height: .93; letter-spacing: -.055em; margin: 27px 0 40px; font-weight: 600; }
+    #view-overview .hero h1 span { color: var(--blue); }
+    #view-overview .hero-lead { max-width: 630px; font-size: clamp(16px,1.25vw,20px); line-height: 1.7; color: #b9c3cf; }
+    #view-overview .hero-actions { display: flex; gap: 12px; margin-top: 42px; }
+    #view-overview .button { display: inline-flex; padding: 15px 23px; border: 1px solid #fff; color: #fff; text-decoration: none; font-size: 12px; letter-spacing: .09em; cursor: pointer; }
+    #view-overview .button.primary { background: var(--orange); border-color: var(--orange); }
+    #view-overview .button:hover { transform: translateY(-2px); }
+    #view-overview .hero-image { margin: 0; position: relative; clip-path: polygon(13% 0,100% 0,100% 100%,0 100%); }
+    #view-overview .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+    #view-overview .hero-image:after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,rgba(7,17,31,.5),transparent 40%); }
+    #view-overview .hero-image figcaption { position: absolute; z-index: 2; left: 11%; right: 6%; bottom: 35px; display: flex; justify-content: space-between; font-size: 10px; letter-spacing: .14em; }
+    #view-overview .orbit { position: absolute; width: 310px; height: 310px; border: 1px solid rgba(169,213,232,.28); border-radius: 50%; left: 48%; bottom: -105px; z-index: 3; }
+    #view-overview .orbit span { position: absolute; width: 10px; height: 10px; background: var(--orange); border-radius: 50%; top: 35px; left: 45px; }
+    #view-overview .orbit i { position: absolute; inset: 45px; border: 1px solid rgba(169,213,232,.2); border-radius: 50%; }
+    #view-overview .manifesto, #view-overview .work, #view-overview .skills, #view-overview .life { padding: 120px 5vw; max-width: var(--max); margin: auto; }
+    #view-overview .manifesto-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 10vw; margin-top: 70px; }
+    #view-overview .manifesto h2, #view-overview .skills h2, #view-overview .life h2 { font-size: clamp(38px,5.2vw,78px); line-height: 1.03; letter-spacing: -.05em; margin: 0; font-weight: 500; }
+    #view-overview .copy>p { font-size: 18px; line-height: 1.8; margin: 0; }
+    #view-overview .facts { margin: 55px 0 0; }
+    #view-overview .facts div { display: grid; grid-template-columns: 85px 1fr; border-top: 1px solid var(--line); padding: 17px 0; }
+    #view-overview .facts dt { font-size: 30px; margin: 0; font-weight: 700; }
+    #view-overview .facts dd { margin: 7px 0; font-size: 13px; }
+    #view-overview .field-note { height: 80vh; min-height: 650px; position: relative; background: #000; color: #fff; }
+    #view-overview .field-note img { width: 100%; height: 100%; object-fit: cover; object-position: center 48%; filter: saturate(.82); }
+    #view-overview .field-note:after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg,rgba(7,17,31,.7),transparent 55%); }
+    #view-overview .field-caption { position: absolute; z-index: 2; left: 5vw; bottom: 45px; }
+    #view-overview .field-caption span { font-size: 11px; letter-spacing: .18em; }
+    #view-overview .field-caption p { font-size: 24px; margin: 10px 0 0; }
+    #view-overview .work { padding-top: 150px; }
+    #view-overview .section-head { display: grid; grid-template-columns: 1fr 370px; align-items: end; border-bottom: 1px solid var(--ink); padding-bottom: 35px; }
+    #view-overview .section-head h2 { font-size: clamp(48px,7vw,100px); letter-spacing: -.06em; margin: 30px 0 0; font-weight: 500; }
+    #view-overview .section-head>p { line-height: 1.7; }
+    #view-overview .project { display: grid; grid-template-columns: 1fr 1.4fr 1.2fr; gap: 4vw; border-bottom: 1px solid var(--line); padding: 48px 0; }
+    #view-overview .project-meta { display: flex; gap: 20px; font-size: 10px; letter-spacing: .13em; }
+    #view-overview .project h3 { font-size: 32px; margin: 0; font-weight: 500; }
+    #view-overview .project p { line-height: 1.7; margin: 0; }
+    #view-overview .tags { grid-column: 2/4; display: flex; flex-wrap: wrap; gap: 7px; }
+    #view-overview .tags span { border: 1px solid var(--line); padding: 7px 10px; font-size: 10px; letter-spacing: .12em; }
+    #view-overview .gallery { display: grid; grid-template-columns: 1.25fr .75fr .75fr; gap: 7px; background: var(--ink); padding: 7px; }
+    #view-overview .gallery figure { margin: 0; height: 610px; position: relative; overflow: hidden; }
+    #view-overview .gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s; }
+    #view-overview .gallery figure:hover img { transform: scale(1.025); }
+    #view-overview .gallery figcaption { position: absolute; left: 18px; bottom: 16px; background: rgba(7,17,31,.8); color: #fff; padding: 8px 10px; font-size: 9px; letter-spacing: .12em; }
+    #view-overview .gallery .wide img { object-position: center; }
+    #view-overview .skills { padding-top: 145px; padding-bottom: 145px; }
+    #view-overview .skills-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 9vw; margin-top: 70px; }
+    #view-overview .skill-columns { display: grid; grid-template-columns: 1fr 1fr; }
+    #view-overview .skill-columns div { padding: 25px 25px 45px; border-top: 1px solid var(--ink); }
+    #view-overview .skill-columns span { font-size: 10px; color: var(--orange); }
+    #view-overview .skill-columns h3 { font-size: 22px; margin: 25px 0 15px; }
+    #view-overview .skill-columns p { line-height: 1.7; color: #415064; }
+    #view-overview .life { max-width: none; background: var(--blue); display: grid; grid-template-columns: .75fr 1.25fr; gap: 8vw; padding-left: 5vw; padding-right: 5vw; }
+    #view-overview .life-copy { align-self: center; }
+    #view-overview .life-copy p:last-child { max-width: 500px; line-height: 1.8; margin-top: 35px; }
+    #view-overview .life-images { display: grid; grid-template-columns: 1.25fr .75fr; gap: 8px; align-items: end; }
+    #view-overview .life-images img { width: 100%; height: 610px; object-fit: cover; }
+    #view-overview .life-images img:last-child { height: 420px; }
+    #view-overview footer { background: var(--ink); color: white; padding: 80px 5vw 40px; display: grid; grid-template-columns: 1fr 1fr auto; align-items: end; gap: 30px; }
+    #view-overview .footer-name { font-size: clamp(44px,6vw,82px); line-height: .88; letter-spacing: -.055em; margin: 0 0 28px; }
+    #view-overview .footer-name+ p { color: #9aa8b8; line-height: 1.6; }
+    #view-overview .footer-line { color: var(--blue); }
+    #view-overview .to-top { color: #fff; text-decoration: none; font-size: 10px; letter-spacing: .12em; }
+    #view-overview .reveal { opacity: 0; transform: translateY(22px); transition: opacity .8s,transform .8s; }
+    #view-overview .reveal.visible { opacity: 1; transform: none; }
+
+    /* Interactive Switch Banner inside Overview */
+    #view-overview .jump-banner {
+      background: linear-gradient(135deg, #07111f, #0f1d30);
+      border-top: 1px solid rgba(255,255,255,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 60px 5vw;
+      text-align: center;
+      position: relative;
+      z-index: 5;
+    }
+
+    @media(max-width:850px){
+      #view-overview .site-header { grid-template-columns: 1fr auto auto; height: 70px; top: 56px; }
+      #view-overview .menu-button { display: block; color: #fff; background: none; border: 0; font-size: 11px; letter-spacing: .1em; cursor: pointer; }
+      #view-overview .menu { display: none; position: absolute; top: 70px; left: 0; right: 0; background: var(--ink); padding: 25px 5vw; flex-direction: column; }
+      #view-overview .menu.open { display: flex; }
+      #view-overview .hero { height: auto; max-height: none; min-height: 0; display: block; padding-top: 56px; }
+      #view-overview .hero-copy { padding: 145px 5vw 70px; }
+      #view-overview .hero h1 { font-size: clamp(49px,15vw,74px); }
+      #view-overview .hero-image { height: 68vh; min-height: 520px; clip-path: none; }
+      #view-overview .orbit { display: none; }
+      #view-overview .manifesto, #view-overview .work, #view-overview .skills, #view-overview .life { padding: 85px 5vw; }
+      #view-overview .manifesto-grid, #view-overview .skills-grid, #view-overview .life { grid-template-columns: 1fr; }
+      #view-overview .manifesto-grid { gap: 45px; margin-top: 45px; }
+      #view-overview .field-note { min-height: 590px; height: 75vh; }
+      #view-overview .section-head { grid-template-columns: 1fr; gap: 25px; }
+      #view-overview .project { grid-template-columns: 1fr; padding: 35px 0; }
+      #view-overview .tags { grid-column: auto; }
+      #view-overview .gallery { grid-template-columns: 1fr; }
+      #view-overview .gallery figure { height: 65vh; }
+      #view-overview .gallery figure:not(.wide) { height: 48vh; }
+      #view-overview .skill-columns { grid-template-columns: 1fr 1fr; }
+      #view-overview .life { gap: 55px; }
+      #view-overview .life-images img { height: 450px; }
+      #view-overview .life-images img:last-child { height: 310px; }
+      #view-overview footer { grid-template-columns: 1fr; }
+      #view-overview .footer-line { margin-top: 40px; }
+    }
+
+    @media(max-width:520px){
+      #view-overview .brand span:last-child { display: none; }
+      #view-overview .project h3 { font-size: 27px; }
+      #view-overview .skill-columns { grid-template-columns: 1fr; }
+      #view-overview .life-images { grid-template-columns: 1fr 1fr; }
+      #view-overview .life-images img { height: 350px; }
+      #view-overview .life-images img:last-child { height: 270px; }
+      #view-overview .hero-actions { flex-direction: column; align-items: flex-start; }
+    }
+
   </style>
 </head>
 <body class="bg-[#fafafa] text-slate-800 antialiased selection:bg-sky-100 selection:text-sky-900">
 
-  <!-- Navigation Bar -->
-  <nav class="fixed top-0 inset-x-0 z-50 glass-card transition-all duration-300 border-b border-slate-200/80">
+  <!-- ================= TOP MASTER MODE SWITCHER BAR ================= -->
+  <header id="masterModeBar" class="fixed top-0 inset-x-0 z-50 bg-[#07111f]/95 text-white backdrop-blur-md border-b border-slate-800/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-3">
+      
+      <!-- Brand Avatar & Title -->
+      <a href="javascript:void(0)" onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex items-center gap-3 min-w-0 text-white no-underline group">
+        <div class="w-8 h-8 rounded-lg bg-sky-500 text-white font-bold flex items-center justify-center text-xs shadow-md flex-shrink-0 group-hover:scale-105 transition-transform">
+          PN
+        </div>
+        <div class="truncate leading-tight hidden sm:block">
+          <div class="text-xs font-semibold text-slate-100 truncate">นายนฤเบศ โกมล (Psai Naruebest)</div>
+          <div class="text-[10px] text-sky-400 font-mono">Electronic & Systems Engineer</div>
+        </div>
+      </a>
+
+      <!-- Center Segmented Mode Switcher -->
+      <div class="flex items-center bg-slate-900/90 p-1 rounded-xl border border-slate-800 shadow-inner">
+        <button type="button" id="btnModeOverview" onclick="switchMode('overview')" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-white bg-sky-600 shadow-sm cursor-pointer border-0 font-sans">
+          <span>🔭</span>
+          <span class="hidden md:inline">สตอรี่สากล</span>
+          <span class="md:hidden">สากล</span>
+          <span class="text-[10px] opacity-80 hidden lg:inline">(Overview)</span>
+        </button>
+        <button type="button" id="btnModeResume" onclick="switchMode('resume')" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-slate-400 hover:text-slate-200 cursor-pointer border-0 bg-transparent font-sans">
+          <span>📄</span>
+          <span class="hidden md:inline">เรซูเม่ทางการ</span>
+          <span class="md:hidden">เรซูเม่</span>
+          <span class="text-[10px] opacity-80 hidden lg:inline">(Full Technical)</span>
+        </button>
+      </div>
+
+      <!-- Right Action Tools -->
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <a href="Naruebest_Komol_Resume.pdf" download class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-sky-300 bg-sky-950/70 hover:bg-sky-900/80 border border-sky-800/70 rounded-lg transition-all no-underline shadow-sm">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          <span class="hidden sm:inline">Resume PDF</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-slate-300 bg-slate-800/90 hover:bg-slate-700 border border-slate-700 rounded-lg transition-all no-underline">
+          <span>🏠</span>
+          <span class="hidden sm:inline">ศูนย์รวมเว็บ</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= MODE 1: GLOBAL STORY & OBSERVATORY OVERVIEW (PSAI PLAY) ================= -->
+  <div id="view-overview" class="min-h-screen">
+    <a class="skip" href="#main">ข้ามไปยังเนื้อหา</a>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="#overview-top" aria-label="Psai Naruebest home"><span class="brand-mark">PN</span><span>PSAI NARUEBEST</span></a>
+    <nav aria-label="เมนูหลัก">
+      <button class="menu-button" aria-expanded="false" aria-controls="site-menu">Menu</button>
+      <div id="site-menu" class="menu">
+        <a href="#overview-about" data-th="เกี่ยวกับ" data-en="About">เกี่ยวกับ</a>
+        <a href="#overview-work" data-th="ผลงาน" data-en="Work">ผลงาน</a>
+        <a href="#overview-skills" data-th="ทักษะ" data-en="Skills">ทักษะ</a>
+        <a href="#overview-life" data-th="ตัวตน" data-en="Life">ตัวตน</a>
+      </div>
+    </nav>
+    <button class="lang" type="button" aria-label="Switch language">TH / EN</button>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="overview-top">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">ELECTRICAL · ELECTRONICS · OBSERVATORY</p>
+        <h1><span>Engineering systems</span><br>from circuit boards<br>to the stars.</h1>
+        <p class="hero-lead" data-th="ผมคือ Psai Naruebest วิศวกรผู้พัฒนาระบบอิเล็กทรอนิกส์ ระบบควบคุม และโครงสร้างพื้นฐานสำหรับหอดูดาว ตั้งแต่แนวคิดจนถึงการใช้งานจริง" data-en="I’m Psai Naruebest, an engineer building electronics, control systems, and observatory infrastructure—from first principles to field operation.">ผมคือ Psai Naruebest วิศวกรผู้พัฒนาระบบอิเล็กทรอนิกส์ ระบบควบคุม และโครงสร้างพื้นฐานสำหรับหอดูดาว ตั้งแต่แนวคิดจนถึงการใช้งานจริง</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#overview-work" data-th="ดูผลงาน" data-en="Explore work">ดูผลงาน</a>
+          <a class="button ghost" href="#overview-about" data-th="รู้จักผม" data-en="About me">รู้จักผม</a>
+        </div>
+      </div>
+      <figure class="hero-image reveal">
+        <img src="assets/images/portrait-narit.jpeg" alt="Psai Naruebest wearing a NARIT engineering shirt" fetchpriority="high">
+        <figcaption><span>01</span><span>CHIANG MAI · THAILAND</span></figcaption>
+      </figure>
+      <div class="orbit" aria-hidden="true"><span></span><i></i></div>
+    </section>
+
+    <section class="manifesto" id="overview-about">
+      <p class="section-no">01 / PROFILE</p>
+      <div class="manifesto-grid">
+        <h2 class="reveal" data-th="สร้างสิ่งที่ต้องทำงานได้จริง ในสถานที่ที่ความผิดพลาดมีราคาแพง" data-en="Building things that must work, where failure is expensive.">สร้างสิ่งที่ต้องทำงานได้จริง ในสถานที่ที่ความผิดพลาดมีราคาแพง</h2>
+        <div class="copy reveal">
+          <p data-th="วิศวกรไฟฟ้าและอิเล็กทรอนิกส์ ประจำศูนย์ปฏิบัติการหอดูดาวและวิศวกรรม สถาบันวิจัยดาราศาสตร์แห่งชาติ (NARIT) มีประสบการณ์ด้านการติดตั้ง บำรุงรักษา และพัฒนาระบบหอดูดาวทั้งในประเทศไทยและต่างประเทศ" data-en="Electrical and Electronics Engineer at the Centre of Observatory Operations and Engineering, National Astronomical Research Institute of Thailand (NARIT), working across installation, maintenance, and observatory-system development in Thailand and abroad.">วิศวกรไฟฟ้าและอิเล็กทรอนิกส์ ประจำศูนย์ปฏิบัติการหอดูดาวและวิศวกรรม สถาบันวิจัยดาราศาสตร์แห่งชาติ (NARIT) มีประสบการณ์ด้านการติดตั้ง บำรุงรักษา และพัฒนาระบบหอดูดาวทั้งในประเทศไทยและต่างประเทศ</p>
+          <dl class="facts">
+            <div><dt>2020</dt><dd data-th="เริ่มงานที่ NARIT" data-en="Joined NARIT">เริ่มงานที่ NARIT</dd></div>
+            <div><dt>4+</dt><dd data-th="ประเทศที่ปฏิบัติงาน" data-en="Countries in the field">ประเทศที่ปฏิบัติงาน</dd></div>
+            <div><dt>10+</dt><dd data-th="ไซต์หอดูดาว" data-en="Observatory sites">ไซต์หอดูดาว</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="field-note">
+      <img src="assets/images/tower-work.jpeg" alt="Field engineering work on an observatory tower" loading="lazy">
+      <div class="field-caption"><span>FIELD LOG / 07</span><p data-th="งานภาคสนาม · ระบบควบคุม · โครงสร้างพื้นฐาน" data-en="Field work · control systems · infrastructure">งานภาคสนาม · ระบบควบคุม · โครงสร้างพื้นฐาน</p></div>
+    </section>
+
+    <section class="work" id="overview-work">
+      <div class="section-head">
+        <div><p class="section-no">02 / SELECTED WORK</p><h2 data-th="โครงการที่เลือกมา" data-en="Selected missions">โครงการที่เลือกมา</h2></div>
+        <p data-th="ระบบที่เชื่อมโยงเครื่องกล ไฟฟ้า อิเล็กทรอนิกส์ และซอฟต์แวร์เข้าด้วยกัน" data-en="Systems connecting mechanics, electrical engineering, electronics, and software.">ระบบที่เชื่อมโยงเครื่องกล ไฟฟ้า อิเล็กทรอนิกส์ และซอฟต์แวร์เข้าด้วยกัน</p>
+      </div>
+      <div class="project-list">
+        <article class="project reveal">
+          <div class="project-meta"><span>01</span><span>OBSERVATORY AUTOMATION</span></div>
+          <h3>Thai Robotic Telescope</h3>
+          <p data-th="ระบบควบคุมหอดูดาวระยะไกล: PLC, HMI, เครือข่าย, GPS, ระบบโดมและอินเตอร์ล็อก เพื่อการปฏิบัติการที่เชื่อถือได้" data-en="Remote observatory control integrating PLC, HMI, networking, GPS, dome motion, and interlocks for dependable operation.">ระบบควบคุมหอดูดาวระยะไกล: PLC, HMI, เครือข่าย, GPS, ระบบโดมและอินเตอร์ล็อก เพื่อการปฏิบัติการที่เชื่อถือได้</p>
+          <div class="tags"><span>PLC</span><span>HMI</span><span>NETWORK</span><span>SAFETY</span></div>
+        </article>
+        <article class="project reveal">
+          <div class="project-meta"><span>02</span><span>PRECISION INSTRUMENT</span></div>
+          <h3>Filter Wheel V2</h3>
+          <p data-th="ชุดล้อกรองแสงสองแกน 26 ตำแหน่ง ควบคุมด้วย STM32 พร้อม Ethernet, USB, encoder feedback และการป้องกันกระแสเกิน" data-en="A dual-wheel, 26-position astronomical filter system using STM32, Ethernet, USB, encoder feedback, and overcurrent protection.">ชุดล้อกรองแสงสองแกน 26 ตำแหน่ง ควบคุมด้วย STM32 พร้อม Ethernet, USB, encoder feedback และการป้องกันกระแสเกิน</p>
+          <div class="tags"><span>STM32</span><span>PCB</span><span>ETHERNET</span><span>MOTION</span></div>
+        </article>
+        <article class="project reveal">
+          <div class="project-meta"><span>03</span><span>GLOBAL INSTALLATION</span></div>
+          <h3>Observatory Field Operations</h3>
+          <p data-th="ติดตั้งและสนับสนุนระบบที่ CTIO ประเทศชิลี, SRO สหรัฐอเมริกา, Gao Mei Gu ประเทศจีน และเครือข่ายหอดูดาวในประเทศไทย" data-en="Installation and engineering support at CTIO Chile, SRO USA, Gao Mei Gu China, and observatory sites across Thailand.">ติดตั้งและสนับสนุนระบบที่ CTIO ประเทศชิลี, SRO สหรัฐอเมริกา, Gao Mei Gu ประเทศจีน และเครือข่ายหอดูดาวในประเทศไทย</p>
+          <div class="tags"><span>CTIO</span><span>SRO</span><span>GMG</span><span>THAILAND</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="gallery" aria-label="Engineering field gallery">
+      <figure class="wide reveal"><img src="assets/images/mountain-site.jpeg" alt="Mountain observatory site in mist" loading="lazy"><figcaption>REMOTE SITE / THAILAND</figcaption></figure>
+      <figure class="reveal"><img src="assets/images/field-engineer.jpeg" alt="Psai in NARIT field engineering uniform" loading="lazy"><figcaption>FIELD ENGINEERING</figcaption></figure>
+      <figure class="reveal"><img src="assets/images/astronomy.jpeg" alt="Psai wearing an astronomy shirt" loading="lazy"><figcaption>ASTRONOMY IN PRACTICE</figcaption></figure>
+    </section>
+
+    <section class="skills" id="overview-skills">
+      <p class="section-no">03 / CAPABILITIES</p>
+      <div class="skills-grid">
+        <h2 data-th="จากสัญญาณเล็ก<br>สู่ระบบขนาดใหญ่" data-en="From small signals<br>to large systems">จากสัญญาณเล็ก<br>สู่ระบบขนาดใหญ่</h2>
+        <div class="skill-columns">
+          <div><span>01</span><h3>Embedded & PCB</h3><p>STM32 · ESP32 · C · Altium · KiCad · UART · SPI · I²C · CAN · RS-485</p></div>
+          <div><span>02</span><h3>Automation</h3><p>PLC · HMI · Motor control · Encoders · Interlocks · Control cabinets</p></div>
+          <div><span>03</span><h3>Engineering</h3><p>EMC/EMI · System integration · Test & measurement · Technical documentation</p></div>
+          <div><span>04</span><h3>Field Operations</h3><p>Telescope maintenance · Installation · Troubleshooting · Remote operations</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="life" id="overview-life">
+      <div class="life-copy reveal"><p class="section-no">04 / BEYOND ENGINEERING</p><h2 data-th="ความแม่นยำในงาน<br>ความหมายในชีวิต" data-en="Precision at work.<br>Purpose in life.">ความแม่นยำในงาน<br>ความหมายในชีวิต</h2><p data-th="เบื้องหลังระบบและงานภาคสนาม คือครอบครัวที่เป็นแรงขับเคลื่อนสำคัญ และ “ปรายใส” ผู้ทำให้ทุกโครงการมีความหมายมากกว่าเดิม" data-en="Behind every system and field mission is the family that keeps me grounded—and Psai, who gives every project a deeper purpose.">เบื้องหลังระบบและงานภาคสนาม คือครอบครัวที่เป็นแรงขับเคลื่อนสำคัญ และ “ปรายใส” ผู้ทำให้ทุกโครงการมีความหมายมากกว่าเดิม</p></div>
+      <div class="life-images reveal"><img src="assets/images/family.jpeg" alt="Psai with his family" loading="lazy"><img src="assets/images/psai.jpeg" alt="Young Psai walking outside" loading="lazy"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div><p class="footer-name">Psai<br>Naruebest</p><p data-th="วิศวกรไฟฟ้าและอิเล็กทรอนิกส์<br>เชียงใหม่ ประเทศไทย" data-en="Electrical & Electronics Engineer<br>Chiang Mai, Thailand">วิศวกรไฟฟ้าและอิเล็กทรอนิกส์<br>เชียงใหม่ ประเทศไทย</p></div>
+    <p class="footer-line" data-th="ออกแบบ · สร้าง · ทดสอบ · เรียนรู้" data-en="Design · Build · Test · Learn">ออกแบบ · สร้าง · ทดสอบ · เรียนรู้</p>
+    <a class="to-top" href="#overview-top">BACK TO TOP ↑</a>
+  </footer>
+
+    <!-- Callout Banner to Switch to Full Resume -->
+    <section class="jump-banner">
+      <div style="max-width: 820px; margin: 0 auto; text-align: center;">
+        <p style="font-size: 11px; letter-spacing: 0.2em; color: #a9d5e8; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Detailed Technical Portfolio</p>
+        <h3 style="font-size: clamp(24px, 3.5vw, 36px); font-weight: 700; color: #ffffff; line-height: 1.2; margin: 0 0 16px;">ต้องการดูเอกสารและผลงานเชิงลึกฉบับทางการ?</h3>
+        <p style="font-size: 15px; color: #b9c3cf; line-height: 1.7; max-width: 650px; margin: 0 auto 28px;">
+          ชมสเปกการออกแบบแผ่นวงจรพิมพ์ Multilayer PCB 2-8 ชั้นตามมาตรฐาน IPC, ตู้ควบคุมระบบไฟฟ้าอุตสาหกรรม, ไดอะแกรมเดินสาย Wiring Diagram, ใบรับรองวิชาชีพ 5 ใบ และประวัติการทำงานฉบับเต็ม
+        </p>
+        <button type="button" onclick="switchMode('resume')" style="background: #ff5a1f; color: #ffffff; border: 0; padding: 14px 32px; border-radius: 999px; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 6px 20px rgba(255, 90, 31, 0.45); transition: transform 0.2s ease;">
+          <span>📄 สลับไปยังโหมดเรซูเม่ทางการ (Full Technical Resume)</span>
+          <span style="font-size: 16px;">➔</span>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= MODE 2: FORMAL FULL TECHNICAL RESUME & PORTFOLIO ================= -->
+  <div id="view-resume" style="display: none;" class="min-h-screen">
+    <!-- Navigation Bar -->
+  <nav class="fixed top-14 inset-x-0 z-40 glass-card transition-all duration-300 border-b border-slate-200/80">
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
       <a href="#top" class="flex items-center gap-3 group">
         <div class="w-9 h-9 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm shadow-sm group-hover:scale-105 transition-transform">
@@ -879,6 +1200,119 @@
   <footer class="py-8 text-center text-xs text-slate-400 font-mono border-t border-slate-200 bg-white">
     &copy; 2026 Naruebest Komol &bull; Electronic Engineer Portfolio
   </footer>
+  </div>
 
+  <!-- ================= DUAL MODE SWITCHER SCRIPT ================= -->
+  <script>
+    // --- 1. Mode Switcher Engine ---
+    function switchMode(mode, updateHash = true) {
+      const viewOverview = document.getElementById('view-overview');
+      const viewResume = document.getElementById('view-resume');
+      const btnOverview = document.getElementById('btnModeOverview');
+      const btnResume = document.getElementById('btnModeResume');
+
+      if (mode === 'resume') {
+        viewOverview.style.display = 'none';
+        viewResume.style.display = 'block';
+
+        btnResume.className = 'flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-white bg-sky-600 shadow-sm cursor-pointer border-0 font-sans';
+        btnOverview.className = 'flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-slate-400 hover:text-slate-200 cursor-pointer border-0 bg-transparent font-sans';
+
+        if (updateHash) {
+          history.replaceState(null, null, '#resume');
+        }
+        localStorage.setItem('psai_portfolio_mode', 'resume');
+      } else {
+        viewResume.style.display = 'none';
+        viewOverview.style.display = 'block';
+
+        btnOverview.className = 'flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 text-white bg-sky-600 shadow-sm cursor-pointer border-0 font-sans';
+        btnResume.className = 'flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-slate-400 hover:text-slate-200 cursor-pointer border-0 bg-transparent font-sans';
+
+        if (updateHash) {
+          history.replaceState(null, null, '#overview');
+        }
+        localStorage.setItem('psai_portfolio_mode', 'overview');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- 2. Initial Mode on Page Load & Route Handling ---
+    function handleRouteFromHash() {
+      const hash = window.location.hash.toLowerCase();
+      if (hash.includes('resume') || hash.includes('expertise') || hash.includes('projects') || hash.includes('fieldwork') || hash.includes('skills') || hash.includes('certificates') || hash.includes('experience') || hash.includes('contact')) {
+        switchMode('resume', false);
+      } else if (hash.includes('overview') || hash.includes('work') || hash.includes('life') || hash.includes('about')) {
+        switchMode('overview', false);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.toLowerCase();
+      const savedMode = localStorage.getItem('psai_portfolio_mode');
+
+      if (hash.includes('resume') || hash.includes('expertise') || hash.includes('projects') || hash.includes('fieldwork') || hash.includes('skills') || hash.includes('certificates') || hash.includes('experience') || hash.includes('contact')) {
+        switchMode('resume', false);
+      } else if (hash.includes('overview') || hash.includes('work') || hash.includes('life') || hash.includes('about')) {
+        switchMode('overview', false);
+      } else if (savedMode === 'resume') {
+        switchMode('resume', false);
+      } else {
+        switchMode('overview', false);
+      }
+
+      // Initialize Psai Play animations and interactivity
+      initPsaiPlayInteractions();
+    });
+
+    window.addEventListener('hashchange', () => {
+      handleRouteFromHash();
+    });
+
+    // --- 3. Psai Play Interactivity ---
+    function initPsaiPlayInteractions() {
+      // Language toggle
+      const langButton = document.querySelector('#view-overview .lang');
+      let language = 'th';
+      if (langButton) {
+        langButton.addEventListener('click', () => {
+          language = language === 'th' ? 'en' : 'th';
+          document.querySelectorAll('#view-overview [data-th]').forEach(el => {
+            el.textContent = el.dataset[language];
+          });
+          langButton.textContent = language === 'th' ? 'TH / EN' : 'EN / TH';
+        });
+      }
+
+      // Mobile Menu
+      const menuButton = document.querySelector('#view-overview .menu-button');
+      const menu = document.querySelector('#view-overview .menu');
+      if (menuButton && menu) {
+        menuButton.addEventListener('click', () => {
+          const open = menu.classList.toggle('open');
+          menuButton.setAttribute('aria-expanded', String(open));
+        });
+        menu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            menu.classList.remove('open');
+            menuButton.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      // Scroll Reveal Animations
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('#view-overview .reveal').forEach(el => observer.observe(el));
+    }
+  </script>
 </body>
 </html>
