@@ -247,38 +247,7 @@
       font-weight: 600;
     }
 
-    /* ROOT NODE BUTTON */
-    .root-node-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 22px;
-    }
 
-    .root-card {
-      background: linear-gradient(135deg, #0284c7, #0369a1);
-      color: white;
-      padding: 12px 32px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 15.5px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      user-select: none;
-    }
-
-    .root-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.38);
-    }
-
-    .root-card.active {
-      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.25), 0 6px 20px rgba(2, 132, 199, 0.4);
-    }
 
     /* BRANCHES GRID (MIND MAP CATEGORIES) */
     .vault-branches-grid {
@@ -977,12 +946,6 @@
         </div>
       </div>
 
-      <!-- ROOT NODE -->
-      <div class="root-node-bar">
-        <div class="root-card active" id="rootNodeCard" onclick="selectRoot()">
-          <span>🌐 ไดรฟ์ D:\Web Application (Psai Web Projects Root)</span>
-        </div>
-      </div>
 
       <!-- 5 CATEGORY BRANCHES -->
       <div class="vault-branches-grid">
@@ -2380,20 +2343,18 @@
       }
     }
 
-    // Select Root
-    function selectRoot() {
-      document.querySelectorAll('.branch-card').forEach(b => b.classList.remove('active'));
-      document.getElementById('rootNodeCard').classList.add('active');
-      filterProjectChips('all', document.getElementById('chip-all'));
-    }
-
-    // Category Branch Click
+    // Category Branch Click (with toggle support)
     function selectCategoryBranch(catId, cardEl) {
-      document.getElementById('rootNodeCard').classList.remove('active');
+      const isAlreadyActive = cardEl && cardEl.classList.contains('active');
       document.querySelectorAll('.branch-card').forEach(b => b.classList.remove('active'));
-      if (cardEl) cardEl.classList.add('active');
-      const chipBtn = document.getElementById('chip-' + catId);
-      filterProjectChips(catId, chipBtn);
+      
+      if (isAlreadyActive) {
+        filterProjectChips('all', document.getElementById('chip-all'));
+      } else {
+        if (cardEl) cardEl.classList.add('active');
+        const chipBtn = document.getElementById('chip-' + catId);
+        filterProjectChips(catId, chipBtn);
+      }
     }
 
     // Filter Chips
@@ -2401,6 +2362,15 @@
       activeCategory = filterType;
       document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
       if (chipEl) chipEl.classList.add('active');
+
+      // Sync active state of branch cards
+      document.querySelectorAll('.branch-card').forEach(b => {
+        if (filterType !== 'all' && filterType !== 'online-only' && b.id === 'branch-' + filterType) {
+          b.classList.add('active');
+        } else {
+          b.classList.remove('active');
+        }
+      });
 
       let visibleCount = 0;
 
