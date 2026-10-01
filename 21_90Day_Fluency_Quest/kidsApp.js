@@ -1,6 +1,7 @@
 /**
  * 90-Day Fluency Quest - Kids Wonderland & Music Studio Logic
  * Handles interactive chord guitar synthesis, song sing-along, 4-skills curriculum & story reader.
+ * Clean, soft educational light theme.
  */
 
 class KidsFluencyStudio {
@@ -79,9 +80,9 @@ class KidsFluencyStudio {
     // Visual feedback on chord button
     const badge = document.getElementById(`chord-btn-${cleanChord}`);
     if (badge) {
-      badge.classList.add("scale-110", "ring-4", "ring-yellow-400");
+      badge.classList.add("scale-105", "ring-2", "ring-blue-400");
       setTimeout(() => {
-        badge.classList.remove("scale-110", "ring-4", "ring-yellow-400");
+        badge.classList.remove("scale-105", "ring-2", "ring-blue-400");
       }, 300);
     }
   }
@@ -116,17 +117,17 @@ class KidsFluencyStudio {
     const song = KIDS_SONG_DATA;
     if (!song) return;
     
-    // 1. Render Chord Buttons
+    // 1. Render Chord Buttons (Clean & Gentle)
     const chordsBar = document.getElementById("kids-chords-bar");
     if (chordsBar) {
       chordsBar.innerHTML = "";
       song.chords.forEach(c => {
         const btn = document.createElement("button");
         btn.id = `chord-btn-${c.name}`;
-        btn.className = `flex flex-col items-center justify-center px-4 py-2.5 rounded-2xl border border-slate-700 bg-gradient-to-br ${c.color} text-white font-extrabold shadow-lg shadow-black/30 hover:brightness-110 transition active:scale-95`;
+        btn.className = `flex flex-col items-center justify-center px-4 py-3 rounded-2xl border border-slate-200 bg-white hover:border-blue-400 hover:bg-slate-50 text-slate-800 font-extrabold shadow-xs hover:shadow-sm transition active:scale-95`;
         btn.innerHTML = `
-          <span class="text-lg leading-tight font-black">${c.name}</span>
-          <span class="text-[10px] opacity-80 font-mono tracking-wider">กดเพื่อดีด 🎸</span>
+          <span class="text-lg leading-tight font-bold text-slate-900">${c.name}</span>
+          <span class="text-[10px] text-slate-500 font-mono tracking-wider">กดเพื่อดีด 🎸</span>
         `;
         btn.onclick = () => this.playChord(c.name);
         chordsBar.appendChild(btn);
@@ -140,32 +141,32 @@ class KidsFluencyStudio {
 
       song.lyricsWithChords.forEach(sec => {
         const secDiv = document.createElement("div");
-        secDiv.className = "rounded-2xl border border-slate-800 bg-slate-900/90 p-5 space-y-3";
+        secDiv.className = "rounded-2xl border border-slate-200 bg-white p-5 space-y-3 shadow-xs";
         secDiv.innerHTML = `
-          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-            <h5 class="text-xs font-bold uppercase tracking-wider text-pink-400">${sec.section}</h5>
-            <span class="text-[11px] text-slate-400">แตะที่คอร์ดหรือปุ่มฟังเสียง</span>
+          <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+            <h5 class="text-xs font-bold uppercase tracking-wider text-blue-700">${sec.section}</h5>
+            <span class="text-[11px] text-slate-500">แตะที่คอร์ดหรือปุ่มฟังเสียง</span>
           </div>
         `;
 
         sec.lines.forEach(line => {
           const lineEl = document.createElement("div");
-          lineEl.className = "p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 hover:border-slate-700 transition space-y-1.5";
+          lineEl.className = "p-3.5 rounded-xl bg-slate-50 border border-slate-200/90 hover:border-slate-300 transition space-y-1.5";
           
           // Make chords clickable inside chordLine
           const formattedChordLine = line.chordLine.replace(/\[([A-Za-z0-9#]+)\]/g, (match, chord) => {
-            return `<button class="inline-chord-tag font-bold text-amber-300 hover:text-white bg-amber-500/10 hover:bg-amber-500/30 px-1.5 py-0.5 rounded border border-amber-500/30 transition text-xs cursor-pointer active:scale-95" data-chord="${chord}">[${chord}]</button>`;
+            return `<button class="inline-chord-tag font-bold text-amber-800 bg-amber-50 hover:bg-amber-100 px-2 py-0.5 rounded border border-amber-200 transition text-xs cursor-pointer active:scale-95" data-chord="${chord}">[${chord}]</button>`;
           });
 
           lineEl.innerHTML = `
             <div class="font-mono text-xs tracking-wider flex items-center gap-2 flex-wrap">${formattedChordLine}</div>
             <div class="flex items-center justify-between gap-3">
-              <p class="text-base sm:text-lg font-bold text-white tracking-wide leading-snug">${line.lyrics}</p>
-              <button class="btn-sing-line shrink-0 px-2.5 py-1 rounded-xl bg-blue-600/20 hover:bg-blue-600 text-blue-300 hover:text-white text-xs font-semibold transition flex items-center gap-1" title="ฟังเสียงร้อง">
+              <p class="text-base sm:text-lg font-bold text-slate-900 tracking-wide leading-snug">${line.lyrics}</p>
+              <button class="btn-sing-line shrink-0 px-2.5 py-1 rounded-xl bg-blue-50 hover:bg-blue-600 text-blue-700 hover:text-white border border-blue-200 text-xs font-semibold transition flex items-center gap-1" title="ฟังเสียงร้อง">
                 <span>🔊</span> ร้องท่อนนี้
               </button>
             </div>
-            <p class="text-xs text-slate-400 italic">${line.translation}</p>
+            <p class="text-xs text-slate-600 italic">${line.translation}</p>
           `;
 
           // Event listeners for inline chords
@@ -194,14 +195,14 @@ class KidsFluencyStudio {
       vocabContainer.innerHTML = "";
       song.vocabularyLesson.forEach(item => {
         const card = document.createElement("div");
-        card.className = "rounded-xl border border-slate-800 bg-slate-900/80 p-3 space-y-1 text-xs hover:border-slate-700 transition";
+        card.className = "rounded-xl border border-slate-200 bg-white p-3 space-y-1 text-xs shadow-xs";
         card.innerHTML = `
           <div class="flex items-center justify-between">
-            <strong class="text-sm font-bold text-yellow-300">${item.word}</strong>
-            <button class="btn-speak-vocab text-blue-400 hover:text-blue-300 font-bold p-1">🔊</button>
+            <strong class="text-sm font-bold text-slate-900">${item.word}</strong>
+            <button class="btn-speak-vocab text-blue-600 hover:text-blue-800 font-bold p-1">🔊</button>
           </div>
-          <p class="text-slate-300">${item.meaning}</p>
-          <p class="text-[11px] text-slate-400 italic">"${item.sample}"</p>
+          <p class="text-slate-700">${item.meaning}</p>
+          <p class="text-[11px] text-slate-500 italic">"${item.sample}"</p>
         `;
         card.querySelector(".btn-speak-vocab").onclick = () => this.speakKids(item.word);
         vocabContainer.appendChild(card);
@@ -217,44 +218,44 @@ class KidsFluencyStudio {
 
     KIDS_CURRICULUM_MONTHS.forEach(m => {
       const card = document.createElement("div");
-      card.className = "rounded-3xl border border-slate-800 bg-slate-900/80 p-5 sm:p-6 space-y-4 relative overflow-hidden";
+      card.className = "rounded-3xl border border-slate-200/90 bg-white p-5 sm:p-6 space-y-4 shadow-xs";
       card.innerHTML = `
         <div class="flex items-center justify-between">
-          <span class="text-xs font-black uppercase tracking-wider text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
             เดือนที่ ${m.month}
           </span>
-          <span class="text-xs text-slate-400">มาตรฐาน US Common Core</span>
+          <span class="text-xs text-slate-500">มาตรฐาน US Common Core</span>
         </div>
-        <h4 class="text-base sm:text-lg font-extrabold text-white">${m.theme}</h4>
+        <h4 class="text-base sm:text-lg font-bold text-slate-900">${m.theme}</h4>
         
         <!-- 4 Skills Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
-          <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800/80 space-y-1">
-            <span class="font-bold text-amber-400 flex items-center gap-1.5">👂 ฟัง (Listening)</span>
-            <p class="text-slate-300 text-[11px] leading-relaxed">${m.skillsFocus.listening}</p>
+          <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1">
+            <span class="font-bold text-amber-800 flex items-center gap-1.5">👂 ฟัง (Listening)</span>
+            <p class="text-slate-600 text-[11px] leading-relaxed">${m.skillsFocus.listening}</p>
           </div>
-          <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800/80 space-y-1">
-            <span class="font-bold text-emerald-400 flex items-center gap-1.5">🗣️ พูด (Speaking)</span>
-            <p class="text-slate-300 text-[11px] leading-relaxed">${m.skillsFocus.speaking}</p>
+          <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1">
+            <span class="font-bold text-emerald-800 flex items-center gap-1.5">🗣️ พูด (Speaking)</span>
+            <p class="text-slate-600 text-[11px] leading-relaxed">${m.skillsFocus.speaking}</p>
           </div>
-          <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800/80 space-y-1">
-            <span class="font-bold text-blue-400 flex items-center gap-1.5">📖 อ่าน (Reading)</span>
-            <p class="text-slate-300 text-[11px] leading-relaxed">${m.skillsFocus.reading}</p>
+          <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1">
+            <span class="font-bold text-blue-800 flex items-center gap-1.5">📖 อ่าน (Reading)</span>
+            <p class="text-slate-600 text-[11px] leading-relaxed">${m.skillsFocus.reading}</p>
           </div>
-          <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800/80 space-y-1">
-            <span class="font-bold text-purple-400 flex items-center gap-1.5">✍️ เขียน (Writing)</span>
-            <p class="text-slate-300 text-[11px] leading-relaxed">${m.skillsFocus.writing}</p>
+          <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1">
+            <span class="font-bold text-indigo-800 flex items-center gap-1.5">✍️ เขียน (Writing)</span>
+            <p class="text-slate-600 text-[11px] leading-relaxed">${m.skillsFocus.writing}</p>
           </div>
         </div>
 
         <!-- Weekly Quests Badges -->
-        <div class="border-t border-slate-800/80 pt-3">
-          <span class="text-[11px] text-slate-400 font-semibold block mb-2">เควสต์ประจำ 4 สัปดาห์:</span>
+        <div class="border-t border-slate-100 pt-3">
+          <span class="text-[11px] text-slate-500 font-semibold block mb-2">เควสต์ประจำ 4 สัปดาห์:</span>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
             ${m.weeklyQuests.map(w => `
-              <div class="p-2 rounded-xl bg-slate-800/60 border border-slate-700/50 text-center text-xs">
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200/70 text-center text-xs">
                 <span class="text-lg block">${w.icon}</span>
-                <span class="text-[10px] font-bold text-slate-300 block line-clamp-1 mt-0.5">${w.title}</span>
+                <span class="text-[10px] font-bold text-slate-700 block line-clamp-1 mt-0.5">${w.title}</span>
               </div>
             `).join('')}
           </div>
@@ -272,21 +273,21 @@ class KidsFluencyStudio {
 
     KIDS_STORIES_CATALOG.forEach(story => {
       const card = document.createElement("div");
-      card.className = "rounded-3xl border border-slate-800 bg-slate-900/90 p-5 space-y-3 hover:border-blue-500/50 transition cursor-pointer group shadow-lg";
+      card.className = "rounded-3xl border border-slate-200 bg-white p-5 space-y-3 hover:border-blue-400 hover:shadow-md transition cursor-pointer group shadow-xs";
       card.innerHTML = `
         <div class="flex items-center justify-between">
           <span class="text-3xl">${story.emoji}</span>
-          <span class="text-[11px] font-bold text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20">
+          <span class="text-[11px] font-bold text-blue-800 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
             ${story.badge}
           </span>
         </div>
         <div>
-          <h4 class="font-extrabold text-white text-base group-hover:text-blue-400 transition">${story.title}</h4>
-          <p class="text-xs text-slate-400">${story.titleTh}</p>
+          <h4 class="font-bold text-slate-900 text-base group-hover:text-blue-600 transition">${story.title}</h4>
+          <p class="text-xs text-slate-500">${story.titleTh}</p>
         </div>
-        <div class="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-slate-800">
+        <div class="flex items-center justify-between text-xs text-slate-500 pt-2 border-t border-slate-100">
           <span>⏱️ เวลาอ่าน ${story.readTime}</span>
-          <span class="text-blue-400 font-bold group-hover:translate-x-1 transition">เปิดอ่าน ➔</span>
+          <span class="text-blue-600 font-bold group-hover:translate-x-1 transition">เปิดอ่าน ➔</span>
         </div>
       `;
       card.onclick = () => this.openStoryReader(story);
@@ -320,7 +321,7 @@ class KidsFluencyStudio {
     if (page.highlightWords) {
       page.highlightWords.forEach(w => {
         const btn = document.createElement("button");
-        btn.className = "px-3 py-1 rounded-xl bg-blue-500/20 hover:bg-blue-600 text-blue-300 hover:text-white text-xs font-bold transition flex items-center gap-1";
+        btn.className = "px-3 py-1 rounded-xl bg-blue-50 hover:bg-blue-600 text-blue-700 hover:text-white border border-blue-200 text-xs font-bold transition flex items-center gap-1 shadow-xs";
         btn.innerHTML = `<span>🔊</span> ${w}`;
         btn.onclick = () => this.speakKids(w);
         wordsContainer.appendChild(btn);
@@ -332,10 +333,10 @@ class KidsFluencyStudio {
     const nextBtn = document.getElementById("btn-story-next");
     if (this.storyPageIndex === totalPages - 1) {
       nextBtn.innerText = "จบเรื่องแล้ว! รับรางวัล 🏆";
-      nextBtn.className = "px-5 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg transition";
+      nextBtn.className = "px-5 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition";
     } else {
       nextBtn.innerText = "หน้าถัดไป ▶";
-      nextBtn.className = "px-5 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-lg transition";
+      nextBtn.className = "px-5 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition";
     }
   }
 
@@ -347,20 +348,16 @@ class KidsFluencyStudio {
     const kidsContainer = document.getElementById("kids-mode-container");
 
     btnAdult?.addEventListener("click", () => {
-      btnAdult.classList.add("bg-blue-600", "text-white");
-      btnAdult.classList.remove("text-slate-400");
-      btnKids.classList.remove("bg-pink-600", "text-white");
-      btnKids.classList.add("text-slate-400");
+      btnAdult.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-blue-700 shadow-xs border border-slate-200/80 transition";
+      btnKids.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 transition";
 
       adultContainer.classList.remove("hidden");
       kidsContainer.classList.add("hidden");
     });
 
     btnKids?.addEventListener("click", () => {
-      btnKids.classList.add("bg-pink-600", "text-white");
-      btnKids.classList.remove("text-slate-400");
-      btnAdult.classList.remove("bg-blue-600", "text-white");
-      btnAdult.classList.add("text-slate-400");
+      btnKids.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-blue-700 shadow-xs border border-slate-200/80 transition";
+      btnAdult.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 transition";
 
       adultContainer.classList.add("hidden");
       kidsContainer.classList.remove("hidden");
@@ -425,7 +422,7 @@ class KidsFluencyStudio {
           this.songMediaRecorder.start();
           this.isRecordingSong = true;
           karaokeRecBtn.innerText = "⏹️ กำลังอัดเสียงร้อง (กดเพื่อหยุด)";
-          karaokeRecBtn.className = "px-4 py-2.5 rounded-2xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs animate-pulse transition";
+          karaokeRecBtn.className = "px-4 py-2 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs animate-pulse transition";
         } catch (e) {
           alert("กรุณาอนุญาตการเข้าถึงไมโครโฟนเพื่อบันทึกเสียงร้องเพลง");
         }
@@ -436,7 +433,7 @@ class KidsFluencyStudio {
         }
         this.isRecordingSong = false;
         karaokeRecBtn.innerText = "🎙️ อัดเสียงร้องคาราโอเกะ";
-        karaokeRecBtn.className = "px-4 py-2.5 rounded-2xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs shadow-lg transition";
+        karaokeRecBtn.className = "px-4 py-2 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition";
       }
     });
   }

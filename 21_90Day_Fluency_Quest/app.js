@@ -619,12 +619,12 @@ class FluencyQuestApp {
       const node = document.createElement("button");
       node.className = `flex flex-col items-center justify-center p-3 rounded-2xl border transition-all text-left relative overflow-hidden group ${
         isCurrentSelected
-          ? "border-blue-500 bg-blue-950/40 ring-2 ring-blue-500/40 shadow-lg shadow-blue-500/20"
+          ? "border-blue-500 bg-blue-50/80 ring-2 ring-blue-400 shadow-xs"
           : isCompleted
-          ? "border-emerald-500/40 bg-emerald-950/20 hover:border-emerald-400"
+          ? "border-emerald-200 bg-emerald-50/60 hover:border-emerald-300"
           : isUnlocked
-          ? "border-slate-800 bg-slate-900/80 hover:border-slate-700 hover:bg-slate-800/80"
-          : "border-slate-800/40 bg-slate-950/50 opacity-40 cursor-not-allowed"
+          ? "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 shadow-xs"
+          : "border-slate-200/50 bg-slate-100/50 opacity-40 cursor-not-allowed"
       }`;
 
       node.onclick = () => {
@@ -641,13 +641,13 @@ class FluencyQuestApp {
 
       node.innerHTML = `
         <div class="flex items-center justify-between w-full mb-1.5">
-          <span class="text-[11px] font-bold ${isCurrentSelected ? 'text-blue-400' : isCompleted ? 'text-emerald-400' : 'text-slate-400'}">
+          <span class="text-[11px] font-bold ${isCurrentSelected ? 'text-blue-700' : isCompleted ? 'text-emerald-700' : 'text-slate-600'}">
             Day ${dayData.day}
           </span>
-          ${isCompleted ? '<span class="text-emerald-400 text-xs">✓</span>' : !isUnlocked ? '<span class="text-slate-600 text-xs">🔒</span>' : isBoss ? '<span class="text-amber-400 text-xs">⚔️</span>' : ''}
+          ${isCompleted ? '<span class="text-emerald-600 text-xs">✓</span>' : !isUnlocked ? '<span class="text-slate-400 text-xs">🔒</span>' : isBoss ? '<span class="text-amber-600 text-xs">⚔️</span>' : ''}
         </div>
-        <p class="text-xs font-semibold text-slate-200 line-clamp-1 w-full">${dayData.theme}</p>
-        <span class="text-[10px] text-slate-400 mt-1">Phase ${dayData.phase}</span>
+        <p class="text-xs font-semibold text-slate-800 line-clamp-1 w-full">${dayData.theme}</p>
+        <span class="text-[10px] text-slate-500 mt-1">Phase ${dayData.phase}</span>
       `;
 
       container.appendChild(node);
@@ -678,9 +678,9 @@ class FluencyQuestApp {
     };
 
     const typeThemes = {
-      vocab_sprint: { label: "Vocab Sprint", color: "amber", border: "border-amber-500/20", bg: "from-amber-500/5" },
-      shadowing_lab: { label: "Shadowing Lab", color: "indigo", border: "border-indigo-500/20", bg: "from-indigo-500/5" },
-      ai_roleplay: { label: "AI Roleplay", color: "emerald", border: "border-emerald-500/20", bg: "from-emerald-500/5" }
+      vocab_sprint: { label: "Vocab Sprint", color: "amber", border: "border-amber-200", bg: "bg-amber-50 text-amber-800" },
+      shadowing_lab: { label: "Shadowing Lab", color: "indigo", border: "border-indigo-200", bg: "bg-indigo-50 text-indigo-800" },
+      ai_roleplay: { label: "AI Roleplay", color: "emerald", border: "border-emerald-200", bg: "bg-emerald-50 text-emerald-800" }
     };
 
     dayData.quests.forEach((quest, index) => {
@@ -690,50 +690,50 @@ class FluencyQuestApp {
       const cfg = typeThemes[quest.type] || typeThemes.vocab_sprint;
 
       const card = document.createElement("div");
-      card.className = `rounded-2xl border p-5 transition-all relative overflow-hidden backdrop-blur-md ${
+      card.className = `rounded-2xl border p-5 transition-all relative overflow-hidden ${
         isDone
-          ? "border-emerald-500/30 bg-emerald-950/20"
+          ? "border-emerald-200 bg-emerald-50/40 shadow-xs"
           : isLocked
-          ? "border-slate-800/80 bg-slate-900/40 opacity-55 cursor-not-allowed"
-          : `border-slate-800 bg-gradient-to-br ${cfg.bg} bg-slate-900/90 hover:border-slate-700 shadow-md shadow-black/40`
+          ? "border-slate-200 bg-slate-50/60 opacity-60 cursor-not-allowed"
+          : "border-slate-200 bg-white hover:border-blue-300 hover:shadow-xs shadow-xs"
       }`;
 
       card.innerHTML = `
         <div class="flex items-start justify-between gap-4">
           <div class="flex items-start gap-3.5">
-            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-slate-800/90 border border-slate-700/60 text-xl shadow-inner">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-slate-50 border border-slate-200 text-xl text-slate-700 shadow-xs">
               ${typeIcons[quest.type]}
             </div>
             <div>
               <div class="flex flex-wrap items-center gap-2 mb-1.5">
-                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border border-slate-700 text-slate-300 bg-slate-800/80">
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border border-slate-200 text-slate-700 bg-slate-50">
                   Quest ${quest.orderIndex} • ${cfg.label}
                 </span>
-                <span class="text-xs text-slate-400 flex items-center gap-1">
+                <span class="text-xs text-slate-500 flex items-center gap-1">
                   ⏱️ ${quest.durationMinutes} นาที
                 </span>
               </div>
-              <h3 class="font-bold text-slate-100 text-base md:text-lg leading-snug">
+              <h3 class="font-bold text-slate-900 text-base md:text-lg leading-snug">
                 ${quest.title}
               </h3>
-              <p class="text-xs text-slate-400 mt-1">${quest.titleTh}</p>
+              <p class="text-xs text-slate-600 mt-1">${quest.titleTh}</p>
             </div>
           </div>
-          <div class="shrink-0 flex items-center gap-1 rounded-lg bg-amber-500/10 px-2.5 py-1 text-xs font-bold text-amber-400 border border-amber-500/20">
+          <div class="shrink-0 flex items-center gap-1 rounded-lg bg-blue-50 px-2.5 py-1 text-xs font-bold text-blue-800 border border-blue-200">
             ⚡ +${quest.xpReward} XP
           </div>
         </div>
 
-        <div class="mt-4 flex items-center justify-between border-t border-slate-800/80 pt-3.5">
+        <div class="mt-4 flex items-center justify-between border-t border-slate-100 pt-3.5">
           <div class="text-xs font-medium">
-            ${isDone ? '<span class="text-emerald-400 flex items-center gap-1.5">✓ ภารกิจสำเร็จแล้ว</span>' : isLocked ? '<span class="text-slate-500">🔒 ปลดล็อกเมื่อทำภารกิจก่อนหน้า</span>' : '<span class="text-blue-400">พร้อมเริ่มฝึกฝน</span>'}
+            ${isDone ? '<span class="text-emerald-700 flex items-center gap-1.5">✓ ภารกิจสำเร็จแล้ว</span>' : isLocked ? '<span class="text-slate-400">🔒 ปลดล็อกเมื่อทำภารกิจก่อนหน้า</span>' : '<span class="text-blue-700">พร้อมเริ่มฝึกฝน</span>'}
           </div>
           <button class="quest-action-btn inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all ${
             isDone
-              ? "bg-slate-800 text-slate-300 hover:bg-slate-700"
+              ? "bg-slate-100 text-slate-700 hover:bg-slate-200"
               : isLocked
-              ? "bg-slate-800/40 text-slate-500 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/30 active:scale-95"
+              ? "bg-slate-100 text-slate-400 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700 text-white shadow-xs active:scale-95"
           }">
             ${isDone ? "ทบทวนอีกครั้ง" : isLocked ? "ล็อกอยู่" : "เริ่มภารกิจ ▶"}
           </button>
@@ -767,14 +767,14 @@ class FluencyQuestApp {
     // Show top 3 recent mistakes
     this.state.mistakeBank.slice(0, 3).forEach((item) => {
       const el = document.createElement("div");
-      el.className = "rounded-xl bg-slate-800/70 p-3 border border-slate-700/60 text-xs space-y-1";
+      el.className = "rounded-xl bg-slate-50 p-3 border border-slate-200 text-xs space-y-1";
       el.innerHTML = `
-        <div class="flex items-center justify-between text-[11px] text-slate-400">
-          <span class="capitalize text-amber-400 font-semibold">${item.category}</span>
+        <div class="flex items-center justify-between text-[11px] text-slate-500">
+          <span class="capitalize text-amber-800 font-semibold">${item.category}</span>
           <span>ความชำนาญ: ${"⭐".repeat(Math.max(1, item.mastery))}</span>
         </div>
-        <p class="text-rose-400 line-through">"${item.original}"</p>
-        <p class="text-emerald-400 font-medium">➔ "${item.correction}"</p>
+        <p class="text-rose-600 line-through">"${item.original}"</p>
+        <p class="text-emerald-700 font-medium">➔ "${item.correction}"</p>
       `;
       listEl.appendChild(el);
     });
@@ -916,25 +916,25 @@ class FluencyQuestApp {
       bubble.innerHTML = `
         <div class="max-w-[85%] rounded-2xl p-4 text-xs md:text-sm leading-relaxed ${
           isAI 
-            ? 'bg-slate-800 text-slate-100 border border-slate-700/70 rounded-tl-sm' 
-            : 'bg-blue-600 text-white rounded-tr-sm shadow-md'
+            ? 'bg-white text-slate-800 border border-slate-200 shadow-xs rounded-tl-sm' 
+            : 'bg-blue-600 text-white rounded-tr-sm shadow-xs'
         }">
           <div class="flex items-center justify-between gap-3 mb-1">
-            <span class="text-[11px] font-bold ${isAI ? 'text-blue-400' : 'text-blue-200'}">
+            <span class="text-[11px] font-bold ${isAI ? 'text-blue-700' : 'text-blue-100'}">
               ${isAI ? 'AI Partner' : 'You (Learner)'}
             </span>
-            ${isAI ? `<button class="btn-listen-msg text-xs text-slate-400 hover:text-white" title="ฟังเสียง">🔊</button>` : ''}
+            ${isAI ? `<button class="btn-listen-msg text-xs text-slate-400 hover:text-slate-700" title="ฟังเสียง">🔊</button>` : ''}
           </div>
-          <p class="font-normal">${msg.text}</p>
-          ${msg.translation ? `<p class="text-[11px] text-slate-400 mt-1 border-t border-slate-700/50 pt-1">${msg.translation}</p>` : ''}
+          <p class="font-normal leading-relaxed">${msg.text}</p>
+          ${msg.translation ? `<p class="text-[11px] text-slate-500 mt-1 border-t border-slate-100 pt-1">${msg.translation}</p>` : ''}
           ${msg.feedback ? `
-            <div class="mt-2.5 rounded-lg bg-slate-900/90 p-2.5 border border-slate-700/80 text-xs">
-              <span class="font-bold text-emerald-400">คะแนนความคล่อง: ${msg.feedback.score}%</span>
-              <p class="text-slate-300 mt-1">${msg.feedback.praise}</p>
+            <div class="mt-2.5 rounded-xl bg-slate-50 p-3 border border-slate-200 text-xs">
+              <span class="font-bold text-emerald-700">คะแนนความคล่อง: ${msg.feedback.score}%</span>
+              <p class="text-slate-600 mt-1">${msg.feedback.praise}</p>
               ${msg.feedback.corrections.map(c => `
-                <div class="mt-1.5 text-[11px] text-amber-300">
-                  <span class="line-through text-rose-400">"${c.original}"</span> ➔ <strong class="text-emerald-400">"${c.better}"</strong>
-                  <p class="text-slate-400 text-[10px]">${c.reason}</p>
+                <div class="mt-1.5 text-[11px]">
+                  <span class="line-through text-rose-600">"${c.original}"</span> ➔ <strong class="text-emerald-700">"${c.better}"</strong>
+                  <p class="text-slate-500 text-[10px]">${c.reason}</p>
                 </div>
               `).join('')}
             </div>
@@ -1238,22 +1238,22 @@ function renderMistakeBankModalFull() {
 
   app.state.mistakeBank.forEach((item, index) => {
     const el = document.createElement("div");
-    el.className = "rounded-xl border border-slate-800 bg-slate-900/80 p-4 space-y-2";
+    el.className = "rounded-xl border border-slate-200 bg-white p-4 space-y-2 shadow-xs";
     el.innerHTML = `
       <div class="flex items-center justify-between text-xs">
-        <span class="font-bold text-amber-400 uppercase tracking-wider">${item.category}</span>
-        <div class="flex items-center gap-1 text-slate-400">
+        <span class="font-bold text-amber-800 uppercase tracking-wider">${item.category}</span>
+        <div class="flex items-center gap-1 text-slate-500">
           <span>ระดับความจำ:</span>
-          <span class="text-amber-400">${"★".repeat(Math.max(1, item.mastery))}</span>
+          <span class="text-amber-500">${"★".repeat(Math.max(1, item.mastery))}</span>
         </div>
       </div>
       <div class="space-y-1 text-sm">
-        <p class="text-rose-400 line-through">❌ "${item.original}"</p>
-        <p class="text-emerald-400 font-semibold">✅ "${item.correction}"</p>
-        <p class="text-xs text-slate-400 mt-1">${item.explanation}</p>
+        <p class="text-rose-600 line-through">❌ "${item.original}"</p>
+        <p class="text-emerald-700 font-semibold">✅ "${item.correction}"</p>
+        <p class="text-xs text-slate-600 mt-1">${item.explanation}</p>
       </div>
       <div class="pt-2 flex justify-end">
-        <button class="btn-master-mistake text-xs text-blue-400 hover:text-blue-300 font-medium px-3 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20">
+        <button class="btn-master-mistake text-xs text-blue-700 hover:text-blue-800 font-medium px-3 py-1 rounded-lg bg-blue-50 border border-blue-200 hover:bg-blue-100">
           จำได้แม่นแล้ว (+1 ดาว)
         </button>
       </div>
